@@ -1,20 +1,23 @@
 #!/usr/bin/python3
+"""
+Simulator.py
+"""
 
-from serial import Serial
 import time
+from serial import Serial
 
 class Simulator:
-"""
-This is a simulator for the robot IO board.
-This code will not be used in the final robot, it will be used for development only.
-It should receive speed commands (from the AI) and compute the position of the robot accordingly.
-It will also send back its position periodicaly (10Hz is a good stating point).
+    """
+    This is a simulator for the robot IO board.
+    This code will not be used in the final robot, it will be used for development only.
+    It should receive speed commands (from the AI) and compute the robot's position accordingly.
+    It will also send back its position periodicaly (10Hz is a good stating point).
 
-Ideally, it should model a "realistic" robot: speed should change like a first order.
+    Ideally, it should model a "realistic" robot: speed should change like a first order.
 
-Errors may also be introduced to test the robustness of the AI.
+    Errors may also be introduced to test the robustness of the AI.
 
-"""
+    """
 
     def __init__(self):
         self.serial = Serial("/tmp/robot-sim")
@@ -32,11 +35,13 @@ Errors may also be introduced to test the robustness of the AI.
         print("exit")
 
     def check_messages(self):
-        if(self.serial.in_waiting):
+        """Checks serial for new messages"""
+        if self.serial.in_waiting:
             data = self.serial.read(self.serial.in_waiting)
             return data
 
     def run(self):
+        """Runs commands received via serial and"""
         while True:
             msg = self.check_messages()
             if msg is not None:
@@ -49,4 +54,3 @@ if __name__ == '__main__':
     with Simulator() as sim:
         while True:
             sim.run()
-
