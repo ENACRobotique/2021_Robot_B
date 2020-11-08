@@ -4,11 +4,11 @@ from serial import Serial
 import time
 
 class Ai:
-"""
-This is the AI of the robot.
-This code will run on a RaspberryPi, connected through UART (serial) to an IO board.
-It may also use Ivy to communicate with a dedicated HMI to vizualize robot moves.
-"""
+    """
+    This is the AI of the robot.
+    This code will run on a RaspberryPi, connected through UART (serial) to an IO board.
+    It may also use Ivy to communicate with a dedicated HMI to vizualize robot moves.
+    """
 
     def __init__(self):
         self.serial = Serial("/tmp/virtual-tty")
