@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Simulator.py
+simulator.py
 """
 
 import time

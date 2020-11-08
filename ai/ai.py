@@ -1,7 +1,10 @@
 #!/usr/bin/python3
+"""
+ai.py
+"""
 
-from serial import Serial
 import time
+from serial import Serial
 
 class Ai:
     """
@@ -21,11 +24,13 @@ class Ai:
         print("exit")
 
     def check_messages(self):
-        if(self.serial.in_waiting):
+        """Checks serial for new messages"""
+        if self.serial.in_waiting:
             data = self.serial.read(self.serial.in_waiting)
             return data
 
     def main_loop(self):
+        """Main loop of the AI"""
         while True:
             msg = self.check_messages()
             if msg is not None:
