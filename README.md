@@ -60,7 +60,7 @@ Ce programme a pour but de reproduire le comportement des périphériques de hau
 
 Ce programme a pur but de créer un environnement virtuel qui puisse être exploités par les périhpériques de haut-niveau virtuels, en absence de tests physique. Une fidélité physique complète n'est pas le but recherché, le NVMU ne sera qu'en 2D, le but ne'étant que de pouvoir affiner les algorithmes qui seront utilisés sur le vrai robot.
 
-- emulate_serial_ports.sh:
+- simu/emulate_serial_ports.sh:
 
 Un script permettant de mettre en place des canaux de communication série virtuels.
 
