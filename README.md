@@ -30,6 +30,7 @@ En raison de la pandémie de Coronavirus, et du confinement, il ne nous est pas 
 Il a donc été décidé de développer des programmes reproduisant le comportement de ces composants physiques, et permettant de tester des algorithmes s'appuyant sur l'environnement physique du robot.
 
 ![Basic Program Flowchart](flowchart.svg)
+
 Schéma représentatif de l'architecture logicielle des différents programmes
 
 ### Programmes qui seront embarqués sur le robot (/real/)
