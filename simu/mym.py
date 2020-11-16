@@ -2,9 +2,12 @@
 """
 simulator.py
 """
+import sys, os
+sys.path.insert(1, os.path.join(sys.path[0], '../communication'))
 
 import time
-from serial import Serial
+from serialcom import SerialCom
+import def_pb2 as pb
 
 class Simulator:
     """
@@ -19,13 +22,19 @@ class Simulator:
 
     """
 
+    PERIOD_ODOM_REPORT = 1
+
     def __init__(self):
-        self.serial = Serial("/tmp/robot-sim")
+        self.serial = SerialCom("/tmp/robot-sim")
+        self.last_time_odom_report = 0
         self.update_period = 1  # it shall obviously be much lower
         self.sp_vx = 0      # speed setpoint (mm/s)
         self.sp_vtheta = 0  # rotation speed setpoint (rad/s)
         self.vx = 0         # speed
         self.vtheta = 0     # rotation speed
+        self.pos_x = 0
+        self.pos_y = 0
+        self.pos_theta = 0
 
     def __enter__(self):
         return self
@@ -33,21 +42,31 @@ class Simulator:
     def __exit__(self, type, value, traceback):
         self.serial.close()
         print("exit")
-
-    def check_messages(self):
-        """Checks serial for new messages"""
-        if self.serial.in_waiting:
-            data = self.serial.read(self.serial.in_waiting)
-            return data
+    
+    def update_position(self):
+        # TODO
+        self.pos_x = self.pos_x + self.vx*self.update_period
 
     def run(self):
         """Runs commands received via serial and"""
         while True:
-            msg = self.check_messages()
+            msg = self.serial.check_msgs()
             if msg is not None:
-                print("received: ", msg)
+                print("received: ", type(msg))
+                print(msg)
+                if(type(msg) == pb.SpeedCommand):
+                    self.vx = msg.vx
+            
             print("compute new state!")
-            self.serial.write(b"I pretend to be IO board. Where do I go?\r\n")
+            self.update_position()
+            
+            if time.time() - self.last_time_odom_report > Simulator.PERIOD_ODOM_REPORT:
+                report = pb.OdomReport()
+                report.pos_x = self.pos_x
+                report.pos_y = self.pos_y
+                report.pos_theta = self.pos_theta
+                self.serial.send_msg(report)
+                self.last_time_odom_report = time.time()
             time.sleep(self.update_period)
 
 if __name__ == '__main__':

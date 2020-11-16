@@ -1,0 +1,17 @@
+// test protobuf
+
+syntax = "proto2";
+
+message SpeedCommand {
+    required float vx = 1;
+    optional float vy = 2;
+    required float vtheta = 3;
+}
+
+message OdomReport {
+    required float pos_x = 1;
+    required float pos_y = 2;
+    required float pos_theta = 3;
+}
+
+
