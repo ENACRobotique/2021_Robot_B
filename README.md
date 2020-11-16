@@ -35,11 +35,11 @@ Schéma représentatif de l'architecture logicielle des différents programmes
 
 ### Programmes qui seront embarqués sur le robot (/real/)
 
-- real/ai.py:
+- ai :
 
 Le programme qui sera hébergé sur le RPi. Ce programme prendra en charge la gestion des actions, les calculs de déplacement (évitement, pathfinding), l'envoi/réception de messages par la voie série avec le microcontrolleur et controller les périphériques de haut-niveau.
 
-- real/micro.c: (nom hypothétique)
+- base :
 
 Le programme sera hébergé sur le microcontrolleur.
 Il devra gérer l'envoi/réception de messages par la voie série avec le RPi, et controller les différents périphériques de bas-niveau.
