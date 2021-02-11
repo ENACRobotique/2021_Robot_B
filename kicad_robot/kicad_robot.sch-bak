@@ -25,4 +25,24 @@ F 4 "https://www.pjrc.com/teensy/pinout.html" H 5700 6323 50  0000 C CNN "Pinout
 	1    5700 4000
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	4550 1950 3900 1950
+Wire Wire Line
+	4550 2050 3900 2050
+Text Label 3900 1950 0    50   ~ 0
+UART_1_RX
+Text Label 3900 2050 0    50   ~ 0
+UART_1_TX
+Wire Wire Line
+	4550 2850 3900 2850
+Wire Wire Line
+	4550 2950 3900 2950
+Text Label 3900 2850 0    50   ~ 0
+UART_2_RX
+Text Label 3900 2950 0    50   ~ 0
+UART_2_TX
+Wire Wire Line
+	4550 3850 3900 3850
+Wire Wire Line
+	4550 3950 3900 3950
 $EndSCHEMATC
