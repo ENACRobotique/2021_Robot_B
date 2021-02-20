@@ -29,20 +29,36 @@ Wire Wire Line
 	4550 1950 3900 1950
 Wire Wire Line
 	4550 2050 3900 2050
-Text Label 3900 1950 0    50   ~ 0
-UART_1_RX
-Text Label 3900 2050 0    50   ~ 0
-UART_1_TX
-Wire Wire Line
-	4550 2850 3900 2850
-Wire Wire Line
-	4550 2950 3900 2950
-Text Label 3900 2850 0    50   ~ 0
-UART_2_RX
-Text Label 3900 2950 0    50   ~ 0
-UART_2_TX
 Wire Wire Line
 	4550 3850 3900 3850
 Wire Wire Line
 	4550 3950 3900 3950
+Text GLabel 3900 1950 0    50   Input ~ 0
+LIDAR_RX
+Text GLabel 3900 2050 0    50   Input ~ 0
+LIDAR_TX
+Text GLabel 3900 2150 0    50   Input ~ 0
+LIDAR_PWM
+Wire Wire Line
+	3900 2150 4550 2150
+Text GLabel 4100 2650 0    50   Input ~ 0
+GPIO_DISPLAY_1
+Text GLabel 4100 2750 0    50   Input ~ 0
+GPIO_DISPLAY_2
+Wire Wire Line
+	4100 2750 4550 2750
+Wire Wire Line
+	4550 2650 4100 2650
+Text GLabel 4100 2850 0    50   Input ~ 0
+X-BEE_RX
+Text GLabel 4100 2950 0    50   Input ~ 0
+X-BEE_TX
+Wire Wire Line
+	4100 2950 4550 2950
+Wire Wire Line
+	4100 2850 4550 2850
+Text GLabel 4100 3350 0    50   Input ~ 0
+TIRETTE_GPIO
+Wire Wire Line
+	4100 3350 4550 3350
 $EndSCHEMATC
