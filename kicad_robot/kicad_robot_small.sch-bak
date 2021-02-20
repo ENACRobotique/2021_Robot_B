@@ -348,10 +348,6 @@ F 3 "" H 10100 8000 50  0001 C CNN
 	1    10100 8000
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	4225 7650 5025 7650
-Text Label 5025 7650 2    50   ~ 0
-5V_Converti
 $Comp
 L Sensor_Current:ACS722xLCTR-05AB U?
 U 1 1 6032C3F8
@@ -863,5 +859,38 @@ F 2 "" H 10100 2025 50  0001 C CNN
 F 3 "" H 10100 2025 50  0001 C CNN
 	1    10100 2025
 	0    1    1    0   
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 60360E0E
+P 4225 7650
+F 0 "#PWR?" H 4225 7500 50  0001 C CNN
+F 1 "+5V" V 4240 7778 50  0000 L CNN
+F 2 "" H 4225 7650 50  0001 C CNN
+F 3 "" H 4225 7650 50  0001 C CNN
+	1    4225 7650
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 6031A117
+P 14275 1950
+F 0 "J?" H 14303 1976 50  0000 L CNN
+F 1 "Conn_01x03_Female" H 14303 1885 50  0000 L CNN
+F 2 "" H 14275 1950 50  0001 C CNN
+F 3 "~" H 14275 1950 50  0001 C CNN
+	1    14275 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 6031D53E
+P 14275 2475
+F 0 "J?" H 14303 2501 50  0000 L CNN
+F 1 "Conn_01x03_Female" H 14303 2410 50  0000 L CNN
+F 2 "" H 14275 2475 50  0001 C CNN
+F 3 "~" H 14275 2475 50  0001 C CNN
+	1    14275 2475
+	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
