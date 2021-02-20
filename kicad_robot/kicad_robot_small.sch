@@ -348,10 +348,6 @@ F 3 "" H 10100 8000 50  0001 C CNN
 	1    10100 8000
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	4225 7650 5025 7650
-Text Label 5025 7650 2    50   ~ 0
-5V_Converti
 $Comp
 L Sensor_Current:ACS722xLCTR-05AB U?
 U 1 1 6032C3F8
@@ -862,6 +858,61 @@ F 1 "+12V" V 10115 2153 50  0000 L CNN
 F 2 "" H 10100 2025 50  0001 C CNN
 F 3 "" H 10100 2025 50  0001 C CNN
 	1    10100 2025
+	0    1    1    0   
+$EndComp
+$Comp
+L Regulator_Switching:TSR_1-2433 U?
+U 1 1 6035A95D
+P 3825 8625
+F 0 "U?" H 3825 8992 50  0000 C CNN
+F 1 "TSR_1-2433" H 3825 8901 50  0000 C CNN
+F 2 "Converter_DCDC:Converter_DCDC_TRACO_TSR-1_THT" H 3825 8475 50  0001 L CIN
+F 3 "http://www.tracopower.com/products/tsr1.pdf" H 3825 8625 50  0001 C CNN
+	1    3825 8625
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 60360E0E
+P 4225 7650
+F 0 "#PWR?" H 4225 7500 50  0001 C CNN
+F 1 "+5V" V 4240 7778 50  0000 L CNN
+F 2 "" H 4225 7650 50  0001 C CNN
+F 3 "" H 4225 7650 50  0001 C CNN
+	1    4225 7650
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+12V #PWR?
+U 1 1 603616FA
+P 3425 8525
+F 0 "#PWR?" H 3425 8375 50  0001 C CNN
+F 1 "+12V" V 3440 8653 50  0000 L CNN
+F 2 "" H 3425 8525 50  0001 C CNN
+F 3 "" H 3425 8525 50  0001 C CNN
+	1    3425 8525
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 60362802
+P 3825 8825
+F 0 "#PWR?" H 3825 8575 50  0001 C CNN
+F 1 "GND" H 3830 8652 50  0000 C CNN
+F 2 "" H 3825 8825 50  0001 C CNN
+F 3 "" H 3825 8825 50  0001 C CNN
+	1    3825 8825
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 6036A6D3
+P 4225 8525
+F 0 "#PWR?" H 4225 8375 50  0001 C CNN
+F 1 "+3.3V" V 4240 8653 50  0000 L CNN
+F 2 "" H 4225 8525 50  0001 C CNN
+F 3 "" H 4225 8525 50  0001 C CNN
+	1    4225 8525
 	0    1    1    0   
 $EndComp
 $EndSCHEMATC

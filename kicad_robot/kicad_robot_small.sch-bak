@@ -396,9 +396,9 @@ $EndComp
 Wire Wire Line
 	10100 6800 10900 6800
 Text Label 8500 6500 0    50   ~ 0
-ADC_5
+ADC_4
 Text Label 11900 6800 2    50   ~ 0
-12V_POMPE_5
+12V_POMPE_4
 $Comp
 L power:+3.3V #PWR?
 U 1 1 6032C411
@@ -457,7 +457,7 @@ Wire Wire Line
 Wire Wire Line
 	11100 7250 10400 7250
 Text Label 10400 7250 0    50   ~ 0
-POMPE_5
+POMPE_4
 $Comp
 L Transistor_FET:IRLML0030 Q?
 U 1 1 6032C432
@@ -524,9 +524,9 @@ $EndComp
 Wire Wire Line
 	10100 5300 10900 5300
 Text Label 8500 5000 0    50   ~ 0
-ADC_5
+ADC_3
 Text Label 11900 5300 2    50   ~ 0
-12V_POMPE_5
+12V_POMPE_3
 $Comp
 L power:+3.3V #PWR?
 U 1 1 6033AF2E
@@ -585,7 +585,7 @@ Wire Wire Line
 Wire Wire Line
 	11100 5750 10400 5750
 Text Label 10400 5750 0    50   ~ 0
-POMPE_5
+POMPE_3
 $Comp
 L Transistor_FET:IRLML0030 Q?
 U 1 1 6033AF4F
@@ -652,9 +652,9 @@ $EndComp
 Wire Wire Line
 	10100 3825 10900 3825
 Text Label 8500 3525 0    50   ~ 0
-ADC_5
+ADC_2
 Text Label 11900 3825 2    50   ~ 0
-12V_POMPE_5
+12V_POMPE_2
 $Comp
 L power:+3.3V #PWR?
 U 1 1 6034EAAC
@@ -713,7 +713,7 @@ Wire Wire Line
 Wire Wire Line
 	11100 4275 10400 4275
 Text Label 10400 4275 0    50   ~ 0
-POMPE_5
+POMPE_2
 $Comp
 L Transistor_FET:IRLML0030 Q?
 U 1 1 6034EACD
@@ -780,9 +780,9 @@ $EndComp
 Wire Wire Line
 	10100 2325 10900 2325
 Text Label 8500 2025 0    50   ~ 0
-ADC_5
+ADC_1
 Text Label 11900 2325 2    50   ~ 0
-12V_POMPE_5
+12V_POMPE_1
 $Comp
 L power:+3.3V #PWR?
 U 1 1 60355C04
@@ -841,7 +841,7 @@ Wire Wire Line
 Wire Wire Line
 	11100 2775 10400 2775
 Text Label 10400 2775 0    50   ~ 0
-POMPE_5
+POMPE_1
 $Comp
 L Transistor_FET:IRLML0030 Q?
 U 1 1 60355C25
