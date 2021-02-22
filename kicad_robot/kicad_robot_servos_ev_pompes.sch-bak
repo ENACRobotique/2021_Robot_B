@@ -1988,6 +1988,6 @@ F 3 "" H 4225 8575 50  0001 C CNN
 	1    4225 8575
 	0    1    1    0   
 $EndComp
-Text Notes 5225 5950 0    50   ~ 0
+Text Notes 5225 5975 0    50   ~ 0
 Ne souder que l'une\ndes deux résistances\n(Choix d'adresse)
 $EndSCHEMATC
