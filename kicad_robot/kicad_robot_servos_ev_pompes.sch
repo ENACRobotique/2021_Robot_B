@@ -114,8 +114,6 @@ EXT_SDA
 Text Label 1450 5100 0    50   ~ 0
 EXT_SCL
 Wire Wire Line
-	3850 4800 3100 4800
-Wire Wire Line
 	3350 5100 1450 5100
 Wire Wire Line
 	3850 6400 3050 6400
@@ -148,17 +146,6 @@ F 1 "+3.3V" V 3115 1978 50  0000 L CNN
 F 2 "" H 3100 1850 50  0001 C CNN
 F 3 "" H 3100 1850 50  0001 C CNN
 	1    3100 1850
-	0    -1   -1   0   
-$EndComp
-$Comp
-L power:+3.3V #PWR?
-U 1 1 6037F874
-P 3100 4800
-F 0 "#PWR?" H 3100 4650 50  0001 C CNN
-F 1 "+3.3V" V 3115 4928 50  0000 L CNN
-F 2 "" H 3100 4800 50  0001 C CNN
-F 3 "" H 3100 4800 50  0001 C CNN
-	1    3100 4800
 	0    -1   -1   0   
 $EndComp
 $Comp
@@ -347,7 +334,7 @@ F 1 "Conn_SERVO_1" H 13612 1860 50  0000 L CNN
 F 2 "" H 14175 1925 50  0001 C CNN
 F 3 "~" H 14175 1925 50  0001 C CNN
 	1    14175 1925
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
@@ -457,7 +444,7 @@ F 1 "Conn_SERVO_2" H 13612 2210 50  0000 L CNN
 F 2 "" H 14175 2275 50  0001 C CNN
 F 3 "~" H 14175 2275 50  0001 C CNN
 	1    14175 2275
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
@@ -494,7 +481,7 @@ F 1 "Conn_SERVO_3" H 13612 2560 50  0000 L CNN
 F 2 "" H 14175 2625 50  0001 C CNN
 F 3 "~" H 14175 2625 50  0001 C CNN
 	1    14175 2625
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
@@ -531,7 +518,7 @@ F 1 "Conn_SERVO_4" H 13612 2910 50  0000 L CNN
 F 2 "" H 14175 2975 50  0001 C CNN
 F 3 "~" H 14175 2975 50  0001 C CNN
 	1    14175 2975
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
@@ -568,7 +555,7 @@ F 1 "Conn_SERVO_5" H 13612 3260 50  0000 L CNN
 F 2 "" H 14175 3325 50  0001 C CNN
 F 3 "~" H 14175 3325 50  0001 C CNN
 	1    14175 3325
-	-1   0    0    1   
+	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
@@ -1080,8 +1067,6 @@ Wire Wire Line
 	10550 3150 10775 3150
 Wire Wire Line
 	10800 3450 10775 3450
-Wire Wire Line
-	10775 3450 10775 3250
 $Comp
 L Sensor_Current:ACS722xLCTR-05AB U?
 U 1 1 6042551E
@@ -1773,17 +1758,6 @@ F 3 "~" H 10875 1575 50  0001 C CNN
 $EndComp
 $Comp
 L Connector:Conn_01x02_Male J?
-U 1 1 604A3899
-P 10975 3250
-F 0 "J?" H 10947 3132 50  0000 R CNN
-F 1 "Conn_POMPE_2" H 10947 3223 50  0000 R CNN
-F 2 "" H 10975 3250 50  0001 C CNN
-F 3 "~" H 10975 3250 50  0001 C CNN
-	1    10975 3250
-	-1   0    0    1   
-$EndComp
-$Comp
-L Connector:Conn_01x02_Male J?
 U 1 1 604C2960
 P 10975 4825
 F 0 "J?" H 10947 4707 50  0000 R CNN
@@ -1881,13 +1855,13 @@ EXT_SCL
 $Comp
 L Connector:Screw_Terminal_01x02 J?
 U 1 1 6053476C
-P 825 4450
-F 0 "J?" H 743 4125 50  0000 C CNN
-F 1 "Screw_Terminal_POWER" H 743 4216 50  0000 C CNN
-F 2 "" H 825 4450 50  0001 C CNN
-F 3 "~" H 825 4450 50  0001 C CNN
-	1    825  4450
-	-1   0    0    1   
+P 825 4350
+F 0 "J?" H 743 4025 50  0000 C CNN
+F 1 "Screw_Terminal_POWER" H 743 4116 50  0000 C CNN
+F 2 "" H 825 4350 50  0001 C CNN
+F 3 "~" H 825 4350 50  0001 C CNN
+	1    825  4350
+	-1   0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
@@ -2011,5 +1985,56 @@ F 2 "" V 2505 2900 50  0001 C CNN
 F 3 "~" H 2575 2900 50  0001 C CNN
 	1    2575 2900
 	1    0    0    -1  
+$EndComp
+$Comp
+L power:+3.3V #PWR?
+U 1 1 6037F874
+P 3100 4800
+F 0 "#PWR?" H 3100 4650 50  0001 C CNN
+F 1 "+3.3V" V 3115 4928 50  0000 L CNN
+F 2 "" H 3100 4800 50  0001 C CNN
+F 3 "" H 3100 4800 50  0001 C CNN
+	1    3100 4800
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 60388DB3
+P 3250 4650
+F 0 "C?" H 3365 4696 50  0000 L CNN
+F 1 "100nF" H 3365 4605 50  0000 L CNN
+F 2 "" H 3288 4500 50  0001 C CNN
+F 3 "~" H 3250 4650 50  0001 C CNN
+	1    3250 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6038A294
+P 3250 4500
+F 0 "#PWR?" H 3250 4250 50  0001 C CNN
+F 1 "GND" H 3255 4327 50  0000 C CNN
+F 2 "" H 3250 4500 50  0001 C CNN
+F 3 "" H 3250 4500 50  0001 C CNN
+	1    3250 4500
+	-1   0    0    1   
+$EndComp
+Connection ~ 3250 4800
+Wire Wire Line
+	3250 4800 3100 4800
+Wire Wire Line
+	3250 4800 3850 4800
+Wire Wire Line
+	10775 3450 10775 3250
+$Comp
+L Connector:Conn_01x02_Male J?
+U 1 1 604A3899
+P 10975 3250
+F 0 "J?" H 10947 3132 50  0000 R CNN
+F 1 "Conn_POMPE_2" H 10947 3223 50  0000 R CNN
+F 2 "" H 10975 3250 50  0001 C CNN
+F 3 "~" H 10975 3250 50  0001 C CNN
+	1    10975 3250
+	-1   0    0    1   
 $EndComp
 $EndSCHEMATC
