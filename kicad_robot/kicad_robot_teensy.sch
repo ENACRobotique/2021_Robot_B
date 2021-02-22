@@ -26,11 +26,11 @@ F 4 "https://www.pjrc.com/teensy/pinout.html" H 9250 6473 50  0000 C CNN "Pinout
 	1    0    0    -1  
 $EndComp
 Text GLabel 7450 2100 0    50   Input ~ 0
-LIDAR_RX
+LID_RX
 Text GLabel 7450 2200 0    50   Input ~ 0
-LIDAR_TX
+LID_TX
 Text GLabel 7450 2300 0    50   Input ~ 0
-LIDAR_PWM
+LID_PWM
 Text GLabel 7650 2800 0    50   Input ~ 0
 GPIO_DISPLAY_1
 Text GLabel 7650 2900 0    50   Input ~ 0
@@ -40,7 +40,7 @@ X-BEE_RX
 Text GLabel 7650 3100 0    50   Input ~ 0
 X-BEE_TX
 Text GLabel 7650 3500 0    50   Input ~ 0
-TIRETTE_GPIO
+TIR_GPIO
 $Comp
 L power:GND #PWR?
 U 1 1 60316113
@@ -57,27 +57,27 @@ ALIM_5V
 Wire Wire Line
 	10750 5500 10400 5500
 Text GLabel 7650 3600 0    50   Input ~ 0
-COULEUR_GPIO
+COL_GPIO
 Text GLabel 7450 4000 0    50   Input ~ 0
-FTM_2_phA
+R_COD_2_phA
 Text GLabel 7450 4100 0    50   Input ~ 0
-FTM_2_phB
+R_COD_2_phB
 Text GLabel 7700 4900 0    50   Input ~ 0
-Moteur_1_GPIO
+MOT_1_DIR
 Text GLabel 7700 5000 0    50   Input ~ 0
-MOTEUR_2_GPIO
+MOT_2_DIR
 Text GLabel 7700 5100 0    50   Input ~ 0
-Moteur_2_PWM
+MOT_2_PWM
 Text GLabel 7700 5200 0    50   Input ~ 0
-MOTEUR_1_PWM
+MOT_1_PWM
 Text GLabel 7700 5300 0    50   Input ~ 0
-PAVILLON_PWM
+PAV_PWM
 Text GLabel 7700 5400 0    50   Input ~ 0
-BAR_MANCH_PWM
+BAR_PWM
 Text GLabel 7750 6200 0    50   Input ~ 0
-FTM_1_phA
+R_COD_1_phA
 Text GLabel 7750 6300 0    50   Input ~ 0
-FTM_1_phB
+R_COD_1_phB
 Wire Wire Line
 	7750 6300 8100 6300
 Text GLabel 10800 6300 2    50   Input ~ 0
@@ -244,4 +244,140 @@ Text GLabel 7150 1000 0    50   Input ~ 0
 ALIM_12V
 Wire Wire Line
 	7150 1000 7450 1000
+$Comp
+L Connector:Screw_Terminal_01x02 ALIM
+U 1 1 60342002
+P 10150 1050
+F 0 "ALIM" H 10230 1042 50  0000 L CNN
+F 1 "Screw_Terminal_01x02" H 10230 951 50  0000 L CNN
+F 2 "" H 10150 1050 50  0001 C CNN
+F 3 "~" H 10150 1050 50  0001 C CNN
+	1    10150 1050
+	1    0    0    -1  
+$EndComp
+Text GLabel 9750 1050 0    50   Input ~ 0
+ALIM_12V
+$Comp
+L power:GND #PWR?
+U 1 1 60342E59
+P 9750 1150
+F 0 "#PWR?" H 9750 900 50  0001 C CNN
+F 1 "GND" H 9755 977 50  0000 C CNN
+F 2 "" H 9750 1150 50  0001 C CNN
+F 3 "" H 9750 1150 50  0001 C CNN
+	1    9750 1150
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	9750 1150 9950 1150
+Wire Wire Line
+	9750 1050 9950 1050
+$Comp
+L Connector:Conn_01x04_Male J_I2C->MULTIPLEX
+U 1 1 60344D96
+P 6750 800
+F 0 "J_I2C->MULTIPLEX" H 6722 682 50  0000 R CNN
+F 1 "Conn_01x04_Male" H 6722 773 50  0000 R CNN
+F 2 "" H 6750 800 50  0001 C CNN
+F 3 "~" H 6750 800 50  0001 C CNN
+	1    6750 800 
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6034965D
+P 6400 800
+F 0 "#PWR?" H 6400 550 50  0001 C CNN
+F 1 "GND" H 6405 627 50  0000 C CNN
+F 2 "" H 6400 800 50  0001 C CNN
+F 3 "" H 6400 800 50  0001 C CNN
+	1    6400 800 
+	0    1    1    0   
+$EndComp
+Text GLabel 6400 900  0    50   Input ~ 0
+ALIM_5V
+Text GLabel 6400 700  0    50   Input ~ 0
+I2C_SDAO
+Text GLabel 6400 600  0    50   Input ~ 0
+I2C_SCLO
+Wire Wire Line
+	6400 600  6550 600 
+Wire Wire Line
+	6400 700  6550 700 
+Wire Wire Line
+	6400 800  6550 800 
+Wire Wire Line
+	6400 900  6550 900 
+$Comp
+L Connector:Conn_01x04_Male J_FTM->R_COD_1
+U 1 1 6034C8A3
+P 6750 1350
+F 0 "J_FTM->R_COD_1" H 6722 1232 50  0000 R CNN
+F 1 "Conn_01x04_Male" H 6722 1323 50  0000 R CNN
+F 2 "" H 6750 1350 50  0001 C CNN
+F 3 "~" H 6750 1350 50  0001 C CNN
+	1    6750 1350
+	-1   0    0    1   
+$EndComp
+Text GLabel 6400 1450 0    50   Input ~ 0
+ALIM_5V
+$Comp
+L power:GND #PWR?
+U 1 1 6034D5A6
+P 6400 1350
+F 0 "#PWR?" H 6400 1100 50  0001 C CNN
+F 1 "GND" H 6405 1177 50  0000 C CNN
+F 2 "" H 6400 1350 50  0001 C CNN
+F 3 "" H 6400 1350 50  0001 C CNN
+	1    6400 1350
+	0    1    1    0   
+$EndComp
+Text GLabel 6400 1250 0    50   Input ~ 0
+R_COD_1_phA
+Text GLabel 6400 1150 0    50   Input ~ 0
+R_COD_1_phB
+Wire Wire Line
+	6400 1150 6550 1150
+Wire Wire Line
+	6550 1250 6400 1250
+Wire Wire Line
+	6400 1350 6550 1350
+Wire Wire Line
+	6550 1450 6400 1450
+$Comp
+L Connector:Conn_01x04_Male J_FTM->R_COD_2
+U 1 1 6035325F
+P 6800 1950
+F 0 "J_FTM->R_COD_2" H 6772 1832 50  0000 R CNN
+F 1 "Conn_01x04_Male" H 6772 1923 50  0000 R CNN
+F 2 "" H 6800 1950 50  0001 C CNN
+F 3 "~" H 6800 1950 50  0001 C CNN
+	1    6800 1950
+	-1   0    0    1   
+$EndComp
+Text GLabel 6450 2050 0    50   Input ~ 0
+ALIM_5V
+$Comp
+L power:GND #PWR?
+U 1 1 60353D5D
+P 6450 1950
+F 0 "#PWR?" H 6450 1700 50  0001 C CNN
+F 1 "GND" H 6455 1777 50  0000 C CNN
+F 2 "" H 6450 1950 50  0001 C CNN
+F 3 "" H 6450 1950 50  0001 C CNN
+	1    6450 1950
+	0    1    1    0   
+$EndComp
+Text GLabel 6450 1850 0    50   Input ~ 0
+R_COD_2_phA
+Text GLabel 6450 1750 0    50   Input ~ 0
+R_COD_2_phB
+Wire Wire Line
+	6450 1750 6600 1750
+Wire Wire Line
+	6600 1850 6450 1850
+Wire Wire Line
+	6450 1950 6600 1950
+Wire Wire Line
+	6600 2050 6450 2050
 $EndSCHEMATC
