@@ -16,368 +16,389 @@ $EndDescr
 $Comp
 L teensy:Teensy3.5 U?
 U 1 1 6026B470
-P 9250 4150
-F 0 "U?" H 9250 6783 60  0000 C CNN
-F 1 "Teensy3.5" H 9250 6677 60  0000 C CNN
-F 2 "" H 9150 6400 60  0000 C CNN
-F 3 "https://www.pjrc.com/teensy/card8a_rev2.pdf" H 9250 6571 60  0000 C CNN
-F 4 "https://www.pjrc.com/teensy/pinout.html" H 9250 6473 50  0000 C CNN "Pinouts"
-	1    9250 4150
+P 5250 3750
+F 0 "U?" H 5250 6383 60  0000 C CNN
+F 1 "Teensy3.5" H 5250 6277 60  0000 C CNN
+F 2 "" H 5150 6000 60  0000 C CNN
+F 3 "https://www.pjrc.com/teensy/card8a_rev2.pdf" H 5250 6171 60  0000 C CNN
+F 4 "https://www.pjrc.com/teensy/pinout.html" H 5250 6073 50  0000 C CNN "Pinouts"
+	1    5250 3750
 	1    0    0    -1  
 $EndComp
-Text GLabel 7450 2100 0    50   Input ~ 0
+Text GLabel 4100 1700 0    50   Input ~ 0
 LID_RX
-Text GLabel 7450 2200 0    50   Input ~ 0
+Text GLabel 4100 1800 0    50   Input ~ 0
 LID_TX
-Text GLabel 7450 2300 0    50   Input ~ 0
+Text GLabel 4100 1900 0    50   Input ~ 0
 LID_PWM
-Text GLabel 7650 2800 0    50   Input ~ 0
+Text GLabel 4100 2400 0    50   Input ~ 0
 GPIO_DISPLAY_1
-Text GLabel 7650 2900 0    50   Input ~ 0
+Text GLabel 4100 2500 0    50   Input ~ 0
 GPIO_DISPLAY_2
-Text GLabel 7650 3000 0    50   Input ~ 0
+Text GLabel 4100 2600 0    50   Input ~ 0
 X-BEE_RX
-Text GLabel 7650 3100 0    50   Input ~ 0
+Text GLabel 4100 2700 0    50   Input ~ 0
 X-BEE_TX
-Text GLabel 7650 3500 0    50   Input ~ 0
+Text GLabel 4100 3100 0    50   Input ~ 0
 TIR_GPIO
 $Comp
 L power:GND #PWR?
 U 1 1 60316113
-P 7450 2000
-F 0 "#PWR?" H 7450 1750 50  0001 C CNN
-F 1 "GND" V 7455 1872 50  0000 R CNN
-F 2 "" H 7450 2000 50  0001 C CNN
-F 3 "" H 7450 2000 50  0001 C CNN
-	1    7450 2000
+P 4100 1600
+F 0 "#PWR?" H 4100 1350 50  0001 C CNN
+F 1 "GND" V 4105 1472 50  0000 R CNN
+F 2 "" H 4100 1600 50  0001 C CNN
+F 3 "" H 4100 1600 50  0001 C CNN
+	1    4100 1600
 	0    1    1    0   
 $EndComp
-Text GLabel 10750 5500 2    50   Input ~ 0
-ALIM_5V
-Wire Wire Line
-	10750 5500 10400 5500
-Text GLabel 7650 3600 0    50   Input ~ 0
+Text GLabel 4100 3200 0    50   Input ~ 0
 COL_GPIO
-Text GLabel 7450 4000 0    50   Input ~ 0
+Text GLabel 4100 3600 0    50   Input ~ 0
 R_COD_2_phA
-Text GLabel 7450 4100 0    50   Input ~ 0
+Text GLabel 4100 3700 0    50   Input ~ 0
 R_COD_2_phB
-Text GLabel 7700 4900 0    50   Input ~ 0
+Text GLabel 4100 4500 0    50   Input ~ 0
 MOT_1_DIR
-Text GLabel 7700 5000 0    50   Input ~ 0
+Text GLabel 4100 4600 0    50   Input ~ 0
 MOT_2_DIR
-Text GLabel 7700 5100 0    50   Input ~ 0
+Text GLabel 4100 4700 0    50   Input ~ 0
 MOT_2_PWM
-Text GLabel 7700 5200 0    50   Input ~ 0
+Text GLabel 4100 4800 0    50   Input ~ 0
 MOT_1_PWM
-Text GLabel 7700 5300 0    50   Input ~ 0
-PAV_PWM
-Text GLabel 7700 5400 0    50   Input ~ 0
-BAR_PWM
-Text GLabel 7750 6200 0    50   Input ~ 0
+Text GLabel 4100 4900 0    50   Input ~ 0
+PAV_SERV
+Text GLabel 4100 5000 0    50   Input ~ 0
+BAR_SERV
+Text GLabel 4100 5800 0    50   Input ~ 0
 R_COD_1_phA
-Text GLabel 7750 6300 0    50   Input ~ 0
+Text GLabel 4100 5900 0    50   Input ~ 0
 R_COD_1_phB
-Wire Wire Line
-	7750 6300 8100 6300
-Text GLabel 10800 6300 2    50   Input ~ 0
+Text GLabel 6400 5900 2    50   Input ~ 0
 I2C_SDAO
-Text GLabel 10800 6200 2    50   Input ~ 0
+Text GLabel 6400 5800 2    50   Input ~ 0
 I2C_SCLO
-Wire Wire Line
-	10400 6300 10800 6300
-Wire Wire Line
-	10800 6200 10400 6200
 $Comp
 L power:GND #PWR?
 U 1 1 6033D90A
-P 10750 5600
-F 0 "#PWR?" H 10750 5350 50  0001 C CNN
-F 1 "GND" V 10755 5472 50  0000 R CNN
-F 2 "" H 10750 5600 50  0001 C CNN
-F 3 "" H 10750 5600 50  0001 C CNN
-	1    10750 5600
+P 6400 5200
+F 0 "#PWR?" H 6400 4950 50  0001 C CNN
+F 1 "GND" V 6405 5072 50  0000 R CNN
+F 2 "" H 6400 5200 50  0001 C CNN
+F 3 "" H 6400 5200 50  0001 C CNN
+	1    6400 5200
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	10750 5600 10400 5600
-NoConn ~ 10400 4300
-NoConn ~ 10400 4200
-NoConn ~ 10400 4100
-NoConn ~ 10400 4000
-Wire Wire Line
-	7450 2100 8100 2100
-Wire Wire Line
-	7450 2200 8100 2200
-Wire Wire Line
-	7450 4000 8100 4000
-Wire Wire Line
-	7450 4100 8100 4100
-Wire Wire Line
-	7450 2300 8100 2300
-Wire Wire Line
-	7650 2900 8100 2900
-Wire Wire Line
-	7650 2800 8100 2800
-Wire Wire Line
-	7650 3100 8100 3100
-Wire Wire Line
-	7650 3000 8100 3000
-Wire Wire Line
-	7650 3500 8100 3500
-Wire Wire Line
-	7450 2000 8100 2000
-Wire Wire Line
-	7650 3600 8100 3600
-Wire Wire Line
-	7700 5400 8100 5400
-Wire Wire Line
-	7700 5300 8100 5300
-Wire Wire Line
-	7700 5200 8100 5200
-Wire Wire Line
-	7700 5100 8100 5100
-Wire Wire Line
-	7700 5000 8100 5000
-Wire Wire Line
-	7700 4900 8100 4900
-Wire Wire Line
-	7750 6200 8100 6200
-NoConn ~ 10400 3900
-NoConn ~ 10400 3800
-NoConn ~ 10400 3700
-NoConn ~ 10400 3600
-NoConn ~ 10400 3500
-NoConn ~ 10400 3400
-NoConn ~ 10400 3300
-NoConn ~ 10400 3200
-NoConn ~ 10400 3100
-NoConn ~ 10400 3000
-NoConn ~ 10400 2900
-NoConn ~ 10400 2800
-NoConn ~ 10400 2700
-NoConn ~ 10400 2600
-NoConn ~ 10400 2500
-NoConn ~ 10400 2400
-NoConn ~ 10400 2300
-NoConn ~ 10400 2000
-NoConn ~ 10400 2100
-NoConn ~ 10400 2200
-NoConn ~ 8100 2400
-NoConn ~ 8100 2500
-NoConn ~ 8100 2600
-NoConn ~ 8100 2700
-NoConn ~ 8100 3200
-NoConn ~ 8100 3300
-NoConn ~ 8100 3400
-NoConn ~ 8100 3700
-NoConn ~ 8100 3800
-NoConn ~ 8100 3900
-NoConn ~ 8100 4200
-NoConn ~ 8100 4300
-NoConn ~ 8100 4400
-NoConn ~ 8100 4500
-NoConn ~ 8100 4600
-NoConn ~ 8100 4700
-NoConn ~ 8100 4800
-NoConn ~ 8100 5500
-NoConn ~ 8100 5600
-NoConn ~ 8100 5700
-NoConn ~ 8100 5900
-NoConn ~ 8100 6000
-NoConn ~ 8100 6100
-NoConn ~ 10400 6100
-NoConn ~ 10400 6000
-NoConn ~ 10400 5900
-NoConn ~ 10400 5800
-NoConn ~ 10400 5700
-NoConn ~ 10400 5400
-NoConn ~ 10400 5300
-NoConn ~ 10400 5200
-NoConn ~ 10400 5100
-NoConn ~ 10400 4700
-NoConn ~ 10400 4600
-NoConn ~ 10400 4500
-NoConn ~ 10400 4400
+NoConn ~ 6400 3900
+NoConn ~ 6400 3800
+NoConn ~ 6400 3700
+NoConn ~ 6400 3600
+NoConn ~ 6400 3500
+NoConn ~ 6400 3400
+NoConn ~ 6400 3300
+NoConn ~ 6400 3200
+NoConn ~ 6400 3100
+NoConn ~ 6400 3000
+NoConn ~ 6400 2900
+NoConn ~ 6400 2800
+NoConn ~ 6400 2700
+NoConn ~ 6400 2600
+NoConn ~ 6400 2500
+NoConn ~ 6400 2400
+NoConn ~ 6400 2300
+NoConn ~ 6400 2200
+NoConn ~ 6400 2100
+NoConn ~ 6400 2000
+NoConn ~ 6400 1900
+NoConn ~ 6400 1600
+NoConn ~ 6400 1700
+NoConn ~ 6400 1800
+NoConn ~ 4100 2000
+NoConn ~ 4100 2100
+NoConn ~ 4100 2200
+NoConn ~ 4100 2300
+NoConn ~ 4100 2800
+NoConn ~ 4100 2900
+NoConn ~ 4100 3000
+NoConn ~ 4100 3300
+NoConn ~ 4100 3400
+NoConn ~ 4100 3500
+NoConn ~ 4100 3800
+NoConn ~ 4100 3900
+NoConn ~ 4100 4000
+NoConn ~ 4100 4100
+NoConn ~ 4100 4200
+NoConn ~ 4100 4300
+NoConn ~ 4100 4400
+NoConn ~ 4100 5100
+NoConn ~ 4100 5200
+NoConn ~ 4100 5300
+NoConn ~ 4100 5500
+NoConn ~ 4100 5600
+NoConn ~ 4100 5700
+NoConn ~ 6400 5700
+NoConn ~ 6400 5600
+NoConn ~ 6400 5500
+NoConn ~ 6400 5400
+NoConn ~ 6400 5300
+NoConn ~ 6400 5000
+NoConn ~ 6400 4900
+NoConn ~ 6400 4800
+NoConn ~ 6400 4700
+NoConn ~ 6400 4300
+NoConn ~ 6400 4200
+NoConn ~ 6400 4100
+NoConn ~ 6400 4000
 $Comp
 L power:GND #PWR?
 U 1 1 6036B9DC
-P 7700 5800
-F 0 "#PWR?" H 7700 5550 50  0001 C CNN
-F 1 "GND" V 7705 5672 50  0000 R CNN
-F 2 "" H 7700 5800 50  0001 C CNN
-F 3 "" H 7700 5800 50  0001 C CNN
-	1    7700 5800
+P 4100 5400
+F 0 "#PWR?" H 4100 5150 50  0001 C CNN
+F 1 "GND" V 4105 5272 50  0000 R CNN
+F 2 "" H 4100 5400 50  0001 C CNN
+F 3 "" H 4100 5400 50  0001 C CNN
+	1    4100 5400
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	7700 5800 8100 5800
 $Comp
 L Regulator_Switching:R-78E5.0-1.0 U12->5
 U 1 1 6037B063
-P 7750 1000
-F 0 "U12->5" H 7750 1242 50  0000 C CNN
-F 1 "R-78E5.0-1.0" H 7750 1151 50  0000 C CNN
-F 2 "Converter_DCDC:Converter_DCDC_RECOM_R-78E-0.5_THT" H 7800 750 50  0001 L CIN
-F 3 "https://www.recom-power.com/pdf/Innoline/R-78Exx-1.0.pdf" H 7750 1000 50  0001 C CNN
-	1    7750 1000
+P 1850 700
+F 0 "U12->5" H 1850 942 50  0000 C CNN
+F 1 "R-78E5.0-1.0" H 1850 851 50  0000 C CNN
+F 2 "Converter_DCDC:Converter_DCDC_RECOM_R-78E-0.5_THT" H 1900 450 50  0001 L CIN
+F 3 "https://www.recom-power.com/pdf/Innoline/R-78Exx-1.0.pdf" H 1850 700 50  0001 C CNN
+	1    1850 700 
 	1    0    0    -1  
 $EndComp
-Text GLabel 8300 1000 2    50   Input ~ 0
-ALIM_5V
-Wire Wire Line
-	8300 1000 8050 1000
 $Comp
 L power:GND #PWR?
 U 1 1 6037D422
-P 7750 1400
-F 0 "#PWR?" H 7750 1150 50  0001 C CNN
-F 1 "GND" H 7755 1227 50  0000 C CNN
-F 2 "" H 7750 1400 50  0001 C CNN
-F 3 "" H 7750 1400 50  0001 C CNN
-	1    7750 1400
+P 1850 1000
+F 0 "#PWR?" H 1850 750 50  0001 C CNN
+F 1 "GND" H 1855 827 50  0000 C CNN
+F 2 "" H 1850 1000 50  0001 C CNN
+F 3 "" H 1850 1000 50  0001 C CNN
+	1    1850 1000
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	7750 1400 7750 1300
-Text GLabel 7150 1000 0    50   Input ~ 0
-ALIM_12V
-Wire Wire Line
-	7150 1000 7450 1000
 $Comp
 L Connector:Screw_Terminal_01x02 ALIM
 U 1 1 60342002
-P 10150 1050
-F 0 "ALIM" H 10230 1042 50  0000 L CNN
-F 1 "Screw_Terminal_01x02" H 10230 951 50  0000 L CNN
-F 2 "" H 10150 1050 50  0001 C CNN
-F 3 "~" H 10150 1050 50  0001 C CNN
-	1    10150 1050
-	1    0    0    -1  
+P 600 700
+F 0 "ALIM" H 518 375 50  0000 C CNN
+F 1 "Screw_Terminal_01x02" H 518 466 50  0000 C CNN
+F 2 "" H 600 700 50  0001 C CNN
+F 3 "~" H 600 700 50  0001 C CNN
+	1    600  700 
+	-1   0    0    1   
 $EndComp
-Text GLabel 9750 1050 0    50   Input ~ 0
-ALIM_12V
 $Comp
 L power:GND #PWR?
 U 1 1 60342E59
-P 9750 1150
-F 0 "#PWR?" H 9750 900 50  0001 C CNN
-F 1 "GND" H 9755 977 50  0000 C CNN
-F 2 "" H 9750 1150 50  0001 C CNN
-F 3 "" H 9750 1150 50  0001 C CNN
-	1    9750 1150
-	0    1    1    0   
+P 800 600
+F 0 "#PWR?" H 800 350 50  0001 C CNN
+F 1 "GND" H 805 427 50  0000 C CNN
+F 2 "" H 800 600 50  0001 C CNN
+F 3 "" H 800 600 50  0001 C CNN
+	1    800  600 
+	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	9750 1150 9950 1150
-Wire Wire Line
-	9750 1050 9950 1050
 $Comp
 L Connector:Conn_01x04_Male J_I2C->MULTIPLEX
 U 1 1 60344D96
-P 6750 800
-F 0 "J_I2C->MULTIPLEX" H 6722 682 50  0000 R CNN
-F 1 "Conn_01x04_Male" H 6722 773 50  0000 R CNN
-F 2 "" H 6750 800 50  0001 C CNN
-F 3 "~" H 6750 800 50  0001 C CNN
-	1    6750 800 
-	-1   0    0    1   
+P 750 5150
+F 0 "J_I2C->MULTIPLEX" H 858 5431 50  0000 C CNN
+F 1 "Conn_01x04_Male" H 858 5340 50  0000 C CNN
+F 2 "" H 750 5150 50  0001 C CNN
+F 3 "~" H 750 5150 50  0001 C CNN
+	1    750  5150
+	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR?
 U 1 1 6034965D
-P 6400 800
-F 0 "#PWR?" H 6400 550 50  0001 C CNN
-F 1 "GND" H 6405 627 50  0000 C CNN
-F 2 "" H 6400 800 50  0001 C CNN
-F 3 "" H 6400 800 50  0001 C CNN
-	1    6400 800 
-	0    1    1    0   
+P 950 5150
+F 0 "#PWR?" H 950 4900 50  0001 C CNN
+F 1 "GND" H 955 4977 50  0000 C CNN
+F 2 "" H 950 5150 50  0001 C CNN
+F 3 "" H 950 5150 50  0001 C CNN
+	1    950  5150
+	0    -1   -1   0   
 $EndComp
-Text GLabel 6400 900  0    50   Input ~ 0
-ALIM_5V
-Text GLabel 6400 700  0    50   Input ~ 0
+Text GLabel 950  5250 2    50   Input ~ 0
 I2C_SDAO
-Text GLabel 6400 600  0    50   Input ~ 0
+Text GLabel 950  5350 2    50   Input ~ 0
 I2C_SCLO
-Wire Wire Line
-	6400 600  6550 600 
-Wire Wire Line
-	6400 700  6550 700 
-Wire Wire Line
-	6400 800  6550 800 
-Wire Wire Line
-	6400 900  6550 900 
 $Comp
 L Connector:Conn_01x04_Male J_FTM->R_COD_1
 U 1 1 6034C8A3
-P 6750 1350
-F 0 "J_FTM->R_COD_1" H 6722 1232 50  0000 R CNN
-F 1 "Conn_01x04_Male" H 6722 1323 50  0000 R CNN
-F 2 "" H 6750 1350 50  0001 C CNN
-F 3 "~" H 6750 1350 50  0001 C CNN
-	1    6750 1350
-	-1   0    0    1   
+P 750 6800
+F 0 "J_FTM->R_COD_1" H 858 7081 50  0000 C CNN
+F 1 "Conn_01x04_Male" H 858 6990 50  0000 C CNN
+F 2 "" H 750 6800 50  0001 C CNN
+F 3 "~" H 750 6800 50  0001 C CNN
+	1    750  6800
+	1    0    0    -1  
 $EndComp
-Text GLabel 6400 1450 0    50   Input ~ 0
-ALIM_5V
 $Comp
 L power:GND #PWR?
 U 1 1 6034D5A6
-P 6400 1350
-F 0 "#PWR?" H 6400 1100 50  0001 C CNN
-F 1 "GND" H 6405 1177 50  0000 C CNN
-F 2 "" H 6400 1350 50  0001 C CNN
-F 3 "" H 6400 1350 50  0001 C CNN
-	1    6400 1350
-	0    1    1    0   
+P 950 6800
+F 0 "#PWR?" H 950 6550 50  0001 C CNN
+F 1 "GND" H 955 6627 50  0000 C CNN
+F 2 "" H 950 6800 50  0001 C CNN
+F 3 "" H 950 6800 50  0001 C CNN
+	1    950  6800
+	0    -1   -1   0   
 $EndComp
-Text GLabel 6400 1250 0    50   Input ~ 0
+Text GLabel 950  6900 2    50   Input ~ 0
 R_COD_1_phA
-Text GLabel 6400 1150 0    50   Input ~ 0
+Text GLabel 950  7000 2    50   Input ~ 0
 R_COD_1_phB
-Wire Wire Line
-	6400 1150 6550 1150
-Wire Wire Line
-	6550 1250 6400 1250
-Wire Wire Line
-	6400 1350 6550 1350
-Wire Wire Line
-	6550 1450 6400 1450
 $Comp
 L Connector:Conn_01x04_Male J_FTM->R_COD_2
 U 1 1 6035325F
-P 6800 1950
-F 0 "J_FTM->R_COD_2" H 6772 1832 50  0000 R CNN
-F 1 "Conn_01x04_Male" H 6772 1923 50  0000 R CNN
-F 2 "" H 6800 1950 50  0001 C CNN
-F 3 "~" H 6800 1950 50  0001 C CNN
-	1    6800 1950
-	-1   0    0    1   
+P 750 7450
+F 0 "J_FTM->R_COD_2" H 858 7731 50  0000 C CNN
+F 1 "Conn_01x04_Male" H 858 7640 50  0000 C CNN
+F 2 "" H 750 7450 50  0001 C CNN
+F 3 "~" H 750 7450 50  0001 C CNN
+	1    750  7450
+	1    0    0    -1  
 $EndComp
-Text GLabel 6450 2050 0    50   Input ~ 0
-ALIM_5V
 $Comp
 L power:GND #PWR?
 U 1 1 60353D5D
-P 6450 1950
-F 0 "#PWR?" H 6450 1700 50  0001 C CNN
-F 1 "GND" H 6455 1777 50  0000 C CNN
-F 2 "" H 6450 1950 50  0001 C CNN
-F 3 "" H 6450 1950 50  0001 C CNN
-	1    6450 1950
-	0    1    1    0   
+P 950 7450
+F 0 "#PWR?" H 950 7200 50  0001 C CNN
+F 1 "GND" H 955 7277 50  0000 C CNN
+F 2 "" H 950 7450 50  0001 C CNN
+F 3 "" H 950 7450 50  0001 C CNN
+	1    950  7450
+	0    -1   -1   0   
 $EndComp
-Text GLabel 6450 1850 0    50   Input ~ 0
+Text GLabel 950  7550 2    50   Input ~ 0
 R_COD_2_phA
-Text GLabel 6450 1750 0    50   Input ~ 0
+Text GLabel 950  7650 2    50   Input ~ 0
 R_COD_2_phB
 Wire Wire Line
-	6450 1750 6600 1750
+	800  700  1200 700 
+$Comp
+L power:+12V #PWR?
+U 1 1 6037ADCA
+P 1200 700
+F 0 "#PWR?" H 1200 550 50  0001 C CNN
+F 1 "+12V" H 1215 873 50  0000 C CNN
+F 2 "" H 1200 700 50  0001 C CNN
+F 3 "" H 1200 700 50  0001 C CNN
+	1    1200 700 
+	1    0    0    -1  
+$EndComp
+Connection ~ 1200 700 
 Wire Wire Line
-	6600 1850 6450 1850
-Wire Wire Line
-	6450 1950 6600 1950
-Wire Wire Line
-	6600 2050 6450 2050
+	1200 700  1550 700 
+$Comp
+L power:+5V #PWR?
+U 1 1 6037B54D
+P 2150 700
+F 0 "#PWR?" H 2150 550 50  0001 C CNN
+F 1 "+5V" V 2165 828 50  0000 L CNN
+F 2 "" H 2150 700 50  0001 C CNN
+F 3 "" H 2150 700 50  0001 C CNN
+	1    2150 700 
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:Conn_01x02_Male CONN_COL
+U 1 1 60391B9C
+P 650 2700
+F 0 "CONN_COL" H 758 2881 50  0000 C CNN
+F 1 "Conn_01x02_Male" H 758 2790 50  0000 C CNN
+F 2 "" H 650 2700 50  0001 C CNN
+F 3 "~" H 650 2700 50  0001 C CNN
+	1    650  2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Male CONN_TIR
+U 1 1 60392C0F
+P 700 3500
+F 0 "CONN_TIR" H 808 3681 50  0000 C CNN
+F 1 "Conn_01x02_Male" H 808 3590 50  0000 C CNN
+F 2 "" H 700 3500 50  0001 C CNN
+F 3 "~" H 700 3500 50  0001 C CNN
+	1    700  3500
+	1    0    0    -1  
+$EndComp
+Text GLabel 900  3500 2    50   Input ~ 0
+TIR_GPIO
+$Comp
+L power:GND #PWR?
+U 1 1 60395750
+P 900 3600
+F 0 "#PWR?" H 900 3350 50  0001 C CNN
+F 1 "GND" V 905 3472 50  0000 R CNN
+F 2 "" H 900 3600 50  0001 C CNN
+F 3 "" H 900 3600 50  0001 C CNN
+	1    900  3600
+	0    -1   -1   0   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 60395DDE
+P 850 2800
+F 0 "#PWR?" H 850 2550 50  0001 C CNN
+F 1 "GND" V 855 2672 50  0000 R CNN
+F 2 "" H 850 2800 50  0001 C CNN
+F 3 "" H 850 2800 50  0001 C CNN
+	1    850  2800
+	0    -1   -1   0   
+$EndComp
+Text GLabel 850  2700 2    50   Input ~ 0
+COL_GPIO
+$Comp
+L power:+5V #PWR?
+U 1 1 60396469
+P 950 7350
+F 0 "#PWR?" H 950 7200 50  0001 C CNN
+F 1 "+5V" V 965 7478 50  0000 L CNN
+F 2 "" H 950 7350 50  0001 C CNN
+F 3 "" H 950 7350 50  0001 C CNN
+	1    950  7350
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 60399D72
+P 950 6700
+F 0 "#PWR?" H 950 6550 50  0001 C CNN
+F 1 "+5V" V 965 6828 50  0000 L CNN
+F 2 "" H 950 6700 50  0001 C CNN
+F 3 "" H 950 6700 50  0001 C CNN
+	1    950  6700
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 6039D2AF
+P 950 5050
+F 0 "#PWR?" H 950 4900 50  0001 C CNN
+F 1 "+5V" V 965 5178 50  0000 L CNN
+F 2 "" H 950 5050 50  0001 C CNN
+F 3 "" H 950 5050 50  0001 C CNN
+	1    950  5050
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 603A3420
+P 6400 5100
+F 0 "#PWR?" H 6400 4950 50  0001 C CNN
+F 1 "+5V" V 6415 5228 50  0000 L CNN
+F 2 "" H 6400 5100 50  0001 C CNN
+F 3 "" H 6400 5100 50  0001 C CNN
+	1    6400 5100
+	0    1    1    0   
+$EndComp
 $EndSCHEMATC
