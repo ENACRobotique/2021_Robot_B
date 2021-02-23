@@ -89,30 +89,6 @@ F 3 "" H 6400 5200 50  0001 C CNN
 	1    6400 5200
 	0    -1   -1   0   
 $EndComp
-NoConn ~ 6400 3900
-NoConn ~ 6400 3800
-NoConn ~ 6400 3700
-NoConn ~ 6400 3600
-NoConn ~ 6400 3500
-NoConn ~ 6400 3400
-NoConn ~ 6400 3300
-NoConn ~ 6400 3200
-NoConn ~ 6400 3100
-NoConn ~ 6400 3000
-NoConn ~ 6400 2900
-NoConn ~ 6400 2800
-NoConn ~ 6400 2700
-NoConn ~ 6400 2600
-NoConn ~ 6400 2500
-NoConn ~ 6400 2400
-NoConn ~ 6400 2300
-NoConn ~ 6400 2200
-NoConn ~ 6400 2100
-NoConn ~ 6400 2000
-NoConn ~ 6400 1900
-NoConn ~ 6400 1600
-NoConn ~ 6400 1700
-NoConn ~ 6400 1800
 NoConn ~ 4100 2000
 NoConn ~ 4100 2100
 NoConn ~ 4100 2200
@@ -125,11 +101,6 @@ NoConn ~ 4100 3400
 NoConn ~ 4100 3500
 NoConn ~ 4100 3800
 NoConn ~ 4100 3900
-NoConn ~ 4100 4000
-NoConn ~ 4100 4100
-NoConn ~ 4100 4200
-NoConn ~ 4100 4300
-NoConn ~ 4100 4400
 NoConn ~ 4100 5100
 NoConn ~ 4100 5200
 NoConn ~ 4100 5300
@@ -140,14 +111,6 @@ NoConn ~ 6400 5700
 NoConn ~ 6400 5600
 NoConn ~ 6400 5500
 NoConn ~ 6400 5400
-NoConn ~ 6400 5000
-NoConn ~ 6400 4900
-NoConn ~ 6400 4800
-NoConn ~ 6400 4700
-NoConn ~ 6400 4300
-NoConn ~ 6400 4200
-NoConn ~ 6400 4100
-NoConn ~ 6400 4000
 $Comp
 L power:GND #PWR0103
 U 1 1 6036B9DC
@@ -762,14 +725,10 @@ F 3 "~" H 7700 5750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6400 5800 7450 5800
-Wire Wire Line
 	8250 5800 7450 5800
 Connection ~ 7450 5800
 Wire Wire Line
 	8250 5900 7700 5900
-Wire Wire Line
-	6400 5900 7700 5900
 Connection ~ 7700 5900
 Wire Wire Line
 	7700 5300 7450 5300
@@ -779,5 +738,9 @@ Wire Wire Line
 	7450 5500 7450 5300
 Connection ~ 7450 5300
 Wire Wire Line
-	7450 5300 6400 5300
+	6400 5800 7450 5800
+Wire Wire Line
+	6400 5900 7700 5900
+Wire Wire Line
+	6400 5300 7450 5300
 $EndSCHEMATC
