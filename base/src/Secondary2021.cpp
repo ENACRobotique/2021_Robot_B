@@ -28,7 +28,9 @@ void setup() {
   while (!Serial);
   
 }
-
+int i;
+int mot1=100;//entre -255 et 255
+int mot2=-100;
 void loop() {
   MotorControl::testmoteur(mot1,mot2);
 		if(controlTime.check()) {
@@ -38,6 +40,10 @@ void loop() {
 			Serial.print("\t");
 			Serial.println(mot2);
 			i++;
+      Serial.print(" pos x : ");
+      Serial.print(Odometry::get_pos_x());
+      Serial.print(" pos y : ");
+      Serial.print(Odometry::get_pos_y());
 		}
 		if (TestTime.check())
     {
