@@ -1,4 +1,4 @@
-#include <Arduino.h>
+#include "Arduino.h"
 #include "odometry.h"
 #include "motorControl.h"
 #include "params.h"
@@ -9,10 +9,9 @@
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
 Metro debugLed = Metro(2000);
 Metro navTime = Metro((unsigned long)(NAVIGATOR_PERIOD * 1000)); //2000
-Metro TestTime = Metro(1000);
+Metro TestTime = Metro(5000);
 Metro commXBee = Metro((unsigned long)(COMMUNICATION_PERIOD * 1000));
 Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
-
 
 void setup() {
   Serial.begin(115200);
@@ -29,8 +28,8 @@ void setup() {
   
 }
 int i;
-int mot1=100;//entre -255 et 255
-int mot2=-100;
+int mot1=50;//entre -255 et 255
+int mot2=-50;
 void loop() {
   MotorControl::testmoteur(mot1,mot2);
 		if(controlTime.check()) {
@@ -45,11 +44,18 @@ void loop() {
       Serial.print(" pos y : ");
       Serial.print(Odometry::get_pos_y());
 		}
+    if(TestTime.check())
+    {
+      mot1 = 0;
+      mot2=0;
+    }
+    /*
 		if (TestTime.check())
     {
 		  mot2=(mot2+20)%255;
     }
-
+    */
+ 
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
 
