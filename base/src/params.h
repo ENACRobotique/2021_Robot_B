@@ -43,6 +43,9 @@ const int VANN = 14;
 const int COLOR = 26;
 const int TIRETTE = 25;
 
+const float SPEED_MAX = 0.5f;
+const float OMEGA_MAX = 1f;
+
 // const int SPARE1 = 10;
 // const int SPARE2 = 9;
 // const int SPARE3 = 8;

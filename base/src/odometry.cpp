@@ -129,13 +129,13 @@ namespace Odometry{
 		pos_y = pos_y + length*sin(pos_theta + angle/2.0);
 		pos_theta = pos_theta + angle;
 
-		/*Serial.print(" pos_x=");
+		Serial.print(" pos_x=");
 		Serial.print(pos_x);
 		Serial.print(" pos_y=");
 		Serial.print(pos_y);
 		Serial.print(" new pos_theta=");
 		Serial.print(pos_theta);
-		Serial.println(".");*/
+		Serial.println(".");
 		speed = length / CONTROL_PERIOD;
 		omega = angle / CONTROL_PERIOD;
 
