@@ -74,6 +74,7 @@ namespace MotorControl {
 		digitalWrite(MOT2_DIR, direction_sign(cmde2));
 	}
 
+	
 	void update() {
 
 		float error_speed = cons_speed - Odometry::get_speed();

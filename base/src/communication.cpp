@@ -4,11 +4,8 @@
 #include "motorControl.h"
 #include "navigator.h"
 #include "odometry.h"
-#include "raspberryParser.h"
 
-#include "FMSSupervisor.h"
-#include "stateMachine/Reajustement.h"
-#include "stateMachine/etat_begin.h"
+
 
 
 #define COM_DEBUG
@@ -55,7 +52,6 @@ namespace Communication {
         if(buffer[0] == 's') {
             MotorControl::set_cons(0,0);
             navigator.forceStop();
-            fmsSupervisor.setNextState(&etat_begin);
             #ifdef COM_DEBUG
             Serial5.println("Stopped!");
             #endif

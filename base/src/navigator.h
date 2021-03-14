@@ -11,17 +11,18 @@
 typedef enum {  TURN,
 				DISPLACEMENT,
 				THROW,
-				BRAKE,
-				CAP}Move_type;
+				BRAKE}Move_type;
 
 typedef enum { INITIAL_TURN,
 				  CRUISE,
+				  VELOCITY,
 				  STOPPED}Move_state;
 
 class Navigator{
 public:
 	Navigator();
 	void move_to(float x, float y);
+	void move(float v, float omega);//simple contôle moteur en vitesse
 	void step_forward(float d);
 	void step_backward(float d);
 	void turn_to(float theta);
@@ -32,24 +33,17 @@ public:
 	void forceStop();
 	bool isTrajectoryFinished();
 	bool moveForward();
-	bool caperror();
-	void adjust_rot(float delta_theta);
 
 private:
 	bool turn_done;
 	bool displacement_done;
 	bool trajectory_done;
-	bool error_cap;
 	float x_target;
 	float y_target;
 	float theta_target;
-	int MAX_ACCEL_OMEGA, MAX_OMEGA;
-	bool cup_detected, cup_ready;
-	int compt_rot;
+	float v_target, omega_target;
 	Move_type move_type;
 	Move_state move_state;
-	float v_r; //read IR_sel
-	int a_r;
 
 	float center_axes(float angle);
 	float center_radian(float angle);

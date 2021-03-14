@@ -27,10 +27,10 @@ const int WHEEL_ENCODEUR2_A = 5;
 const int WHEEL_ENCODEUR2_B = 4;
 
 
-const int MOT1_PWM = 7;
-const int MOT1_DIR = 6;
-const int MOT2_PWM = 9;
-const int MOT2_DIR = 8;
+const int MOT1_PWM = 9;
+const int MOT1_DIR = 10;
+const int MOT2_PWM = 8;
+const int MOT2_DIR = 7;
 
 //const int BATT_CHARGE = 37;
 
@@ -41,13 +41,16 @@ const int SERVO1 = 2;
 // const int SERVO2 = 15;
 const int SERVO3 = 37;
 
-const int POMPE = 15
-const int VANN = 14
+const int POMPE = 15;
+const int VANN = 14;
 // const int MOT_GALET_L = 35;
 // const int MOT_LIDAR = 35;
 
 const int COLOR = 26;
 const int TIRETTE = 25;
+
+const float SPEED_MAX = 0.5f;
+const float OMEGA_MAX = 1f;
 
 // const int SPARE1 = 10;
 // const int SPARE2 = 9;
