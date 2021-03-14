@@ -16,10 +16,16 @@ const int ARUCO_ID = 1;
 const unsigned long TIME_RACE = 100000;
 
 
-const int ENCODEUR1_A = 3;
-const int ENCODEUR1_B = 2;
-const int ENCODEUR2_A = 5;
-const int ENCODEUR2_B = 4;
+const int MOT_ENCODEUR1_A = 3;
+const int MOT_ENCODEUR1_B = 2;
+const int MOT_ENCODEUR2_A = 5;
+const int MOT_ENCODEUR2_B = 4;
+
+const int WHEEL_ENCODEUR1_A = 3;
+const int WHEEL_ENCODEUR1_B = 2;
+const int WHEEL_ENCODEUR2_A = 5;
+const int WHEEL_ENCODEUR2_B = 4;
+
 
 const int MOT1_PWM = 7;
 const int MOT1_DIR = 6;

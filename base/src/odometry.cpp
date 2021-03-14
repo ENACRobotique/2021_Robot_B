@@ -13,24 +13,28 @@ namespace Odometry{
 
 	volatile int _incr1;
 	volatile int _incr2;
+	volatile int _incr3;
+	volatile int _incr4;
 	int nbr1 = 0;
 	int nbr2 = 0;
+	int nbr3 = 0;
+	int nbr4 = 0;
 
 	float pos_x, pos_y, pos_theta;
 
 	float speed, omega;
 
 	void init(){
-		pinMode(ENCODEUR1_A,INPUT_PULLUP);
-		pinMode(ENCODEUR1_B,INPUT_PULLUP);
-		attachInterrupt(ENCODEUR1_A, isr1, FALLING);
-		//attachInterrupt(ENCODEUR1_A, isr1, RISING);
+		pinMode(MOT_ENCODEUR1_A,INPUT_PULLUP);
+		pinMode(MOT_ENCODEUR1_B,INPUT_PULLUP);
+		attachInterrupt(MOT_ENCODEUR1_A, isr1, FALLING);
+		//attachInterrupt(MOT_ENCODEUR1_A, isr1, RISING);
 		_incr1 = 0;
 
-		pinMode(ENCODEUR2_A,INPUT_PULLUP);
-		pinMode(ENCODEUR2_B,INPUT_PULLUP);
-		attachInterrupt(ENCODEUR2_A, isr2, RISING);
-		//attachInterrupt(ENCODEUR2_A, isr2, FALLING);
+		pinMode(MOT_ENCODEUR2_A,INPUT_PULLUP);
+		pinMode(MOT_ENCODEUR2_B,INPUT_PULLUP);
+		attachInterrupt(MOT_ENCODEUR2_A, isr2, RISING);
+		//attachInterrupt(MOT_ENCODEUR2_A, isr2, FALLING);
 		_incr2 = 0;
 
 		pos_x = pos_y = pos_theta = speed = omega = 0;
@@ -38,7 +42,7 @@ namespace Odometry{
 	}
 
 	void isr1() {
-		if(digitalRead(ENCODEUR1_B)) {
+		if(digitalRead(MOT_ENCODEUR1_B)) {
 			_incr1++;
 			//_incr1--;
 		}
@@ -49,7 +53,7 @@ namespace Odometry{
 	}
 
 	void isr2() {
-			if(digitalRead(ENCODEUR2_B)) {
+			if(digitalRead(MOT_ENCODEUR2_B)) {
 				_incr2++;
 				//_incr2--;
 			}

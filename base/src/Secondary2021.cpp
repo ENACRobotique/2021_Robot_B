@@ -3,7 +3,8 @@
 #include "motorControl.h"
 #include "params.h"
 #include "Metro.h"
-//#include "communication.h"
+#include "communication.h"
+#include "navigator.h"
 //#include "raspberryParser.h"
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
@@ -37,6 +38,7 @@ void loop() {
 			Serial.print(i);
 			Serial.print("\t");
 			Odometry::update();
+      Navigator::update();
 			Serial.print("\t");
 			Serial.println(mot2);
 			i++;
