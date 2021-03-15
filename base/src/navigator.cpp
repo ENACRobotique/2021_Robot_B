@@ -248,6 +248,22 @@ void Navigator::update(){
 		}
 	}
 }
+void recalibrate_x_with_wall(float x, float real_x)
+{
+	// on donne un x target assez loin en avant
+	//Si on patine -> on reset, sinon on continue
+		float error_speed = cons_speed - Odometry::get_speed();
+		while(abs(prev_pos_x-Odometry::get_pos_x()) >= 0.00001f)
+		{
+			set_cons(0.05f, 0f); //verifier ce que fait le omega
+		}
+		set cons(0f, 0f);
+		if(abs(error_speed) >= 0.00001f)
+		{
+			return; //false, still slowing down
+		}
+		Odometry::set_pos(real_x, Odometry::get_pos_y(), Odometry::get_pos_theta());
+}
 
 void Navigator::forceStop(){
 	move_type = BRAKE;
