@@ -14,6 +14,7 @@ Metro TestTime = Metro(5000);
 Metro commXBee = Metro((unsigned long)(COMMUNICATION_PERIOD * 1000));
 Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
 
+
 void setup() {
   //Serial.begin(115200);
   pinMode(LED_BUILTIN, OUTPUT);
@@ -26,7 +27,6 @@ void setup() {
 	TestTime.reset();
 	Odometry::init();
 	MotorControl::init();
-  Serial5.println("aaaa");
 
   //while (!Serial);
   
@@ -35,21 +35,24 @@ int i;
 int mot1=50;//entre -255 et 255
 int mot2=-50;
 void loop() {
+
+      if(navTime.check())
+    {
+      navigator.update();
+    }
   /*
   MotorControl::testmoteur(mot1,mot2); */
 		if(controlTime.check()) {
-			Serial.print(i);
-			Serial.print("\t");
+
 			Odometry::update();
-      Navigator::update();
-			Serial.print("\t");
-			Serial.println(mot2);
-			i++;
+      //MotorControl::update();
+    Serial.println("  ");
       Serial.print(" pos x : ");
       Serial.print(Odometry::get_pos_x());
       Serial.print(" pos y : ");
       Serial.print(Odometry::get_pos_y());
 		} 
+
     if(TestTime.check())
     {
       mot1 = 0;

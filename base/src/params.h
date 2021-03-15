@@ -16,13 +16,13 @@ const int ARUCO_ID = 1;
 const unsigned long TIME_RACE = 100000;
 
 
-const int MOT_ENCODEUR1_A = 3;
-const int MOT_ENCODEUR1_B = 2;
+const int MOT_ENCODEUR1_A = 0;
+const int MOT_ENCODEUR1_B = 1;
 const int MOT_ENCODEUR2_A = 5;
 const int MOT_ENCODEUR2_B = 4;
 
-const int WHEEL_ENCODEUR1_A = 3;
-const int WHEEL_ENCODEUR1_B = 2;
+const int WHEEL_ENCODEUR1_A = 0;
+const int WHEEL_ENCODEUR1_B = 1;
 const int WHEEL_ENCODEUR2_A = 5;
 const int WHEEL_ENCODEUR2_B = 4;
 
@@ -50,7 +50,7 @@ const int COLOR = 26;
 const int TIRETTE = 25;
 
 const float SPEED_MAX = 0.5f;
-const float OMEGA_MAX = 1f;
+const float OMEGA_MAX = 1.0f;
 
 // const int SPARE1 = 10;
 // const int SPARE2 = 9;
@@ -74,6 +74,8 @@ const float OMEGA_MAX_CRUISE = 1.5;
 const float ACCEL_OMEGA_MAX_CAP = 0.3;
 const float OMEGA_MAX_CAP = 0.5;
 
+const float ACCEL_OMEGA_MAX = 1;
+
 
 const float ADMITTED_OMEGA_ERROR = 0.03;
 const float ADMITTED_SPEED_ERROR = 10;
@@ -82,10 +84,9 @@ const float ADMITTED_POSITION_ERROR = 8; //5
 const float ADMITTED_ANGLE_ERROR = 0.01;
 
 //const float MAX_DRIFT = 0.1;
-
 //const float WHEEL_DIAMETER = 55.0;
-const float WHEELBASE = 261.9790233;
-const float INCR_TO_MM = 0.21922110552763818;   //PI*WHEEL_DIAMETER/805.12;
+const float WHEELBASE = 167.5;
+const float INCR_TO_MM = 0.29733376416;   //PI*WHEEL_DIAMETER/805.12;
 const float INCR_TO_MM_1 = INCR_TO_MM * 0.9833721540716956;
 const float INCR_TO_MM_2 = INCR_TO_MM * 1.016909006279521;
 //const float INCR_TO_TOURS = 1/805.12;

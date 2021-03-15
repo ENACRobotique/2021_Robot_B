@@ -31,9 +31,9 @@ namespace MotorControl {
 	float Ki_speed = 0.2;//0.2;
 	float Kp_speed = 0.5;//0.5;
 	float Kd_speed = 0;
-	float Ki_omega = 15;//20;
-	float Kp_omega = 75;//30;
-	float Kd_omega = 10;
+	float Ki_omega = 10;//15  20;
+	float Kp_omega = 10;//75  30;
+	float Kd_omega = 0;
 
 	float error_integrale_speed=0.01;
 	float error_integrale_omega=0;
@@ -98,14 +98,23 @@ namespace MotorControl {
 		analogWrite(MOT2_PWM, abs(cmd_mot2));
 		digitalWrite(MOT2_DIR, direction_sign(cmd_mot2));
 
+		Serial.print("cmd omega : ");
+		Serial.print(cmd_omega);
+		Serial.print("\t");
+		Serial.print("cmd vitesse : ");
+		Serial.print(cmd_speed);
+		Serial.print("\t");
 		Serial.print(cons_omega);
 		Serial.print("\t");
 		Serial.print(Odometry::get_omega());
 		Serial.print("\t");
 		Serial.println(error_integrale_omega);
-		//Seria l.print("\t");
-		//Serial.print(cmd_mot2);
-		//Serial.print("\t");
+		Serial.print("\t");
+		Serial.print("cmd mot 2 & 1 : ");
+		Serial.print(cmd_mot2);
+		Serial.print("\t");
+		Serial.print(cmd_mot1);
+		Serial.print("\t");
 		//Serial.println();
 		//Serial.println(cons_omega);
 		//Serial.print("\t");

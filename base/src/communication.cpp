@@ -12,7 +12,7 @@
 
 namespace Communication {
     
-    Serial *serialCtrl = &Serial5; 
+    //HardwareSerial *serialCtrl = &Serial5; 
     
     static void parse_data();
 
@@ -84,15 +84,7 @@ namespace Communication {
                 navigator.turn_to(angle);
             }
         }
-        else if(buffer[0] == 'i'){
-            raspberryparser.parseData(buffer);
-        }
-        else if(buffer[0]=='c') {
-            fmsSupervisor.setNextState(&reajustement);
-        }
-        else if(buffer[0]=='e') {
-            fmsSupervisor.print_State();
-        }
+
 
         buff_index = 0;
     }
