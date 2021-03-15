@@ -237,6 +237,14 @@ void Navigator::update(){
 			}
 			speed_cons=compute_cons_speed();
 			omega_cons = compute_cons_omega();
+			Serial.println("cruise mode : ");
+			Serial.print("\t speed_cons :  ");
+			Serial.print(speed_cons);
+			Serial.print("\t omega_cons :  ");
+			Serial.print(omega_cons);
+			Serial.print("\t distance :  ");
+			Serial.print(distance);
+			Serial.println("***");
 			MotorControl::set_cons(speed_cons,omega_cons);
 			break;
 		case STOPPED:
