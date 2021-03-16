@@ -20,7 +20,7 @@ namespace Odometry{
 	int nbr3 = 0;
 	int nbr4 = 0;
 
-	float pos_x, pos_y, pos_theta, prev_pos_x, prev_pos_y;
+	float pos_x, pos_y, pos_theta;
 
 	float speed, omega;
 
@@ -163,8 +163,6 @@ namespace Odometry{
 		Serial.print(" angle=");
 		Serial.print(angle);*/
 		
-		prev_pos_x = pos_x;
-		prev_pos_y = pos_y;
 		pos_x = pos_x + length*cos(pos_theta + angle/2.0); //interpolation entre les deux theta
 		pos_y = pos_y + length*sin(pos_theta + angle/2.0);
 		pos_theta = pos_theta + angle;

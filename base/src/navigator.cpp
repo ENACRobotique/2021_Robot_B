@@ -235,6 +235,7 @@ void Navigator::update(){
 				trajectory_done = true;
 				break;
 			}
+
 			speed_cons=compute_cons_speed();
 			omega_cons = compute_cons_omega();
 			Serial.println("cruise mode : ");
