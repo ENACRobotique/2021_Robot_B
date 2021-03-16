@@ -191,6 +191,7 @@ void Navigator::update(){
 	else{
 		switch(move_state){
 		case INITIAL_TURN:
+
 			if(move_type==DISPLACEMENT){
 				alpha = Odometry::get_pos_theta() + center_axes(atan2((-y_target+Odometry::get_pos_y()),(-x_target+Odometry::get_pos_x())) - Odometry::get_pos_theta());
 			}
@@ -221,8 +222,6 @@ void Navigator::update(){
 			}
 
 			omega_cons = compute_cons_omega();
-			MotorControl::set_cons(0,omega_cons);
-
 			MotorControl::set_cons(0,omega_cons);
 
 			break;
