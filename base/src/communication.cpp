@@ -59,7 +59,7 @@ namespace Communication {
         else if(buffer[0] == 'm') {
             float x,y;
             int nb = sscanf(buffer, "m %f %f", &x, &y);
-            if(nb == 2) {
+            if(nb == 2) {   
                 navigator.move_to(x, y);
                 #ifdef COM_DEBUG
                 Serial5.print("Moving to ");
