@@ -29,3 +29,5 @@
 *.exe
 *.out
 *.app
+kicad_robot/gerbers_servo.zip
+kicad_robot/gerbers_teensy.zip
