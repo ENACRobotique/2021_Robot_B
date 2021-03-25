@@ -1,9 +1,3 @@
-/*
- * LidarXV11.h
- *
- *  Created on: 18 avr. 2019
- *      Author: robot
- */
 #include "Arduino.h"
 #ifndef LIDARXV11_H_
 #define LIDARXV11_H_
