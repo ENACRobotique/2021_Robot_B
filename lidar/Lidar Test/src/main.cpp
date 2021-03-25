@@ -10,11 +10,12 @@ LidarXV11 xv11 = LidarXV11();
 void setup() {
   // put your setup code here, to run once:
   pinMode(2, INPUT); // the RX pin
+  pinMode(3, OUTPUT);
   Serial.begin(115200);
   while (!Serial) {
     // wait for serial port to connect. Needed for native USB
   }
-  Serial.println("Serial working");
+  Serial.println("USB Serial working.");
   lidarSerial.begin(115200);
 }
 
@@ -23,6 +24,7 @@ void loop() {
  if(lidarSerial.available()) {
     uint8_t c = lidarSerial.read();
     xv11.update(c);
+    //Serial.println(c);
     if (xv11.is_packet_available()){
 			struct Package_Data packet = xv11.get_packet();
 			if (packet.index == 110 / 4 + 0xA0){
