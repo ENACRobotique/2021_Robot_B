@@ -24,7 +24,6 @@ LidarXV11::~LidarXV11() {
 
 void LidarXV11::update(uint8_t byte) {
 	uint16_t checksum_rx;
-	//Serial1.write(byte);
 	switch (state) {
 	case WAIT_START:
 		if (byte == 0xFA){
@@ -111,7 +110,7 @@ void LidarXV11::update(uint8_t byte) {
 			speed = packet.speed;
 		}
 		else{
-			//Serial1.println("LIDAR CHECKSUM INVALID");
+			Serial.println("LIDAR CHECKSUM INVALID");
 		}
 		state = WAIT_START;
 		break;
