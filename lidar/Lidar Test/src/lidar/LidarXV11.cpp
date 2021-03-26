@@ -135,27 +135,31 @@ void LidarXV11::display_package(struct Package_Data* p) {
 	Serial.print(" | ");
 	for (int i = 0; i < 4; i++ ){
 		Serial.print((p->index - 0xA0)  * 4 + i);
-		Serial.print("    ");
+		Serial.print("ind    ");
 		Serial.print(p->distance[i]);
-		Serial.print("   ");
+		Serial.print("dst   ");
 		Serial.print(p->invalid[i]);
-		Serial.print("   ");
+		Serial.print("inv   ");
 		Serial.print(p->warning[i]);
-		Serial.print("   ");
+		Serial.print("war   ");
 		Serial.print(p->strength[i]);
-		Serial.print(" | ");
+		Serial.print("str | ");
 	}
 	Serial.println();
 }
 
 void LidarXV11::read_data(int i) {
 	packet.distance[i] = ((0b00111111 & data[1]) << 8) | data[0];
+	Serial.print(packet.distance[i]);
+	Serial.print(" ");
 	packet.invalid[i] = (data[1] & 0b10000000);
 	packet.warning[i] = (data[1] & 0b01000000);
 	packet.strength[i] = (data[3] << 8) | data[2];
 	distance_angle[(packet.index - 0xA0)  * 4 + i] = packet.distance[i];
+	Serial.print((packet.index - 0xA0)  * 4 + i);
+	Serial.print(" ");
 	valid_angle[(packet.index - 0xA0)  * 4 + i] = !packet.invalid[i];
-	//Serial.println(valid_angle[(packet.index - 0xA0)  * 4 + i]);
+	Serial.println(valid_angle[(packet.index - 0xA0)  * 4 + i]);
 
 }
 

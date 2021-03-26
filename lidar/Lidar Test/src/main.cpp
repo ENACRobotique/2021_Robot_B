@@ -1,38 +1,55 @@
 #include <Arduino.h>
 #include "lidar/LidarXV11.h"
-#include <SoftwareSerial.h>
 //#include <MemoryFree.h>
-
-SoftwareSerial lidarSerial(2, 3); //RX, TX
 
 LidarXV11 xv11 = LidarXV11();
 
+int ledPin = 13;
+long previousMillis = 0;
+int ledState = LOW;  
+
 void setup() {
   // put your setup code here, to run once:
-  pinMode(2, INPUT); // the RX pin
-  pinMode(3, OUTPUT);
+  pinMode(ledPin, OUTPUT); //led sur la carte
   Serial.begin(115200);
   while (!Serial) {
     // wait for serial port to connect. Needed for native USB
   }
-  Serial.println("USB Serial working.");
-  lidarSerial.begin(115200);
+  //Serial.println("USB Serial working.");
+  Serial1.begin(115200);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
- if(lidarSerial.available()) {
-    uint8_t c = lidarSerial.read();
+ if(Serial1.available()) {
+    uint8_t c = Serial1.read();
     xv11.update(c);
-    //Serial.println(c);
-    if (xv11.is_packet_available()){
-			struct Package_Data packet = xv11.get_packet();
-			if (packet.index == 110 / 4 + 0xA0){
-				xv11.display_package(&packet);
-			}
-		}
+    //if (xv11.is_packet_available()){
+		//	struct Package_Data packet = xv11.get_packet();
+		//	if (packet.index == 110 / 4 + 0xA0){
+		//		xv11.display_package(&packet);
+		//	}
+		//}
   }
-  //Serial.print("freeMemory()=");
-  //Serial.println(freeMemory());
+
+  /*for (int i = 0; i<360; i++){
+    Serial.print("Angle: ");
+    Serial.print(i);
+    Serial.print(" Dist: ");
+    Serial.println(xv11.get_distance(i));
+  }*/
+
+  // Clignotement de la LED a des fins de vérification
+  // Code copié depuis un site random, yoink
+  unsigned long currentMillis = millis();
+  if(currentMillis - previousMillis > 250) {
+    // save the last time you blinked the LED 
+    previousMillis = currentMillis;
+    // if the LED is off turn it on and vice-versa:
+    if (ledState == LOW) ledState = HIGH;
+    else ledState = LOW;
+    // set the LED with the ledState of the variable:
+    digitalWrite(ledPin, ledState);
+  }
 
 }
