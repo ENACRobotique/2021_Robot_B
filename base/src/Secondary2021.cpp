@@ -5,6 +5,7 @@
 #include "Metro.h"
 #include "communication.h"
 #include "navigator.h"
+#include "fsmSupervisor.h"
 //#include "raspberryParser.h"
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
@@ -27,6 +28,7 @@ void setup() {
 	TestTime.reset();
 	Odometry::init();
 	MotorControl::init();
+  fsmSupervisor.init();
 
   //while (!Serial);
   
@@ -67,6 +69,10 @@ void loop() {
     if(commXBee.check())
     {
       Communication::update();
+    }
+    if(stateTime.check())
+    {
+      fsmSupervisor.update();
     }
  
   //send_odom_report(12.2, 34.2, 14.8);
