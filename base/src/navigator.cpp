@@ -11,6 +11,7 @@
 #include "odometry.h"
 #include "motorControl.h"
 #include "math.h"
+#include "utils.h"
 
 Navigator navigator = Navigator();
 
@@ -38,8 +39,8 @@ void Navigator::move_to(float x, float y){
 }
 
 void Navigator::move(float v, float omega){
-	v_target = min(SPEED_MAX, max(-SPEED_MAX,v));
-	omega_target = min(OMEGA_MAX, max(-OMEGA_MAX,omega));
+	v_target = clamp(-SPEED_MAX, SPEED_MAX, v);
+	omega_target = clamp(-OMEGA_MAX, OMEGA_MAX, omega);
 	move_type = DISPLACEMENT;
 	move_state = VELOCITY;
 	trajectory_done = true;
@@ -121,14 +122,16 @@ float Navigator::compute_cons_speed()
 		else{
 			speed_cons = sgn*min(SPEED_MAX,abs(Odometry::get_speed()) + MAX_ACCEL*NAVIGATOR_PERIOD);
 		}
-	}
-/*	Serial.print("Distances estimées");
+	} /*
+	Serial.print("Distances estimées");
 	Serial.print("\t");
 	Serial.print(dist_fore - dist_objective);
 	Serial.print("\t");
 	Serial.print(dist_objective);
+	Serial.print("speed cons : ");
+	Serial.print(speed_cons);
 	Serial.print("\tspeed= ");
-	Serial.println(Odometry::get_speed());*/
+	Serial.println(Odometry::get_speed()); */
 	return speed_cons;
 }
 
@@ -164,14 +167,14 @@ float Navigator::compute_cons_omega()
 			omega_cons = sgn*max(0,abs(Odometry::get_omega()) - NAVIGATOR_PERIOD*ACCEL_OMEGA_MAX);
 		}
 	}
-	/*Serial.print("Consigne angle:");
+	Serial.print("Consigne angle:");
 	Serial.print(omega_cons);
 	Serial.print("\t");
 	Serial.print("Alpha:");
 	Serial.print(alpha);
 	Serial.print("\t");
 	Serial.print("angle_fore:");
-	Serial.println(angle_fore);*/
+	Serial.println(angle_fore);
 
 	return omega_cons;
 }

@@ -10,10 +10,11 @@
 #include "Arduino.h"
 #include "params.h"
 #include "motorControl.h"
+#include "utils.h"
 
-int clamp(int inf, int sup, float x) {
-	return min(sup, max(inf, x));
-}
+// int clamp(int inf, int sup, float x) {
+// 	return min(sup, max(inf, x));
+// }
 
 int direction_sign(int nb) {
 	if(nb>0) {
@@ -28,12 +29,12 @@ namespace MotorControl {
 
 	float cons_speed=0;
 	float cons_omega=0;
-	float Ki_speed = 0.2;//0.2;
-	float Kp_speed = 0.5;//0.5;
-	float Kd_speed = 0;
-	float Ki_omega = 10;//15  20;
-	float Kp_omega = 10;//75  30;
-	float Kd_omega = 0;
+	float Ki_speed = 0.15; //0.2
+	float Kp_speed = 0.4; //0.5
+	float Kd_speed = 0; //0.2
+	float Ki_omega = 15;//20;
+	float Kp_omega = 15;//10;
+	float Kd_omega = 5;//10;
 
 	float error_integrale_speed=0.01;
 	float error_integrale_omega=0;
@@ -90,36 +91,50 @@ namespace MotorControl {
 		//error_integrale_omega = clamp(-100,100,error_integrale_omega);
 		float cmd_omega = Kp_omega * error_omega + Ki_omega * error_integrale_omega + Kd_omega * delta_omega;
 
-		int cmd_mot1 = clamp(-255, 255, cmd_speed + cmd_omega);
-		int cmd_mot2 = -clamp(-255, 255, cmd_speed - cmd_omega);
+		int cmd_mot1 = clamp(-255.f, 255.f, cmd_speed - cmd_omega);
+		int cmd_mot2 = -clamp(-255.f, 255.f, cmd_speed + cmd_omega);
 
 		analogWrite(MOT1_PWM, abs(cmd_mot1));
 		digitalWrite(MOT1_DIR, direction_sign(cmd_mot1));
 		analogWrite(MOT2_PWM, abs(cmd_mot2));
 		digitalWrite(MOT2_DIR, direction_sign(cmd_mot2));
 
+/*
 		Serial.print("cmd omega : ");
 		Serial.print(cmd_omega);
 		Serial.print("\t");
-		Serial.print("cmd vitesse : ");
+		Serial.print("cmd vitesse : "); 
 		Serial.print(cmd_speed);
-		Serial.print("\t");
-		Serial.print(cons_omega);
-		Serial.print("\t");
-		Serial.print(Odometry::get_omega());
-		Serial.print("\t");
+		Serial.print("\t"); 
+		Serial.print("cons speed : "); 
+		//Serial.println("\t");
+		//Serial.print("cmd_speed detail : ");
+		//Serial.print(cons_omega);
+		//Serial.print("\t");
+		//Serial.print("cmd omega : ");
+		//Serial.print(cmd_omega);
+		//Serial.print("\t");
+
+		//Serial.print(cmd_speed);
+		//Serial.print("\t");
+		//Serial.print("speed odometry: ");
+		//Serial.println(Odometry::get_omega());
+
+		/*Serial.print("\t");
 		Serial.println(error_integrale_omega);
 		Serial.print("\t");
+		
 		Serial.print("cmd mot 2 & 1 : ");
 		Serial.print(cmd_mot2);
 		Serial.print("\t");
 		Serial.print(cmd_mot1);
 		Serial.print("\t");
-		//Serial.println();
-		//Serial.println(cons_omega);
-		//Serial.print("\t");
-		//Serial.println(Odometry::get_omega());
+		//Serial.println(); */
+		Serial.print(cons_omega);
+		Serial.print(",");
+		Serial.print(Odometry::get_omega());
+		Serial.println();
 		//Serial.print("\t");0
-		//Serial.println("\t");
+		//Serial.println("\t"); */
 	}
 }

@@ -19,6 +19,7 @@ namespace Odometry{
 	int nbr2 = 0;
 	int nbr3 = 0;
 	int nbr4 = 0;
+	int totalincre = 0;
 
 	float pos_x, pos_y, pos_theta;
 
@@ -123,57 +124,29 @@ namespace Odometry{
 			length = ((float)(incr1*INCR_TO_MM_2+incr2*INCR_TO_MM_1)/2.0);
 			angle = ((float)(incr2*INCR_TO_MM_1-incr1*INCR_TO_MM_2))/WHEELBASE;
 		}
-		//TODO : vérifier formule
-		/*Serial.print(" update() >> postheta="); */
-		/*Serial.print(pos_theta);
-		Serial.print(" angle=");
-		Serial.print(angle);*/
 		
 		pos_x = pos_x + length*cos(pos_theta + angle/2.0); //interpolation entre les deux theta
 		pos_y = pos_y + length*sin(pos_theta + angle/2.0);
 		pos_theta = pos_theta + angle;
-/*
-		Serial.print(" pos_x=");
-		Serial.print(pos_x);
-		Serial.print(" pos_y=");
-		Serial.print(pos_y);
-		Serial.print(" new pos_theta=");
-		Serial.print(pos_theta);
-		Serial.println("."); */
 		speed = length / CONTROL_PERIOD;
 		omega = angle / CONTROL_PERIOD;
-		Serial.print("\t");
-		Serial.print("pos_theta");
-		Serial.print(pos_theta);
-		Serial.print("speed : ");
-		Serial.print(speed);
-		Serial.print("\t");
-		Serial.print("incr 1 : ");
-		Serial.print(incr1);
-		Serial.print("\t");
-		Serial.print("incr 2 : ");
-		Serial.print(incr2);
-		Serial.print("\t");
-		Serial.print("real omega ");
-		Serial.print(omega);
-		/*
+
+
+		#ifdef DEBUG_ODOMETRY
+		totalincre += incr2;
+		Serial.println(totalincre);
+		Serial.print("x:");
 		Serial.print(pos_x);
 		Serial.print("\t y:");
 		Serial.print(pos_y);
-		Serial.print("\t theta: ");
+		Serial.print("\t pos_theta:");
 		Serial.print(pos_theta);
-		Serial.print("\t V: ");
+		Serial.print("\tspeed:");
 		Serial.print(speed);
-		
-		Serial.print("mm/s \t V1:");
-		Serial.print(((float)(incr1)*INCR_TO_TOURS/CONTROL_PERIOD));
-		Serial.print("tr/s \t V2:");
-		Serial.print(((float)(incr2)*INCR_TO_TOURS/CONTROL_PERIOD));
-		Serial.print("tr/s \t Omega:");
-		*/
-		//Serial.print((float)incr1/CONTROL_PERIOD);
+		Serial.print("\treal omega:");
+		Serial.println(omega);
 
-		//Serial.println(omega);
+		#endif
 	}
 }
 
