@@ -23,7 +23,7 @@ namespace Odometry {
 	float normalizeAngle(float angle);
 	float get_speed();
 	float get_omega();
-	float closest_wall_coordinate(int x, int y); //if return -1 : too far to be close to a wall
+
 }
 
 
