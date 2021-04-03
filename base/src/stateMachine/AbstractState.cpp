@@ -1,52 +1,74 @@
 /*
- * AbstractState.h
+ * AbstractState.cpp
  *
  *  Created on: 11 avr. 2018
  *      Author: robot
  */
 
-#ifndef STATEMACHINE_ABSTRACTSTATE_H_
-#define STATEMACHINE_ABSTRACTSTATE_H_
-#include <Arduino.h>
+#include "AbstractState.h"
+
+AbstractState::AbstractState() {
+	// TODO Auto-generated constructor stub
+	flags = 0;
+	name = "";
+}
+
 /*
- * example :
- * enum services {
-	E_ULTRASOUND = 1,
-	E_BLINK = 2,
-	E_RADAR = 4,
-	E_WALL = 8,
-	...
-	}
+ *
+ *  Created on: 18 avr. 2018
+ *      Author: Maxime
  */
-enum services {
-	E_ULTRASOUND = 1,
-};
 
-class AbstractState {
-public:
-	AbstractState();
-	virtual ~AbstractState() {};
+#include "Arduino.h"
+#include "CaptureEcocup.h"
+#include "../FMSSupervisor.h"
+#include "Reajustement.h"
+#include "../controlServo.h"
+#include "../params.h"
+#include "etat_test.h"
 
-	virtual void enter() = 0;
-	virtual void doIt() = 0;
-	virtual void leave() = 0;
-	virtual void reEnter(unsigned long InterruptTime) = 0;
-	virtual void forceLeave() = 0;
-	virtual void pauseNextState() =0;
+CaptureEcocup captureEcocup = CaptureEcocup();
 
-	unsigned long getFlags() const {
-		return flags;
+ControlServo servo = ControlServo(); 
+
+CaptureEcocup::CaptureEcocup() {
+	time_start = 0;
+}
+
+CaptureEcocup::~CaptureEcocup() {
+	// TODO Auto-generated destructor stub
+}
+
+void CaptureEcocup::enter() {
+	time_start = millis();
+	Serial1.println("entrée dans l'état capture éco cup");
+	servo.defInitAngle(10);
+	servo.init(SERVO3);
+	delay(1000);
+	servo.resetPos();
+	servo.moveServo(120);
+
+}
+
+void CaptureEcocup::leave() {
+	Serial1.println("Leaving CaptureEcocup");
+}
+
+void CaptureEcocup::doIt() {
+	
+	if(((millis() - time_start) > SERVO_MOVEMENT_DURATION*2) ){
+		servo.resetPos();
+		fmsSupervisor.setNextState(&etat_test);
+		
 	}
-
-	void setFlags(unsigned long flags) {
-		this->flags = flags;
-	}
-	String name = String();
+}
 
 
-protected:
-	unsigned long flags;
-	//unsigned long time_start;
-};
+void CaptureEcocup::reEnter(unsigned long interruptTime){
+}
 
-#endif /* STATEMACHINE_ABSTRACTSTATE_H_ */
+void CaptureEcocup::forceLeave(){
+}
+
+void CaptureEcocup::pauseNextState(){
+}

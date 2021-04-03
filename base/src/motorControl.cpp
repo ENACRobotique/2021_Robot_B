@@ -120,7 +120,7 @@ namespace MotorControl {
 		//Serial.print("speed odometry: ");
 		//Serial.println(Odometry::get_omega());
 
-		/*Serial.print("\t");
+		Serial.print("\t");
 		Serial.println(error_integrale_omega);
 		Serial.print("\t");
 		

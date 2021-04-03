@@ -1,22 +1,22 @@
 /*
- * fsmSupervisor.cpp
+ * FsmSupervisor.cpp
  *
  *  Created on: 11 avr. 2018
  *      Author: robot
  */
 
-#include "fsmSupervisor.h"
+#include "FsmSupervisor.h"
 #include "Arduino.h"
-#include "./stateMachine/AbstractState.h"
+#include "./stateMachine/AbstractState.h" /*
 #include "./stateMachine/CaptureEcocup.h"
 #include "./stateMachine/Reajustement.h"
 #include "./stateMachine/etat_test.h"
-#include "./stateMachine/etat_begin.h"
-#include "kalman.h"
+#include "./stateMachine/etat_begin.h" */
+//#include "kalman.h"
 
-fsmSupervisor fsmSupervisor = fsmSupervisor();
+FsmSupervisor fsmSupervisor = FsmSupervisor();
 
-fsmSupervisor::fsmSupervisor() {
+FsmSupervisor::FsmSupervisor() {
 	// TODO Auto-generated constructor stub
 	nextState = NULL;
 	currentState = NULL;
@@ -24,17 +24,17 @@ fsmSupervisor::fsmSupervisor() {
 	time_obstacle_left = 0;
 }
 
-fsmSupervisor::~fsmSupervisor() {
+FsmSupervisor::~FsmSupervisor() {
 	// TODO Auto-generated destructor stub
 }
 
-void fsmSupervisor::setNextState(AbstractState* state) {
+void FsmSupervisor::setNextState(AbstractState* state) {
 	nextState = state;
 }
 
-void fsmSupervisor::update() {
+void FsmSupervisor::update() {
 	/*if (millis() - tiretteState.get_time_start() > TIME_RACE){
-		fsmSupervisor.setNextState(&deadState); //TODO Créer un état où le robot s'arrête
+		FsmSupervisor.setNextState(&deadState); //TODO Créer un état où le robot s'arrête
 	}
 
 	if(currentState == &pauseState && pauseState.isTooLong()){
@@ -80,16 +80,16 @@ void fsmSupervisor::update() {
 }
 
 /*
-void fsmSupervisor::init(AbstractState* state) {
+void FsmSupervisor::init(AbstractState* state) {
 	currentState = state;
 	state->enter();
 }
 */
-void fsmSupervisor::init(){
+void FsmSupervisor::init(){
 	currentState = &etat_begin;
 	currentState->enter();
 }
 
-void fsmSupervisor::print_State() {
+void FsmSupervisor::print_State() {
 	Serial1.println("Current state :" + currentState->name);
 }

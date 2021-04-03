@@ -1,19 +1,19 @@
 /*
- * fmsSupervisor.h
+ * FsmSupervisor.h
  *
  *  Created on: 11 avr. 2018
  *      Author: robot
  */
 
-#ifndef STATEMACHINE_fmsSupervisor_H_
-#define STATEMACHINE_fmsSupervisor_H_
+#ifndef STATEMACHINE_FsmSupervisor_H_
+#define STATEMACHINE_FsmSupervisor_H_
 
 #include "./stateMachine/AbstractState.h"
 
-class fmsSupervisor {
+class FsmSupervisor {
 public:
-	fmsSupervisor();
-	virtual ~fmsSupervisor();
+	FsmSupervisor();
+	virtual ~FsmSupervisor();
 	void setNextState(AbstractState* state);
 	void update();
 	void init();
@@ -27,6 +27,6 @@ private:
 	unsigned long time_obstacle_left;
 };
 
-extern fmsSupervisor fmsSupervisor;
+extern FsmSupervisor FsmSupervisor;
 
-#endif /* STATEMACHINE_FSMSUPERVISOR_H_ */
+#endif /* STATEMACHINE_FsmSupervisor_H_ */

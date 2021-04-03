@@ -5,7 +5,7 @@
 #include "navigator.h"
 #include "odometry.h"
 #include "fsmSupervisor.h"
-#include "./stateMachine/deploy_from_servo.h"
+#include "./stateMachine/deploy_front_servo.h"
 
 
 
