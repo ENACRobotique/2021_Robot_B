@@ -16,9 +16,11 @@
 
 // ** Serials ports ** //
 
+//#define SerialDebug = Serial;
+//#define SerialCtrl = Serial5;
 //(using stream instead of HardwareSerial because Serial doesn't inherit it)
-Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB   
-Stream& SerialCtrl = Serial5; //used for Xbee, sending and receiveing remotly instructions, remote debug
+static Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB   
+static HardwareSerial& SerialCtrl = Serial5; //used for Xbee, sending and receiveing remotly instructions, remote debug
 
 
 const int ARUCO_ID = 1;
@@ -47,9 +49,9 @@ const int MOT2_DIR = 7;
 // const int US_RANGE = 35;
 // const int US_RANGE_DIMINUSHED = 25;
 
-const int SERVO1 = 2;
+const int SERVO1 = 32;
 // const int SERVO2 = 15;
-const int SERVO3 = 37;
+//const int SERVO3 = 37;
 
 const int POMPE = 15;
 const int VANN = 14;
@@ -124,6 +126,9 @@ const float dist_min=5,dist_max=20;//valeurs initial turn
 const float delta_step_forward=20;//mm
 const float nominal_delta_rot=10;//degres
 const float dist_opt=4.5;
+
+const int SERVO_ANGLE_RETRACTED = 150;
+const int SERVO_ANGLE_DEPLOYED = 60;
 
 // const int NB_US = 4;
 #endif /* PARAMS_H_ */

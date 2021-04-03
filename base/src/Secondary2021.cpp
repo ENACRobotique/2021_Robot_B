@@ -6,6 +6,7 @@
 #include "communication.h"
 #include "navigator.h"
 #include "FsmSupervisor.h"
+#include "actuatorSupervisor.h"
 //#include "raspberryParser.h"
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
@@ -33,6 +34,7 @@ void setup() {
 	Odometry::init();
 	MotorControl::init();
   fsmSupervisor.init();
+  ActuatorSupervisor::init();
 
   //while (!Serial);
   

@@ -23,8 +23,7 @@ public:
 	void pauseNextState();
 
 protected:
-	unsigned long flags;
-	//unsigned long time_start;
+	unsigned long time_start;
 };
 extern DeployFrontServo deployFrontServo;
 

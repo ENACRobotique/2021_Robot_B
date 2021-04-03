@@ -1,9 +1,9 @@
 /*
- *
- *  Created on: 18 avr. 2018
- *      Author: Maxime
- */
+//How to get real x/y ???
 
+*/
+
+/*
 #include "params.h"
 #include "DeployFrontServo.h"
 #include "../FsmSupervisor.h"
@@ -29,16 +29,20 @@ void DeployFrontServo::enter() {
 }
 
 void DeployFrontServo::leave() {
-	SerialDebug.println("Leaving CaptureEcocup");
+	//stop motors
 }
 
 void DeployFrontServo::doIt() {
 	
-	if(((millis() - time_start) > SERVO_MOVEMENT_DURATION*2) ){
-		servo.resetPos();
-		fsmSupervisor.setNextState(&etat_begin);
-		
+	if(about 100ms ago same position) ){
+		//get variable of real x position via navigator recalibrate
+        //change it
+        stop motor
 	} 
+    if(motors are stopped)
+    {
+        leave state
+    }
 }
 
 
@@ -50,3 +54,4 @@ void DeployFrontServo::forceLeave(){
 
 void DeployFrontServo::pauseNextState(){
 }
+*/
