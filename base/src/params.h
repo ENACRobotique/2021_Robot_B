@@ -9,9 +9,17 @@
 #define PARAMS_H_
 #include "Arduino.h"
 
+
 #define VOLT_TO_DIST(volt) (13 * pow (volt  * 0.0048828125, -1)) 
 
 // #define DEBUG_ODOMETRY
+
+// ** Serials ports ** //
+
+//(using stream instead of HardwareSerial because Serial doesn't inherit it)
+Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB   
+Stream& SerialCtrl = Serial5; //used for Xbee, sending and receiveing remotly instructions, remote debug
+
 
 const int ARUCO_ID = 1;
 

@@ -27,6 +27,6 @@ private:
 	unsigned long time_obstacle_left;
 };
 
-extern FsmSupervisor FsmSupervisor;
+extern FsmSupervisor fsmSupervisor;
 
 #endif /* STATEMACHINE_FsmSupervisor_H_ */

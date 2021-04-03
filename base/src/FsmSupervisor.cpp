@@ -10,8 +10,8 @@
 #include "./stateMachine/AbstractState.h" /*
 #include "./stateMachine/CaptureEcocup.h"
 #include "./stateMachine/Reajustement.h"
-#include "./stateMachine/etat_test.h"
-#include "./stateMachine/etat_begin.h" */
+#include "./stateMachine/etat_test.h"*/
+#include "./stateMachine/etat_begin.h" 
 //#include "kalman.h"
 
 FsmSupervisor fsmSupervisor = FsmSupervisor();
@@ -91,5 +91,5 @@ void FsmSupervisor::init(){
 }
 
 void FsmSupervisor::print_State() {
-	Serial1.println("Current state :" + currentState->name);
+	serialCtrl.println("Current state :" + currentState->name);
 }

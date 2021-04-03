@@ -6,8 +6,7 @@
 
 #include "Arduino.h"
 #include "etat_begin.h"
-#include "../FMSSupervisor.h"
-#include "Reajustement.h"
+#include "../FsmSupervisor.h"
 #include "../controlServo.h"
 #include "../params.h"
 
@@ -25,11 +24,11 @@ Etat_begin::~Etat_begin() {
 
 void Etat_begin::enter() {
 	time_start = millis();
-	Serial1.println("Je suis en état begin");
+	SerialDebug.println("Je suis en état begin");
 }
 
 void Etat_begin::leave() {
-	Serial1.println("Leaving etat_begin");
+	SerialDebug.println("Leaving etat_begin");
 }
 
 void Etat_begin::doIt() {
