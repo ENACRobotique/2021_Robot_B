@@ -4,7 +4,8 @@
 #include "motorControl.h"
 #include "navigator.h"
 #include "odometry.h"
-
+#include "fsmSupervisor.h"
+#include "./stateMachine/deploy_from_servo.h"
 
 
 
@@ -83,6 +84,9 @@ namespace Communication {
             if(nb == 1) {
                 navigator.turn_to(angle);
             }
+        }
+        else if(buffer[0] == 'd') {
+            fsmSupervisor.setNextState(&deploy_front_servo);
         }
 
 
