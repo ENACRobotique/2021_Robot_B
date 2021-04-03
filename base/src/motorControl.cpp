@@ -100,41 +100,41 @@ namespace MotorControl {
 		digitalWrite(MOT2_DIR, direction_sign(cmd_mot2));
 
 /*
-		Serial.print("cmd omega : ");
-		Serial.print(cmd_omega);
-		Serial.print("\t");
-		Serial.print("cmd vitesse : "); 
-		Serial.print(cmd_speed);
-		Serial.print("\t"); 
-		Serial.print("cons speed : "); 
-		//Serial.println("\t");
-		//Serial.print("cmd_speed detail : ");
-		//Serial.print(cons_omega);
-		//Serial.print("\t");
-		//Serial.print("cmd omega : ");
-		//Serial.print(cmd_omega);
-		//Serial.print("\t");
+		SerialDebug.print("cmd omega : ");
+		SerialDebug.print(cmd_omega);
+		SerialDebug.print("\t");
+		SerialDebug.print("cmd vitesse : "); 
+		SerialDebug.print(cmd_speed);
+		SerialDebug.print("\t"); 
+		SerialDebug.print("cons speed : "); 
+		//SerialDebug.println("\t");
+		//SerialDebug.print("cmd_speed detail : ");
+		//SerialDebug.print(cons_omega);
+		//SerialDebug.print("\t");
+		//SerialDebug.print("cmd omega : ");
+		//SerialDebug.print(cmd_omega);
+		//SerialDebug.print("\t");
 
-		//Serial.print(cmd_speed);
-		//Serial.print("\t");
-		//Serial.print("speed odometry: ");
-		//Serial.println(Odometry::get_omega());
+		//SerialDebug.print(cmd_speed);
+		//SerialDebug.print("\t");
+		//SerialDebug.print("speed odometry: ");
+		//SerialDebug.println(Odometry::get_omega());
 
-		Serial.print("\t");
-		Serial.println(error_integrale_omega);
-		Serial.print("\t");
+		SerialDebug.print("\t");
+		SerialDebug.println(error_integrale_omega);
+		SerialDebug.print("\t");
 		
-		Serial.print("cmd mot 2 & 1 : ");
-		Serial.print(cmd_mot2);
-		Serial.print("\t");
-		Serial.print(cmd_mot1);
-		Serial.print("\t");
-		//Serial.println(); */
-		Serial.print(cons_omega);
-		Serial.print(",");
-		Serial.print(Odometry::get_omega());
-		Serial.println();
-		//Serial.print("\t");0
-		//Serial.println("\t"); */
+		SerialDebug.print("cmd mot 2 & 1 : ");
+		SerialDebug.print(cmd_mot2);
+		SerialDebug.print("\t");
+		SerialDebug.print(cmd_mot1);
+		SerialDebug.print("\t");
+		//SerialDebug.println(); */
+		SerialDebug.print(cons_omega);
+		SerialDebug.print(",");
+		SerialDebug.print(Odometry::get_omega());
+		SerialDebug.println();
+		//SerialDebug.print("\t");0
+		//SerialDebug.println("\t"); */
 	}
 }

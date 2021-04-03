@@ -18,11 +18,13 @@ Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
 float sp[4] = {0, 3.14f, 0, -3.14f};
 int i = 0;
 
+
 void setup() {
   //Serial.begin(115200);
   pinMode(LED_BUILTIN, OUTPUT);
 
-    Serial5.begin(57600);
+    SerialCtrl.begin(57600);
+    SerialCtrl.println("test serialDebug !");
 
   controlTime.reset();
 	debugLed.reset();

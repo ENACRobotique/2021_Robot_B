@@ -110,10 +110,10 @@ namespace Odometry{
 		nbr1 += incr1;
 		nbr2 += incr2;
 
-		/*Serial.print("nbr1 ");
-		Serial.print(nbr1);
-		Serial.print(" nbr2 ");
-		Serial.println(nbr2);*/
+		/*SerialDebug.print("nbr1 ");
+		SerialDebug.print(nbr1);
+		SerialDebug.print(" nbr2 ");
+		SerialDebug.println(nbr2);*/
 		float length;
 		float angle;
 		if (MotorControl::get_cons_speed()>=0) {
@@ -134,17 +134,17 @@ namespace Odometry{
 
 		#ifdef DEBUG_ODOMETRY
 		totalincre += incr2;
-		Serial.println(totalincre);
-		Serial.print("x:");
-		Serial.print(pos_x);
-		Serial.print("\t y:");
-		Serial.print(pos_y);
-		Serial.print("\t pos_theta:");
-		Serial.print(pos_theta);
-		Serial.print("\tspeed:");
-		Serial.print(speed);
-		Serial.print("\treal omega:");
-		Serial.println(omega);
+		SerialDebug.println(totalincre);
+		SerialDebug.print("x:");
+		SerialDebug.print(pos_x);
+		SerialDebug.print("\t y:");
+		SerialDebug.print(pos_y);
+		SerialDebug.print("\t pos_theta:");
+		SerialDebug.print(pos_theta);
+		SerialDebug.print("\tspeed:");
+		SerialDebug.print(speed);
+		SerialDebug.print("\treal omega:");
+		SerialDebug.println(omega);
 
 		#endif
 	}
