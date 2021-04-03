@@ -5,7 +5,7 @@
 #include "Metro.h"
 #include "communication.h"
 #include "navigator.h"
-#include "fsmSupervisor.h"
+#include "FsmSupervisor.h"
 //#include "raspberryParser.h"
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
