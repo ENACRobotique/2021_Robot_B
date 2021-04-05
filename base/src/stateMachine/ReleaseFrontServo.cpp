@@ -14,7 +14,6 @@
 
 ReleaseFrontServo releaseFrontServo = ReleaseFrontServo();
 
-ControlServo servo = ControlServo(); 
 
 ReleaseFrontServo::ReleaseFrontServo() {
 	time_start = 0;
@@ -23,19 +22,17 @@ ReleaseFrontServo::ReleaseFrontServo() {
 
 void ReleaseFrontServo::enter() {
 	time_start = millis();
-	SerialDebug.println("entrée dans l'état capture éco cup");
-	ReleaseFrontServo();
+	ActuatorSupervisor::FrontReleaseVann();
 
 }
 
 void ReleaseFrontServo::leave() {
-	SerialDebug.println("Leaving CaptureEcocup");
+	SerialDebug.println("Leaving ReleaseFrontServo");
 }
 
 void ReleaseFrontServo::doIt() {
 	
 	if(((millis() - time_start) > SERVO_MOVEMENT_DURATION*2) ){
-		servo.resetPos();
 		fsmSupervisor.setNextState(&etat_begin);
 		
 	} 
