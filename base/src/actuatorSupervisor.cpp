@@ -11,8 +11,13 @@ namespace ActuatorSupervisor
 
     void init()
     {
+        pinMode(SERVO1, OUTPUT);
+        pinMode(POMPE, OUTPUT);
+        pinMode(VANN, OUTPUT);
         servo1.defInitAngle(150);
         servo1.init(SERVO1);
+        digitalWrite(POMPE, LOW);
+        digitalWrite(VANN, LOW);
         //TODO : define other servos
     }
 

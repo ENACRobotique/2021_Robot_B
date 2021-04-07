@@ -49,7 +49,7 @@ const int MOT2_DIR = 7;
 // const int US_RANGE = 35;
 // const int US_RANGE_DIMINUSHED = 25;
 
-const int SERVO1 = 32;
+const int SERVO1 = 29;
 // const int SERVO2 = 15;
 //const int SERVO3 = 37;
 

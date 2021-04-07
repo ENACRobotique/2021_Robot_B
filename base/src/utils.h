@@ -1,6 +1,8 @@
 #pragma once
 
 #include <Arduino.h>
+#ifndef UTILS_H
+#define UTILS_H
 
 template<typename T> 
 const T & clamp( const T & inf, const T & sup, const T & x ) 
@@ -12,7 +14,7 @@ const T & clamp( const T & inf, const T & sup, const T & x )
     const float RIGHT_WALL = 3000; //TO CHECK;
     const float TOP_WALL = 1000;
     const float BOTTOM_WALL = 0; //TO CHECK;
-
+/*
     //used for recalibration :
 float closest_wall_coordinate(int x, int y) //if return -1 : too far to be close to a wall
 {
@@ -37,4 +39,5 @@ float closest_wall_coordinate(int x, int y) //if return -1 : too far to be close
         return -1.0f;
     }
     
-}
+} */
+#endif
