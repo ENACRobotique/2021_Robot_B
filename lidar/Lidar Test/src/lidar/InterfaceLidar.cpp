@@ -29,8 +29,11 @@ void InterfaceLidar::update_and_calc(uint8_t byte){
     int y = Odometry::get_pos_y();
     int robotAngle = Odometry::get_pos_theta();
     //get centers from zones of short distances
+    //ignore obstacles on robot (dist < robot_perimeter/2pi) using params.h
     //store centers in table 
     //done
+
+    // dans un premier temps, faire en coordonnées relatives
 }
 
 int* InterfaceLidar::obstacles(){
