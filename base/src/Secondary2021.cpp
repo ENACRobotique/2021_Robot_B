@@ -25,7 +25,6 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 
     SerialCtrl.begin(57600);
-    SerialCtrl.println("test serialDebug !");
 
   controlTime.reset();
 	debugLed.reset();

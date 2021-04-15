@@ -28,30 +28,30 @@ const int ARUCO_ID = 1;
 const unsigned long TIME_RACE = 100000;
 
 
-const int MOT_ENCODEUR1_A = 3;
-const int MOT_ENCODEUR1_B = 4;
-const int MOT_ENCODEUR2_A = 1;
-const int MOT_ENCODEUR2_B = 0;
+const int MOT_ENCODEUR1_A = 21;
+const int MOT_ENCODEUR1_B = 20;
+const int MOT_ENCODEUR2_A = 23;
+const int MOT_ENCODEUR2_B = 22;
 
-const int WHEEL_ENCODEUR1_A = 3;
-const int WHEEL_ENCODEUR1_B = 4;
-const int WHEEL_ENCODEUR2_A = 1;
-const int WHEEL_ENCODEUR2_B = 0;
+const int WHEEL_ENCODEUR1_A = 21;//16;
+const int WHEEL_ENCODEUR1_B = 20;//17;
+const int WHEEL_ENCODEUR2_A = 23;//29;
+const int WHEEL_ENCODEUR2_B = 22;//30;
 
 
-const int MOT1_PWM = 9;
-const int MOT1_DIR = 10;
-const int MOT2_PWM = 8;
-const int MOT2_DIR = 7;
+const int MOT1_PWM = 36;
+const int MOT1_DIR = 33;
+const int MOT2_PWM = 35;
+const int MOT2_DIR = 34;
 
 //const int BATT_CHARGE = 37;
 
 // const int US_RANGE = 35;
 // const int US_RANGE_DIMINUSHED = 25;
 
-const int SERVO1 = 32;
-// const int SERVO2 = 15;
-//const int SERVO3 = 37;
+const int SERVO1 = 38; //BAR
+// const int SERVO2 = 37; //Pavillon
+
 
 const int POMPE = 15;
 const int VANN = 14;

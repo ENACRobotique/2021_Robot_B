@@ -22,8 +22,8 @@ DeployFrontServo::DeployFrontServo() {
 
 void DeployFrontServo::enter() {
 	time_start = millis();
-	SerialDebug.println("entrée dans l'état capture éco cup");
-	DeployFrontServo();
+	SerialCtrl.println("entrée dans l'état DeployFrontServo");
+	ActuatorSupervisor::FrontDeployServo();
 
 }
 

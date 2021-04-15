@@ -5,6 +5,7 @@
  */
 
 #include "Arduino.h"
+#include "params.h"
 #include "etat_begin.h"
 #include "../FsmSupervisor.h"
 #include "../controlServo.h"
