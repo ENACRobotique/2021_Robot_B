@@ -167,13 +167,14 @@ int LidarXV11::get_distance(int angle){
 	return distance_angle[angle];
 }
 
+int* LidarXV11::get_all_distances(){
+	return distance_angle;
+}
+
 bool LidarXV11::is_valid(int angle){
 	return valid_angle[angle];
 }
 
-
 void LidarXV11::init() {
-	//serial = lidar_serial;
-	//serial.begin(115200);
-	//Serial4.begin(115200);
+
 }
