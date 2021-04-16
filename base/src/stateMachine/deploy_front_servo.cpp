@@ -14,7 +14,6 @@
 
 DeployFrontServo deployFrontServo = DeployFrontServo();
 
-ControlServo servo = ControlServo(); 
 
 DeployFrontServo::DeployFrontServo() {
 	time_start = 0;
@@ -35,7 +34,6 @@ void DeployFrontServo::leave() {
 void DeployFrontServo::doIt() {
 	
 	if(((millis() - time_start) > SERVO_MOVEMENT_DURATION*2) ){
-		servo.resetPos();
 		fsmSupervisor.setNextState(&etat_begin);
 		
 	} 
