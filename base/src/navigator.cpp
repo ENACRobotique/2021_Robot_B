@@ -36,7 +36,7 @@ void Navigator::move_to(float x, float y){
 	SerialDebug.print(x_target);
 	SerialDebug.print("\t");
 	SerialDebug.println(y_target);
-}
+}//aa
 
 void Navigator::move(float v, float omega){
 	v_target = clamp(-SPEED_MAX, SPEED_MAX, v);

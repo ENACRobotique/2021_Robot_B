@@ -20,7 +20,7 @@
 //#define SerialCtrl = Serial5;
 //(using stream instead of HardwareSerial because Serial doesn't inherit it)
 static Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB   
-static HardwareSerial& SerialCtrl = Serial5; //used for Xbee, sending and receiveing remotly instructions, remote debug
+static HardwareSerial& SerialCtrl = Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug
 
 
 const int ARUCO_ID = 1;
