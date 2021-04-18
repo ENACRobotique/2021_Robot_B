@@ -4,7 +4,9 @@
 #include "Arduino.h"
 #include "PWMServo.h"
 
-
+/* allow an interface with one servo 
+they are stored in actuatorSupervisor
+*/
 class ControlServo{    
 public:
     ControlServo();

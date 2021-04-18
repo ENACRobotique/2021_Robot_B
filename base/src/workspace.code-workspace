@@ -6,7 +6,15 @@
 		{
 			"name": "base",
 			"path": ".."
+		},
+		{
+			"name": "Lidar Test",
+			"path": "../../lidar/Lidar Test"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"*.tcc": "cpp"
+		}
+	}
 }

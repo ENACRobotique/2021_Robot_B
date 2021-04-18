@@ -11,6 +11,7 @@
 #include "odometry.h"
 #include "motorControl.h"
 #include "math.h"
+#include "utils.h"
 
 Navigator navigator = Navigator();
 
@@ -31,22 +32,22 @@ void Navigator::move_to(float x, float y){
 	move_type = DISPLACEMENT;
 	move_state = INITIAL_TURN;
 	trajectory_done = false;
-	Serial.print("moving_to : ");
-	Serial.print(x_target);
-	Serial.print("\t");
-	Serial.println(y_target);
-}
+	SerialDebug.print("moving_to : ");
+	SerialDebug.print(x_target);
+	SerialDebug.print("\t");
+	SerialDebug.println(y_target);
+}//aa
 
 void Navigator::move(float v, float omega){
-	v_target = min(SPEED_MAX, max(-SPEED_MAX,v));
-	omega_target = min(OMEGA_MAX, max(-OMEGA_MAX,omega));
+	v_target = clamp(-SPEED_MAX, SPEED_MAX, v);
+	omega_target = clamp(-OMEGA_MAX, OMEGA_MAX, omega);
 	move_type = DISPLACEMENT;
 	move_state = VELOCITY;
 	trajectory_done = true;
-	Serial.print("velocity movement: ");
-	Serial.print(v_target);
-	Serial.print("\t");
-	Serial.println(omega_target);
+	SerialDebug.print("velocity movement: ");
+	SerialDebug.print(v_target);
+	SerialDebug.print("\t");
+	SerialDebug.println(omega_target);
 }
 
 void Navigator::step_forward(float d){
@@ -61,12 +62,12 @@ void Navigator::step_backward(float d){
 void Navigator::turn_to(float theta){ // En degrés
 	theta_target = center_radian(PI*theta/180);
 
-	/*Serial.print("Angle: ");
-	Serial.println(Odometry::get_pos_theta());
-	Serial.print("moving_to : ");
-	Serial.print(theta_target);
-	Serial.print(" ( <  ");
-	Serial.println(theta);*/
+	/*SerialDebug.print("Angle: ");
+	SerialDebug.println(Odometry::get_pos_theta());
+	SerialDebug.print("moving_to : ");
+	SerialDebug.print(theta_target);
+	SerialDebug.print(" ( <  ");
+	SerialDebug.println(theta);*/
 
 	move_type = TURN;
 	move_state = INITIAL_TURN;
@@ -80,10 +81,10 @@ void Navigator::throw_to(float x, float y, float theta){
 	move_type = THROW;
 	move_state = CRUISE;
 	trajectory_done = false;
-	/*Serial.print("throwing_to : ");
-	Serial.print(x_target);
-	Serial.print("\t");
-	Serial.println(y_target);*/
+	/*SerialDebug.print("throwing_to : ");
+	SerialDebug.print(x_target);
+	SerialDebug.print("\t");
+	SerialDebug.println(y_target);*/
 }
 
 float Navigator::compute_cons_speed()
@@ -99,9 +100,9 @@ float Navigator::compute_cons_speed()
 	}
 	sgn = scalaire(cos(Odometry::get_pos_theta()),sin(Odometry::get_pos_theta()),x_target - Odometry::get_pos_x(),y_target - Odometry::get_pos_y());
 
-	/*Serial.print("Sens d'avancée:");
-	Serial.print("\t");
-	Serial.println(sgn);*/
+	/*SerialDebug.print("Sens d'avancée:");
+	SerialDebug.print("\t");
+	SerialDebug.println(sgn);*/
 
 	//Test de décélération (on suppose l'accélération minimale et on intègre deux fois)
 	t_stop = Odometry::get_speed()/MAX_ACCEL;
@@ -121,14 +122,16 @@ float Navigator::compute_cons_speed()
 		else{
 			speed_cons = sgn*min(SPEED_MAX,abs(Odometry::get_speed()) + MAX_ACCEL*NAVIGATOR_PERIOD);
 		}
-	}
-/*	Serial.print("Distances estimées");
-	Serial.print("\t");
-	Serial.print(dist_fore - dist_objective);
-	Serial.print("\t");
-	Serial.print(dist_objective);
-	Serial.print("\tspeed= ");
-	Serial.println(Odometry::get_speed());*/
+	} /*
+	SerialDebug.print("Distances estimées");
+	SerialDebug.print("\t");
+	SerialDebug.print(dist_fore - dist_objective);
+	SerialDebug.print("\t");
+	SerialDebug.print(dist_objective);
+	SerialDebug.print("speed cons : ");
+	SerialDebug.print(speed_cons);
+	SerialDebug.print("\tspeed= ");
+	SerialDebug.println(Odometry::get_speed()); */
 	return speed_cons;
 }
 
@@ -164,14 +167,14 @@ float Navigator::compute_cons_omega()
 			omega_cons = sgn*max(0,abs(Odometry::get_omega()) - NAVIGATOR_PERIOD*ACCEL_OMEGA_MAX);
 		}
 	}
-	/*Serial.print("Consigne angle:");
-	Serial.print(omega_cons);
-	Serial.print("\t");
-	Serial.print("Alpha:");
-	Serial.print(alpha);
-	Serial.print("\t");
-	Serial.print("angle_fore:");
-	Serial.println(angle_fore);*/
+	SerialDebug.print("Consigne angle:");
+	SerialDebug.print(omega_cons);
+	SerialDebug.print("\t");
+	SerialDebug.print("Alpha:");
+	SerialDebug.print(alpha);
+	SerialDebug.print("\t");
+	SerialDebug.print("angle_fore:");
+	SerialDebug.println(angle_fore);
 
 	return omega_cons;
 }
@@ -191,6 +194,7 @@ void Navigator::update(){
 	else{
 		switch(move_state){
 		case INITIAL_TURN:
+
 			if(move_type==DISPLACEMENT){
 				alpha = Odometry::get_pos_theta() + center_axes(atan2((-y_target+Odometry::get_pos_y()),(-x_target+Odometry::get_pos_x())) - Odometry::get_pos_theta());
 			}
@@ -221,8 +225,6 @@ void Navigator::update(){
 			}
 
 			omega_cons = compute_cons_omega();
-			MotorControl::set_cons(0,omega_cons);
-
 			MotorControl::set_cons(0,omega_cons);
 
 			break;
@@ -291,10 +293,10 @@ bool Navigator::moveForward(){
 
 float Navigator::center_axes(float angle)
 {
-	/*Serial.print("center radian:");
-		Serial.print("\t");
-		Serial.print(angle);
-		Serial.print("\t");*/
+	/*SerialDebug.print("center radian:");
+		SerialDebug.print("\t");
+		SerialDebug.print(angle);
+		SerialDebug.print("\t");*/
 	if (abs(angle) > PI){
 		if(angle<0){
 			while(abs(angle)>PI){
@@ -313,7 +315,7 @@ float Navigator::center_axes(float angle)
 	if(abs(angle-PI) + ADMITTED_ANGLE_ERROR< abs(angle)){
 		angle-=PI;
 	}
-	/*Serial.println(angle);*/
+	/*SerialDebug.println(angle);*/
 	return angle;
 }
 

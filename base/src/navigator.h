@@ -5,8 +5,8 @@
  * Author : Maxime
  */
 
-#ifndef TRAJ_H_
-#define TRAJ_H_
+#ifndef NAVIGATOR_H_
+#define NAVIGATOR_H_
 
 typedef enum {  TURN,
 				DISPLACEMENT,
