@@ -11,6 +11,8 @@
 namespace Odometry {
 	void isr1();
 	void isr2();
+	void isr3();
+	void isr4();
 
 	void update();
 	void init();
