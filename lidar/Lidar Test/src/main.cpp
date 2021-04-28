@@ -3,7 +3,9 @@
 #include "lidar/InterfaceLidar.h"
 //#include <MemoryFree.h>
 
-InterfaceLidar xv11 = InterfaceLidar();
+//InterfaceLidar xv11 = InterfaceLidar();
+LidarXV11 xv11 = LidarXV11();
+
 
 int ledPin = 13;
 long previousMillis = 0;
@@ -24,7 +26,8 @@ void loop() {
   // put your main code here, to run repeatedly:
  if(Serial1.available()) {
     uint8_t c = Serial1.read();
-    xv11.update_and_calc(c);
+    //xv11.update_and_calc(c);
+    xv11.update(c);
     //if (xv11.is_packet_available()){
 		//	struct Package_Data packet = xv11.get_packet();
 		//	if (packet.index == 110 / 4 + 0xA0){
