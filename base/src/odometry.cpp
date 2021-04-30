@@ -131,7 +131,7 @@ namespace Odometry{
 		pos_theta = pos_theta + angle;
 		speed = length / CONTROL_PERIOD;
 		omega = angle / CONTROL_PERIOD;
-
+		//SerialCtrl.println(incr2);
 
 		#ifdef DEBUG_ODOMETRY
 		totalincre += incr2;

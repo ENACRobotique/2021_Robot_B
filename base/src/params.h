@@ -30,13 +30,13 @@ const unsigned long TIME_RACE = 100000;
 
 const int MOT_ENCODEUR1_A = 21;
 const int MOT_ENCODEUR1_B = 20;
-const int MOT_ENCODEUR2_A = 23;
-const int MOT_ENCODEUR2_B = 22;
+const int MOT_ENCODEUR2_A = 29;
+const int MOT_ENCODEUR2_B = 30;
 
 const int WHEEL_ENCODEUR1_A = 21;//16;
 const int WHEEL_ENCODEUR1_B = 20;//17;
-const int WHEEL_ENCODEUR2_A = 23;//29;
-const int WHEEL_ENCODEUR2_B = 22;//30;
+const int WHEEL_ENCODEUR2_A = 29;//23;//
+const int WHEEL_ENCODEUR2_B = 30;//22;//
 
 
 const int MOT1_PWM = 36;
@@ -98,9 +98,9 @@ const float ADMITTED_ANGLE_ERROR = 0.01;
 //const float MAX_DRIFT = 0.1;
 //const float WHEEL_DIAMETER = 55.0;
 const float WHEELBASE = 169.;
-const float INCR_TO_MM = 0.3414969475;   //PI*WHEEL_DIAMETER/805.12; ou divisé par 701 pour l'encodeur des moteurs 12V
-const float INCR_TO_MM_1 = INCR_TO_MM * 1;
-const float INCR_TO_MM_2 = INCR_TO_MM * 1;
+const float INCR_TO_MM = 1;   //PI*WHEEL_DIAMETER/805.12; ou divisé par 701 pour l'encodeur des moteurs 12V // 2048 pour les AMT-102V
+const float INCR_TO_MM_1 = INCR_TO_MM * 0.3414969475;
+const float INCR_TO_MM_2 = 1;//INCR_TO_MM * 0.0613592315;
 //const float INCR_TO_TOURS = 1/805.12;
 const float CONTROL_PERIOD = 0.02;
 const float NAVIGATOR_PERIOD = 0.05;
