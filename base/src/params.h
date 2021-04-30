@@ -28,10 +28,10 @@ const int ARUCO_ID = 1;
 const unsigned long TIME_RACE = 100000;
 
 
-const int MOT_ENCODEUR1_A = 21;
-const int MOT_ENCODEUR1_B = 20;
-const int MOT_ENCODEUR2_A = 29;
-const int MOT_ENCODEUR2_B = 30;
+const int MOT_ENCODEUR1_A = 29;//21;
+const int MOT_ENCODEUR1_B = 30;//20;
+const int MOT_ENCODEUR2_A = 23;//29;
+const int MOT_ENCODEUR2_B = 22;//30;
 
 const int WHEEL_ENCODEUR1_A = 21;//16;
 const int WHEEL_ENCODEUR1_B = 20;//17;
