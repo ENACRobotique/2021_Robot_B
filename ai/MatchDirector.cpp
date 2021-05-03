@@ -65,6 +65,8 @@ void update()
     //->passer à l'etat suivant si le fsm est à un état "final", càd sans état supplémentaire prévue par défaut
     //Par exemple, pour le récupérage de gobelet, on doit rester longtemps dans l'état, donc jusqu'à ce qu'il soit dans "deadState", on attends
 
+    //CTRL navigator
+    //CTRL FSM
 }
 float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 {
@@ -93,9 +95,6 @@ addScore()
 */
 
 
-Actions : 
-Ctrl Navigator
-Ctrl FSM
 
 
 } // namespace MatchDirector
