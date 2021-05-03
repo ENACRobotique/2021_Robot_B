@@ -11,7 +11,7 @@ class InterfaceLidar{
         void update_and_calc(uint8_t byte);
         int* obstacles();
 
-    private:
+    //private:
         LidarXV11 lidar;
         int emplacementObstacles[6][2];
 

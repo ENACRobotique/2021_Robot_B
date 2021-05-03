@@ -35,13 +35,31 @@ void InterfaceLidar::update_and_calc(uint8_t byte){
         if (all_distances[i] < ROBOT_PERIMETER/(2*PI)){ // TODO: vérifier unités
             all_distances[i] = -1; //-1 veut dire ignoré
         }
-        // calc expected distance to border following angle
-        float expected_dist;
-        int lid_angle = i - LIDAR_OFFSET_ANGLE - robotAngle;
-        //if (atan() <= lid_angle <= )
+        else{
+            // calc expected distance to border following angle
+            float expected_dist;
+            int lid_angle = i - LIDAR_OFFSET_ANGLE - robotAngle;
+            if (-atan(y/(3000 - x)) <= lid_angle <= atan((2000 - y)/(3000 - x))){//secteur droit
+                expected_dist = (3000 - x)/cos(lid_angle);
+            }
+            else if (atan((2000 - y)/(3000 - x) <= lid_angle <= 180 - atan((2000-y)/x))){//secteur haut
+                expected_dist = (2000 - y)/sin(lid_angle);
+            }
+            else if (180 - atan((2000-y)/x <= lid_angle <= 180 + atan(y/x))){//secteur gauche
+                expected_dist = y/cos(lid_angle-180);
+            }
+            else if (180 + atan(y/x) <= lid_angle <= -atan(y/(3000 - x))){//secteur bas
+                expected_dist = x/cos(lid_angle-90);
+            }
+            if (all_distances[i] > expected_dist){
+                all_distances[i] = -1; //trop loin donc ignoré
+            }
+        }
     }
     // get centers from zones of short distances
-    
+    /*for (){
+
+    }*/
 
     //store centers in table 
     //done
