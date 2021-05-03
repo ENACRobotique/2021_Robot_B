@@ -21,9 +21,16 @@ namespace Communication {
     void update() {
         int a;
         a = SerialCtrl.available();
-        
+        #ifdef IHM
+            SerialCtrl.print("R 2 "); + 
+            SerialCtrl.print(Odometry::get_pos_x());
+            SerialCtrl.print(" ");
+            SerialCtrl.print(Odometry::get_pos_y());
+            SerialCtrl.print(" ");
+            SerialCtrl.println(Odometry::get_pos_theta());
+            //SerialCtrl.println("");
+        #endif
         if (a) {
-            
             for (int k=0;k<a;k++) {
                 char c=SerialCtrl.read();
                 //serialCtrl.write(c);
@@ -49,6 +56,7 @@ namespace Communication {
     }
 
     static void parse_data(){
+        SerialDebug.print(buffer);
         if(buffer[0] == 's') {
             MotorControl::set_cons(0,0);
             navigator.forceStop();
@@ -67,6 +75,14 @@ namespace Communication {
                 SerialCtrl.print("\t");
                 SerialCtrl.println(y);
                 #endif
+            }
+        }
+        else if(buffer[0] == 'P') {
+            float x,y;
+            int nb = sscanf(buffer, "P 2 %f %f", &x, &y);
+            if(nb == 2) {   
+                navigator.move_to(x, y);
+                SerialDebug.println(x);
             }
         }
         else if(buffer[0] == 'o') {

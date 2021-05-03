@@ -13,6 +13,7 @@
 #define VOLT_TO_DIST(volt) (13 * pow (volt  * 0.0048828125, -1)) 
 
 // #define DEBUG_ODOMETRY
+#define IHM
 
 // ** Serials ports ** //
 
@@ -27,11 +28,14 @@ const int ARUCO_ID = 1;
 
 const unsigned long TIME_RACE = 100000;
 
-
-const int MOT_ENCODEUR1_A = 29;//21;
-const int MOT_ENCODEUR1_B = 30;//20;
-const int MOT_ENCODEUR2_A = 23;//29;
-const int MOT_ENCODEUR2_B = 22;//30;
+//MC2 A : 23 MC2 B : 22
+//MC1 A : 21 MC1 B : 20
+//COD 2 A : 29 COD2B : 30
+//
+const int MOT_ENCODEUR1_A = 23;//21;
+const int MOT_ENCODEUR1_B = 22;//20;
+const int MOT_ENCODEUR2_A = 21;//29;
+const int MOT_ENCODEUR2_B = 20;//30;
 
 const int WHEEL_ENCODEUR1_A = 21;//16;
 const int WHEEL_ENCODEUR1_B = 20;//17;
@@ -99,8 +103,8 @@ const float ADMITTED_ANGLE_ERROR = 0.01;
 //const float WHEEL_DIAMETER = 55.0;
 const float WHEELBASE = 169.;
 const float INCR_TO_MM = 1;   //PI*WHEEL_DIAMETER/805.12; ou divisé par 701 pour l'encodeur des moteurs 12V // 2048 pour les AMT-102V
-const float INCR_TO_MM_1 = INCR_TO_MM * 0.3414969475;
-const float INCR_TO_MM_2 = 1;//INCR_TO_MM * 0.0613592315;
+const float INCR_TO_MM_1 = INCR_TO_MM * 0.3414969475; // 0.3414969475
+const float INCR_TO_MM_2 = INCR_TO_MM * 0.3414969475;//INCR_TO_MM * 0.0613592315;
 //const float INCR_TO_TOURS = 1/805.12;
 const float CONTROL_PERIOD = 0.02;
 const float NAVIGATOR_PERIOD = 0.05;

@@ -50,7 +50,7 @@ void loop() {
 		if(controlTime.check()) {
 
 			Odometry::update();
-      //MotorControl::update();
+      MotorControl::update();
 		} 
 /*
     if(TestTime.check())

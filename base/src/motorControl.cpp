@@ -129,7 +129,7 @@ namespace MotorControl {
 		SerialDebug.print("\t");
 		SerialDebug.print(cmd_mot1);
 		SerialDebug.print("\t");
-		//SerialDebug.println(); */
+		//SerialDebug.println(); 
 		SerialDebug.print(cons_omega);
 		SerialDebug.print(",");
 		SerialDebug.print(Odometry::get_omega());
