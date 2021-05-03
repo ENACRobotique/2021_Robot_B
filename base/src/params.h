@@ -97,6 +97,7 @@ const float ADMITTED_ANGLE_ERROR = 0.01;
 
 //const float MAX_DRIFT = 0.1;
 //const float WHEEL_DIAMETER = 55.0;
+const float robot_center_x = 150.f; // largeur / 2
 const float WHEELBASE = 169.;
 const float INCR_TO_MM = 0.3414969475;   //PI*WHEEL_DIAMETER/805.12; ou divisé par 701 pour l'encodeur des moteurs 12V
 const float INCR_TO_MM_1 = INCR_TO_MM * 1;

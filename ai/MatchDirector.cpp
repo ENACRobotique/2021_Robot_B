@@ -3,6 +3,7 @@
 #include "ActionsList.h"
 #include "../base/src/params.h"
 #include "../base/src/navigator.h" 
+#include "../base/src/odometry.h"" 
 #include "../base/src/FsmSupervisor.h" 
 
     using namespace std;
@@ -22,33 +23,24 @@ depending on the time left & an order of action.
 Manage the score total, the score of an action is stored in Action. 
 Can be modified by states if needed (for example, if an action is interacting with a variable amount of object & the score depend on this amount).
 */
+
+    bool isStartingLeft = true;
+    bool isDrivingBackward = true; //if move with navigator with positive number, robot goes backward
+
     float timer = 100; // en s
     int score = 0;
-    float init_x;
-    float init_y;
 
-    /* code à changer si on se foire sur le montage des roues */
-    float offsetX = 0;
+    float offsetX = 0; //offsets au début du terrain par rapport à l'abs
     float offsetY = 0;
-    bool inverseX = false;
-    bool inverseY = false;
 
 void init()
 {
     //TODO : call only when match has started;
     //TODO : implement timer count;
-    bool isStartingLeft = true;
-    if(isStartingLeft)
-    {
-        init_x = 0; //TODO : prendre en compte offset/inverse X??
-        init_y = 1000;
-        offsetY = 1000;
-    }
-    else
-    {
-        init_x = 2000; //TODO : prendre en compte offset/inverse X??
-        init_y = 1000;
-    }
+
+    /* en fonction de la taille du terrain */
+    offsetY = 1000; //largeur terrain/2
+    offsetX = (isStartingLeft) ? robot_center_x : (3000 - robot_center_x); //3000-> longueur terrain
 
 }
 
@@ -67,6 +59,43 @@ void update()
 
     //CTRL navigator
     //CTRL FSM
+}
+
+void abs_coords_to(float x, float y)
+{  
+    if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
+    {
+        navigator.move_to(-x, -y);
+    }
+    else
+    {
+        navigator.move_to(x, y);
+    }
+    
+}
+
+float get_abs_x(float x)
+{
+    if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
+    {
+        return -Odometry::get_pos_x() + offsetX;
+    }
+    else 
+    {
+        return Odometry::get_pos_x() + offsetX;
+    }
+}
+
+float get_abs_y(float y)
+{
+    if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
+    {
+        return -Odometry::get_pos_y() + offsetY;
+    }
+    else 
+    {
+        return Odometry::get_pos_y() + offsetY;
+    }
 }
 float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 {
