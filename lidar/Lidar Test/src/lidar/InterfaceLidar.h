@@ -10,6 +10,8 @@ class InterfaceLidar{
         void init();
         void update_and_calc(uint8_t byte);
         int* obstacles();
+        int* get_buffer_dist();
+        int* get_raw_dist();
 
     //private:
         LidarXV11 lidar;

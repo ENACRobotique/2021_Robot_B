@@ -35,11 +35,15 @@ void loop() {
 		//}
   }
 
-  /*for (int i = 0; i<360; i++){
-    Serial.print("Angle: ");
+  int* buffer_dist = xv11.get_buffer_dist();
+  int* raw_dist = xv11.get_raw_dist();
+
+  for (int i = 0; i<360; i++){
     Serial.print(i);
-    Serial.print(" Dist: ");
-    Serial.println(xv11.get_distance(i));
-  }*/
+    Serial.print(" ");
+    Serial.print(raw_dist[i]);
+    Serial.print(" ");
+    Serial.println(buffer_dist[i]);
+  }
 
 }

@@ -24,6 +24,14 @@ void InterfaceLidar::init(){
     }
 }
 
+int* InterfaceLidar::get_buffer_dist(){
+    return buffer_distances;
+}
+
+int* InterfaceLidar::get_raw_dist(){
+    return lidar.get_all_distances();
+}
+
 void InterfaceLidar::update_and_calc(uint8_t byte){
     lidar.update(byte); //maj distances ang lidar
     //if timer is more than 1/10th of second
