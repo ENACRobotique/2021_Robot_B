@@ -13,7 +13,9 @@ class InterfaceLidar{
 
     //private:
         LidarXV11 lidar;
+        int buffer_distances[360];
         int emplacementObstacles[6][2];
+        float last_update = 0;
 
 };
 
