@@ -156,6 +156,9 @@ void LidarXV11::read_data(int i) {
 	packet.warning[i] = (data[1] & 0b01000000);
 	packet.strength[i] = (data[3] << 8) | data[2];
 	distance_angle[(packet.index - 0xA0)  * 4 + i] = packet.distance[i];
+	/*if (packet.invalid[i]){
+		distance_angle[(packet.index - 0xA0)  * 4 + i] = 2000;
+	}*/
 	//Serial.print((packet.index - 0xA0)  * 4 + i);
 	//Serial.print(" ");
 	valid_angle[(packet.index - 0xA0)  * 4 + i] = !packet.invalid[i];

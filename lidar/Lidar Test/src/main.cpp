@@ -37,9 +37,9 @@ void loop() {
 		//}
   }
 
-  int* buffer_dist = xv11.get_buffer_dist();
+  bool* invalids = xv11.get_valids();
   int* raw_dist = xv11.get_raw_dist();
-  int* expec_dist = xv11.get_expected_dist();
+  bool* inzone_dist = xv11.get_inzones();
 
   if (millis() - last_update >= 100){
     last_update = millis();
@@ -49,9 +49,11 @@ void loop() {
       Serial.print(" ");
       Serial.print(raw_dist[i]);
       Serial.print(" ");
-      Serial.print(buffer_dist[i]);
+      Serial.print(invalids[i]);
       Serial.print(" ");
-      Serial.println(expec_dist[i]);
+      Serial.println(inzone_dist[i]);
+      Serial.print("s ");
+      Serial.println((int)xv11.lidar.getSpeed());
     }
   }
 }

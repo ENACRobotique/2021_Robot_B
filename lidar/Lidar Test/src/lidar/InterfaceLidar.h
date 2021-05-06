@@ -10,16 +10,15 @@ class InterfaceLidar{
         void init();
         void update_and_calc(uint8_t byte);
         int* obstacles();
-        int* get_buffer_dist();
         int* get_raw_dist();
-        int* get_expected_dist();
+        bool* get_valids();
+        bool* get_inzones();
 
     //private:
         LidarXV11 lidar;
-        int buffer_distances[360];
-        int expected_distances[360];
         int emplacementObstacles[6][2];
         float last_update = -1;
+        bool inzones[360];
 
 };
 
