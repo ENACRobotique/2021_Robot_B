@@ -12,12 +12,14 @@ class InterfaceLidar{
         int* obstacles();
         int* get_buffer_dist();
         int* get_raw_dist();
+        int* get_expected_dist();
 
     //private:
         LidarXV11 lidar;
         int buffer_distances[360];
+        int expected_distances[360];
         int emplacementObstacles[6][2];
-        float last_update = 0;
+        float last_update = -1;
 
 };
 

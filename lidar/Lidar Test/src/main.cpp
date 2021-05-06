@@ -8,6 +8,7 @@ InterfaceLidar xv11 = InterfaceLidar();
 
 
 int ledPin = 13;
+int last_update = 0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -19,6 +20,7 @@ void setup() {
   //}
   Serial.println("USB Serial working.");
   Serial1.begin(115200);
+  
 }
 
 void loop() {
@@ -37,13 +39,19 @@ void loop() {
 
   int* buffer_dist = xv11.get_buffer_dist();
   int* raw_dist = xv11.get_raw_dist();
+  int* expec_dist = xv11.get_expected_dist();
 
-  for (int i = 0; i<360; i++){
-    Serial.print(i);
-    Serial.print(" ");
-    Serial.print(raw_dist[i]);
-    Serial.print(" ");
-    Serial.println(buffer_dist[i]);
+  if (millis() - last_update >= 100){
+    last_update = millis();
+    for (int i = 0; i<360; i++){
+      Serial.print("l ");
+      Serial.print(i);
+      Serial.print(" ");
+      Serial.print(raw_dist[i]);
+      Serial.print(" ");
+      Serial.print(buffer_dist[i]);
+      Serial.print(" ");
+      Serial.println(expec_dist[i]);
+    }
   }
-
 }

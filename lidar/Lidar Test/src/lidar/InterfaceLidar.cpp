@@ -32,10 +32,14 @@ int* InterfaceLidar::get_raw_dist(){
     return lidar.get_all_distances();
 }
 
+int* InterfaceLidar::get_expected_dist(){
+    return expected_distances;
+}
+
 void InterfaceLidar::update_and_calc(uint8_t byte){
     lidar.update(byte); //maj distances ang lidar
     //if timer is more than 1/10th of second
-    if (last_update = 0){
+    if (last_update == -1){
         last_update = millis();
     }
     if (millis()-last_update >= 100){
@@ -57,19 +61,20 @@ void InterfaceLidar::update_and_calc(uint8_t byte){
             else{
                 // calc expected distance to border following angle
                 float expected_dist;
-                int lid_angle = i - LIDAR_OFFSET_ANGLE - robotAngle;
+                int lid_angle = (i - LIDAR_OFFSET_ANGLE - robotAngle)/180*PI;
                 if (-atan(y/(3000 - x)) <= lid_angle and lid_angle <= atan((2000 - y)/(3000 - x))){//secteur droit
                     expected_dist = (3000 - x)/cos(lid_angle);
                 }
-                else if (atan((2000 - y)/(3000 - x) <= lid_angle and lid_angle <= 180 - atan((2000-y)/x))){//secteur haut
+                else if (atan((2000 - y)/(3000 - x) <= lid_angle and lid_angle <= PI - atan((2000-y)/x))){//secteur haut
                     expected_dist = (2000 - y)/sin(lid_angle);
                 }
-                else if (180 - atan((2000-y)/x <= lid_angle and lid_angle <= 180 + atan(y/x))){//secteur gauche
-                    expected_dist = y/cos(lid_angle-180);
+                else if (PI - atan((2000-y)/x <= lid_angle and lid_angle <= PI + atan(y/x))){//secteur gauche
+                    expected_dist = y/cos(lid_angle-PI);
                 }
-                else if (180 + atan(y/x) <= lid_angle and lid_angle <= -atan(y/(3000 - x))){//secteur bas
-                    expected_dist = x/cos(lid_angle-90);
+                else if (PI + atan(y/x) <= lid_angle and lid_angle <= -atan(y/(3000 - x))){//secteur bas
+                    expected_dist = x/cos(lid_angle-PI/2);
                 }
+                expected_distances[i] = expected_dist;
                 if (buffer_distances[i] > expected_dist){
                     buffer_distances[i] = -1; //trop loin donc ignoré
                 }
