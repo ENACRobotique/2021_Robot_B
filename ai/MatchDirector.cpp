@@ -87,11 +87,11 @@ void abs_coords_to(float x, float y)
 {  
     if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
     {
-        navigator.move_to(-x, -y);
+        navigator.move_to(-x + offsetX, -y + offsetY);
     }
     else
     {
-        navigator.move_to(x, y);
+        navigator.move_to(x + offsetX, y + offsetY);
     }
     
 }
@@ -129,7 +129,7 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
     }
     else
     {
-        distance = sqrt((targetX-begX)*(targetX-begX)+(begY-targetY)*(targetX-begX));
+        float distance = sqrt((targetX-begX)*(targetX-begX)+(begY-targetY)*(targetX-begX));
     //t = d/v
         ACCEL_MAX ;
         time = 4;//TODO trouver une meilleure formule, avec temps accelerer, décellérer, temps pour tourner

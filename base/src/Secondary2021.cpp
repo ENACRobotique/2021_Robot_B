@@ -7,6 +7,7 @@
 #include "navigator.h"
 #include "FsmSupervisor.h"
 #include "actuatorSupervisor.h"
+#include "../../ai/MatchDirector.h"
 //#include "raspberryParser.h"
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
@@ -34,6 +35,7 @@ void setup() {
 	MotorControl::init();
   fsmSupervisor.init();
   ActuatorSupervisor::init();
+  MatchDirector::init();
 
   //while (!Serial);
   

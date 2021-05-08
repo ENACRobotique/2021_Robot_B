@@ -94,3 +94,13 @@ void FsmSupervisor::init(){
 void FsmSupervisor::print_State() {
 	SerialCtrl.println("Current state :" + currentState->name);
 }
+
+
+String FsmSupervisor::get_current_state() {
+	return currentState->name;
+}
+
+bool FsmSupervisor::is_no_state_set()
+{
+	return (currentState == NULL) ? true : false;
+}

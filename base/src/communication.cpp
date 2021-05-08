@@ -5,7 +5,8 @@
 #include "navigator.h"
 #include "odometry.h"
 #include "FsmSupervisor.h"
-#include "./stateMachine/DeployFrontServo.h"
+#include "../../ai/MatchDirector.h"
+#include "../../ai/ActionsList.h"
 #include "params.h"
 
 
@@ -84,8 +85,8 @@ namespace Communication {
                 navigator.turn_to(angle);
             }
         }
-        else if(buffer[0] == 'd') {
-            fsmSupervisor.setNextState(&deployFrontServo);
+        else if(buffer[0] == 'd') { //deploy front servo -> from start to deposit ecocup
+            MatchDirector::curSection = *EcocupsTopLeft;
         }
 
 

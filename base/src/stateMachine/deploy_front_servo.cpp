@@ -4,11 +4,10 @@
  *      Author: Maxime
  */
 
-#include "params.h"
 #include "DeployFrontServo.h"
 #include "../FsmSupervisor.h"
 #include "../params.h"
-#include "actuatorSupervisor.h"
+#include "../actuatorSupervisor.h"
 #include "etat_begin.h"
 
 

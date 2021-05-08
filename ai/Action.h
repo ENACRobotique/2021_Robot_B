@@ -3,6 +3,13 @@
 
 #include "../base/src/stateMachine/AbstractState.h"
 
+typedef enum 
+{
+    BEGIN,
+    MOVING,
+    TURNING,
+    DOSTATE,
+}ActionState;
 struct Action
 {
     float x;

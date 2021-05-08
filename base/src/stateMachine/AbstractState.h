@@ -7,20 +7,6 @@
 
 #ifndef STATEMACHINE_ABSTRACTSTATE_H_
 #define STATEMACHINE_ABSTRACTSTATE_H_
-#include <Arduino.h>
-/*
- * example :
- * enum services {
-	E_ULTRASOUND = 1,
-	E_BLINK = 2,
-	E_RADAR = 4,
-	E_WALL = 8,
-	...
-	}
- */
-enum services {
-	E_ULTRASOUND = 1,
-};
 
 class AbstractState {
 public:
