@@ -1,17 +1,23 @@
 #include <iostream>
+#include "math.h"
 #include "Action.h"
 #include "ActionsList.h"
 #include "../base/src/params.h"
 #include "../base/src/navigator.h" 
 #include "../base/src/odometry.h"" 
 #include "../base/src/FsmSupervisor.h" 
+;
 
     using namespace std;
    int main()
    {
     cout << "Hello World" << endl;
+    MatchDirector::init();
     system("PAUSE");
-    return 0;
+        cout << "init done" << endl;
+        MatchDirector::update();
+            system("PAUSE");
+
    }
 
 namespace MatchDirector
@@ -27,9 +33,13 @@ Can be modified by states if needed (for example, if an action is interacting wi
     bool isStartingLeft = true;
     bool isDrivingBackward = true; //if move with navigator with positive number, robot goes backward
 
+    Action *curSection = NULL; // undefined size of array
+    //Section = multiple actions that usually lead to points at the end
+    int curActIndex = 0;
+    ActionState actionState = BEGIN;
+
     float timer = 100; // en s
     int score = 0;
-
     float offsetX = 0; //offsets au début du terrain par rapport à l'abs
     float offsetY = 0;
 
@@ -41,24 +51,36 @@ void init()
     /* en fonction de la taille du terrain */
     offsetY = 1000; //largeur terrain/2
     offsetX = (isStartingLeft) ? robot_center_x : (3000 - robot_center_x); //3000-> longueur terrain
-
+    //DEBUG : 
+    //curSection = EcocupsTopLeft;
 }
 
 void update()
 {
-    Action currentAction[10];
-    int curActIndex = 0;
-    //if(abs(currentAction[curActIndex].x - getTableCoordinateX() < 3 && pareil pour Y )
-        //Aller à l'angle voulue
-        //switcher à l'état si pas déjà fait
-        // voir si on est dans un état"mort"
-            //Si oui, curActIndex ++,
-            //sinon attendre
+    Action curAction = curSection[curActIndex];
+    if(actionState == BEGIN)
+    {
+        abs_coords_to(curAction.x,curAction.y);
+        actionState = MOVING;
+    }
+    else if(actionState == MOVING && 
+    timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= curAction.countdownState)
+    {
+        fsmSupervisor.setNextState(curAction.state);
+    }
+    else if(actionState == MOVING && navigator.isTrajectoryFinished()) //Has moved -> has turned
+    {
+        navigator.turn_to(curAction.angle);
+        actionState = TURNING;
+    }
+    else if(actionState == TURNING && navigator.isTrajectoryFinished() && fsmSupervisor.is_no_state_set())
+    {
+        curActIndex++;
+        actionState = BEGIN;
+    }
     //->passer à l'etat suivant si le fsm est à un état "final", càd sans état supplémentaire prévue par défaut
     //Par exemple, pour le récupérage de gobelet, on doit rester longtemps dans l'état, donc jusqu'à ce qu'il soit dans "deadState", on attends
 
-    //CTRL navigator
-    //CTRL FSM
 }
 
 void abs_coords_to(float x, float y)
@@ -74,7 +96,7 @@ void abs_coords_to(float x, float y)
     
 }
 
-float get_abs_x(float x)
+float get_abs_x()
 {
     if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
     {
@@ -86,7 +108,7 @@ float get_abs_x(float x)
     }
 }
 
-float get_abs_y(float y)
+float get_abs_y()
 {
     if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
     {
@@ -107,6 +129,9 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
     }
     else
     {
+        distance = sqrt((targetX-begX)*(targetX-begX)+(begY-targetY)*(targetX-begX));
+    //t = d/v
+        ACCEL_MAX ;
         time = 4;//TODO trouver une meilleure formule, avec temps accelerer, décellérer, temps pour tourner
     }
     return time;
