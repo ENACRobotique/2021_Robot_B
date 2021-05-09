@@ -7,15 +7,14 @@
 
 #ifndef PARAMS_H_
 #define PARAMS_H_
-#include "Arduino.h"
 
+#include "Arduino.h"
 
 #define VOLT_TO_DIST(volt) (13 * pow (volt  * 0.0048828125, -1)) 
 
 // #define DEBUG_ODOMETRY
 
 // ** Serials ports ** //
-
 //#define SerialDebug = Serial;
 //#define SerialCtrl = Serial5;
 //(using stream instead of HardwareSerial because Serial doesn't inherit it)

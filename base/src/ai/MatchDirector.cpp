@@ -1,24 +1,10 @@
-#include <iostream>
+#include "MatchDirector.h"
 #include "math.h"
-#include "Action.h"
 #include "ActionsList.h"
-#include "../base/src/params.h"
-#include "../base/src/navigator.h" 
-#include "../base/src/odometry.h"" 
-#include "../base/src/FsmSupervisor.h" 
-;
-
-    using namespace std;
-   int main()
-   {
-    cout << "Hello World" << endl;
-    MatchDirector::init();
-    system("PAUSE");
-        cout << "init done" << endl;
-        MatchDirector::update();
-            system("PAUSE");
-
-   }
+#include "../params.h"
+#include "../navigator.h" 
+#include "../odometry.h"
+#include "../FsmSupervisor.h" 
 
 namespace MatchDirector
 {
@@ -48,39 +34,12 @@ void init()
     //TODO : call only when match has started;
     //TODO : implement timer count;
 
-    /* en fonction de la taille du terrain */
-    offsetY = 1000; //largeur terrain/2
-    offsetX = (isStartingLeft) ? robot_center_x : (3000 - robot_center_x); //3000-> longueur terrain
+    //en fonction de la taille du terrain 
+
+    offsetY = 1000.0f; //largeur terrain/2
+    offsetX = (isStartingLeft) ? robot_center_x : (3000.0f - robot_center_x); //3000-> longueur terrain
     //DEBUG : 
     //curSection = EcocupsTopLeft;
-}
-
-void update()
-{
-    Action curAction = curSection[curActIndex];
-    if(actionState == BEGIN)
-    {
-        abs_coords_to(curAction.x,curAction.y);
-        actionState = MOVING;
-    }
-    else if(actionState == MOVING && 
-    timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= curAction.countdownState)
-    {
-        fsmSupervisor.setNextState(curAction.state);
-    }
-    else if(actionState == MOVING && navigator.isTrajectoryFinished()) //Has moved -> has turned
-    {
-        navigator.turn_to(curAction.angle);
-        actionState = TURNING;
-    }
-    else if(actionState == TURNING && navigator.isTrajectoryFinished() && fsmSupervisor.is_no_state_set())
-    {
-        curActIndex++;
-        actionState = BEGIN;
-    }
-    //->passer à l'etat suivant si le fsm est à un état "final", càd sans état supplémentaire prévue par défaut
-    //Par exemple, pour le récupérage de gobelet, on doit rester longtemps dans l'état, donc jusqu'à ce qu'il soit dans "deadState", on attends
-
 }
 
 void abs_coords_to(float x, float y)
@@ -120,6 +79,7 @@ float get_abs_y()
     }
 }
 float timeToReachCoords(float begX, float begY, float targetX, float targetY)
+/* rough estimate using ACCEL MAX, doesn't take into account time to turn to a certain angle*/
 {
     float time = 0;
     float d_squared = (targetX-begX)*(targetX-begX)+(begY-targetY)*(targetX-begX);
@@ -131,11 +91,45 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
     {
         float distance = sqrt((targetX-begX)*(targetX-begX)+(begY-targetY)*(targetX-begX));
     //t = d/v
-        ACCEL_MAX ;
-        time = 4;//TODO trouver une meilleure formule, avec temps accelerer, décellérer, temps pour tourner
+        float speed = ACCEL_MAX / 2;
+        time = distance/speed;
     }
     return time;
 
+}
+
+void update()
+{
+    Action curAction = curSection[curActIndex];
+    if(actionState == BEGIN)
+    {
+        abs_coords_to(curAction.x,curAction.y);
+        actionState = MOVING;
+    }
+    else if(actionState == MOVING && 
+    timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= curAction.countdownState)
+    {
+        fsmSupervisor.setNextState(curAction.state);
+    }
+    else if(actionState == MOVING && navigator.isTrajectoryFinished()) //Has moved -> has turned
+    {
+        navigator.turn_to(curAction.angle);
+        actionState = TURNING;
+    }
+    else if(actionState == TURNING && navigator.isTrajectoryFinished() && fsmSupervisor.is_no_state_set())
+    {
+        curActIndex++;
+        actionState = BEGIN;
+    }
+    //->passer à l'etat suivant si le fsm est à un état "final", càd sans état supplémentaire prévue par défaut
+    //Par exemple, pour le récupérage de gobelet, on doit rester longtemps dans l'état, donc jusqu'à ce qu'il soit dans "deadState", on attends
+
+}
+
+
+void set_current_action(Action *action)
+{
+    curSection = action;
 }
 /* méthodes à rajouter :
 Temps estimé pour réaliser action

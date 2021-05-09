@@ -8,6 +8,8 @@
 #ifndef STATEMACHINE_ABSTRACTSTATE_H_
 #define STATEMACHINE_ABSTRACTSTATE_H_
 
+#include "arduino.h"
+
 class AbstractState {
 public:
 	AbstractState();

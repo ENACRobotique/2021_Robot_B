@@ -5,8 +5,8 @@
 #include "navigator.h"
 #include "odometry.h"
 #include "FsmSupervisor.h"
-#include "../../ai/MatchDirector.h"
-#include "../../ai/ActionsList.h"
+#include "ai/MatchDirector.h"
+#include "ai/ActionsList.h"
 #include "params.h"
 
 
@@ -86,7 +86,7 @@ namespace Communication {
             }
         }
         else if(buffer[0] == 'd') { //deploy front servo -> from start to deposit ecocup
-            MatchDirector::curSection = *EcocupsTopLeft;
+            MatchDirector::set_current_action(ActionList::EcocupsTopLeft);
         }
 
 

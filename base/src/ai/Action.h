@@ -1,7 +1,7 @@
 #ifndef ACTION_H
 #define ACTION_H
 
-#include "../base/src/stateMachine/AbstractState.h"
+#include "../stateMachine/AbstractState.h"
 
 typedef enum 
 {
