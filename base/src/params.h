@@ -37,12 +37,11 @@ const int MOT2_DIR = 7;
 // const int US_RANGE = 35;
 // const int US_RANGE_DIMINUSHED = 25;
 
-const int SERVO1 = 2;
-// const int SERVO2 = 15;
-const int SERVO3 = 37;
+const int SERVO_PAV = 37;
+const int SERVO_BAR = 38;
 
-const int POMPE = 15;
-const int VANN = 14;
+//const int POMPE = 15;
+//const int VANN = 14;
 // const int MOT_GALET_L = 35;
 // const int MOT_LIDAR = 35;
 
