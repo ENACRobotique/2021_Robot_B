@@ -5,15 +5,15 @@
  *      Author: Maxime
  */
 
-#ifndef STATEMACHINE_RECALIBRATION_WALL_H_
-#define STATEMACHINE_RECALIBRATION_WALL_H_
+#ifndef STATEMACHINE_RELEASE_FRONT_RED_H_
+#define STATEMACHINE_RELEASE_FRONT_RED_H_
 
 #include "AbstractState.h"
 
-class Recalibration_wall : public AbstractState {
+class Release_front_red : public AbstractState {
 public:
-	Recalibration_wall();
-	virtual ~Recalibration_wall();
+	Release_front_red();
+	virtual ~Release_front_red();
 
 	void doIt();
 	void leave();
@@ -30,6 +30,6 @@ private:
 	unsigned long time_start;
 };
 
-extern Recalibration_wall recalibration_wall;
+extern Release_front_red release_front_red;
 
 #endif 

@@ -5,8 +5,7 @@
 #include "../navigator.h" 
 #include "../odometry.h"
 #include "../FsmSupervisor.h" 
-
-#define NULL 0
+#include "arduino.h" //NULL definition
 
 namespace MatchDirector
 {

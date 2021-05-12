@@ -4,7 +4,7 @@
  *      Author: Maxime
  */
 
-#include "params.h"
+//#include "params.h"
 #include "ReleaseFrontServo.h"
 #include "../FsmSupervisor.h"
 #include "../params.h"

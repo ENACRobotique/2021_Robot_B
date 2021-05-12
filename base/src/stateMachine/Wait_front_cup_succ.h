@@ -5,15 +5,15 @@
  *      Author: Maxime
  */
 
-#ifndef STATEMACHINE_RECALIBRATION_WALL_H_
-#define STATEMACHINE_RECALIBRATION_WALL_H_
+#ifndef STATEMACHINE_WAIT_CUP_SUC_H_
+#define STATEMACHINE_WAIT_CUP_SUC_H_
 
 #include "AbstractState.h"
 
-class Recalibration_wall : public AbstractState {
+class Wait_font_cup_succ : public AbstractState {
 public:
-	Recalibration_wall();
-	virtual ~Recalibration_wall();
+	Wait_font_cup_succ();
+	virtual ~Wait_font_cup_succ();
 
 	void doIt();
 	void leave();
@@ -30,6 +30,6 @@ private:
 	unsigned long time_start;
 };
 
-extern Recalibration_wall recalibration_wall;
+extern Wait_font_cup_succ wait_font_cup_succ;
 
 #endif 

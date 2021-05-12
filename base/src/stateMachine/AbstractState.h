@@ -17,9 +17,9 @@ public:
 	virtual void enter() = 0;
 	virtual void doIt() = 0;
 	virtual void leave() = 0;
-	virtual void reEnter(unsigned long InterruptTime) = 0;
-	virtual void forceLeave() = 0;
-	virtual void pauseNextState() =0;
+	virtual void reEnter(unsigned long InterruptTime) {}
+	virtual void forceLeave() {}
+	virtual void pauseNextState() {}
 
 	unsigned long getFlags() const {
 		return flags;

@@ -33,7 +33,7 @@ void DeployFrontServo::leave() {
 void DeployFrontServo::doIt() {
 	
 	if(((millis() - time_start) > SERVO_MOVEMENT_DURATION*2) ){
-		fsmSupervisor.setNextState(&etat_begin);
+		fsmSupervisor.setNextState(NULL);
 		
 	} 
 }
