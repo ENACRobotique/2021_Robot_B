@@ -17,8 +17,8 @@ public:
 	void setNextState(AbstractState* state);
 	void update();
 	void init();
-	void print_State();
-	String get_current_state();
+	//void print_State();
+	//String get_current_state();
 	bool is_no_state_set();
 
 private:

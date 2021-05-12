@@ -5,22 +5,26 @@
  *      Author: elie
  */
 
+
 #ifndef PARAMS_H_
 #define PARAMS_H_
 
-#include "Arduino.h"
-
 #define VOLT_TO_DIST(volt) (13 * pow (volt  * 0.0048828125, -1)) 
 
-// #define DEBUG_ODOMETRY
+    #ifndef DEBUG_NO_ARDUINO
+    #include "Arduino.h"
 
-// ** Serials ports ** //
-//#define SerialDebug = Serial;
-//#define SerialCtrl = Serial5;
-//(using stream instead of HardwareSerial because Serial doesn't inherit it)
-static Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB   
-static HardwareSerial& SerialCtrl = Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug
 
+
+    // #define DEBUG_ODOMETRY
+
+    // ** Serials ports ** //
+    //#define SerialDebug = Serial;
+    //#define SerialCtrl = Serial5;
+    //(using stream instead of HardwareSerial because Serial doesn't inherit it)
+    static Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB   
+    static HardwareSerial& SerialCtrl = Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug
+    #endif
 
 const int ARUCO_ID = 1;
 

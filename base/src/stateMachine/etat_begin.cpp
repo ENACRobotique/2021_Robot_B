@@ -16,7 +16,6 @@ Etat_begin etat_begin = Etat_begin();
 
 Etat_begin::Etat_begin() {
 	time_start = 0;
-	name="Etat_begin";
 }
 
 Etat_begin::~Etat_begin() {

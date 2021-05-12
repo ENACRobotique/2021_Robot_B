@@ -8,7 +8,6 @@
 #ifndef STATEMACHINE_ABSTRACTSTATE_H_
 #define STATEMACHINE_ABSTRACTSTATE_H_
 
-#include "arduino.h"
 
 class AbstractState {
 public:
@@ -29,7 +28,8 @@ public:
 	void setFlags(unsigned long flags) {
 		this->flags = flags;
 	}
-	String name = String();
+	//String name = String();
+	//^^^^ Laisser commenterpour pouvoir debugger du code en local sans passer par la librarie arduino
 
 
 protected:

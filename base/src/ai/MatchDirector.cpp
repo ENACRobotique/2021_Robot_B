@@ -6,6 +6,8 @@
 #include "../odometry.h"
 #include "../FsmSupervisor.h" 
 
+#define NULL 0
+
 namespace MatchDirector
 {
 
