@@ -5,21 +5,26 @@
 #include "Metro.h"
 #include "communication.h"
 #include "navigator.h"
+#include "FsmSupervisor.h"
+#include "actuatorSupervisor.h"
 //#include "raspberryParser.h"
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
 Metro debugLed = Metro(2000);
 Metro navTime = Metro((unsigned long)(NAVIGATOR_PERIOD * 1000)); //2000
-Metro TestTime = Metro(5000);
+Metro TestTime = Metro(2000);
 Metro commXBee = Metro((unsigned long)(COMMUNICATION_PERIOD * 1000));
 Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
+
+float sp[4] = {0, 3.14f, 0, -3.14f};
+int i = 0;
 
 
 void setup() {
   //Serial.begin(115200);
   pinMode(LED_BUILTIN, OUTPUT);
 
-    Serial5.begin(57600);
+    SerialCtrl.begin(57600);
 
   controlTime.reset();
 	debugLed.reset();
@@ -27,13 +32,13 @@ void setup() {
 	TestTime.reset();
 	Odometry::init();
 	MotorControl::init();
+  fsmSupervisor.init();
+  ActuatorSupervisor::init();
 
   //while (!Serial);
   
 }
-int i;
-int mot1=50;//entre -255 et 255
-int mot2=-50;
+
 void loop() {
 
       if(navTime.check())
@@ -45,19 +50,14 @@ void loop() {
 		if(controlTime.check()) {
 
 			Odometry::update();
-      //MotorControl::update();
-    Serial.println("  ");
-      Serial.print(" pos x : ");
-      Serial.print(Odometry::get_pos_x());
-      Serial.print(" pos y : ");
-      Serial.print(Odometry::get_pos_y());
+      MotorControl::update();
 		} 
-
+/*
     if(TestTime.check())
     {
-      mot1 = 0;
-      mot2=0;
-    }
+      MotorControl::set_cons(0.f,sp[i]);
+      i = (i+1) % 4;
+    }  */
     /*
 		if (TestTime.check())
     {
@@ -67,6 +67,10 @@ void loop() {
     if(commXBee.check())
     {
       Communication::update();
+    }
+    if(stateTime.check())
+    {
+      fsmSupervisor.update();
     }
  
   //send_odom_report(12.2, 34.2, 14.8);

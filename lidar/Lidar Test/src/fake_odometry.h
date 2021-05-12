@@ -5,8 +5,8 @@
  *      Author: elie
  */
 
-#ifndef ODOMETRY_H_
-#define ODOMETRY_H_
+#ifndef FAKE_ODOMETRY_H_
+#define FAKE_ODOMETRY_H_
 
 namespace Odometry {
 	void isr1();
@@ -23,7 +23,6 @@ namespace Odometry {
 	float normalizeAngle(float angle);
 	float get_speed();
 	float get_omega();
-
 }
 
 

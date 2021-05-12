@@ -44,6 +44,7 @@ public:
 	float getSpeed(){
 		return(speed);
 	}
+	int* get_all_distances();
 
 private:
 	void read_data(int i);

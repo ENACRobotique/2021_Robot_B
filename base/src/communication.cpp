@@ -4,15 +4,15 @@
 #include "motorControl.h"
 #include "navigator.h"
 #include "odometry.h"
-
-
+#include "FsmSupervisor.h"
+#include "./stateMachine/DeployFrontServo.h"
+#include "params.h"
 
 
 #define COM_DEBUG
 
 namespace Communication {
     
-    //HardwareSerial *serialCtrl = &Serial5; 
     
     static void parse_data();
 
@@ -20,17 +20,17 @@ namespace Communication {
     int buff_index=0;
     void update() {
         int a;
-        a = Serial5.available();
+        a = SerialCtrl.available();
         
         if (a) {
             
             for (int k=0;k<a;k++) {
-                char c=Serial5.read();
-                //Serial5.write(c);
+                char c=SerialCtrl.read();
+                //serialCtrl.write(c);
                 if (c=='\n'){
                    
                    buffer[buff_index]='\0';
-      //             Serial5.write(buffer,i);
+      //             serialCtrl.write(buffer,i);
                    parse_data();
                    //value=atoi(buffer);
                    buff_index=0;
@@ -53,7 +53,7 @@ namespace Communication {
             MotorControl::set_cons(0,0);
             navigator.forceStop();
             #ifdef COM_DEBUG
-            Serial5.println("Stopped!");
+            SerialCtrl.println("Stopped!");
             #endif
         }
         else if(buffer[0] == 'm') {
@@ -62,20 +62,20 @@ namespace Communication {
             if(nb == 2) {   
                 navigator.move_to(x, y);
                 #ifdef COM_DEBUG
-                Serial5.print("Moving to ");
-                Serial5.print(x);
-                Serial5.print("\t");
-                Serial5.println(y);
+                SerialCtrl.print("Moving to ");
+                SerialCtrl.print(x);
+                SerialCtrl.print("\t");
+                SerialCtrl.println(y);
                 #endif
             }
         }
         else if(buffer[0] == 'o') {
-            Serial5.print("pos: ");
-            Serial5.print(Odometry::get_pos_x());
-            Serial5.print("\t");
-            Serial5.print(Odometry::get_pos_y());
-            Serial5.print("\t");
-            Serial5.println(Odometry::get_pos_theta());
+            SerialCtrl.print("pos: ");
+            SerialCtrl.print(Odometry::get_pos_x());
+            SerialCtrl.print("\t");
+            SerialCtrl.print(Odometry::get_pos_y());
+            SerialCtrl.print("\t");
+            SerialCtrl.println(Odometry::get_pos_theta());
         } else if(buffer[0] == 't') {
             //in degrees
             float angle;
@@ -83,6 +83,9 @@ namespace Communication {
             if(nb == 1) {
                 navigator.turn_to(angle);
             }
+        }
+        else if(buffer[0] == 'd') {
+            fsmSupervisor.setNextState(&deployFrontServo);
         }
 
 

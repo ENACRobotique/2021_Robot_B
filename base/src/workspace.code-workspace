@@ -12,5 +12,9 @@
 			"path": "../../lidar/Lidar Test"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"*.tcc": "cpp"
+		}
+	}
 }
