@@ -18,12 +18,7 @@ public:
 	void enter();
 	void doIt();
 	void leave();
-	void reEnter(unsigned long InterruptTime);
-	void forceLeave();
-	void pauseNextState();
 
-protected:
-	unsigned long time_start;
 };
 extern DeployFrontServo deployFrontServo;
 
