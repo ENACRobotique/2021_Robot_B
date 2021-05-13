@@ -49,20 +49,34 @@ const int MOT2_DIR = 33;//34;
 
 //const int BATT_CHARGE = 37;
 
-// const int US_RANGE = 35;
-// const int US_RANGE_DIMINUSHED = 25;
+const int SERVO_PAV = 37;
+const int SERVO_BAR = 38;
 
-const int SERVO1 = 38; //BAR
-// const int SERVO2 = 37; //Pavillon
+//PCA 9685PW - not pin from teensy !
+const int EV5 = 14; //EV = ElectroVanne
+const int EV4 = 13;
+const int EV3 = 12;
+const int EV2 = 11;
+const int EV1 = 10;
+const int POMPE5 = 9;
+const int POMPE4 = 8;
+const int POMPE3 = 7;
+const int POMPE2 = 6;
+const int POMPE1 = 5;
+const int SERVO5 = 4;
+const int SERVO4 = 3;
+const int SERVO3 = 2;
+const int SERVO2 = 1;
+const int SERVO1 = 0;
 
+//Pins from I2C multiplexer, not from teensy :
+const int COLOR_SENSOR_1 = 0;//TODO
 
-const int POMPE = 15;
-const int VANN = 14;
-// const int MOT_GALET_L = 35;
-// const int MOT_LIDAR = 35;
-
-const int COLOR = 26;
-const int TIRETTE = 25;
+const int MOT_LIDAR = 2;
+const int COLOR = 25;
+const int TIRETTE = 24;
+const int DISPLAY1 = 7;
+const int DISPLAY2 = 8;
 
 const float SPEED_MAX = 500.0f; //0.5f;
 const float OMEGA_MAX = 1.4f;

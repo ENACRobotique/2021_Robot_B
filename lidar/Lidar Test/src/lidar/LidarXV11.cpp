@@ -150,16 +150,19 @@ void LidarXV11::display_package(struct Package_Data* p) {
 
 void LidarXV11::read_data(int i) {
 	packet.distance[i] = ((0b00111111 & data[1]) << 8) | data[0];
-	Serial.print(packet.distance[i]);
-	Serial.print(" ");
+	//Serial.print(packet.distance[i]);
+	//Serial.print(" ");
 	packet.invalid[i] = (data[1] & 0b10000000);
 	packet.warning[i] = (data[1] & 0b01000000);
 	packet.strength[i] = (data[3] << 8) | data[2];
 	distance_angle[(packet.index - 0xA0)  * 4 + i] = packet.distance[i];
-	Serial.print((packet.index - 0xA0)  * 4 + i);
-	Serial.print(" ");
+	/*if (packet.invalid[i]){
+		distance_angle[(packet.index - 0xA0)  * 4 + i] = 2000;
+	}*/
+	//Serial.print((packet.index - 0xA0)  * 4 + i);
+	//Serial.print(" ");
 	valid_angle[(packet.index - 0xA0)  * 4 + i] = !packet.invalid[i];
-	Serial.println(valid_angle[(packet.index - 0xA0)  * 4 + i]);
+	//Serial.println(valid_angle[(packet.index - 0xA0)  * 4 + i]);
 
 }
 

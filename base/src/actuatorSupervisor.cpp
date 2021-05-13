@@ -42,8 +42,8 @@ namespace ActuatorSupervisor
 
     void FrontReleaseVann()
     {
-        digitalWrite(VANN, HIGH);
-        digitalWrite(POMPE, LOW);
+        //digitalWrite(VANN, HIGH);
+        //digitalWrite(POMPE, LOW);
     }
 
     int servo_nb_to_pin(int servo) 

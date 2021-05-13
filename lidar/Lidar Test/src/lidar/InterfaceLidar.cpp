@@ -4,6 +4,7 @@
 #include "../fake_odometry.h"
 #include "params.h"
 #include <math.h>
+#include <iterator>
 
 InterfaceLidar interface = InterfaceLidar();
 
@@ -23,29 +24,56 @@ void InterfaceLidar::init(){
     }
 }
 
+int* InterfaceLidar::get_raw_dist(){
+    return lidar.get_all_distances();
+}
+
+bool* InterfaceLidar::get_valids(){
+    bool valids[360];
+    for (int i=0; i<360; i++){
+        valids[i] = lidar.is_valid(i);
+    }
+}
+
+bool* InterfaceLidar::get_inzones(){
+    return inzones;
+}
+
 void InterfaceLidar::update_and_calc(uint8_t byte){
     lidar.update(byte); //maj distances ang lidar
-    int* all_distances = lidar.get_all_distances(); //get dist ang from lidar
-    //see if some dists <= from terrain border
-    int x = Odometry::get_pos_x();
-    int y = Odometry::get_pos_y();
-    int robotAngle = Odometry::get_pos_theta();
-    for (int i=0; i<360; i++){
-        //ignore obstacles on robot (dist < robot_perimeter/2pi) using params.h
-        if (all_distances[i] < ROBOT_PERIMETER/(2*PI)){ // TODO: vérifier unités
-            all_distances[i] = -1; //-1 veut dire ignoré
-        }
-        // calc expected distance to border following angle
-        float expected_dist;
-        int lid_angle = i - LIDAR_OFFSET_ANGLE - robotAngle;
-        //if (atan() <= lid_angle <= )
+    //if timer is more than 1/10th of second
+    if (last_update == -1){
+        last_update = millis();
     }
-    // get centers from zones of short distances
-    
+    if (millis()-last_update >= 100){
+        last_update = millis();
+        //get dist ang from lidar (shitty workaround copy)
+        int *all_dist_ref = lidar.get_all_distances();
+        //see if some dists <= from terrain border
+        int x = Odometry::get_pos_x();
+        int y = Odometry::get_pos_y();
+        int robotAngle = Odometry::get_pos_theta();
+        for (int i=0; i<360; i++){
+            if (lidar.is_valid(i)){
+                float true_x = x + all_dist_ref[i] * cos(i/180*PI);
+                float true_y = y + all_dist_ref[i] * sin(i/180*PI);
+                //Serial.print(i);
+                //Serial.print(" ");
+                //Serial.print(true_x);
+                //Serial.print(" ");
+                //Serial.println(true_y);
+                //vérifier si code appartient à zone
+                inzones[i] = (0 < true_x and true_x < 3000 and 0 < true_y and true_y < 2000);
+            }
+            
+            
+        }
+        // get centers from zones of short distances
 
-    //store centers in table 
-    //done
 
+        //store centers in table 
+        //done
+    }
     // dans un premier temps, faire en coordonnées relatives
 }
 
