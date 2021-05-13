@@ -3,6 +3,7 @@
 #include "../stateMachine/ServoStateList.h"
 #include "../stateMachine/Recalibration_wall.h"
 #include "../stateMachine/Wait_front_cup_succ.h"
+#include "../stateMachine/MoveServo.h"
 
 //TODO : Revoir les coordonnées !
 //longueur centre du robot à bras déployé : 105
@@ -28,7 +29,6 @@ namespace ActionList
     Action EcocupsBottomLeft[10] = {
         {10.f, 400.f, 90.f, &deployFrontServo, 3.0f},
     };
-
     Action depositLeft[10] = 
     {
         {200.f, 1490.f-distCentreEcocup, 90.f, &deployFrontServo, 2.0f},//Front -> direction vert /haut en premier

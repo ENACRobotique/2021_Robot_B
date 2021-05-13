@@ -12,17 +12,17 @@
 #include "../actuatorSupervisor.h"
 
 //Do not call directly this class !
-class DeployServo : public AbstractState {
+class MoveServo : public AbstractState {
 public:
 
-	DeployServo();
+	MoveServo();
 
-	virtual void enter() = 0;
+	virtual void enter();
 	void doIt();
 	void leave();
 
 protected:
-	void initiate_mvt(ActuatorSupervisor::CupColor color, bool isFront);
+	void initiate_mvt(ActuatorSupervisor::CupColor color, bool isFront, bool isDeploying);
 	unsigned long time_start;
 	bool isFront;
 	ActuatorSupervisor::CupColor color;
