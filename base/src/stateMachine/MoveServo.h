@@ -11,21 +11,22 @@
 #include "AbstractState.h"
 #include "../actuatorSupervisor.h"
 
+using ActuatorSupervisor::CupColor;
 //Do not call directly this class !
 class MoveServo : public AbstractState {
 public:
+	MoveServo(CupColor color, bool isFront, bool isDeploying, bool isSucc);
 
-	MoveServo();
-
-	virtual void enter();
+	void enter();
 	void doIt();
 	void leave();
 
 protected:
-	void initiate_mvt(ActuatorSupervisor::CupColor color, bool isFront, bool isDeploying);
 	unsigned long time_start;
-	bool isFront;
-	ActuatorSupervisor::CupColor color;
+	bool isFront; // false => back
+	bool isDeploying; //false => retracting
+	bool isSucc;
+	CupColor color;
 	
 };
 

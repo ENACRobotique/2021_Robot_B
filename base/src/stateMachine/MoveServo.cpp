@@ -3,25 +3,30 @@
 #include "../params.h"
 #include "../actuatorSupervisor.h"
 
-MoveServo::MoveServo(ActuatorSupervisor::CupColor color, bool isFront, bool isDeploying) {
-    SerialDebug.println("deploying servo");
+MoveServo::MoveServo(CupColor color, bool isFront, bool isDeploying, bool isSucc) {
+    //color = NONE => GREEN+RED, isFront = false => back, isDeployed = false => retract
+    SerialDebug.println("instantiation of MoveServo done ! ");
     time_start = 0;
+    this->color = color;
+    this->isFront = isFront;
+    this->isDeploying = isDeploying;
+    this->isSucc = isSucc;
+
 }
 
-void MoveServo::initiate_mvt(ActuatorSupervisor::CupColor color, bool isFront, bool isDeploying) { 
-    //isFront = false => back, isDeployed = false => retract
+void MoveServo::enter()
+{
     time_start = millis();
     int begin = (isFront) ? 0 : 3;
     int end = (isFront) ? 3 : 5;
     for (int i = begin; i < end; i++)
     {
-        if(color == ActuatorSupervisor::CupColor::NONE || 
-            color == ActuatorSupervisor::get_color(i))
+        if(color == CupColor::NONE || color == ActuatorSupervisor::get_color(i))
         {
             int angle = (isDeploying) ? SERVO_ANGLE_DEPLOYED : SERVO_ANGLE_RETRACTED;
             ActuatorSupervisor::armServos[i].moveServo(angle);
             ActuatorSupervisor::switch_ev(false, i);
-            ActuatorSupervisor::switch_pompe(true, i);
+            ActuatorSupervisor::switch_pompe(isSucc, i);
         }
     }
 }

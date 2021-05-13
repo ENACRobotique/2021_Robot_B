@@ -1,17 +1,33 @@
 #include "Action.h"
 #include "../stateMachine/etat_vide_unit_test.h"
-#include "../stateMachine/ServoStateList.h"
 #include "../stateMachine/Recalibration_wall.h"
 #include "../stateMachine/Wait_front_cup_succ.h"
 #include "../stateMachine/MoveServo.h"
 
-//TODO : Revoir les coordonnées !
-//longueur centre du robot à bras déployé : 105
-//+ diamètre bas ecocup => 160cm
-
-const float distCentreEcocup = 160.f;
 namespace ActionList
 {
+    //TODO : Revoir les coordonnées !
+    //longueur centre du robot à bras déployé : 105
+    //+ diamètre bas ecocup => 160cm
+
+    const float distCentreEcocup = 160.f;
+    //	MoveServo(CupColor color, bool isFront, bool isDeploying, bool isSucc);
+    MoveServo deployFrontServo = MoveServo(CupColor::NONE, true, true, true);
+    MoveServo deployBackServo = MoveServo(CupColor::NONE, false, true, true);
+    MoveServo deployFrontGreen = MoveServo(CupColor::GREEN, true, true, true);
+    MoveServo deployFrontRed  = MoveServo(CupColor::RED, true, true, true);
+    MoveServo deployBackGreen = MoveServo(CupColor::GREEN, false, true, true);
+    MoveServo deployBackRed   = MoveServo(CupColor::RED, false, true, true);
+
+    //still succ -> taking from the écueil
+    MoveServo retractFrontServo = MoveServo(CupColor::NONE, true, false, true);
+    MoveServo retractBackServo = MoveServo(CupColor::NONE, false, false, true);
+    //end of succ -> deposit on the good zone
+    MoveServo retractFrontGreen = MoveServo(CupColor::GREEN, true, false, false); 
+    MoveServo retractFrontRed  = MoveServo(CupColor::RED, true, false, false);
+    MoveServo retractBackGreen = MoveServo(CupColor::GREEN, false, false, false);
+    MoveServo retractBackRed   = MoveServo(CupColor::RED, false, false, false);
+
     /* Ecocup écueils : Ecart de 75 mm entre chaque ecocup */
     //X = 850
     Action EcocupsTopLeft[10] = {
