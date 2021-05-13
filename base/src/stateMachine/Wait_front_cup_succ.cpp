@@ -5,7 +5,6 @@
  */
 
 #include "Wait_front_cup_succ.h"
-#include "RetractFrontServo.h"
 #include "FsmSupervisor.h"
 
 Wait_font_cup_succ wait_font_cup_succ = Wait_font_cup_succ();
@@ -23,7 +22,7 @@ void Wait_font_cup_succ::enter() {
 }
 
 void Wait_font_cup_succ::leave() {
-	fsmSupervisor.setNextState(&retractFrontServo);
+	//fsmSupervisor.setNextState(&retractFrontServo);
 }
 
 void Wait_font_cup_succ::doIt() {

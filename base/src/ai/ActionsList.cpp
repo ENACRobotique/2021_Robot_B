@@ -1,9 +1,8 @@
 #include "Action.h"
 #include "../stateMachine/etat_vide_unit_test.h"
-#include "../stateMachine/DeployFrontServo.h"
+#include "../stateMachine/ServoStateList.h"
 #include "../stateMachine/Recalibration_wall.h"
 #include "../stateMachine/Wait_front_cup_succ.h"
-#include "../stateMachine/Release_front_green.h"
 
 //TODO : Revoir les coordonnées !
 //longueur centre du robot à bras déployé : 105
@@ -34,7 +33,7 @@ namespace ActionList
     {
         {200.f, 1490.f-distCentreEcocup, 90.f, &deployFrontServo, 2.0f},//Front -> direction vert /haut en premier
         //deploy back servo
-        {200.f, 1490.f-distCentreEcocup, 90.f, &release_front_green, 0.0f},
+        //{200.f, 1490.f-distCentreEcocup, 90.f, &release_front_green, 0.0f},
         //{200.f, 1490.f-distCentreEcocup, 90.f, &wait_front_cup_release, 0.0f},
         //{200.f, 920.f+distCentreEcocup, 90.f, &release_back_red, 0.0f},
         //{200.f, 920.f+distCentreEcocup, 90.f, &wait_back_release, 0.0f},
