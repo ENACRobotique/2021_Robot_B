@@ -38,12 +38,3 @@ void DeployFrontServo::doIt() {
 	} 
 }
 
-
-void DeployFrontServo::reEnter(unsigned long interruptTime){
-}
-
-void DeployFrontServo::forceLeave(){
-}
-
-void DeployFrontServo::pauseNextState(){
-}
