@@ -10,9 +10,10 @@
 
 #include "AbstractState.h"
 
+/* recalibration is done on a wall perpendicular to the horizontal or vertical axis => we recalibrate only the x or y axis*/
 class Recalibration_wall : public AbstractState {
 public:
-	Recalibration_wall();
+	Recalibration_wall(float targetPos, float targetTheta, bool isX);
 	virtual ~Recalibration_wall();
 
 	void doIt();
@@ -28,8 +29,10 @@ public:
 private:
 
 	unsigned long time_start;
+	long motor_cod_last_reading;
+	bool isX;
+	float targetPos;
+	float targetTheta;
 };
-
-extern Recalibration_wall recalibration_wall;
 
 #endif 

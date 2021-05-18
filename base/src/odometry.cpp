@@ -158,3 +158,10 @@ namespace Odometry{
 
 
 
+
+float Odometry::get_motor_x() {
+    return 0;
+}
+float Odometry::get_motor_y() {
+    return 0;
+}

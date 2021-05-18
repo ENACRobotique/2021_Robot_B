@@ -12,7 +12,7 @@
 #include "../actuatorSupervisor.h"
 
 using ActuatorSupervisor::CupColor;
-//Do not call directly this class !
+
 class MoveServo : public AbstractState {
 public:
 	MoveServo(CupColor color, bool isFront, bool isDeploying, bool isSucc);

@@ -26,7 +26,7 @@ void MoveServo::enter()
             int angle = (isDeploying) ? SERVO_ANGLE_DEPLOYED : SERVO_ANGLE_RETRACTED;
             ActuatorSupervisor::armServos[i].moveServo(angle);
             ActuatorSupervisor::switch_ev(false, i);
-            ActuatorSupervisor::switch_pompe(isSucc, i);
+            ActuatorSupervisor::switch_pompe(!isSucc, i);
         }
     }
 }
@@ -38,7 +38,6 @@ void MoveServo::doIt() {
 }
 
 void MoveServo::leave() {
-
     SerialDebug.println("Leaving Deployment of Servo");
 }
 

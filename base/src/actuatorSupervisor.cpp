@@ -2,13 +2,19 @@
 #include "params.h"
 #include "controlServo.h"
 #include "actuatorSupervisor.h"
+#include "Wire.h"
+#include "Adafruit_PWMServoDriver.h"
 
 namespace ActuatorSupervisor
 {
 	ControlServo armServos[5];
+    ControlServo otherServos[2]; //[0] = Pavillon, [1] = tige horizontale
+
+    Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(LED_DRIVER_ADDRESS, Wire);
 
     void init()
     {
+        //arms servos
         for (int i = 0; i < 5; i++)
         {
             armServos[i].defInitAngle(150);
@@ -16,39 +22,35 @@ namespace ActuatorSupervisor
             switch_pompe(false, i);
             switch_ev(false, i);
         }
+
+        //other servos
+        otherServos[0].defInitAngle(SERVO_PAV_ANGLE_RTRCTED);
+        otherServos[0].init(SERVO_PAV); 
+
         //TODO : pinMode nécessaire ou non
         //pinMode(POMPE, OUTPUT);
         //pinMode(VANN, OUTPUT);
+
+        //multiplexers
+        pwm.begin();
+        pwm.setPWMFreq(PWM_FREQUENCY);    
         SerialCtrl.println("init done for actuatorSupervisor ! ");
     }
-    /*
-    void FrontDeployServo()
-    {
-        armServos[0].moveServo(60);
-        //digitalWrite(POMPE, HIGH);
-        //digitalWrite(VANN, LOW);
-        //actionner pompe à air
-    }
 
-    void FrontRetractServo()
-    {
-        //servo1.moveServo(150);
-    }
-
-    void FrontReleaseVann()
-    {
-        //digitalWrite(VANN, HIGH);
-        //digitalWrite(POMPE, LOW);
-    } */
     void switch_pompe(bool isOn, int pompe)
     {
-        SerialCtrl.println("ENABLE POMPE NOT IMPLEMENTED");
+        SerialCtrl.println("ENABLE POMPE NOT TESTED");
+        int start_pwm = (isOn) ? 4096 : 0;
+        int end_pwm = (isOn) ? 0 : 4096;
+        pwm.setPWM(pompe_nb_to_pin(pompe), start_pwm, end_pwm);
         //int pin = pompe_nb_to_pin(pompe);
     }
     void switch_ev(bool isOn, int ev)
     {
-        SerialCtrl.println("ENABLE EV NOT IMPLEMENTED");
-        //int pin = ev_nb_to_pin(ev);
+        SerialCtrl.println("ENABLE EV NOT TESTED");
+        int start_pwm = (isOn) ? 4096 : 0;
+        int end_pwm = (isOn) ? 0 : 4096;
+        pwm.setPWM(pompe_nb_to_pin(ev), start_pwm, end_pwm);
     }
     int servo_nb_to_pin(int servo) 
     /* return 0 if servo_nb not between 0 & 4 included */

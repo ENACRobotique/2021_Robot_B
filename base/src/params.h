@@ -31,6 +31,7 @@ const int ARUCO_ID = 1;
 
 const unsigned long TIME_RACE = 100000;
 
+#pragma region pins physiques
 
 const int MOT_ENCODEUR1_A = 21;
 const int MOT_ENCODEUR1_B = 20;
@@ -79,16 +80,16 @@ const int TIRETTE = 24;
 const int DISPLAY1 = 7;
 const int DISPLAY2 = 8;
 
+#pragma endregion 
+
+#pragma region addresses I2C et params driver de led
+const int LED_DRIVER_ADDRESS = 0x40; //TODO : checker la vraie addresse !
+const int PWM_FREQUENCY = 50;
+#pragma endregion
+
 const float SPEED_MAX = 500.0f; //0.5f;
 const float OMEGA_MAX = 1.4f;
 
-// const int SPARE1 = 10;
-// const int SPARE2 = 9;
-// const int SPARE3 = 8;
-// const int SPARE4 = 7;
-
-// const int DYNAMIXEL_CONTROL = 30;
-// const int DYNAMIXEL_ID =1;
 
 const int EMERGENCY_BRAKE = 1800;
 const int ACCEL_MAX = 500;
@@ -130,10 +131,6 @@ const unsigned long THROW_DURATION = 20000;
 const unsigned long SERVO_MOVEMENT_DURATION = 1000;
 const unsigned long DETECTION_STOP_TIME = 1500;
 
-const int GREEN = 1;
-const int ORANGE = !GREEN;
-const int PURPLE = 1;
-const int YELLOW = !PURPLE;
 
 
 enum sensors {IR1=33,IR2,IR3,IR4,IR5,IR6,IR_test};
@@ -146,8 +143,12 @@ const float delta_step_forward=20;//mm
 const float nominal_delta_rot=10;//degres
 const float dist_opt=4.5;
 
+//ARMS : 
 const int SERVO_ANGLE_RETRACTED = 150;
 const int SERVO_ANGLE_DEPLOYED = 60;
+
+const int SERVO_PAV_ANGLE_RTRCTED = 0;
+const int SERVO_PAV_ANGLE_DPLOYED = 90;
 
 // const int NB_US = 4;
 #endif /* PARAMS_H_ */

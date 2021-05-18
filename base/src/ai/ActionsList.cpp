@@ -32,14 +32,17 @@ namespace ActionList
     //X = 850
     Action EcocupsTopLeft[10] = {
         {700.f, 1850.f, 90.f, &deployFrontServo, 3.0f}, //Going a little bit before the wall + deploy servo before arrival
-        {700.f, 1850.f, 90.f, &recalibration_wall, 0.f},
-        {700.f, 1900.f, 90.f, &wait_font_cup_succ, 0.f}, //does automatically retractation
-        {700.f, 1850.f, 90.f, &etat_vide_unit_test, 0.f}, //backing off the wall
-        /*
-        {900.f, 1850.f, 270.f, &deploy_back_servo, 3.0f}, 
-        {900.f, 1850.f, 270.f, &recalibration_wall, 0.f},
-        {700.f, 1850.f, 270.f, &wait_back_cup_succ, 0.f}, //does automatically retractation
-        */
+        //{700.f, 1850.f, 90.f, &recalibration_wall, 0.f},
+        {700.f, 1900.f, 90.f, &wait_font_cup_succ, 0.f}, 
+        {700.f, 1900.f, 90.f, &retractFrontServo, 0.f}, 
+        {700.f, 1850.f, 0.f, &etat_vide_unit_test, 0.f}, //backing off the wall$
+        //moving to the ecocup at the right side
+        {900.f, 1850.f, 270.f, &deployBackServo, 3.f},
+        //{900.f, 1850.f, 270.f, &recalibration_wall, 0.f},
+        //{900.f, 1900.f, 270.f, &wait_back_cup_succ, 0.f},
+        {900.f, 1900.f, 270.f, &retractFrontGreen, 0.f},
+        {900.f, 1850.f, 270.f, &etat_vide_unit_test, 0.f}, //backing off the wall
+
     };
     //Y = 400
     Action EcocupsBottomLeft[10] = {

@@ -23,6 +23,8 @@ namespace Odometry {
 	float normalizeAngle(float angle);
 	float get_speed();
 	float get_omega();
+	float get_motor_x();
+	float get_motor_y();
 
 }
 
