@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"name": "test",
+			"path": "../../../../2021 1A robot tests/test"
+		}
+	],
+	"settings": {}
+}
