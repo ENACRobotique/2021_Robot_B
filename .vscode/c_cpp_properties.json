@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${default}",
+                "D:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino",
+                "D:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr\\avr\\include",
+                "D:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\variants\\standard",
+                "C:\\Users\\jonathan M\\.platformio\\packages\\framework-arduinoteensy\\libraries",
+                "C:\\Users\\jonathan M\\.platformio\\packages\\framework-arduinoteensy\\libraries\\Metro"
+
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "8.1",
+            "compilerPath": "C:/Win-build/bin/gcc.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "${default}"
+        }
+    ],
+    "version": 4
+}
