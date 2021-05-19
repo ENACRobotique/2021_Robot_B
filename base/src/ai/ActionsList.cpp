@@ -6,6 +6,7 @@
 
 namespace ActionList
 {
+    #pragma region ecocups
     //TODO : Revoir les coordonnées !
     //longueur centre du robot à bras déployé : 105
     //+ diamètre bas ecocup => 160cm
@@ -67,5 +68,8 @@ namespace ActionList
     Action EcocupsTopRight[10] = {};
     //Y = 400
     Action EcocupsBottomRight[10] = {};
+
+    #pragma endregion
+
 }
  
