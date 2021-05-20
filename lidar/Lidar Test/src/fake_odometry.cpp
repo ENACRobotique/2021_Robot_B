@@ -27,7 +27,8 @@ namespace Odometry{
 		_incr2 = 0;
 		pos_x = 1500;
 		pos_y = 1000;
-		pos_theta = speed = omega = 0;
+		pos_theta = 90;
+		speed = omega = 0;
 
 	}
 

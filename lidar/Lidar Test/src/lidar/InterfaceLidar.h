@@ -13,12 +13,16 @@ class InterfaceLidar{
         int* get_raw_dist();
         bool* get_valids();
         bool* get_inzones();
+        int* get_truexs();
+        int* get_trueys();
 
     //private:
         LidarXV11 lidar;
         int emplacementObstacles[6][2];
         float last_update = -1;
         bool inzones[360];
+        int true_x[360];
+        int true_y[360];
 
 };
 

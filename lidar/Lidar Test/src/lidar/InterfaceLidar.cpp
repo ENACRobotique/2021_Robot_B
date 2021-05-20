@@ -28,11 +28,20 @@ int* InterfaceLidar::get_raw_dist(){
     return lidar.get_all_distances();
 }
 
+int* InterfaceLidar::get_truexs(){
+    return true_x;
+}
+
+int* InterfaceLidar::get_trueys(){
+    return true_y;
+}
+
 bool* InterfaceLidar::get_valids(){
     bool valids[360];
     for (int i=0; i<360; i++){
         valids[i] = lidar.is_valid(i);
     }
+    return valids;
 }
 
 bool* InterfaceLidar::get_inzones(){
@@ -49,21 +58,22 @@ void InterfaceLidar::update_and_calc(uint8_t byte){
         last_update = millis();
         //get dist ang from lidar (shitty workaround copy)
         int *all_dist_ref = lidar.get_all_distances();
-        //see if some dists <= from terrain border
+        
         int x = Odometry::get_pos_x();
         int y = Odometry::get_pos_y();
         int robotAngle = Odometry::get_pos_theta();
         for (int i=0; i<360; i++){
+            int real_angle = i + robotAngle + LIDAR_OFFSET_ANGLE;
+            int true_x_loc = x + (int)(all_dist_ref[i] * cos(real_angle/180*PI));
+            int true_y_loc = y + (int)(all_dist_ref[i] * sin(real_angle/180*PI));
+            true_x[i] = true_x_loc;
+            true_y[i] = true_y_loc;
             if (lidar.is_valid(i)){
-                float true_x = x + all_dist_ref[i] * cos(i/180*PI);
-                float true_y = y + all_dist_ref[i] * sin(i/180*PI);
-                //Serial.print(i);
-                //Serial.print(" ");
-                //Serial.print(true_x);
-                //Serial.print(" ");
-                //Serial.println(true_y);
-                //vérifier si code appartient à zone
-                inzones[i] = (0 < true_x and true_x < 3000 and 0 < true_y and true_y < 2000);
+                //vérifier si point appartient à zone
+                inzones[i] = (0 < true_x_loc and true_x_loc < 3000 and 0 < true_y_loc and true_y_loc < 2000);
+            }
+            else{
+                inzones[i] = false;
             }
             
             

@@ -37,23 +37,29 @@ void loop() {
 		//}
   }
 
-  bool* invalids = xv11.get_valids();
+  bool* valids = xv11.get_valids();
   int* raw_dist = xv11.get_raw_dist();
   bool* inzone_dist = xv11.get_inzones();
 
-  if (millis() - last_update >= 100){
+  if (millis() - last_update >= 150){
     last_update = millis();
     for (int i = 0; i<360; i++){
+      //message de point
       Serial.print("l ");
       Serial.print(i);
       Serial.print(" ");
       Serial.print(raw_dist[i]);
       Serial.print(" ");
-      Serial.print(invalids[i]);
+      Serial.print(valids[i]);
       Serial.print(" ");
-      Serial.println(inzone_dist[i]);
+      Serial.print(inzone_dist[i]);
+      Serial.print(" ");
+      Serial.print(xv11.get_truexs()[i]);
+      Serial.print(" ");
+      Serial.println(xv11.get_trueys()[i]);
+    }
+    //message de vitesse moteur
       Serial.print("s ");
       Serial.println((int)xv11.lidar.getSpeed());
-    }
   }
 }
