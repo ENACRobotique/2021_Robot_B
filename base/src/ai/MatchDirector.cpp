@@ -132,6 +132,18 @@ void set_current_action(Action *action)
 {
     curSection = action;
 }
+
+void get_to_final()
+{
+    /*
+    Find/calculate destination coordinate
+    Action GetToFinal[10] = 
+    {
+        {x,y, 0.0f, &no_state, 5f},
+    };
+    Trouver comment déployer le pavillon 5s de la fin
+    */
+}
 /* méthodes à rajouter :
 Temps estimé pour réaliser action
 (Heuristique action/temps réalsier une action)
