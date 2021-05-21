@@ -147,8 +147,12 @@ const float dist_opt=4.5;
 const int SERVO_ANGLE_RETRACTED = 150;
 const int SERVO_ANGLE_DEPLOYED = 60;
 
+//servos : 
 const int SERVO_PAV_ANGLE_RTRCTED = 0;
 const int SERVO_PAV_ANGLE_DPLOYED = 90;
+
+const int SERVO_BAR_ANGLE_RTRCTED = 0;
+const int SERVO_BAR_ANGLE_DPLOYED = 300;
 
 // const int NB_US = 4;
 #endif /* PARAMS_H_ */

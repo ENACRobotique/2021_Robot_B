@@ -18,14 +18,16 @@ namespace ActuatorSupervisor
         for (int i = 0; i < 5; i++)
         {
             armServos[i].defInitAngle(150);
-            armServos[i].init(servo_nb_to_pin(i));
+            armServos[i].init(servo_nb_to_pin(i), &pwm);
             switch_pompe(false, i);
             switch_ev(false, i);
         }
 
         //other servos
         otherServos[0].defInitAngle(SERVO_PAV_ANGLE_RTRCTED);
-        otherServos[0].init(SERVO_PAV); 
+        otherServos[0].init(SERVO_PAV, NULL); 
+        otherServos[1].defInitAngle(SERVO_BAR_ANGLE_RTRCTED);
+        otherServos[1].init(SERVO_BAR, NULL); 
 
         //TODO : pinMode nécessaire ou non
         //pinMode(POMPE, OUTPUT);
