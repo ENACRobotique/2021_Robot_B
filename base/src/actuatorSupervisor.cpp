@@ -34,6 +34,7 @@ namespace ActuatorSupervisor
         //pinMode(VANN, OUTPUT);
 
         //multiplexers
+        delay(10);
         pwm.begin();
         pwm.setPWMFreq(PWM_FREQUENCY);    
         SerialCtrl.println("init done for actuatorSupervisor ! ");
@@ -118,3 +119,30 @@ ActuatorSupervisor::CupColor ActuatorSupervisor::get_color(int sensor_nb) {
     SerialCtrl.println("get_color non implémenté !");
     return NONE;    
 }
+
+
+/*
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("GPIO test!");
+
+  pwm.begin();
+  pwm.setPWMFreq(1000);  // Set to whatever you like, we don't use it in this demo!
+
+  // if you want to really speed stuff up, you can go into 'fast 400khz I2C' mode
+  // some i2c devices dont like this so much so if you're sharing the bus, watch
+  // out for this!
+  Wire.setClock(400000);
+}
+
+void loop() {
+  // Drive each pin in a 'wave'
+  for (uint8_t pin=0; pin<16; pin++) {
+    pwm.setPWM(pin, 4096, 0);       // turns pin fully on
+    delay(100);
+    pwm.setPWM(pin, 0, 4096);       // turns pin fully off
+  }
+}
+
+*/
