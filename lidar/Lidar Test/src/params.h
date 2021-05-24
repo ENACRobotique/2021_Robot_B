@@ -16,7 +16,6 @@ const int ARUCO_ID = 1;
 const unsigned long TIME_RACE = 100000;
 
 const int ROBOT_PERIMETER = 1000;
-const int LIDAR_OFFSET_ANGLE = -90;
 
 const int MOT_ENCODEUR1_A = 0;
 const int MOT_ENCODEUR1_B = 1;
