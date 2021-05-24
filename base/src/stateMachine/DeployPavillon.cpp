@@ -1,6 +1,7 @@
 #include "DeployPavillon.h"
 #include "../actuatorSupervisor.h"
 #include "../params.h"
+#include "../FsmSupervisor.h"
 
 DeployPavillon deployPavillon = DeployPavillon();
 

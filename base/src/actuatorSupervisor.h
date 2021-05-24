@@ -12,6 +12,7 @@ namespace ActuatorSupervisor {
 	} CupColor; 
 
 	extern ControlServo armServos[5];
+	extern ControlServo otherServos[2]; //[0] = Pavillon, [1] = tige horizontale
 
 	void init();
 	//bool isFrontAttached/detached

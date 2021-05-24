@@ -10,7 +10,7 @@ public:
 	void doIt();
 	void leave();
 protected:
-    unsigned long timeStart;
+    unsigned long time_start;
 };
 
 extern DeployPavillon deployPavillon;
