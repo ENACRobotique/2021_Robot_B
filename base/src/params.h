@@ -32,10 +32,10 @@ const unsigned long TIME_RACE = 100000;
 //MC1 A : 21 MC1 B : 20
 //COD 2 A : 29 COD2B : 30
 //
-const int MOT_ENCODEUR1_A = 23;//21;
-const int MOT_ENCODEUR1_B = 22;//20;
-const int MOT_ENCODEUR2_A = 21;//29;
-const int MOT_ENCODEUR2_B = 20;//30;
+const int MOT_ENCODEUR1_A = 21;//21; 23;
+const int MOT_ENCODEUR1_B = 20;//20; 22;
+const int MOT_ENCODEUR2_A = 23;//29;
+const int MOT_ENCODEUR2_B = 22;//30;
 
 const int WHEEL_ENCODEUR1_A = 21;//16;
 const int WHEEL_ENCODEUR1_B = 20;//17;
