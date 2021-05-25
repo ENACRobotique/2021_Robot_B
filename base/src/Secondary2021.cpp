@@ -25,6 +25,7 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
 
     SerialCtrl.begin(57600);
+    Serial.begin(57600);
 
   controlTime.reset();
 	debugLed.reset();
@@ -67,6 +68,7 @@ void loop() {
     if(commXBee.check())
     {
       Communication::update();
+      Serial.println("test");
     }
     if(stateTime.check())
     {
