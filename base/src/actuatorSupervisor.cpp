@@ -11,10 +11,10 @@ namespace ActuatorSupervisor
 
     void init()
     {
-        pinMode(POMPE, OUTPUT);
-        pinMode(VANN, OUTPUT);
-        servo1.defInitAngle(150);
-        servo1.init(SERVO1);
+        //pinMode(POMPE, OUTPUT);
+        //pinMode(VANN, OUTPUT);
+        //servo1.defInitAngle(150);
+        //servo1.init(SERVO1);
         SerialCtrl.println("init done for actuatorSupervisor ! ");
         //digitalWrite(POMPE, LOW);
         //digitalWrite(VANN, LOW);
@@ -38,8 +38,8 @@ namespace ActuatorSupervisor
 
     void FrontReleaseVann()
     {
-        digitalWrite(VANN, HIGH);
-        digitalWrite(POMPE, LOW);
+        //digitalWrite(VANN, HIGH);
+        //digitalWrite(POMPE, LOW);
     }
 
 

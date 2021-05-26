@@ -25,7 +25,10 @@ namespace Odometry{
 	void init(){
 		_incr1 = 0;
 		_incr2 = 0;
-		pos_x = pos_y = pos_theta = speed = omega = 0;
+		pos_x = 0;
+		pos_y = 0;
+		pos_theta = 90;
+		speed = omega = 0;
 
 	}
 

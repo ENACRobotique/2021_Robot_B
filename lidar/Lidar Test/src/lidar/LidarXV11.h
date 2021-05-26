@@ -31,7 +31,7 @@ public:
 	virtual ~LidarXV11();
 
 	void init();
-	void update(uint8_t byte);
+	int update(uint8_t byte);
 	void display_package(struct Package_Data* p);
 	int get_distance(int angle);
 	bool is_valid(int angle);
@@ -44,7 +44,6 @@ public:
 	float getSpeed(){
 		return(speed);
 	}
-	int* get_all_distances();
 
 private:
 	void read_data(int i);
