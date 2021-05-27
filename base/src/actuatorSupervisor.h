@@ -15,6 +15,7 @@ namespace ActuatorSupervisor {
 	extern ControlServo otherServos[2]; //[0] = Pavillon, [1] = tige horizontale
 
 	void init();
+	void deploy_pav();
 	//bool isFrontAttached/detached
 	void switch_pompe(bool isOn, int pompe);
 	void switch_ev(bool isOn, int ev);

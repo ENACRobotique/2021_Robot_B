@@ -1,14 +1,17 @@
+
 #include "Arduino.h"
 #include "odometry.h"
 #include "motorControl.h"
 #include "params.h"
 #include "Metro.h"
+
 #include "communication.h"
 #include "navigator.h"
 #include "FsmSupervisor.h"
 #include "actuatorSupervisor.h"
 #include "ai/MatchDirector.h"
 //#include "raspberryParser.h"
+#include "examples/servoTest.h"
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
 Metro debugLed = Metro(2000);
@@ -23,10 +26,15 @@ int i = 0;
 
 void setup() {
   //Serial.begin(115200);
+  while(!Serial) {}
   pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(11, OUTPUT);
 
     SerialCtrl.begin(57600);
-
+    Serial.begin(57600);
+    Serial.println("initialization serialDebug");
+    Serial.println("timer du match mis à 10s !!");
+    SerialCtrl.println("initialization serialCtrl");
   controlTime.reset();
 	debugLed.reset();
 	navTime.reset();
@@ -42,30 +50,20 @@ void setup() {
 }
 
 void loop() {
+  
 
       if(navTime.check())
     {
       navigator.update();
     }
-  /*
-  MotorControl::testmoteur(mot1,mot2); */
+
 		if(controlTime.check()) {
 
 			Odometry::update();
       MotorControl::update();
 		} 
-/*
-    if(TestTime.check())
-    {
-      MotorControl::set_cons(0.f,sp[i]);
-      i = (i+1) % 4;
-    }  */
-    /*
-		if (TestTime.check())
-    {
-		  mot2=(mot2+20)%255;
-    }
-    */
+
+    
     if(commXBee.check())
     {
       Communication::update();
@@ -83,4 +81,4 @@ void loop() {
     Serial.write(Serial.read());
   }
 
-}
+} 

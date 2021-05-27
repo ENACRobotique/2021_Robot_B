@@ -5,6 +5,7 @@
 #include "../navigator.h" 
 #include "../odometry.h"
 #include "../FsmSupervisor.h" 
+#include "../actuatorSupervisor.h"
 #include "arduino.h" //NULL definition
 
 namespace MatchDirector
@@ -18,20 +19,22 @@ Can be modified by states if needed (for example, if an action is interacting wi
 */
 
     bool isStartingLeft = true;
-    bool isDrivingBackward = true; //if move with navigator with positive number, robot goes backward
+    bool isDrivingBackward = false; //if move with navigator with positive number, robot goes backward
 
     Action *curSection = NULL; // undefined size of array
     //Section = multiple actions that usually lead to points at the end
     int curActIndex = 0;
     ActionState actionState = BEGIN;
 
-    float timer = 100; // en s
+    float timer = 10; // en s
     int score = 0;
     float offsetX = 0; //offsets au début du terrain par rapport à l'abs
     float offsetY = 0;
+    uint32_t start_millis;
 
 void init()
 {
+    start_millis = millis();
     //TODO : call only when match has started;
     //TODO : implement timer count;
 
@@ -121,6 +124,12 @@ void update()
     {
         curActIndex++;
         actionState = BEGIN;
+    }
+    if(millis()-start_millis > timer*1000-5000) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
+    {
+        SerialDebug.println("déploiement du pavillon matchDirector");
+        ActuatorSupervisor::deploy_pav();
+
     }
     //->passer à l'etat suivant si le fsm est à un état "final", càd sans état supplémentaire prévue par défaut
     //Par exemple, pour le récupérage de gobelet, on doit rester longtemps dans l'état, donc jusqu'à ce qu'il soit dans "deadState", on attends

@@ -15,6 +15,7 @@ namespace ActuatorSupervisor
     void init()
     {
         //arms servos
+        /*
         for (int i = 0; i < 5; i++)
         {
             armServos[i].defInitAngle(150);
@@ -22,24 +23,27 @@ namespace ActuatorSupervisor
             switch_pompe(false, i);
             switch_ev(false, i);
         }
-
+*/
         //other servos
         otherServos[0].defInitAngle(SERVO_PAV_ANGLE_RTRCTED);
         otherServos[0].init(SERVO_PAV, NULL); 
         otherServos[1].defInitAngle(SERVO_BAR_ANGLE_RTRCTED);
         otherServos[1].init(SERVO_BAR, NULL); 
-
         //TODO : pinMode nécessaire ou non
         //pinMode(POMPE, OUTPUT);
         //pinMode(VANN, OUTPUT);
 
         //multiplexers
         delay(10);
-        pwm.begin();
-        pwm.setPWMFreq(PWM_FREQUENCY);    
-        SerialCtrl.println("init done for actuatorSupervisor ! ");
+        //pwm.begin();
+        //pwm.setPWMFreq(PWM_FREQUENCY);    
+        SerialDebug.println("init done for actuatorSupervisor ! ");
     }
 
+    void deploy_pav()
+    {
+        otherServos[0].moveServo(SERVO_PAV_ANGLE_DPLOYED);
+    }
     void switch_pompe(bool isOn, int pompe)
     {
         SerialCtrl.println("ENABLE POMPE NOT TESTED");
