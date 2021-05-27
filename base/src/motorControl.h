@@ -14,6 +14,7 @@ namespace MotorControl {
 
 	float get_cons_speed();
 	float get_cons_omega();
+
 	void testmoteur(int cmde1, int cmde2);
 	void set_cons(float speed, float omega);
 }

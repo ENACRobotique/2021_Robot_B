@@ -23,6 +23,7 @@ public:
 	Navigator();
 	void move_to(float x, float y);
 	void move(float v, float omega);//simple contôle moteur en vitesse
+	void recalibrate_x_with_wall(float x, float real_x);
 	void step_forward(float d);
 	void step_backward(float d);
 	void turn_to(float theta);

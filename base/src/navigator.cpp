@@ -237,8 +237,17 @@ void Navigator::update(){
 				trajectory_done = true;
 				break;
 			}
+
 			speed_cons=compute_cons_speed();
 			omega_cons = compute_cons_omega();
+			Serial.println("cruise mode : ");
+			Serial.print("\t speed_cons :  ");
+			Serial.print(speed_cons);
+			Serial.print("\t omega_cons :  ");
+			Serial.print(omega_cons);
+			Serial.print("\t distance :  ");
+			Serial.print(distance);
+			Serial.println("***");
 			MotorControl::set_cons(speed_cons,omega_cons);
 			break;
 		case STOPPED:
@@ -249,6 +258,24 @@ void Navigator::update(){
 			break;
 		}
 	}
+}
+void recalibrate_x_with_wall(float x, float real_x)
+{
+	// on donne un x target assez loin en avant
+	//Si on patine -> on reset, sinon on continue
+	/*
+		float error_speed = MotorControl::get_cons_speed() - Odometry::get_speed();
+		while(abs(prev_pos_x-Odometry::get_pos_x()) >= 0.00001f)
+		{
+			set_cons(0.05f, 0f); //verifier ce que fait le omega
+		}
+		set cons(0f, 0f);
+		if(abs(error_speed) >= 0.00001f)
+		{
+			return; //false, still slowing down
+		}
+		Odometry::set_pos(real_x, Odometry::get_pos_y(), Odometry::get_pos_theta());
+*/
 }
 
 void Navigator::forceStop(){
