@@ -91,8 +91,8 @@ namespace MotorControl {
 		//error_integrale_omega = clamp(-100,100,error_integrale_omega);
 		float cmd_omega = Kp_omega * error_omega + Ki_omega * error_integrale_omega + Kd_omega * delta_omega;
 
-		int cmd_mot1 = clamp(-255.f, 255.f, cmd_speed - cmd_omega);
-		int cmd_mot2 = -clamp(-255.f, 255.f, cmd_speed + cmd_omega);
+		int cmd_mot1 = clamp(-255.f, 255.f, -cmd_speed - cmd_omega);
+		int cmd_mot2 = -clamp(-255.f, 255.f, -cmd_speed + cmd_omega);
 
 		analogWrite(MOT1_PWM, abs(cmd_mot1));
 		digitalWrite(MOT1_DIR, direction_sign(cmd_mot1));
@@ -102,10 +102,16 @@ namespace MotorControl {
 /*
 		SerialDebug.print("cmd omega : ");
 		SerialDebug.print(cmd_omega);
-		SerialDebug.print("\t");
+		SerialDebug.print("\t"); */
 		SerialDebug.print("cmd vitesse : "); 
 		SerialDebug.print(cmd_speed);
 		SerialDebug.print("\t"); 
+		SerialDebug.print("get odometry vitesse : "); 
+		SerialDebug.print(		Odometry::get_speed());
+		SerialDebug.print("\t"); 
+
+		/*
+		
 		SerialDebug.print("cons speed : "); 
 		//SerialDebug.println("\t");
 		//SerialDebug.print("cmd_speed detail : ");
@@ -130,8 +136,7 @@ namespace MotorControl {
 		SerialDebug.print(cmd_mot1);
 		SerialDebug.print("\t");
 		//SerialDebug.println(); */
-		SerialDebug.print(cons_omega);
-		SerialDebug.print(",");
+		SerialDebug.print("odometry::get_omega : ");
 		SerialDebug.print(Odometry::get_omega());
 		SerialDebug.println();
 		//SerialDebug.print("\t");0

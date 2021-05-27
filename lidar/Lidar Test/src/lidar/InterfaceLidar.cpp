@@ -24,49 +24,68 @@ void InterfaceLidar::init(){
     }
 }
 
-int* InterfaceLidar::get_raw_dist(){
-    return lidar.get_all_distances();
+int* InterfaceLidar::get_truexs(){
+    return true_x;
+}
+
+int* InterfaceLidar::get_trueys(){
+    return true_y;
+}
+
+int* InterfaceLidar::get_trueang(){
+    return true_ang;
 }
 
 bool* InterfaceLidar::get_valids(){
-    bool valids[360];
     for (int i=0; i<360; i++){
         valids[i] = lidar.is_valid(i);
     }
+    return valids;
 }
 
 bool* InterfaceLidar::get_inzones(){
     return inzones;
 }
 
-void InterfaceLidar::update_and_calc(uint8_t byte){
-    lidar.update(byte); //maj distances ang lidar
+int InterfaceLidar::update_and_calc(uint8_t byte){
+    int turn = lidar.update(byte); //maj distances ang lidar
+    return 0;
+    if(turn) {
+        Serial2.println("-------------");
+        for(int i=0; i<360; i++) {
+            //Serial2.printf("%d: %d\n", i, lidar.get_distance(i));
+        }
+    }
     //if timer is more than 1/10th of second
     if (last_update == -1){
         last_update = millis();
     }
-    if (millis()-last_update >= 100){
+    if (millis()-last_update >= 100 && turn){
         last_update = millis();
         //get dist ang from lidar (shitty workaround copy)
-        int *all_dist_ref = lidar.get_all_distances();
-        //see if some dists <= from terrain border
         int x = Odometry::get_pos_x();
         int y = Odometry::get_pos_y();
         int robotAngle = Odometry::get_pos_theta();
         for (int i=0; i<360; i++){
-            if (lidar.is_valid(i)){
-                float true_x = x + all_dist_ref[i] * cos(i/180*PI);
-                float true_y = y + all_dist_ref[i] * sin(i/180*PI);
-                //Serial.print(i);
-                //Serial.print(" ");
-                //Serial.print(true_x);
-                //Serial.print(" ");
-                //Serial.println(true_y);
-                //vérifier si code appartient à zone
-                inzones[i] = (0 < true_x and true_x < 3000 and 0 < true_y and true_y < 2000);
-            }
             
+            int real_angle = (i + robotAngle)%360;
             
+            //Serial.print(i);
+            //Serial.print(" ");
+            //Serial.print(real_angle);
+            int dist = lidar.get_distance(real_angle);
+            true_ang[i] = real_angle;
+            int true_x_loc = x + (int)(dist * cos(real_angle*DEG_TO_RAD));
+            //Serial.print(" ");
+            //Serial.print(true_x_loc);
+            int true_y_loc = y + (int)(dist * sin(real_angle*DEG_TO_RAD));
+            //Serial2.printf("%d: %d  %d, %d\n", real_angle, dist, true_x_loc, true_y_loc);
+            //Serial.print(" ");
+            //Serial.println(true_y_loc);
+            true_x[i] = true_x_loc;
+            true_y[i] = true_y_loc;
+            inzones[i] = (0 < true_x_loc and true_x_loc < 3000 and 0 < true_y_loc and true_y_loc < 2000) and lidar.is_valid(i);
+
         }
         // get centers from zones of short distances
 
@@ -75,6 +94,7 @@ void InterfaceLidar::update_and_calc(uint8_t byte){
         //done
     }
     // dans un premier temps, faire en coordonnées relatives
+    return turn;
 }
 
 int* InterfaceLidar::obstacles(){
