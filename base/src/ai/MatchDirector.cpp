@@ -103,7 +103,7 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 }
 
 void update()
-{
+{ /*
     Action curAction = curSection[curActIndex];
     if(actionState == BEGIN)
     {
@@ -124,7 +124,7 @@ void update()
     {
         curActIndex++;
         actionState = BEGIN;
-    }
+    } */
     if(millis()-start_millis > timer*1000-5000) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
     {
         SerialDebug.println("déploiement du pavillon matchDirector");

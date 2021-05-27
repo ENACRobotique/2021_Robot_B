@@ -103,13 +103,14 @@ namespace MotorControl {
 		SerialDebug.print("cmd omega : ");
 		SerialDebug.print(cmd_omega);
 		SerialDebug.print("\t"); */
+		/*
 		SerialDebug.print("cmd vitesse : "); 
 		SerialDebug.print(cmd_speed);
 		SerialDebug.print("\t"); 
 		SerialDebug.print("get odometry vitesse : "); 
 		SerialDebug.print(		Odometry::get_speed());
 		SerialDebug.print("\t"); 
-
+*/
 		/*
 		
 		SerialDebug.print("cons speed : "); 
@@ -135,10 +136,10 @@ namespace MotorControl {
 		SerialDebug.print("\t");
 		SerialDebug.print(cmd_mot1);
 		SerialDebug.print("\t");
-		//SerialDebug.println(); */
+		//SerialDebug.println(); */ /*
 		SerialDebug.print("odometry::get_omega : ");
 		SerialDebug.print(Odometry::get_omega());
-		SerialDebug.println();
+		SerialDebug.println(); */
 		//SerialDebug.print("\t");0
 		//SerialDebug.println("\t"); */
 	}

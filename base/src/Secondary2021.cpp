@@ -71,14 +71,15 @@ void loop() {
     if(stateTime.check())
     {
       fsmSupervisor.update();
+      MatchDirector::update();
     }
  
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
 
   //echo back received bytes, just as a test
-  while(Serial.available()) {
+  /*while(Serial.available()) {
     Serial.write(Serial.read());
-  }
+  } */
 
 } 
