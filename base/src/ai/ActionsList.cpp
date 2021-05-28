@@ -6,6 +6,13 @@
 
 namespace ActionList
 {
+    int test = 5;
+    int *score_counter;
+
+    void set_timer_counter(int* timer)
+    {
+        score_counter = timer;
+    }
     #pragma region ecocups
     //TODO : Revoir les coordonnées !
     //longueur centre du robot à bras déployé : 105

@@ -44,6 +44,10 @@ namespace ActuatorSupervisor
     {
         otherServos[0].moveServo(SERVO_PAV_ANGLE_DPLOYED);
     }
+    void retract_pav()
+    {
+        otherServos[0].moveServo(SERVO_PAV_ANGLE_RTRCTED);
+    }
     void switch_pompe(bool isOn, int pompe)
     {
         SerialCtrl.println("ENABLE POMPE NOT TESTED");

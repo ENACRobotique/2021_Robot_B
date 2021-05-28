@@ -26,15 +26,17 @@ Can be modified by states if needed (for example, if an action is interacting wi
     int curActIndex = 0;
     ActionState actionState = BEGIN;
 
-    float timer = 10; // en s
+    float timer = 10; // en s, durée du match
     int score = 0;
     float offsetX = 0; //offsets au début du terrain par rapport à l'abs
     float offsetY = 0;
     uint32_t start_millis;
+    bool moveBackToBase;
 
 void init()
 {
     start_millis = millis();
+    moveBackToBase = false;
     //TODO : call only when match has started;
     //TODO : implement timer count;
 
@@ -86,17 +88,16 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 /* rough estimate using ACCEL MAX, doesn't take into account time to turn to a certain angle*/
 {
     float time = 0;
-    float d_squared = (targetX-begX)*(targetX-begX)+(begY-targetY)*(targetX-begX);
-    if(d_squared >= ACCEL_MAX*ACCEL_MAX)
+    float distance = sqrt((targetX-begX)*(targetX-begX)+(begY-targetY)*(begY-targetY));
+    
+    if(distance >= ACCEL_MAX)
     {
-         time = d_squared/(ACCEL_MAX*ACCEL_MAX); //trapèze de vitesse majorée
+         time = distance/(ACCEL_MAX) + 2; //trapèze de vitesse majorée
     }
     else
     {
-        float distance = sqrt((targetX-begX)*(targetX-begX)+(begY-targetY)*(targetX-begX));
-    //t = d/v
         float speed = ACCEL_MAX / 2;
-        time = distance/speed;
+        time = distance/speed + 1;
     }
     return time;
 
@@ -125,6 +126,11 @@ void update()
         curActIndex++;
         actionState = BEGIN;
     } */
+    if((millis()-start_millis > timer*1000-5000) & !moveBackToBase)
+    {
+        moveBackToBase = true;
+        //set_current_action(*(get_to_final()));
+    }
     if(millis()-start_millis > timer*1000-5000) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
     {
         SerialDebug.println("déploiement du pavillon matchDirector");
@@ -142,16 +148,16 @@ void set_current_action(Action *action)
     curSection = action;
 }
 
-void get_to_final()
+Action* get_to_final(bool isGirouetteWhite)
 {
-    /*
-    Find/calculate destination coordinate
-    Action GetToFinal[10] = 
+    //float x = (isGirouetteWhite) ?, aussi prendre en compte gauche ou droite
+    //Find/calculate destination coordinate
+    Action* GetToFinal = new Action[10];
+    GetToFinal =
     {
-        {x,y, 0.0f, &no_state, 5f},
+        //{x,y, 0.0f, &no_state, 5.f},
     };
-    Trouver comment déployer le pavillon 5s de la fin
-    */
+    return GetToFinal;
 }
 /* méthodes à rajouter :
 Temps estimé pour réaliser action

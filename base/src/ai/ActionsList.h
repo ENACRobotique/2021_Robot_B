@@ -5,6 +5,7 @@
 #include "../stateMachine/AbstractState.h"
 namespace ActionList
 {
+    void set_timer_counter(int timer);
     extern Action EcocupsTopLeft[10];
 }
 
