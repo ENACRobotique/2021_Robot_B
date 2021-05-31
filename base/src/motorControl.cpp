@@ -29,6 +29,7 @@ namespace MotorControl {
 
 	float cons_speed=0;
 	float cons_omega=0;
+	
 	float Ki_speed = 0.15; //0.2
 	float Kp_speed = 0.4; //0.5
 	float Kd_speed = 0; //0.2
@@ -36,6 +37,14 @@ namespace MotorControl {
 	float Kp_omega = 15;//10;
 	float Kd_omega = 5;//10;
 
+/*
+	float Ki_speed = 0.2;//0.2;
+	float Kp_speed = 0.5;//0.5;
+	float Kd_speed = 0;
+	float Ki_omega = 10;//15  20;
+	float Kp_omega = 10;//75  30;
+	float Kd_omega = 0;
+	*/
 	float error_integrale_speed=0.01;
 	float error_integrale_omega=0;
 

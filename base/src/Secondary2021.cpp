@@ -26,12 +26,12 @@ int i = 0;
 
 void setup() {
   //Serial.begin(115200);
-  while(!Serial) {}
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(11, OUTPUT);
 
     SerialCtrl.begin(57600);
     Serial.begin(57600);
+    //while(!Serial) {}
     Serial.println("initialization serialDebug");
     Serial.println("timer du match mis à 10s !!");
     SerialCtrl.println("initialization serialCtrl");

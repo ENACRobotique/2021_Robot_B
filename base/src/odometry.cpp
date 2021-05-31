@@ -13,12 +13,8 @@ namespace Odometry{
 
 	volatile int _incr1;
 	volatile int _incr2;
-	volatile int _incr3;
-	volatile int _incr4;
 	int nbr1 = 0;
 	int nbr2 = 0;
-	int nbr3 = 0;
-	int nbr4 = 0;
 	int totalincre = 0;
 
 	float pos_x, pos_y, pos_theta;
@@ -31,24 +27,14 @@ namespace Odometry{
 		attachInterrupt(MOT_ENCODEUR1_A, isr1, FALLING);
 		//attachInterrupt(MOT_ENCODEUR1_A, isr1, RISING);
 		_incr1 = 0;
+		
+		pinMode(MOT_ENCODEUR2_A,INPUT_PULLUP);
+		pinMode(MOT_ENCODEUR2_B,INPUT_PULLUP);
+		attachInterrupt(MOT_ENCODEUR2_A, isr2, RISING);
+		//attachInterrupt(MOT_ENCODEUR2_A, isr2, FALLING);
+		_incr2 = 0;
 
-		pinMode(MOT_ENCODEUR1_A,INPUT_PULLUP);
-		pinMode(MOT_ENCODEUR1_B,INPUT_PULLUP);
-		attachInterrupt(MOT_ENCODEUR1_A, isr1, FALLING);
-		//attachInterrupt(MOT_ENCODEUR1_A, isr1, RISING);
-		_incr1 = 0;
 
-		pinMode(WHEEL_ENCODEUR1_A,INPUT_PULLUP);
-		pinMode(WHEEL_ENCODEUR2_B,INPUT_PULLUP);
-		attachInterrupt(WHEEL_ENCODEUR2_A, isr3, RISING);
-		//attachInterrupt(MOT_ENCODEUR2_A, isr3, FALLING);
-		_incr3 = 0;
-
-		pinMode(WHEEL_ENCODEUR2_A,INPUT_PULLUP);
-		pinMode(WHEEL_ENCODEUR2_B,INPUT_PULLUP);
-		attachInterrupt(WHEEL_ENCODEUR2_A, isr4, RISING);
-		//attachInterrupt(MOT_ENCODEUR2_A, isr4, FALLING);
-		_incr4 = 0;
 
 		pos_x = pos_y = pos_theta = speed = omega = 0;
 
@@ -72,28 +58,6 @@ namespace Odometry{
 		}
 		else {
 			_incr2--;
-			//_incr2++;
-		}
-	}
-
-	void isr3() {
-		if(digitalRead(WHEEL_ENCODEUR1_B)) {
-			_incr3++;
-			//_incr1--;
-		}
-		else {
-			_incr3--;
-			//_incr1++;
-		}
-	}
-
-	void isr4() {
-		if(digitalRead(WHEEL_ENCODEUR2_B)) {
-			_incr4++;
-			//_incr2--;
-		}
-		else {
-			_incr4--;
 			//_incr2++;
 		}
 	}
@@ -184,6 +148,15 @@ namespace Odometry{
 		#endif
 	}
 
+
+	float get_motor_x() {
+		return 0.0f;
+	}
+	float get_motor_y() {
+		return 0.0f;
+	}
+
+
 	
 }
 
@@ -191,11 +164,3 @@ namespace Odometry{
 
 
 
-
-
-float Odometry::get_motor_x() {
-    return 0;
-}
-float Odometry::get_motor_y() {
-    return 0;
-}

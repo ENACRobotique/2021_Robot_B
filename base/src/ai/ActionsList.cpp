@@ -4,6 +4,10 @@
 #include "../stateMachine/Wait_front_cup_succ.h"
 #include "../stateMachine/MoveServo.h"
 
+//#ifdef DEBUG_MATCH_DIRECTOR
+#include "../stateMachine/etat_vide_with_serial.h"
+//#endif
+
 namespace ActionList
 {
     int test = 5;
@@ -35,6 +39,15 @@ namespace ActionList
     MoveServo retractFrontRed  = MoveServo(CupColor::RED, true, false, false);
     MoveServo retractBackGreen = MoveServo(CupColor::GREEN, false, false, false);
     MoveServo retractBackRed   = MoveServo(CupColor::RED, false, false, false);
+
+    //#ifdef DEBUG_MATCH_DIRECTOR
+    Action TestMovement[5] =
+    {
+        {1000.f, 1500.f, 0.f, &Etat_vide_with_serial("phase 1 test movement initie 1"), 0.0f},
+        {1200.f, 2000.f, 90.f, &Etat_vide_with_serial("phase 2 test movement initie 2 "), 0.0f},
+        {300.f, 1500.f, 180.f, &Etat_vide_with_serial("phase 3 test movement initie 3 "), 0.0f},
+    };
+    //#endif
 
     /* Ecocup écueils : Ecart de 75 mm entre chaque ecocup */
     //X = 850

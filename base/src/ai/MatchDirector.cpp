@@ -104,28 +104,35 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 }
 
 void update()
-{ /*
+{ 
     Action curAction = curSection[curActIndex];
-    if(actionState == BEGIN)
+    if(curSection != NULL)
     {
-        abs_coords_to(curAction.x,curAction.y);
-        actionState = MOVING;
+        if(actionState == BEGIN)
+        {
+            SerialCtrl.println("actionState == begin");
+            abs_coords_to(curAction.x,curAction.y);
+            actionState = MOVING;
+        }
+        else if(actionState == MOVING && 
+        timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= curAction.countdownState)
+        {
+                        SerialCtrl.println("actionState == execute state");
+            fsmSupervisor.setNextState(curAction.state);
+        }
+        else if(actionState == MOVING && navigator.isTrajectoryFinished()) //Has moved -> has turned
+        {
+                        SerialCtrl.println("actionState == Moving & trajectory over");
+            navigator.turn_to(curAction.angle);
+            actionState = TURNING;
+        }
+        else if(actionState == TURNING && navigator.isTrajectoryFinished() && fsmSupervisor.is_no_state_set())
+        {
+                        SerialCtrl.println("actionState == turning");
+            curActIndex++;
+            actionState = BEGIN;
+        } 
     }
-    else if(actionState == MOVING && 
-    timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= curAction.countdownState)
-    {
-        fsmSupervisor.setNextState(curAction.state);
-    }
-    else if(actionState == MOVING && navigator.isTrajectoryFinished()) //Has moved -> has turned
-    {
-        navigator.turn_to(curAction.angle);
-        actionState = TURNING;
-    }
-    else if(actionState == TURNING && navigator.isTrajectoryFinished() && fsmSupervisor.is_no_state_set())
-    {
-        curActIndex++;
-        actionState = BEGIN;
-    } */
     if((millis()-start_millis > timer*1000-5000) & !moveBackToBase)
     {
         moveBackToBase = true;

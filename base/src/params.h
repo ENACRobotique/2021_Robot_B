@@ -10,10 +10,10 @@
 #define PARAMS_H_
 
 #define VOLT_TO_DIST(volt) (13 * pow (volt  * 0.0048828125, -1)) 
+#define DEBUG_MATCH_DIRECTOR
 
-    #ifndef DEBUG_NO_ARDUINO
+#ifndef DEBUG_NO_ARDUINO
     #include "Arduino.h"
-
 
 
     // #define DEBUG_ODOMETRY
@@ -25,7 +25,7 @@
     static Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB   
     static HardwareSerial& SerialCtrl = Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug
     static HardwareSerial& SerialLidar = Serial1;
-    #endif
+#endif
 
 const int ARUCO_ID = 1;
 
@@ -111,7 +111,7 @@ const float ACCEL_OMEGA_MAX = 1;
 const float ADMITTED_OMEGA_ERROR = 0.03;
 const float ADMITTED_SPEED_ERROR = 10;
 
-const float ADMITTED_POSITION_ERROR = 3; //5
+const float ADMITTED_POSITION_ERROR = 5; //3
 const float ADMITTED_ANGLE_ERROR = 0.01;
 
 //const float MAX_DRIFT = 0.1;

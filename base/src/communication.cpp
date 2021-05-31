@@ -86,7 +86,7 @@ namespace Communication {
             }
         }
         else if(buffer[0] == 'd') { //deploy front servo -> from start to deposit ecocup
-            MatchDirector::set_current_action(ActionList::EcocupsTopLeft);
+            MatchDirector::set_current_action(ActionList::TestMovement);
         }
 
 
