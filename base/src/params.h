@@ -11,12 +11,13 @@
 
 #define VOLT_TO_DIST(volt) (13 * pow (volt  * 0.0048828125, -1)) 
 #define DEBUG_MATCH_DIRECTOR
+//#define DEBUG_ODOMETRY
 
 #ifndef DEBUG_NO_ARDUINO
     #include "Arduino.h"
 
 
-    // #define DEBUG_ODOMETRY
+    // 
 
     // ** Serials ports ** //
     //#define SerialDebug = Serial;

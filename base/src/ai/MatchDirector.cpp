@@ -6,7 +6,7 @@
 #include "../odometry.h"
 #include "../FsmSupervisor.h" 
 #include "../actuatorSupervisor.h"
-#include "arduino.h" //NULL definition
+#include "Arduino.h" //NULL definition
 
 namespace MatchDirector
 {
@@ -52,11 +52,11 @@ void abs_coords_to(float x, float y)
 {  
     if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
     {
-        navigator.move_to(-x + offsetX, -y + offsetY);
+        navigator.move_to(-x + offsetX, -y - offsetY);
     }
     else
     {
-        navigator.move_to(x + offsetX, y + offsetY);
+        navigator.move_to(x - offsetX, y - offsetY);
     }
     
 }
@@ -106,6 +106,11 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 void update()
 { 
     Action curAction = curSection[curActIndex];
+            SerialCtrl.println(timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y));
+            SerialCtrl.println(get_abs_x());
+            SerialCtrl.println(get_abs_y());
+            SerialCtrl.println(curAction.x);
+            SerialCtrl.println(curAction.y);
     if(curSection != NULL)
     {
         if(actionState == BEGIN)
@@ -114,8 +119,9 @@ void update()
             abs_coords_to(curAction.x,curAction.y);
             actionState = MOVING;
         }
+
         else if(actionState == MOVING && 
-        timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= curAction.countdownState)
+        timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= curAction.countdownState +1.1f) //car time toReachCoords >= 1 à tout moment
         {
                         SerialCtrl.println("actionState == execute state");
             fsmSupervisor.setNextState(curAction.state);

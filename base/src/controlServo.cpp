@@ -27,15 +27,16 @@ void ControlServo::init(int ServoPIN, Adafruit_PWMServoDriver *pwm){
     }
     else
     {
-        servo.attach(ServoPIN);
-        servo.write(init_angle);
+        //servo.attach(ServoPIN);
+        //servo.write(init_angle);
+        //analogWrite(ServoPIN, 0); //equivalent of detach working
     }
-    delay(15);
+    //delay(15);
 }
 
 void ControlServo::moveServo(int angle){
     servo.write(angle);
-    delay(15);
+    //delay(15);
 }
 
 void ControlServo::resetPos(){

@@ -8,6 +8,8 @@
 #ifndef MOTORCONTROL_H_
 #define MOTORCONTROL_H_
 
+#define DEBUG_ASSERVISSEMENT
+
 namespace MotorControl {
 	void update();
 	void init();

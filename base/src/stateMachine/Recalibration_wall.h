@@ -5,8 +5,7 @@
  *      Author: Maxime
  */
 
-#ifndef STATEMACHINE_RECALIBRATION_WALL_H_
-#define STATEMACHINE_RECALIBRATION_WALL_H_
+#pragma once
 
 #include "AbstractState.h"
 
@@ -34,5 +33,3 @@ private:
 	float targetPos;
 	float targetTheta;
 };
-
-#endif 

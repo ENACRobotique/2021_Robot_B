@@ -166,7 +166,7 @@ float Navigator::compute_cons_omega()
 		else{
 			omega_cons = sgn*max(0,abs(Odometry::get_omega()) - NAVIGATOR_PERIOD*ACCEL_OMEGA_MAX);
 		}
-	}
+	} /*
 	SerialDebug.print("Consigne angle:");
 	SerialDebug.print(omega_cons);
 	SerialDebug.print("\t");
@@ -175,7 +175,7 @@ float Navigator::compute_cons_omega()
 	SerialDebug.print("\t");
 	SerialDebug.print("angle_fore:");
 	SerialDebug.println(angle_fore);
-
+*/
 	return omega_cons;
 }
 

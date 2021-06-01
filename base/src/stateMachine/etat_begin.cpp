@@ -24,7 +24,7 @@ Etat_begin::~Etat_begin() {
 
 void Etat_begin::enter() {
 	time_start = millis();
-	SerialDebug.println("Je suis en état begin");
+	//SerialDebug.println("Je suis en état begin");
 }
 
 void Etat_begin::leave() {

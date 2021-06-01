@@ -132,8 +132,6 @@ namespace Odometry{
 
 
 		#ifdef DEBUG_ODOMETRY
-		totalincre += incr2;
-		SerialDebug.println(totalincre);
 		SerialDebug.print("x:");
 		SerialDebug.print(pos_x);
 		SerialDebug.print("\t y:");

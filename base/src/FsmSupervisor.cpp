@@ -6,7 +6,7 @@
  */
 
 #include "FsmSupervisor.h"
-//#include "Arduino.h" 
+#include "Arduino.h" 
 /*
 #include "./stateMachine/CaptureEcocup.h"
 #include "./stateMachine/Reajustement.h"
@@ -31,6 +31,7 @@ FsmSupervisor::~FsmSupervisor() {
 
 void FsmSupervisor::setNextState(AbstractState* state) {
 	nextState = state;
+	SerialCtrl.println("setting next state in fsmSupervisor");
 }
 
 void FsmSupervisor::update() {
@@ -43,10 +44,12 @@ void FsmSupervisor::update() {
 	}*/
 
 	if(nextState != NULL && nextState != currentState){
+		SerialCtrl.println("beggining to change fsmSupervisor state");
 		currentState->leave();
 		nextState->enter();
 		currentState = nextState;
 		nextState = NULL;
+		SerialCtrl.println("changing fsmSupervisor state");
 	}
 
 	currentState->doIt();

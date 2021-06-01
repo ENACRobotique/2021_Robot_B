@@ -1,7 +1,7 @@
 #include "stateMachineTest2s.h"
-#include "arduino.h"
+#include "Arduino.h"
 #include "FsmSupervisor.h"
-#include "../stateMachine/recalibration_wall.h"
+#include "../stateMachine/Recalibration_wall.h"
 
 bool hasStarted = false;
 
