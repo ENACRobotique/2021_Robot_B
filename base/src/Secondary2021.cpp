@@ -1,8 +1,8 @@
 
-#include "Arduino.h"
+#include "Arduino.h" /*
 #include "odometry.h"
-#include "motorControl.h"
-#include "params.h"
+#include "motorControl.h" */
+#include "params.h" /*
 #include "Metro.h"
 
 #include "communication.h"
@@ -12,8 +12,9 @@
 #include "ai/MatchDirector.h"
 //#include "raspberryParser.h"
 #include "examples/servoTest.h"
-#include "examples/asservissementMoteur.h"
-
+#include "examples/asservissementMoteur.h" */
+#include "examples/debugTest.h"
+/*
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
 Metro debugLed = Metro(2000);
 Metro navTime = Metro((unsigned long)(NAVIGATOR_PERIOD * 1000)); //2000
@@ -23,7 +24,7 @@ Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
 
 float sp[4] = {0, 3.14f, 0, -3.14f};
 int i = 0;
-
+*/
 
 void setup() {
   //Serial.begin(115200);
@@ -39,7 +40,7 @@ void setup() {
     //while(!Serial) {}
     Serial.println("initialization serialDebug");
     Serial.println("timer du match mis à 10s !!");
-    SerialCtrl.println("initialization serialCtrl");
+    SerialCtrl.println("initialization serialCtrl");/*
   controlTime.reset();
 	debugLed.reset();
 	navTime.reset();
@@ -48,15 +49,16 @@ void setup() {
 	MotorControl::init();
   fsmSupervisor.init();
   ActuatorSupervisor::init();
-  MatchDirector::init();
-
+  MatchDirector::init(); */
+  //ActuatorSupervisor::switch_ev(true, 1);
+  debugTest::scanSerial();
   //while (!Serial);
   
 }
 
 void loop() {
   
-
+/*
       if(navTime.check())
     {
       navigator.update();

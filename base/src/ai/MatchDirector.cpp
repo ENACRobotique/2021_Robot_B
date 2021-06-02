@@ -106,11 +106,7 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 void update()
 { 
     Action curAction = curSection[curActIndex];
-            SerialCtrl.println(timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y));
-            SerialCtrl.println(get_abs_x());
-            SerialCtrl.println(get_abs_y());
-            SerialCtrl.println(curAction.x);
-            SerialCtrl.println(curAction.y);
+    
     if(curSection != NULL)
     {
         if(actionState == BEGIN)
