@@ -14,8 +14,11 @@ namespace ActuatorSupervisor
 
     void init()
     {
+        Wire.begin();
+        pwm.begin();
+
         //arms servos
-        /*
+        
         for (int i = 0; i < 5; i++)
         {
             armServos[i].defInitAngle(150);
@@ -23,18 +26,18 @@ namespace ActuatorSupervisor
             switch_pompe(false, i);
             switch_ev(false, i);
         }
-*/
+
         //other servos
-        otherServos[0].defInitAngle(SERVO_PAV_ANGLE_RTRCTED);
-        otherServos[0].init(SERVO_PAV, NULL); 
-        otherServos[1].defInitAngle(SERVO_BAR_ANGLE_RTRCTED);
-        otherServos[1].init(SERVO_BAR, NULL); 
+        //otherServos[0].defInitAngle(SERVO_PAV_ANGLE_RTRCTED);
+        //otherServos[0].init(SERVO_PAV, NULL); 
+        //otherServos[1].defInitAngle(SERVO_BAR_ANGLE_RTRCTED);
+        //otherServos[1].init(SERVO_BAR, NULL); 
         //TODO : pinMode nécessaire ou non
         //pinMode(POMPE, OUTPUT);
         //pinMode(VANN, OUTPUT);
 
         //multiplexers
-        delay(10);
+        //delay(10);
         //pwm.begin();
         //pwm.setPWMFreq(PWM_FREQUENCY);    
         SerialDebug.println("init done for actuatorSupervisor ! ");
@@ -61,7 +64,7 @@ namespace ActuatorSupervisor
         SerialCtrl.println("ENABLE EV NOT TESTED");
         int start_pwm = (isOn) ? 4096 : 0;
         int end_pwm = (isOn) ? 0 : 4096;
-        pwm.setPWM(pompe_nb_to_pin(ev), start_pwm, end_pwm);
+        pwm.setPWM(ev_nb_to_pin(ev), start_pwm, end_pwm);
     }
     int servo_nb_to_pin(int servo) 
     /* return 0 if servo_nb not between 0 & 4 included */
