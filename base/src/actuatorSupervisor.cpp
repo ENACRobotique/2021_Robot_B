@@ -16,10 +16,19 @@ namespace ActuatorSupervisor
     {
         Wire.begin();
         pwm.begin();
+        pwm.setPWMFreq(SERVO_FREQ);
 
         //arms servos
         
-        for (int i = 0; i < 5; i++)
+        /*for (int i = 0; i < 5; i++)
+        {
+            armServos[i].defInitAngle(150);
+            armServos[i].init(servo_nb_to_pin(i), &pwm);
+            switch_pompe(false, i);
+            switch_ev(false, i);
+        }*/
+
+        for (int i = 2; i < 5; i++)
         {
             armServos[i].defInitAngle(150);
             armServos[i].init(servo_nb_to_pin(i), &pwm);
@@ -28,10 +37,13 @@ namespace ActuatorSupervisor
         }
 
         //other servos
-        //otherServos[0].defInitAngle(SERVO_PAV_ANGLE_RTRCTED);
+        otherServos[0].defInitAngle(SERVO_PAV_ANGLE_RTRCTED);
         //otherServos[0].init(SERVO_PAV, NULL); 
-        //otherServos[1].defInitAngle(SERVO_BAR_ANGLE_RTRCTED);
+        otherServos[0].init(SERVO1, &pwm);
+        otherServos[1].defInitAngle(SERVO_BAR_ANGLE_RTRCTED);
         //otherServos[1].init(SERVO_BAR, NULL); 
+        otherServos[1].init(SERVO2, &pwm); 
+
         //TODO : pinMode nécessaire ou non
         //pinMode(POMPE, OUTPUT);
         //pinMode(VANN, OUTPUT);

@@ -8,6 +8,7 @@
 #include "ai/MatchDirector.h"
 #include "ai/ActionsList.h"
 #include "params.h"
+#include "actuatorSupervisor.h"
 
 
 #define COM_DEBUG
@@ -85,9 +86,13 @@ namespace Communication {
                 navigator.turn_to(angle);
             }
         }
-        else if(buffer[0] == 'd') { //deploy front servo -> from start to deposit ecocup
+        else if(buffer[0] == 'l') { //deploy front servo -> from start to deposit ecocup
             MatchDirector::set_current_action(ActionList::TestMovement);
         }
+        else if(buffer[0] == 'd') { //deploy pavillon
+            ActuatorSupervisor::otherServos[1].moveServo(SERVO_PAV_ANGLE_DPLOYED);
+        }
+
 
 
         buff_index = 0;
