@@ -10,6 +10,11 @@ const T & clamp( const T & inf, const T & sup, const T & x )
     return min(sup, max(inf, x));
 }
 
+float distance_squared (float xA, float yA, float xB, float yB)
+{
+    return (xA-xB)*(xA-xB)+(yA-yB)*(yA-yB);
+}
+
     const float LEFT_WALL = 0;
     const float RIGHT_WALL = 3000; //TO CHECK;
     const float TOP_WALL = 1000;

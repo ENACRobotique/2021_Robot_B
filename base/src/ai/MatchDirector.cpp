@@ -7,6 +7,7 @@
 #include "../FsmSupervisor.h" 
 #include "../actuatorSupervisor.h"
 #include "Arduino.h" //NULL definition
+#include "utils.h"
 
 namespace MatchDirector
 {
@@ -121,9 +122,10 @@ void update()
         }
 
         else if(actionState == MOVING && 
-        timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= curAction.countdownState +1.1f) //car time toReachCoords >= 1 à tout moment
+            (timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= curAction.countdownState +1.1f) //car time toReachCoords >= 1 à tout moment
+            || distance_squared(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR) 
         {
-                        SerialCtrl.println("actionState == execute state");
+            SerialCtrl.println("actionState == execute state");
             fsmSupervisor.setNextState(curAction.state);
         }
         else if(actionState == MOVING && navigator.isTrajectoryFinished()) //Has moved -> has turned
