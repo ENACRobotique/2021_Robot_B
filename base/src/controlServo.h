@@ -24,9 +24,11 @@ public:
     void resetPos();
     int returnPos();
 
-private:
+protected:
     PWMServo servo;
+    Adafruit_PWMServoDriver *pwm;
     int init_angle = 0;
+    int pin;
 };
 
 #endif
