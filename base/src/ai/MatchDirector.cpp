@@ -49,6 +49,11 @@ void init()
     //curSection = EcocupsTopLeft;
 }
 
+float distance_squared (float xA, float yA, float xB, float yB)
+{
+    return (xA-xB)*(xA-xB)+(yA-yB)*(yA-yB);
+}
+
 void abs_coords_to(float x, float y)
 {  
     if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
@@ -170,6 +175,8 @@ Action* get_to_final(bool isGirouetteWhite)
     };
     return GetToFinal;
 }
+
+
 /* méthodes à rajouter :
 Temps estimé pour réaliser action
 (Heuristique action/temps réalsier une action)
