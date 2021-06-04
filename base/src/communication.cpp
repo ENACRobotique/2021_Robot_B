@@ -8,13 +8,23 @@
 #include "./stateMachine/DeployFrontServo.h"
 #include "params.h"
 
+typedef int (*pointFonct) (char[10], char[10], char[10])
 
 #define COM_DEBUG
-
+struct Message {
+    pointFonct pF,
+    char[10] val1,
+    char[10] val2,
+    char[10] val3
+    };
+void executeOrder (struct Message m){
+    (*m.pF)(m.val1,m.val2, m.val3);
+}
 namespace Communication {
     
     
     static void parse_data();
+    char Nom[5]]; 
 
     char buffer[50];
     int buff_index=0;
@@ -22,7 +32,7 @@ namespace Communication {
         int a;
         a = SerialCtrl.available();
         #ifdef IHM
-            SerialCtrl.print("R 2 "); + 
+            SerialCtrl.print("P R2 "); 
             SerialCtrl.print(Odometry::get_pos_x());
             SerialCtrl.print(" ");
             SerialCtrl.print(Odometry::get_pos_y());
@@ -57,7 +67,7 @@ namespace Communication {
 
     static void parse_data(){
         SerialDebug.print(buffer);
-        if(buffer[0] == 's') {
+        if(buffer[0] == 's' and buffer[1] =' ' and buffer[2]) {
             MotorControl::set_cons(0,0);
             navigator.forceStop();
             #ifdef COM_DEBUG
