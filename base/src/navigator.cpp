@@ -8,10 +8,12 @@
 #include "navigator.h"
 
 #include "params.h"
-#include "odometry.h"
+#include "Odometry.h"
 #include "motorControl.h"
 #include "math.h"
 #include "utils.h"
+
+
 
 Navigator navigator = Navigator();
 
@@ -51,11 +53,11 @@ void Navigator::move(float v, float omega){
 }
 
 void Navigator::step_forward(float d){
-	move_to(d*cos(Odometry::get_pos_theta()) + Odometry::get_pos_x(),d*sin(Odometry::get_pos_theta()) + Odometry::get_pos_y());
+	move_to(d*cos(odometry_motor.get_pos_theta()) + odometry_motor.get_pos_x(),d*sin(odometry_motor.get_pos_theta()) + odometry_motor.get_pos_y());
 }
 
 void Navigator::step_backward(float d){
-	move_to(-d*cos(Odometry::get_pos_theta()) + Odometry::get_pos_x(),-d*sin(Odometry::get_pos_theta()) + Odometry::get_pos_y());
+	move_to(-d*cos(odometry_motor.get_pos_theta()) + odometry_motor.get_pos_x(),-d*sin(odometry_motor.get_pos_theta()) + odometry_motor.get_pos_y());
 }
 
 
@@ -63,7 +65,7 @@ void Navigator::turn_to(float theta){ // En degrés
 	theta_target = center_radian(PI*theta/180);
 
 	/*SerialDebug.print("Angle: ");
-	SerialDebug.println(Odometry::get_pos_theta());
+	SerialDebug.println(odometry_motor.get_pos_theta());
 	SerialDebug.print("moving_to : ");
 	SerialDebug.print(theta_target);
 	SerialDebug.print(" ( <  ");
@@ -98,29 +100,29 @@ float Navigator::compute_cons_speed()
 	else{
 		MAX_ACCEL = ACCEL_MAX;
 	}
-	sgn = scalaire(cos(Odometry::get_pos_theta()),sin(Odometry::get_pos_theta()),x_target - Odometry::get_pos_x(),y_target - Odometry::get_pos_y());
+	sgn = scalaire(cos(odometry_motor.get_pos_theta()),sin(odometry_motor.get_pos_theta()),x_target - odometry_motor.get_pos_x(),y_target - odometry_motor.get_pos_y());
 
 	/*SerialDebug.print("Sens d'avancée:");
 	SerialDebug.print("\t");
 	SerialDebug.println(sgn);*/
 
 	//Test de décélération (on suppose l'accélération minimale et on intègre deux fois)
-	t_stop = Odometry::get_speed()/MAX_ACCEL;
-	dist_fore = (Odometry::get_speed()*t_stop-1/2*MAX_ACCEL*pow(t_stop,2));
-	/*dist_fore = Odometry::get_speed()*t_stop;*/
+	t_stop = odometry_motor.get_speed()/MAX_ACCEL;
+	dist_fore = (odometry_motor.get_speed()*t_stop-1/2*MAX_ACCEL*pow(t_stop,2));
+	/*dist_fore = odometry_motor.get_speed()*t_stop;*/
 
-	dist_objective = sqrt(pow(x_target - Odometry::get_pos_x(),2) + pow(y_target - Odometry::get_pos_y(),2));
+	dist_objective = sqrt(pow(x_target - odometry_motor.get_pos_x(),2) + pow(y_target - odometry_motor.get_pos_y(),2));
 
 	//Si le point estimé est suffisamment proche du point voulu, on décélére, sinon on accélére jusqu'à la vitesse maximale.
 	if(abs( dist_fore - dist_objective ) < ADMITTED_POSITION_ERROR){
-		speed_cons = sgn*max(0,-MAX_ACCEL*NAVIGATOR_PERIOD + abs(Odometry::get_speed()));
+		speed_cons = sgn*max(0,-MAX_ACCEL*NAVIGATOR_PERIOD + abs(odometry_motor.get_speed()));
 	}
 	else{
 		if(dist_fore - dist_objective > 0){
-			speed_cons = sgn*max(0,abs(Odometry::get_speed()) - MAX_ACCEL*NAVIGATOR_PERIOD);
+			speed_cons = sgn*max(0,abs(odometry_motor.get_speed()) - MAX_ACCEL*NAVIGATOR_PERIOD);
 		}
 		else{
-			speed_cons = sgn*min(SPEED_MAX,abs(Odometry::get_speed()) + MAX_ACCEL*NAVIGATOR_PERIOD);
+			speed_cons = sgn*min(SPEED_MAX,abs(odometry_motor.get_speed()) + MAX_ACCEL*NAVIGATOR_PERIOD);
 		}
 	} /*
 	SerialDebug.print("Distances estimées");
@@ -131,7 +133,7 @@ float Navigator::compute_cons_speed()
 	SerialDebug.print("speed cons : ");
 	SerialDebug.print(speed_cons);
 	SerialDebug.print("\tspeed= ");
-	SerialDebug.println(Odometry::get_speed()); */
+	SerialDebug.println(odometry_motor.get_speed()); */
 	return speed_cons;
 }
 
@@ -142,29 +144,29 @@ float Navigator::compute_cons_omega()
 	int sgn;
 
 	if(move_type == DISPLACEMENT){
-		alpha = Odometry::get_pos_theta() + center_axes(atan2((-y_target+Odometry::get_pos_y()),(-x_target+Odometry::get_pos_x())) - Odometry::get_pos_theta());
+		alpha = odometry_motor.get_pos_theta() + center_axes(atan2((-y_target+odometry_motor.get_pos_y()),(-x_target+odometry_motor.get_pos_x())) - odometry_motor.get_pos_theta());
 	}
 	else{
 		alpha = theta_target;
 	}
 
-	if (center_radian(alpha - Odometry::get_pos_theta()) > 0){
+	if (center_radian(alpha - odometry_motor.get_pos_theta()) > 0){
 		sgn = 1;
 	}
 	else{
 		sgn = -1;
 	}
-	t_rotation_stop = abs(Odometry::get_omega())/ACCEL_OMEGA_MAX;
-	angle_fore = center_radian(Odometry::get_pos_theta() + sgn*(abs(Odometry::get_omega())*t_rotation_stop -1/2*ACCEL_OMEGA_MAX*pow(t_rotation_stop,2)));
+	t_rotation_stop = abs(odometry_motor.get_omega())/ACCEL_OMEGA_MAX;
+	angle_fore = center_radian(odometry_motor.get_pos_theta() + sgn*(abs(odometry_motor.get_omega())*t_rotation_stop -1/2*ACCEL_OMEGA_MAX*pow(t_rotation_stop,2)));
 	if(abs(center_radian(angle_fore - alpha)) < ADMITTED_ANGLE_ERROR){
-		omega_cons = sgn*max(0,abs(Odometry::get_omega()) - NAVIGATOR_PERIOD*ACCEL_OMEGA_MAX);
+		omega_cons = sgn*max(0,abs(odometry_motor.get_omega()) - NAVIGATOR_PERIOD*ACCEL_OMEGA_MAX);
 	}
 	else{
 		if(sgn*(center_radian(alpha - angle_fore)) > 0){
-			omega_cons = sgn*min(OMEGA_MAX, NAVIGATOR_PERIOD*ACCEL_OMEGA_MAX + abs(Odometry::get_omega()));
+			omega_cons = sgn*min(OMEGA_MAX, NAVIGATOR_PERIOD*ACCEL_OMEGA_MAX + abs(odometry_motor.get_omega()));
 		}
 		else{
-			omega_cons = sgn*max(0,abs(Odometry::get_omega()) - NAVIGATOR_PERIOD*ACCEL_OMEGA_MAX);
+			omega_cons = sgn*max(0,abs(odometry_motor.get_omega()) - NAVIGATOR_PERIOD*ACCEL_OMEGA_MAX);
 		}
 	} /*
 	SerialDebug.print("Consigne angle:");
@@ -183,9 +185,9 @@ void Navigator::update(){
 	float omega_cons,speed_cons,alpha,distance;
 
 	if(move_type == BRAKE){
-		int sgn = scalaire(cos(Odometry::get_pos_theta()),sin(Odometry::get_pos_theta()),x_target - Odometry::get_pos_x(),y_target - Odometry::get_pos_y());
-		speed_cons = sgn*max(0,abs(Odometry::get_speed()) - EMERGENCY_BRAKE*NAVIGATOR_PERIOD);
-		if(abs(Odometry::get_speed()) < ADMITTED_SPEED_ERROR){
+		int sgn = scalaire(cos(odometry_motor.get_pos_theta()),sin(odometry_motor.get_pos_theta()),x_target - odometry_motor.get_pos_x(),y_target - odometry_motor.get_pos_y());
+		speed_cons = sgn*max(0,abs(odometry_motor.get_speed()) - EMERGENCY_BRAKE*NAVIGATOR_PERIOD);
+		if(abs(odometry_motor.get_speed()) < ADMITTED_SPEED_ERROR){
 			move_state = STOPPED;
 			speed_cons = 0;
 		}
@@ -196,12 +198,12 @@ void Navigator::update(){
 		case INITIAL_TURN:
 
 			if(move_type==DISPLACEMENT){
-				alpha = Odometry::get_pos_theta() + center_axes(atan2((-y_target+Odometry::get_pos_y()),(-x_target+Odometry::get_pos_x())) - Odometry::get_pos_theta());
+				alpha = odometry_motor.get_pos_theta() + center_axes(atan2((-y_target+odometry_motor.get_pos_y()),(-x_target+odometry_motor.get_pos_x())) - odometry_motor.get_pos_theta());
 			}
 			else{
 				alpha = theta_target;
 			}
-			turn_done = ((abs(center_radian(Odometry::get_pos_theta() - alpha)) < ADMITTED_ANGLE_ERROR)&&(Odometry::get_omega() < ADMITTED_OMEGA_ERROR));
+			turn_done = ((abs(center_radian(odometry_motor.get_pos_theta() - alpha)) < ADMITTED_ANGLE_ERROR)&&(odometry_motor.get_omega() < ADMITTED_OMEGA_ERROR));
 
 			if(turn_done){
 
@@ -229,8 +231,8 @@ void Navigator::update(){
 
 			break;
 		case CRUISE:
-			distance = sqrt(pow(x_target - Odometry::get_pos_x(),2) + pow(y_target - Odometry::get_pos_y(),2));
-			displacement_done = ((distance<ADMITTED_POSITION_ERROR)&&(Odometry::get_speed() < ADMITTED_SPEED_ERROR));
+			distance = sqrt(pow(x_target - odometry_motor.get_pos_x(),2) + pow(y_target - odometry_motor.get_pos_y(),2));
+			displacement_done = ((distance<ADMITTED_POSITION_ERROR)&&(odometry_motor.get_speed() < ADMITTED_SPEED_ERROR));
 			if(displacement_done){
 				MotorControl::set_cons(0,0);
 				move_state=STOPPED;
@@ -259,13 +261,13 @@ void Navigator::update(){
 		}
 	}
 }
-void recalibrate_x_with_wall(float x, float real_x)
-{
+//void recalibrate_x_with_wall(float x, float real_x)
+//{
 	// on donne un x target assez loin en avant
 	//Si on patine -> on reset, sinon on continue
 	/*
-		float error_speed = MotorControl::get_cons_speed() - Odometry::get_speed();
-		while(abs(prev_pos_x-Odometry::get_pos_x()) >= 0.00001f)
+		float error_speed = MotorControl::get_cons_speed() - odometry_motor.get_speed();
+		while(abs(prev_pos_x-odometry_motor.get_pos_x()) >= 0.00001f)
 		{
 			set_cons(0.05f, 0f); //verifier ce que fait le omega
 		}
@@ -274,16 +276,16 @@ void recalibrate_x_with_wall(float x, float real_x)
 		{
 			return; //false, still slowing down
 		}
-		Odometry::set_pos(real_x, Odometry::get_pos_y(), Odometry::get_pos_theta());
+		odometry_motor.set_pos(real_x, odometry_motor.get_pos_y(), odometry_motor.get_pos_theta());
 */
-}
+//}
 
 void Navigator::forceStop(){
 	move_type = BRAKE;
 }
 
 bool Navigator::moveForward(){
-	int dir = scalaire(cos(Odometry::get_pos_theta()),sin(Odometry::get_pos_theta()),x_target - Odometry::get_pos_x(),y_target - Odometry::get_pos_y());
+	int dir = scalaire(cos(odometry_motor.get_pos_theta()),sin(odometry_motor.get_pos_theta()),x_target - odometry_motor.get_pos_x(),y_target - odometry_motor.get_pos_y());
 	if(dir>0){
 		return true;
 	}

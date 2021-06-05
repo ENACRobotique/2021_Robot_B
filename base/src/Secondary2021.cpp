@@ -1,6 +1,6 @@
 #include "Wire.h"
 #include "Arduino.h" 
-#include "odometry.h"
+#include "Odometry.h"
 #include "motorControl.h" 
 #include "params.h" 
 #include "Metro.h"
@@ -10,10 +10,12 @@
 #include "FsmSupervisor.h"
 #include "actuatorSupervisor.h"
 #include "ai/MatchDirector.h"
-//#include "raspberryParser.h"
+
+/*
 #include "examples/servoTest.h"
 #include "examples/asservissementMoteur.h" 
 #include "examples/debugTest.h" 
+*/
 
 #include <Adafruit_PWMServoDriver.h>
 
@@ -50,7 +52,7 @@ void setup() {
 	debugLed.reset();
 	navTime.reset();
 	TestTime.reset();
-	Odometry::init();
+	odometry_motor.init();
 	MotorControl::init();
   fsmSupervisor.init();
   ActuatorSupervisor::init();
@@ -59,8 +61,8 @@ void setup() {
   Serial2.begin(57600);
   //pwm.begin();
 
-  Serial2.println("Scanner debut");
-  debugTest::scanSerial();
+  //Serial2.println("Scanner debut");
+  //debugTest::scanSerial();
 
 }
 
@@ -71,7 +73,7 @@ void loop() {
     }
 
 		if(controlTime.check()) {
-			Odometry::update();
+			odometry_motor.update();
       MotorControl::update();
 		} 
 

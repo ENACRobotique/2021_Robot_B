@@ -1,21 +1,50 @@
-// #include <Arduino.h>
-// #include "communication.h"
+// CLASS DEFINITION
+#include "arduino.h"
+/*
+class FanSpeed {
 
-// void setup() {
-//   Serial.begin(115200);
-//   pinMode(LED_BUILTIN, OUTPUT);
-//   while (!Serial);
-  
-// }
+  public:
+    void 
+      setup(uint8_t irq_pin, void (*ISR_callback)(void), int value),
+      handleInterrupt(void);
 
-// void loop() {
-//   send_odom_report(12.2, 34.2, 14.8);
-//   delay(800);
+  private:
+    uint32_t
+      _lastMicros = 0UL,
+      _interval = 60000000UL;
+    void(*ISR_callback)();
+};
 
-//   //echo back received bytes, just as a test
-//   while(Serial.available()) {
-//     Serial.write(Serial.read());
-//   }
-  
-//   digitalToggle(LED_BUILTIN);
-// }
+void FanSpeed::setup(uint8_t irq_pin, void (*ISR_callback)(void), int value)
+{
+  attachInterrupt(digitalPinToInterrupt(irq_pin), ISR_callback, value);
+}
+
+inline void FanSpeed::handleInterrupt(void)
+{
+  uint32_t nowMicros = micros();
+  _interval = nowMicros - _lastMicros;
+  _lastMicros = nowMicros;
+}
+
+
+
+FanSpeed* fan1;
+uint8_t fan1pin = 2;
+
+
+void setup()
+{
+  fan1 = new FanSpeed();
+  fan1->setup(fan1pin, []{fan1->handleInterrupt();}, FALLING);
+}
+
+void loop()
+{
+  static uint32_t lastMillis = 0;
+  if (millis() - lastMillis > 1000UL)
+  {
+    lastMillis = millis();
+  }
+}
+*/

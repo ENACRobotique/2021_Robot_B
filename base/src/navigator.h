@@ -21,9 +21,9 @@ typedef enum { INITIAL_TURN,
 class Navigator{
 public:
 	Navigator();
-	void move_to(float x, float y);
+	void move_to(float x, float y); //en référentiel local du robot ((0,0) lorsque le robot est on), référentiel absolue -> MatchDirector
 	void move(float v, float omega);//simple contôle moteur en vitesse
-	void recalibrate_x_with_wall(float x, float real_x);
+	//void recalibrate_x_with_wall(float x, float real_x);
 	void step_forward(float d);
 	void step_backward(float d);
 	void turn_to(float theta);

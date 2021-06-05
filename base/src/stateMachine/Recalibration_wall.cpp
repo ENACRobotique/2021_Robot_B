@@ -7,7 +7,7 @@
 #include "../FsmSupervisor.h"
 #include "Recalibration_wall.h"
 #include "navigator.h"
-#include "odometry.h"
+#include "Odometry.h"
 #include "math.h"
 
 
@@ -36,18 +36,19 @@ void Recalibration_wall::doIt() {
 	float cur_reading;
 	if(isX)
 	{
-		cur_reading = 	Odometry::get_motor_x();
+		cur_reading = 	odometry_wheel.get_pos_x();
 	}
 	else
 	{
-		cur_reading = Odometry::get_motor_y();
+		cur_reading = odometry_wheel.get_pos_y();
 	}
 	if(fabs(cur_reading-motor_cod_last_reading) <= 0.001f && motor_cod_last_reading != -1)
 	{
 		navigator.forceStop();
-		float x = (isX) ? targetPos : Odometry::get_motor_x();
-		float y = (!isX) ? targetPos : Odometry::get_motor_y();
-		Odometry::set_pos(x,y, targetTheta);
+		float x = (isX) ? targetPos : odometry_wheel.get_pos_x();
+		float y = (!isX) ? targetPos : odometry_wheel.get_pos_y();
+		odometry_wheel.set_pos(x,y, targetTheta);
+		odometry_motor.set_pos(x,y, targetTheta);
 		fsmSupervisor.setNextState(NULL);
 	}
 	motor_cod_last_reading = cur_reading;

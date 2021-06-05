@@ -6,7 +6,7 @@
  */
 
 
-#include "odometry.h"
+#include "Odometry.h"
 #include "Arduino.h"
 #include "params.h"
 #include "motorControl.h"
@@ -87,13 +87,13 @@ namespace MotorControl {
 	
 	void update() {
 
-		float error_speed = cons_speed - Odometry::get_speed();
+		float error_speed = cons_speed - odometry_motor.get_speed();
 		error_integrale_speed += error_speed;
 		delta_speed = error_speed - prev_speed_error;
 		prev_speed_error = error_integrale_speed;
 		float cmd_speed = Kp_speed * error_speed + Ki_speed * error_integrale_speed + Kd_speed * delta_speed;
 
-		float error_omega = cons_omega - Odometry::get_omega();
+		float error_omega = cons_omega - odometry_motor.get_omega();
 		error_integrale_omega += error_omega;
 		delta_omega = error_omega - prev_omega_error;
 		prev_omega_error = error_omega;
@@ -115,9 +115,9 @@ namespace MotorControl {
 	SerialDebug.print("\t");
 	SerialDebug.print(cons_omega);
 	SerialDebug.print("\t");
-	SerialDebug.print(Odometry::get_speed());
+	SerialDebug.print(odometry_motor.get_speed());
 	SerialDebug.print("\t");
-	SerialDebug.println(Odometry::get_omega()); 
+	SerialDebug.println(odometry_motor.get_omega()); 
 	#endif
 /*
 		SerialDebug.print("cmd omega : ");
@@ -128,7 +128,7 @@ namespace MotorControl {
 		SerialDebug.print(cmd_speed);
 		SerialDebug.print("\t"); 
 		SerialDebug.print("get odometry vitesse : "); 
-		SerialDebug.print(		Odometry::get_speed());
+		SerialDebug.print(		odometry_motor.get_speed());
 		SerialDebug.print("\t"); 
 */
 		/*
@@ -145,7 +145,7 @@ namespace MotorControl {
 		//SerialDebug.print(cmd_speed);
 		//SerialDebug.print("\t");
 		//SerialDebug.print("speed odometry: ");
-		//SerialDebug.println(Odometry::get_omega());
+		//SerialDebug.println(odometry_motor.get_omega());
 
 		SerialDebug.print("\t");
 		SerialDebug.println(error_integrale_omega);
@@ -157,8 +157,8 @@ namespace MotorControl {
 		SerialDebug.print(cmd_mot1);
 		SerialDebug.print("\t");
 		//SerialDebug.println(); */ /*
-		SerialDebug.print("odometry::get_omega : ");
-		SerialDebug.print(Odometry::get_omega());
+		SerialDebug.print("odometry_motor.get_omega : ");
+		SerialDebug.print(odometry_motor.get_omega());
 		SerialDebug.println(); */
 		//SerialDebug.print("\t");0
 		//SerialDebug.println("\t"); */

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "motorControl.h"
 #include "navigator.h"
-#include "odometry.h"
+#include "Odometry.h"
 #include "FsmSupervisor.h"
 #include "ai/MatchDirector.h"
 #include "ai/ActionsList.h"
@@ -73,11 +73,11 @@ namespace Communication {
         }
         else if(buffer[0] == 'o') {
             SerialCtrl.print("pos: ");
-            SerialCtrl.print(Odometry::get_pos_x());
+            SerialCtrl.print(odometry_motor.get_pos_x());
             SerialCtrl.print("\t");
-            SerialCtrl.print(Odometry::get_pos_y());
+            SerialCtrl.print(odometry_motor.get_pos_y());
             SerialCtrl.print("\t");
-            SerialCtrl.println(Odometry::get_pos_theta());
+            SerialCtrl.println(odometry_motor.get_pos_theta());
         } else if(buffer[0] == 't') {
             //in degrees
             float angle;

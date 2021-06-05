@@ -3,7 +3,7 @@
 #include "ActionsList.h"
 #include "../params.h"
 #include "../navigator.h" 
-#include "../odometry.h"
+#include "../Odometry.h"
 #include "../FsmSupervisor.h" 
 #include "../actuatorSupervisor.h"
 #include "Arduino.h" //NULL definition
@@ -71,11 +71,11 @@ float get_abs_x()
 {
     if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
     {
-        return -Odometry::get_pos_x() + offsetX;
+        return -odometry_motor.get_pos_x() + offsetX;
     }
     else 
     {
-        return Odometry::get_pos_x() + offsetX;
+        return odometry_motor.get_pos_x() + offsetX;
     }
 }
 
@@ -83,11 +83,11 @@ float get_abs_y()
 {
     if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
     {
-        return -Odometry::get_pos_y() + offsetY;
+        return -odometry_motor.get_pos_y() + offsetY;
     }
     else 
     {
-        return Odometry::get_pos_y() + offsetY;
+        return odometry_motor.get_pos_y() + offsetY;
     }
 }
 float timeToReachCoords(float begX, float begY, float targetX, float targetY)
@@ -123,8 +123,8 @@ void update()
         }
 
         else if(actionState == MOVING && 
-            (timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= curAction.countdownState +1.1f) //car time toReachCoords >= 1 à tout moment
-            || distance_squared(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR) 
+            ((timeToReachCoords(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= curAction.countdownState +1.1f) //car time toReachCoords >= 1 à tout moment
+                || distance_squared(get_abs_x(), get_abs_y(), curAction.x,curAction.y) <= ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR)) 
         {
             SerialCtrl.println("actionState == execute state");
             fsmSupervisor.setNextState(curAction.state);
