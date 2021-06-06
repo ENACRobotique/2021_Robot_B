@@ -39,10 +39,10 @@ const int MOT_ENCODEUR1_B = 20;
 const int MOT_ENCODEUR2_A = 23;
 const int MOT_ENCODEUR2_B = 22;
 
-const int WHEEL_ENCODEUR1_A = 21;//16;
-const int WHEEL_ENCODEUR1_B = 20;//17;
-const int WHEEL_ENCODEUR2_A = 23;//29;
-const int WHEEL_ENCODEUR2_B = 22;//30;
+const int WHEEL_ENCODEUR1_A = 16;//16;
+const int WHEEL_ENCODEUR1_B = 17;//17;
+const int WHEEL_ENCODEUR2_A = 29;//29;
+const int WHEEL_ENCODEUR2_B = 30;//30;
 
 
 const int MOT1_PWM = 35;//36;

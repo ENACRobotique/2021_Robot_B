@@ -43,7 +43,7 @@ void Odometry::init() {
 		pinMode(PIN_COD1_A,INPUT_PULLUP);
 		pinMode(PIN_COD1_B,INPUT_PULLUP);
 		void* func = (isMotor) ? isr1 : isr3;
-		attachInterrupt(PIN_COD1_A, func, FALLING);
+		//attachInterrupt(PIN_COD1_A, func, FALLING);
 		//attachInterrupt(PIN_COD1_A, isr1, RISING);
 		
 		pinMode(PIN_COD2_A,INPUT_PULLUP);
@@ -58,6 +58,7 @@ void Odometry::init() {
 
 void Odometry::isr1() {
 	if(digitalRead(MOT_ENCODEUR1_B)) {
+		//SerialCtrl.println("isr1");
 		_incr1++;
 		//_incr1--;
 	}
@@ -68,6 +69,7 @@ void Odometry::isr1() {
 }
 
 void Odometry::isr2() {
+	SerialCtrl.println("isr2");
 	if(digitalRead(MOT_ENCODEUR2_B)) {
 		_incr2++;
 		//_incr2--;
@@ -79,7 +81,7 @@ void Odometry::isr2() {
 }
 
 void Odometry::isr3() {
-	if(digitalRead(WHEEL_ENCODEUR1_B)) {
+		if(digitalRead(WHEEL_ENCODEUR1_B)) {
 		_incr3++;
 		//_incr3--;
 	}

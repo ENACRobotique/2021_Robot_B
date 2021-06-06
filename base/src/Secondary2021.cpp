@@ -74,7 +74,7 @@ void loop() {
 
 		if(controlTime.check()) {
 			odometry_motor.update();
-      MotorControl::update();
+      //MotorControl::update();
 		} 
 
     
