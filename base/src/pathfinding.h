@@ -1,0 +1,5 @@
+#ifndef PATHFINDING
+#define PATHDINFING
+
+
+#endif //PATHFINDING
