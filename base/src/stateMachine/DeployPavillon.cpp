@@ -21,5 +21,4 @@ void DeployPavillon::doIt() {
 }
 
 void DeployPavillon::leave() {
-    
 }

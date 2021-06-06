@@ -17,7 +17,7 @@ Recalibration_wall::Recalibration_wall(float targetPos, float targetTheta, bool 
 	this->targetTheta = targetTheta;
 	this->isX = isX;
 	motor_cod_last_reading = -1; //arbitrary value outside of the terrain
-	navigator.move(1.0f, 0); //1 mm/s
+	navigator.move(10.0f, 0); //1 mm/s
 }
 
 Recalibration_wall::~Recalibration_wall() {
