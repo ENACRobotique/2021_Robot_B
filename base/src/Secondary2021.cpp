@@ -16,6 +16,7 @@
 #include "examples/asservissementMoteur.h" 
 #include "examples/debugTest.h" 
 */
+#include "examples/testXbee.h" 
 
 #include <Adafruit_PWMServoDriver.h>
 
@@ -34,9 +35,9 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(LED_DRIVER_ADDRESS);
 void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);
   //pinMode(11, OUTPUT);
-
-    //SerialCtrl.begin(57600);
-    //Serial.begin(57600);
+  testXbee::init();
+    SerialCtrl.begin(57600);
+    Serial.begin(57600);
     //#ifdef DEBUG_ASSERVISSEMENT
       //Serial.println("cons_speed cons_omega actual_speed actual_omega");
     //#endif
@@ -48,6 +49,7 @@ void setup() {
     SerialCtrl.println("initialization serialCtrl");
     */
   //Wire.begin();
+  /*
   controlTime.reset();
 	debugLed.reset();
 	navTime.reset();
@@ -58,15 +60,17 @@ void setup() {
   ActuatorSupervisor::init();
   MatchDirector::init(); 
   //while (!Serial);
-  Serial2.begin(57600);
+  SerialCtrl.println("test serialctrl");
+  Serial.println("test serial");
   //pwm.begin();
 
   //Serial2.println("Scanner debut");
   //debugTest::scanSerial();
-
+  */
 }
 
 void loop() {
+    /*
       if(navTime.check())
     {
       navigator.update();
@@ -94,6 +98,6 @@ void loop() {
     }
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
-
+  */
 
 } 
