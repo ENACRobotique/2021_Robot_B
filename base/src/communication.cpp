@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "motorControl.h"
 #include "navigator.h"
-#include "Odometry.h"
+#include "odometry.h"
 #include "FsmSupervisor.h"
 #include "ai/MatchDirector.h"
 #include "ai/ActionsList.h"

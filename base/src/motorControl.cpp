@@ -6,7 +6,7 @@
  */
 
 
-#include "Odometry.h"
+#include "odometry.h"
 #include "Arduino.h"
 #include "params.h"
 #include "motorControl.h"

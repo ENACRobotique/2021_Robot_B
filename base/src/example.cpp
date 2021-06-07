@@ -1,5 +1,5 @@
 // CLASS DEFINITION
-#include "arduino.h"
+#include "Arduino.h"
 /*
 class FanSpeed {
 

@@ -1,6 +1,6 @@
 #include "Wire.h"
 #include "Arduino.h" 
-#include "Odometry.h"
+#include "odometry.h"
 #include "motorControl.h" 
 #include "params.h" 
 #include "Metro.h"
@@ -70,6 +70,8 @@ void setup() {
 }
 
 void loop() {
+  
+  testXbee::update();
     /*
       if(navTime.check())
     {

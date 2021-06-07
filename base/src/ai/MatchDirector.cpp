@@ -3,7 +3,7 @@
 #include "ActionsList.h"
 #include "../params.h"
 #include "../navigator.h" 
-#include "../Odometry.h"
+#include "../odometry.h"
 #include "../FsmSupervisor.h" 
 #include "../actuatorSupervisor.h"
 #include "Arduino.h" //NULL definition

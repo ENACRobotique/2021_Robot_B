@@ -8,7 +8,7 @@
 #include "navigator.h"
 
 #include "params.h"
-#include "Odometry.h"
+#include "odometry.h"
 #include "motorControl.h"
 #include "math.h"
 #include "utils.h"

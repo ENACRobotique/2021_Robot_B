@@ -4,7 +4,7 @@
  *  Created on: 19 mars 2018
  *      Author: elie
  */
-#include "Odometry.h"
+#include "odometry.h"
 #include "params.h"
 #include "Arduino.h"
 #include "motorControl.h"
