@@ -40,12 +40,16 @@ namespace ActionList
     MoveServo retractBackGreen = MoveServo(CupColor::GREEN, false, false, false);
     MoveServo retractBackRed   = MoveServo(CupColor::RED, false, false, false);
 
+    Etat_vide_with_serial etat_test_serial_1 = Etat_vide_with_serial("phase 1 test movement initie 1");
+    Etat_vide_with_serial etat_test_serial_2 = Etat_vide_with_serial("phase 2 test movement initie 2");
+    Etat_vide_with_serial etat_test_serial_3 = Etat_vide_with_serial("phase 3 test movement initie 3");
+
     //#ifdef DEBUG_MATCH_DIRECTOR
     Action TestMovement[5] =
     {
-        {1000.f, 1500.f, 0.f, &Etat_vide_with_serial("phase 1 test movement initie 1"), 0.0f},
-        {1200.f, 2000.f, 90.f, &Etat_vide_with_serial("phase 2 test movement initie 2 "), 0.0f},
-        {300.f, 1500.f, 180.f, &Etat_vide_with_serial("phase 3 test movement initie 3 "), 0.0f},
+        {1000.f, 1500.f, 0.f, &etat_test_serial_1, 0.0f},
+        {1200.f, 2000.f, 90.f, &etat_test_serial_2, 0.0f},
+        {300.f, 1500.f, 180.f, &etat_test_serial_3, 0.0f},
     };
     //#endif
 

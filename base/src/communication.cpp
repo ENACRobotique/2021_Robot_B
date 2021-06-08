@@ -104,7 +104,7 @@ namespace Communication {
             ActuatorSupervisor::otherServos[1].moveServo(SERVO_PAV_ANGLE_DPLOYED);
         }
         else if(buffer[0] == 'r') { //deploy pavillon
-            fsmSupervisor.setNextState(&Recalibration_wall(0.0f, 0.0f, true));
+            fsmSupervisor.setNextState(&recalibration_wall_left);
         }
 
 

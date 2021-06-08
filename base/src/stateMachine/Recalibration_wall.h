@@ -10,6 +10,7 @@
 #include "AbstractState.h"
 
 /* recalibration is done on a wall perpendicular to the horizontal or vertical axis => we recalibrate only the x or y axis*/
+
 class Recalibration_wall : public AbstractState {
 public:
 	Recalibration_wall(float targetPos, float targetTheta, bool isX);
@@ -33,3 +34,8 @@ private:
 	float targetPos;
 	float targetTheta;
 };
+
+extern Recalibration_wall recalibration_wall_left;
+extern Recalibration_wall recalibration_wall_top;
+extern Recalibration_wall recalibration_wall_bottom;
+extern Recalibration_wall recalibration_wall_right;

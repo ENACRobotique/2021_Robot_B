@@ -10,6 +10,10 @@
 #include "odometry.h"
 #include "math.h"
 
+Recalibration_wall recalibration_wall_left = Recalibration_wall(0.0f, 0.0f, true);
+Recalibration_wall recalibration_wall_top = Recalibration_wall(2000.f, 0.f, false);
+Recalibration_wall recalibration_wall_bottom = Recalibration_wall(0.0f, 0.0f, false);
+Recalibration_wall recalibration_wall_right = Recalibration_wall(3000.0f, 0.0f, true);
 
 Recalibration_wall::Recalibration_wall(float targetPos, float targetTheta, bool isX) { //if isX = false => Y
 	time_start = 0;
@@ -36,7 +40,7 @@ void Recalibration_wall::doIt() {
 	float cur_reading;
 	if(isX)
 	{
-		cur_reading = 	odometry_wheel.get_pos_x();
+		cur_reading = odometry_wheel.get_pos_x();
 	}
 	else
 	{

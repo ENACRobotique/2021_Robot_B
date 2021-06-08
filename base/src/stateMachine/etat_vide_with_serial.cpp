@@ -37,7 +37,7 @@ void Etat_vide_with_serial::doIt() {
 	SerialDebug.println(msgUpdate);
 	fsmSupervisor.setNextState(NULL);
 	SerialCtrl.print("state");
-		SerialCtrl.println(fsmSupervisor.is_no_state_set());
+	SerialCtrl.println(fsmSupervisor.is_no_state_set());
 }
 
 
