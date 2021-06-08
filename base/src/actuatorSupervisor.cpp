@@ -14,10 +14,11 @@ namespace ActuatorSupervisor
 
     void init()
     {
+        delay(100);
         Wire.begin();
         pwm.begin();
         pwm.setPWMFreq(SERVO_FREQ);
-
+        delay(100);
         //arms servos
         
         /*for (int i = 0; i < 5; i++)
@@ -40,6 +41,7 @@ namespace ActuatorSupervisor
         otherServos[0].defInitAngle(SERVO_PAV_ANGLE_RTRCTED);
         //otherServos[0].init(SERVO_PAV, NULL); 
         otherServos[0].init(SERVO1, &pwm);
+        
         otherServos[1].defInitAngle(SERVO_BAR_ANGLE_RTRCTED);
         //otherServos[1].init(SERVO_BAR, NULL); 
         otherServos[1].init(SERVO2, &pwm); 

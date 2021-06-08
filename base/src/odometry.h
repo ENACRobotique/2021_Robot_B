@@ -26,7 +26,8 @@ class Odometry
 		float get_speed();
 		float get_omega();
 
-		void update();
+		static void update_reading(Odometry *odom1 = NULL, Odometry *odom2 = NULL);
+		void update_pos(int incr1, int incr2);
 		void init();
 
 	private:

@@ -43,7 +43,7 @@ void Odometry::init() {
 		pinMode(PIN_COD1_A,INPUT_PULLUP);
 		pinMode(PIN_COD1_B,INPUT_PULLUP); 
 		attachInterrupt(PIN_COD1_A, (isMotor) ? isr1 : isr3, FALLING);
-		//attachInterrupt(PIN_COD1_A, isr1, RISING);
+		//attachInterrupt(PIN_COD1_A, (isMotor) ? isr1 : isr3, RISING);
 		
 		pinMode(PIN_COD2_A,INPUT_PULLUP);
 		pinMode(PIN_COD2_B,INPUT_PULLUP);
@@ -79,6 +79,8 @@ void Odometry::isr2() {
 }
 
 void Odometry::isr3() {
+		SerialCtrl.println("isr3");
+		SerialCtrl.println(WHEEL_ENCODEUR1_B);
 		if(digitalRead(WHEEL_ENCODEUR1_B)) {
 		_incr3++;
 		//_incr3--;
@@ -90,6 +92,8 @@ void Odometry::isr3() {
 }
 
 void Odometry::isr4() {
+			SerialCtrl.println("isr4");
+			SerialCtrl.println(WHEEL_ENCODEUR2_B);
 	if(digitalRead(WHEEL_ENCODEUR2_B)) {
 		_incr4++;
 		//_incr4--;
@@ -136,13 +140,28 @@ void Odometry::set_pos(float x, float y, float theta) {
 	}
 	
 
-void Odometry::update() {
+void Odometry::update_reading(Odometry *odom1 = NULL, Odometry *odom2 = NULL) {
 		cli();
-		int incr1 = (isMotor) ? _incr1 : _incr3;
-		int incr2 = (isMotor) ? _incr2 : _incr4; 
+		int incr1 =_incr1;
+		int incr2 =_incr2;
+		int incr3 =_incr3;
+		int incr4 =_incr4;
 		_incr1 = _incr2 = _incr3 = _incr4 = 0;
 		sei();
+		if(odom1 != NULL &&(incr1 != 0 || incr2 != 0))
+		{
+			(*odom1).update_pos(incr1, incr2);
+		}
+		if(odom2 != NULL && (incr3 != 0 || incr4 != 0))
+		{
+			(*odom2).update_pos(incr3, incr4);
+		}
 
+
+}
+
+void Odometry::update_pos(int incr1, int incr2)
+{
 		//nbr1 += incr1;
 		//nbr2 += incr2;
 
@@ -166,8 +185,21 @@ void Odometry::update() {
 		pos_theta = pos_theta + angle;
 		speed = length / CONTROL_PERIOD;
 		omega = angle / CONTROL_PERIOD;
-
-
+		/*
+		if(WHEEL_BASE == 222.)
+		{
+			SerialCtrl.println(length);
+			SerialCtrl.println(angle);
+			SerialCtrl.print(incr2);
+			SerialCtrl.print("\t");
+			SerialCtrl.print(INCR_TO_MM_1);
+			SerialCtrl.print("\t");
+			SerialCtrl.print(INCR_TO_MM_2);
+			SerialCtrl.print("\t");
+			SerialCtrl.print(WHEEL_BASE);
+			SerialCtrl.println("\t");
+		}
+*/
 		#ifdef DEBUG_ODOMETRY
 		SerialDebug.print("x:");
 		SerialDebug.print(pos_x);
@@ -181,7 +213,7 @@ void Odometry::update() {
 		SerialDebug.println(omega);
 
 		#endif
-	}
+}
 
 
 

@@ -80,7 +80,16 @@ namespace Communication {
             SerialCtrl.print(odometry_motor.get_pos_y());
             SerialCtrl.print("\t");
             SerialCtrl.println(odometry_motor.get_pos_theta());
-        } else if(buffer[0] == 't') {
+        }
+        else if(buffer[0] == '2') {
+            SerialCtrl.print("pos: ");
+            SerialCtrl.print(odometry_wheel.get_pos_x());
+            SerialCtrl.print("\t");
+            SerialCtrl.print(odometry_wheel.get_pos_y());
+            SerialCtrl.print("\t");
+            SerialCtrl.println(odometry_wheel.get_pos_theta());
+        } 
+        else if(buffer[0] == 't') {
             //in degrees
             float angle;
             int nb = sscanf(buffer, "t %f", &angle);

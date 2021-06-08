@@ -149,7 +149,6 @@ void update()
     }
     if(millis()-start_millis > timer*1000-5000) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
     {
-        SerialDebug.println("déploiement du pavillon matchDirector");
         ActuatorSupervisor::deploy_pav();
 
     }

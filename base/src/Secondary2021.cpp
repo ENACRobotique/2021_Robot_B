@@ -11,11 +11,11 @@
 #include "actuatorSupervisor.h"
 #include "ai/MatchDirector.h"
 
-/*
-#include "examples/servoTest.h"
+
+#include "examples/servoTest.h" 
 #include "examples/asservissementMoteur.h" 
 #include "examples/debugTest.h" 
-*/
+
 #include "examples/testXbee.h" 
 
 #include <Adafruit_PWMServoDriver.h>
@@ -55,10 +55,13 @@ void setup() {
 	navTime.reset();
 	TestTime.reset();
 	odometry_motor.init();
+  odometry_wheel.init();
 	MotorControl::init();
   fsmSupervisor.init();
   ActuatorSupervisor::init();
   MatchDirector::init(); 
+
+  debugTest::scanSerial();
   //while (!Serial);
   SerialCtrl.println("test serialctrl");
   Serial.println("test serial");
@@ -70,7 +73,7 @@ void setup() {
 }
 
 void loop() {
-  
+
   //testXbee::update();
     
       if(navTime.check())
@@ -80,7 +83,7 @@ void loop() {
     }
 
 		if(controlTime.check()) {
-			odometry_motor.update();
+      Odometry::update_reading(&odometry_motor, &odometry_wheel);
       //MotorControl::update();
 		} 
 
