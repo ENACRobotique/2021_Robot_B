@@ -35,7 +35,7 @@ Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(LED_DRIVER_ADDRESS);
 void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);
   //pinMode(11, OUTPUT);
-  testXbee::init();
+  //testXbee::init();
     SerialCtrl.begin(57600);
     Serial.begin(57600);
     //#ifdef DEBUG_ASSERVISSEMENT
@@ -49,7 +49,7 @@ void setup() {
     SerialCtrl.println("initialization serialCtrl");
     */
   //Wire.begin();
-  /*
+  
   controlTime.reset();
 	debugLed.reset();
 	navTime.reset();
@@ -66,16 +66,17 @@ void setup() {
 
   //Serial2.println("Scanner debut");
   //debugTest::scanSerial();
-  */
+  
 }
 
 void loop() {
   
-  testXbee::update();
-    /*
+  //testXbee::update();
+    
       if(navTime.check())
     {
       navigator.update();
+    
     }
 
 		if(controlTime.check()) {
@@ -100,6 +101,6 @@ void loop() {
     }
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
-  */
+  
 
 } 
