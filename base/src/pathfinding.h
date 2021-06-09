@@ -2,6 +2,7 @@
 #define PATHDINFING
 
 #include "lidar/Lidar.h"
+#include "params.h"
 
 const int MAX_WP = 30; /* à augmenter si bcp de points ajoutés */
 const unsigned int NO = 65535; /* entier max arduino non-signé, "approche l'infini" */
@@ -9,11 +10,14 @@ const unsigned int YES = 4000; /* raccourci pour connecter deux wp sur le graphe
 const unsigned int SHORT = 3500; /* raccourci pour connecter deux wp sur le graphe sans calculer la vraie distance, avec un chemin avantagé */
 const unsigned int LONGR = 4500; /* raccourci pour connecter deux wp sur le graphe sans calculer la vraie distance, avec un chemin désavantagé */
 
+const float PERIM_MAX = 1300;
+const float SEUIL_DANGEREUX = (PERIM_MAX/(2*PI)*1.5)*1.1;
+
 struct Waypoint
 {
     /* coordonées sur le terrain, en mm, depuis le coin bleu sud */
-    int x;
-    int y;
+    float x;
+    float y;
     /* liste de distances séparant le waypoint des autres sur la carte */
     int wp_adj[MAX_WP];
 };
@@ -75,19 +79,19 @@ class Geom_Vec{
         float dot(Geom_Vec other); 
         float get_angle();
         float dist_to_point(float point[2]);
-    private:
+        float dist_to_point(Geom_Vec vec_point);
         float x;
         float y;
 };
 
 namespace ATC{
     Graph generate_graph(Waypoint *waypoint_list[MAX_WP]);
-    Route find_route(Graph &graph, int depart[2], int destination[2], Lidar lidar, float robot_pos[3]);
-    bool is_path_blocked(int start[2], int end[2], Lidar lidar, float robot_pos[3]);
-    int min_dist(int *dist[MAX_WP], bool *Dset[MAX_WP]);
+    Route find_route(Graph &graph, float depart[2], float destination[2], Lidar lidar, float robot_pos[3]);
+    bool is_path_blocked(float start[2], float end[2], Lidar lidar, float robot_pos[3]);
+    int min_dist(unsigned int *dist, bool *Dset, int wp_number);
     DijkstraResult dijkstra_crap(Graph graph, int src_index);
-    Geom_Vec from_pol_to_abs(float robot_pos[3], int lid_ang, int lid_dist);
-
+    Geom_Vec from_pol_to_abs(float robot_pos[3], int lid_ang, float lid_dist);
+    PseudoRoute going_to(int *parent, int index_dest, int wp_number);
 }
 
 #endif //PATHFINDING
