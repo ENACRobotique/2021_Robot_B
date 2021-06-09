@@ -84,7 +84,7 @@ void FsmSupervisor::update() {
 }
 
 /*
-void FsmSupervisor::init(AbstractState* state) {
+void FsmSupervisor::init() {
 	currentState = state;
 	state->enter();
 }
@@ -94,12 +94,12 @@ void FsmSupervisor::init(){
 	currentState->enter();
 }
 /*
-void FsmSupervisor::print_State() {
+//void FsmSupervisor::print_State() {
 	SerialCtrl.println("Current state :" + currentState->name);
 }
 */
 /*
-String FsmSupervisor::get_current_state() {
+//String FsmSupervisor::get_current_state() {
 	return currentState->name;
 }
 */
@@ -107,3 +107,6 @@ bool FsmSupervisor::is_no_state_set()
 {
 	return (currentState == NULL) ? true : false;
 }
+
+//AbstractState& FsmSupervisor::get_current_state() {}
+

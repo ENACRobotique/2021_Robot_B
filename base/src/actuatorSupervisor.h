@@ -1,3 +1,10 @@
+/*
+ * actuatorSupervisor.h
+ *
+ *  Created on: 09/06/21
+ *      Author: Jonathan Muchler
+ */
+
 #ifndef ACTUATORSUPERVISOR_H_
 #define ACTUATORSUPERVISOR_H_
 
