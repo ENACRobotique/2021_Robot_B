@@ -13,6 +13,6 @@ void stateMachineTest2s::init() {
 void stateMachineTest2s::update() {
     if(millis() > 2000.0f)
     {
-        fsmSupervisor.setNextState(&Recalibration_wall(0, 0, true));
+        fsmSupervisor.setNextState(&recalibration_wall_left);
     }
 }
