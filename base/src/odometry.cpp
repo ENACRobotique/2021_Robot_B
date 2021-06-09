@@ -22,7 +22,7 @@ volatile int Odometry::_incr4 = 0;
 
 Odometry::Odometry(int PIN_COD1_A, int PIN_COD1_B,int PIN_COD2_A,int PIN_COD2_B, 
 	const float INCR_TO_MM_1, const float INCR_TO_MM_2, const float WHEEL_BASE,
-	bool isMotor = true) :
+	bool isMotor) :
 	PIN_COD1_A(PIN_COD1_A),
 	PIN_COD1_B(PIN_COD1_B),
 	PIN_COD2_A(PIN_COD2_A),
