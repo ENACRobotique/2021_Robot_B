@@ -84,7 +84,7 @@ void loop() {
 
 		if(controlTime.check()) {
       Odometry::update_reading(&odometry_motor, &odometry_wheel);
-      //MotorControl::update();
+      MotorControl::update();
 		} 
 
     
