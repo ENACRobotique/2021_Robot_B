@@ -36,12 +36,13 @@ struct Graph
 /* Désigne une suite de points à emprunter pour se rendre d'un point A à un point B via les Waypoints*/
 struct Route
 {
+    Route();
     /* Quantité de points à emprunter (destination comptée, point de départ omis) */
     int length;
-    /* Référence au Waypoint de départ*/
-    Waypoint &depart;
-    /* Référence au Waypoint de destination */
-    Waypoint &destination;
+    /* Référence au point de départ*/
+    float start[2];
+    /* Référence au point de destination */
+    float end[2];
     /* Liste des Waypoints à emprunter dans l'ordre */
     Waypoint* wp_list[MAX_WP];
     /* La route ne mène pas à la destination (dijkstra ne donne pas de solution) */
@@ -53,7 +54,8 @@ struct Route
 };
 
 /* Élement retourné par dijkstra */
-struct DijkstraResult{
+struct DijkstraResult
+{
     /* Index du point de départ dans le graphe */
     int dep_index;
     /* Liste des distances depuis le point de départ */
@@ -63,14 +65,16 @@ struct DijkstraResult{
 };
 
 /* Un chemin qui pourrait être une route mais n'a pas encore été confirmée ou vérifiée*/
-struct PseudoRoute{
+struct PseudoRoute
+{
     /* Les indices des sommets du graphe à parcourir */
     int parcours[MAX_WP];
     /* Le chemin amène t'il à la destination */
     bool reaches;
 };
 
-class Geom_Vec{
+class Geom_Vec
+{
     public:
         Geom_Vec(float x, float y);
         Geom_Vec(float start[2], float end[2]);
@@ -84,7 +88,8 @@ class Geom_Vec{
         float y;
 };
 
-namespace ATC{
+namespace ATC
+{
     Graph generate_graph(Waypoint *waypoint_list[MAX_WP]);
     Route find_route(Graph &graph, float depart[2], float destination[2], Lidar lidar, float robot_pos[3]);
     bool is_path_blocked(float start[2], float end[2], Lidar lidar, float robot_pos[3]);

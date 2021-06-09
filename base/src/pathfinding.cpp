@@ -186,3 +186,135 @@ bool ATC::is_path_blocked(float start[2], float end[2], Lidar lidar, float robot
     }
     return false;
 }
+
+Route ATC::find_route(Graph &graph, float depart[2], float destination[2], Lidar lidar, float robot_pos[3]){
+    /* checking what is the closest waypoint to start */
+    unsigned int min_dist_start = 65535;
+    int first_wp = -1;
+    for (int index=0;index<graph.wp_number;index++){
+        float xyrobot[2] = {robot_pos[0], robot_pos[1]};
+        float xywp[2] = {(*graph.wp_list[index]).x, (*graph.wp_list[index]).y};
+        unsigned int dist_wp = (unsigned int) Geom_Vec(xyrobot, xywp).length();
+        if (dist_wp < min_dist_start){
+            first_wp = index;
+            min_dist_start = dist_wp;
+        }
+    }
+    /* TODO:reminder check if path between start point and first waypoint is free or not */
+
+    /* checking what is the closest waypoint to destination */
+    unsigned int min_dist_end = 65535;
+    int last_wp = -1;
+    for (int index=0;index<graph.wp_number;index++){
+        float xyrobot[2] = {robot_pos[0], robot_pos[1]};
+        float xywp[2] = {(*graph.wp_list[index]).x, (*graph.wp_list[index]).y};
+        unsigned int dist_wp = (unsigned int) Geom_Vec(xyrobot, xywp).length();
+        if (dist_wp < min_dist_end){
+            last_wp = index;
+            min_dist_end = dist_wp;
+        }
+    }
+    /* TODO:reminder check if path between destin point and last waypoint is free or not */
+
+    /* shortest route with dijkstra */
+    DijkstraResult dijres = ATC::dijkstra_crap(graph, first_wp);
+    PseudoRoute psroute = ATC::going_to(dijres.parent, last_wp, graph.wp_number);
+
+    /* checking if route obstructed or not */
+    int start = 0;
+    for(int i=0;i<MAX_WP;i++){
+        if (psroute.parcours[i] != -128){
+            start=i;
+            break;
+        }
+    }
+    bool route_ok = true;
+    for(int index=start+1;index<MAX_WP;index++){
+        float xywpa[2] = {(*graph.wp_list[psroute.parcours[index-1]]).x, (*graph.wp_list[psroute.parcours[index-1]]).y};
+        float xywpb[2] = {(*graph.wp_list[psroute.parcours[index]]).x, (*graph.wp_list[psroute.parcours[index]]).y};
+        bool path_blocked = ATC::is_path_blocked(xywpa, xywpb, lidar, robot_pos);
+        if (path_blocked){
+            graph.graph[psroute.parcours[index-1]][psroute.parcours[index]] = 65535;
+            graph.graph[psroute.parcours[index]][psroute.parcours[index-1]] = 65535;
+            route_ok = false;
+        }
+    }
+
+    /* si route ok du premier coup, constitution de la Route */
+    if (route_ok){
+        Route route;
+        route.stuck = psroute.reaches;
+        route.isfree = route_ok;
+        route.isshortest = true;
+        route.length = MAX_WP-start;
+        route.start[0] = depart[0];
+        route.start[1] = depart[1];
+        route.end[0] = destination[0];
+        route.end[1] = destination[1];
+        for(int i=0;i<route.length;i++){
+            route.wp_list[i] = graph.wp_list[psroute.parcours[i]];
+        }
+        return route;
+    }
+    else{
+        /* la route est encombrée, faut recommencer */
+        bool another_route_found = false;
+        while (not(another_route_found)){
+            bool this_route_ok = true;
+            /* shortest route with dijkstra */
+            DijkstraResult this_dijres = ATC::dijkstra_crap(graph, first_wp);
+            PseudoRoute this_psroute = ATC::going_to(this_dijres.parent, last_wp, graph.wp_number);
+            if(!this_psroute.reaches){
+                break;
+            }
+            /* checking if route obstructed or not */
+            int this_start = 0;
+            for(int i=0;i<MAX_WP;i++){
+                if (this_psroute.parcours[i] != -128){
+                    start=i;
+                    break;
+                }
+            }
+            for(int index=this_start+1;index<MAX_WP;index++){
+                float xywpa[2] = {(*graph.wp_list[this_psroute.parcours[index-1]]).x, (*graph.wp_list[this_psroute.parcours[index-1]]).y};
+                float xywpb[2] = {(*graph.wp_list[this_psroute.parcours[index]]).x, (*graph.wp_list[this_psroute.parcours[index]]).y};
+                bool path_blocked = ATC::is_path_blocked(xywpa, xywpb, lidar, robot_pos);
+                if (path_blocked){
+                    graph.graph[this_psroute.parcours[index-1]][this_psroute.parcours[index]] = 65535;
+                    graph.graph[this_psroute.parcours[index]][this_psroute.parcours[index-1]] = 65535;
+                    this_route_ok = false;
+                }
+            }
+            if (this_route_ok){
+                /* this route isn't the best, but it's free right now*/
+                Route route;
+                route.stuck = this_psroute.reaches;
+                route.isfree = true;
+                route.isshortest = false;
+                route.length = MAX_WP-this_start;
+                route.start[0] = depart[0];
+                route.start[1] = depart[1];
+                route.end[0] = destination[0];
+                route.end[1] = destination[1];
+                for(int i=0;i<route.length;i++){
+                    route.wp_list[i] = graph.wp_list[this_psroute.parcours[i]];
+                }
+                return route;
+            }
+        }
+        /* route got stuck return default with not free flag */
+        Route route;
+        route.stuck = psroute.reaches;
+        route.isfree = false;
+        route.isshortest = true;
+        route.length = MAX_WP-start;
+        route.start[0] = depart[0];
+        route.start[1] = depart[1];
+        route.end[0] = destination[0];
+        route.end[1] = destination[1];
+        for(int i=0;i<route.length;i++){
+            route.wp_list[i] = graph.wp_list[psroute.parcours[i]];
+        }
+        return route;
+    }
+}
