@@ -90,7 +90,7 @@ class Geom_Vec
 
 namespace ATC
 {
-    Graph generate_graph(Waypoint *waypoint_list);
+    Graph generate_graph(Waypoint *waypoint_list, int wp_number);
     Route find_route(Graph &graph, float depart[2], float destination[2], Lidar lidar, float robot_pos[3]);
     bool is_path_blocked(float start[2], float end[2], Lidar lidar, float robot_pos[3]);
     int min_dist(unsigned int *dist, bool *Dset, int wp_number);
