@@ -13,6 +13,10 @@ const unsigned int LONGR = 4500; /* raccourci pour connecter deux wp sur le grap
 const float PERIM_MAX = 1300;
 const float SEUIL_DANGEREUX = (PERIM_MAX/(2*PI)*1.5)*1.1;
 
+Waypoint wp_list[MAX_WP] = {
+    
+};
+
 struct Waypoint
 {
     /* coordonées sur le terrain, en mm, depuis le coin bleu sud */
