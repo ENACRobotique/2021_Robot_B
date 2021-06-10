@@ -323,9 +323,9 @@ Graph ATC::generate_graph(Waypoint *waypoint_list, int wp_number){
     Graph graph;
     graph.wp_number = wp_number;
     for(int i=0;i<wp_number;i++){
-        graph.wp_list[i] = waypoint_list[i];
+        graph.wp_list[i] = &waypoint_list[i];
         for(int j=0;j<wp_number;j++){
-            graph.graph[i][j] = (*waypoint_list[i]).wp_adj[j];
+            graph.graph[i][j] = (waypoint_list[i]).wp_adj[j];
         }
     }
     return graph;
