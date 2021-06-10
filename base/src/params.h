@@ -48,6 +48,9 @@ const int MOT1_DIR = 33;
 const int MOT2_PWM = 35;
 const int MOT2_DIR = 34;
 
+const int DISPALY_CLK = 9;
+const int DISPLAY_DATA = 10;
+
 //const int BATT_CHARGE = 37;
 
 // const int US_RANGE = 35;
