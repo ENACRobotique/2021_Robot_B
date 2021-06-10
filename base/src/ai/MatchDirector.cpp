@@ -113,6 +113,11 @@ void update()
 { 
     Action curAction = curSection[curActIndex];
     
+    if(navigator.isTrajectoryFinished())
+    {
+        //odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
+        //SerialCtrl.println("callibrage roue moteur sur roue odométrie");
+    }
     if(curSection != NULL)
     {
         if(actionState == BEGIN)

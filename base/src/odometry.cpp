@@ -79,9 +79,7 @@ void Odometry::isr2() {
 }
 
 void Odometry::isr3() {
-		SerialCtrl.println("isr3");
-		SerialCtrl.println(WHEEL_ENCODEUR1_B);
-		if(digitalRead(WHEEL_ENCODEUR1_B)) {
+	if(digitalRead(WHEEL_ENCODEUR1_B)) {
 		_incr3++;
 		//_incr3--;
 	}
@@ -92,8 +90,6 @@ void Odometry::isr3() {
 }
 
 void Odometry::isr4() {
-			SerialCtrl.println("isr4");
-			SerialCtrl.println(WHEEL_ENCODEUR2_B);
 	if(digitalRead(WHEEL_ENCODEUR2_B)) {
 		_incr4++;
 		//_incr4--;
@@ -156,6 +152,15 @@ void Odometry::update_reading(Odometry *odom1 = NULL, Odometry *odom2 = NULL) {
 		{
 			(*odom2).update_pos(incr3, incr4);
 		}
+		#ifdef DEBUG_ODOMETRY
+			SerialCtrl.print((*odom1).get_pos_x());
+			SerialCtrl.print("\t");
+			SerialCtrl.print((*odom1).get_pos_y());
+			SerialCtrl.print("\t");
+			SerialCtrl.print((*odom2).get_pos_x());
+			SerialCtrl.print("\t");
+			SerialCtrl.println((*odom2).get_pos_y());
+		#endif
 
 
 }
