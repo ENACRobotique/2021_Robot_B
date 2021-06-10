@@ -13,7 +13,7 @@ namespace MatchDirector
 {
     void init();
     void update();
-    //void abs_coords_to(); //move to somewhere using abs
+    void abs_coords_to(float x, float y); //move to somewhere using abs
     float get_abs_x();
     float get_abs_y();
     float timeToReachCoords();

@@ -7,6 +7,7 @@
 
 #include "../FsmSupervisor.h"
 #include "Recalibration_wall.h"
+#include "etat_begin.h"
 #include "navigator.h"
 #include "odometry.h"
 #include "math.h"
@@ -36,7 +37,7 @@ void Recalibration_wall::enter() {
 }
 
 void Recalibration_wall::leave() {
-
+	SerialCtrl.print("end recalibrating wall");
 }
 
 void Recalibration_wall::doIt() {
@@ -60,7 +61,7 @@ void Recalibration_wall::doIt() {
 		float y = (!isX) ? targetPos : odometry_wheel.get_pos_y();
 		odometry_wheel.set_pos(x,y, targetTheta);
 		odometry_motor.set_pos(x,y, targetTheta);
-		fsmSupervisor.setNextState(NULL);
+		fsmSupervisor.setNextState(&etat_begin);
 	}
 	wheel_cod_last_reading = cur_reading;
 

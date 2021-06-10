@@ -21,13 +21,16 @@ public:
 	//void print_State();
 	//String get_current_state();
 	bool is_no_state_set();
+	bool is_switching_state();
 
 private:
 
+	//void update_state();
 	AbstractState* nextState;
 	AbstractState* currentState;
 	AbstractState* previousState;
 	unsigned long time_obstacle_left;
+	bool isSwitchingState; //true if setNextState is called but update hasn't been called (which means that currentState != nextState at the moment)
 };
 
 extern FsmSupervisor fsmSupervisor;

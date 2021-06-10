@@ -93,9 +93,10 @@ void loop() {
       Communication::update();
     }
     if(stateTime.check())
-    {         
+    {   
+      MatchDirector::update();      
       fsmSupervisor.update();
-      MatchDirector::update();
+
     }
  
     if(TestTime.check())

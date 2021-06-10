@@ -74,7 +74,7 @@ namespace Communication {
             }
         }
         else if(buffer[0] == 'o') {
-            SerialCtrl.print("pos: ");
+            SerialCtrl.print("pos - odometry_motor : ");
             SerialCtrl.print(odometry_motor.get_pos_x());
             SerialCtrl.print("\t");
             SerialCtrl.print(odometry_motor.get_pos_y());
@@ -82,12 +82,18 @@ namespace Communication {
             SerialCtrl.println(odometry_motor.get_pos_theta());
         }
         else if(buffer[0] == '2') {
-            SerialCtrl.print("pos: ");
+            SerialCtrl.print("pos - odometry_wheel : ");
             SerialCtrl.print(odometry_wheel.get_pos_x());
             SerialCtrl.print("\t");
             SerialCtrl.print(odometry_wheel.get_pos_y());
             SerialCtrl.print("\t");
             SerialCtrl.println(odometry_wheel.get_pos_theta());
+        } 
+        else if(buffer[0] == '1') {
+            SerialCtrl.print("pos - absolue :  ");
+            SerialCtrl.print(MatchDirector::get_abs_x());
+            SerialCtrl.print("\t");
+            SerialCtrl.println(MatchDirector::get_abs_y());
         } 
         else if(buffer[0] == 't') {
             //in degrees
@@ -105,6 +111,19 @@ namespace Communication {
         }
         else if(buffer[0] == 'r') { //deploy pavillon
             fsmSupervisor.setNextState(&recalibration_wall_left);
+        }
+        else if(buffer[0] == 'a') {
+            float x,y;
+            int nb = sscanf(buffer, "a %f %f", &x, &y);
+            if(nb == 2) {   
+                MatchDirector::abs_coords_to(x, y);
+                #ifdef COM_DEBUG
+                SerialCtrl.print("Moving to ");
+                SerialCtrl.print(x);
+                SerialCtrl.print("\t");
+                SerialCtrl.println(y);
+                #endif
+            }
         }
 
 

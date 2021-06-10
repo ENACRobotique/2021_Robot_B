@@ -58,7 +58,7 @@ void abs_coords_to(float x, float y)
 {  
     if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
     {
-        navigator.move_to(-x + offsetX, -y - offsetY);
+        navigator.move_to(-x + offsetX, -y + offsetY);
     }
     else
     {
@@ -128,18 +128,18 @@ void action_dispatcher(Action action)
             actionState = TURNING;
         }
         //le bloc ci-dessous se lance si on est avant le timer indiqué dans ActionList, ou si on est arrivé à destination/quasi destination 
-        if (fsmSupervisor.is_no_state_set()
+        if ((fsmSupervisor.is_no_state_set() || !fsmSupervisor.is_switching_state())
             && ((timeToReachCoords(get_abs_x(), get_abs_y(), action.x,action.y) <= action.countdownState +1.1f) //car time toReachCoords >= 1 à tout moment
                 || distance_squared(get_abs_x(), get_abs_y(), action.x,action.y) <= ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR))
         {
-            SerialCtrl.println("actionState == execute state");
+            SerialCtrl.println("actionState - fsmSueprvisor nextState ");
             fsmSupervisor.setNextState(action.state);
         } 
     }
 
-    else if(actionState == TURNING && navigator.isTrajectoryFinished() && fsmSupervisor.is_no_state_set())
+    else if(actionState == TURNING && navigator.isTrajectoryFinished())// && fsmSupervisor.is_no_state_set())
     {
-        SerialCtrl.println("actionState == turning");
+        SerialCtrl.println("actionState - turning done");
         curActIndex++;
         actionState = BEGIN;
     } 
