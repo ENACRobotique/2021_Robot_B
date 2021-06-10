@@ -13,10 +13,6 @@ const unsigned int LONGR = 4500; /* raccourci pour connecter deux wp sur le grap
 const float PERIM_MAX = 1300;
 const float SEUIL_DANGEREUX = (PERIM_MAX/(2*PI)*1.5)*1.1;
 
-Waypoint wp_list[MAX_WP] = {
-    
-};
-
 struct Waypoint
 {
     /* coordonées sur le terrain, en mm, depuis le coin bleu sud */
@@ -25,6 +21,11 @@ struct Waypoint
     /* liste de distances séparant le waypoint des autres sur la carte */
     int wp_adj[MAX_WP];
 };
+
+/* à virer autre part ptet
+Waypoint wp_list[MAX_WP] = {
+    
+};*/
 
 /* Un graphe de distance entre des Waypoints*/
 struct Graph
@@ -40,8 +41,7 @@ struct Graph
 /* Désigne une suite de points à emprunter pour se rendre d'un point A à un point B via les Waypoints*/
 struct Route
 {
-    Route();
-    /* Quantité de points à emprunter (destination comptée, point de départ omis) */
+    /* Quantité de waypoints à emprunter (destination omises, point de départ omis) */
     int length;
     /* Référence au point de départ*/
     float start[2];
