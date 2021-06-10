@@ -92,13 +92,13 @@ class Geom_Vec
         float y;
 };
 
-namespace ATC
+namespace ATC /* convert to class with protecting hidden members? later */
 {
     Graph generate_graph(Waypoint *waypoint_list, int wp_number);
-    Route find_route(Graph &graph, float depart[2], float destination[2], Lidar lidar, float robot_pos[3]);
+    Route find_route(Graph &graph, float depart[2], float destination[2], Lidar lidar, float robot_pos[3]); /* robot_pos[2] is in radians */
     bool is_path_blocked(float start[2], float end[2], Lidar lidar, float robot_pos[3]);
     int min_dist(unsigned int *dist, bool *Dset, int wp_number);
-    DijkstraResult dijkstra_crap(Graph graph, int src_index);
+    DijkstraResult dijkstra_crap(Graph &graph, int src_index);
     Geom_Vec from_pol_to_abs(float robot_pos[3], int lid_ang, float lid_dist);
     PseudoRoute going_to(int *parent, int index_dest, int wp_number);
 }
