@@ -3,6 +3,7 @@
  *
  *  Created on: 19 mars 2018
  *      Author: elie
+ * 		Modifié par Jonathan Muchler, 2021
  */
 #include "params.h"
 

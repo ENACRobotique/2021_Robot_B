@@ -1,7 +1,8 @@
 /*
+ * MatchDirector.h
  *
- *  Created on: 18 avr. 2018
- *      Author: Maxime
+ *  Created on: 09/06/21
+ *      Author: Jonathan Muchler
  */
 
 #include "../FsmSupervisor.h"
