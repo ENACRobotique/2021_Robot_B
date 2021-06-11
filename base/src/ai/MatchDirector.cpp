@@ -11,7 +11,14 @@
 
 namespace MatchDirector
 {
-
+    enum class ActionOrder {
+        RecupEcueilNord,
+        Phare,
+        DeposeEcueilNord,
+        MancheAir,
+        RecupEcueilSud,
+        DeposeEcueil,
+    };
 /*Control navigator (which is the high level interface to move the robot/give it a certain orientation) 
 and FSM (which controls various actuators & execute codes depending on various states) 
 depending on the time left & an order of action. 
@@ -124,7 +131,11 @@ void action_dispatcher(Action action)
         if (navigator.isTrajectoryFinished())
         {
             SerialCtrl.println("actionState == Moving & trajectory over");
-            navigator.turn_to(action.angle);
+            if(!(action.angle <= 360.f)) // -180 <= action.angle <= 180° pour être pris en compte, (normalement donc on met 360 au cas où)
+            {
+                navigator.turn_to(action.angle);
+            }
+
             actionState = TURNING;
         }
         //le bloc ci-dessous se lance si on est avant le timer indiqué dans ActionList, ou si on est arrivé à destination/quasi destination 
@@ -171,7 +182,7 @@ void update()
     if((millis()-start_millis > timer*1000-5000) & !moveBackToBase)
     {
         moveBackToBase = true;
-        //set_current_action(*(get_to_final()));
+        //set_current_action(*(compute_final_point()));
     }
     if(millis()-start_millis > timer*1000-5000) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
     {
@@ -189,16 +200,24 @@ void set_current_action(Action *action)
     curSection = action;
 }
 
-Action* get_to_final(bool isGirouetteWhite)
+//to be called when receveing information from raspberry about girouette in communication.h
+void compute_final_point(bool isGirouetteWhite) 
+//White : Sud, Black : Nord
 {
-    //float x = (isGirouetteWhite) ?, aussi prendre en compte gauche ou droite
-    //Find/calculate destination coordinate
-    Action* GetToFinal = new Action[10];
-    GetToFinal =
+    float theta = 0.f;
+
+    if(isStartingLeft)
     {
-        //{x,y, 0.0f, &no_state, 5.f},
-    };
-    return GetToFinal;
+        ActionList::GetToFinal[0].x = 200.f;
+        ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 500.f : 1500.f;
+        ActionList::GetToFinal[0].angle = 0.0f;
+    }
+    else
+    {
+        ActionList::GetToFinal[0].x = 2800.f;
+        ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 500.f : 1500.f;
+        ActionList::GetToFinal[0].angle = 0.0f;
+    }
 }
 
 void addScore(int add)

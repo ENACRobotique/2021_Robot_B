@@ -18,6 +18,8 @@ namespace MatchDirector
     void abs_coords_to(float x, float y); //move to somewhere using abs
     float get_abs_x();
     float get_abs_y();
+
+    void compute_final_point(bool isGirouetteWhite);
     
     float timeToReachCoords();
     void set_current_action(Action *action);
