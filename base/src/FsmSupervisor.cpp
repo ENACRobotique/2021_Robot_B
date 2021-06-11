@@ -31,8 +31,10 @@ FsmSupervisor::~FsmSupervisor() {
 
 void FsmSupervisor::setNextState(AbstractState* state) {
 	nextState = state;
-	SerialCtrl.println("setting next state in fsmSupervisor");
+	isSwitchingState = true;
 }
+
+
 
 void FsmSupervisor::update() {
 	/*if (millis() - tiretteState.get_time_start() > TIME_RACE){
@@ -44,12 +46,12 @@ void FsmSupervisor::update() {
 	}*/
 
 	if(nextState != NULL && nextState != currentState){
-		SerialCtrl.println("beggining to change fsmSupervisor state");
 		currentState->leave();
 		nextState->enter();
 		currentState = nextState;
 		nextState = NULL;
-		SerialCtrl.println("changing fsmSupervisor state");
+		isSwitchingState = false;
+		SerialCtrl.println("fsmSupervisor state changed");
 	}
 
 	currentState->doIt();
@@ -103,10 +105,14 @@ void FsmSupervisor::init(){
 	return currentState->name;
 }
 */
-bool FsmSupervisor::is_no_state_set()
+bool FsmSupervisor::is_no_state_set() //return true if at "etat_begin" state
 {
-	return (currentState == NULL) ? true : false;
+	return (currentState == &etat_begin) ? true : false;
 }
 
+bool FsmSupervisor::is_switching_state()
+{
+	return isSwitchingState;
+}
 //AbstractState& FsmSupervisor::get_current_state() {}
 

@@ -29,7 +29,7 @@ public:
 private:
 
 	unsigned long time_start;
-	long motor_cod_last_reading;
+	float wheel_cod_last_reading;
 	bool isX;
 	float targetPos;
 	float targetTheta;

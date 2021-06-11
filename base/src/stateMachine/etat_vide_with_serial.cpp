@@ -5,6 +5,7 @@
  */
 #include "Arduino.h"
 #include "etat_vide_with_serial.h"
+#include "etat_begin.h"
 #include "../params.h"
 #include "FsmSupervisor.h"
 
@@ -35,7 +36,7 @@ void Etat_vide_with_serial::leave() {
 void Etat_vide_with_serial::doIt() {
 	SerialCtrl.println(msgUpdate);
 	SerialDebug.println(msgUpdate);
-	fsmSupervisor.setNextState(NULL);
+	fsmSupervisor.setNextState(&etat_begin);
 	SerialCtrl.print("state");
 	SerialCtrl.println(fsmSupervisor.is_no_state_set());
 }

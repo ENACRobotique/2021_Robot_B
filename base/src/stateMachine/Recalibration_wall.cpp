@@ -7,6 +7,7 @@
 
 #include "../FsmSupervisor.h"
 #include "Recalibration_wall.h"
+#include "etat_begin.h"
 #include "navigator.h"
 #include "odometry.h"
 #include "math.h"
@@ -21,8 +22,7 @@ Recalibration_wall::Recalibration_wall(float targetPos, float targetTheta, bool 
 	this->targetPos = targetPos;
 	this->targetTheta = targetTheta;
 	this->isX = isX;
-	motor_cod_last_reading = -1; //arbitrary value outside of the terrain
-	navigator.move(10.0f, 0); //1 mm/s
+	wheel_cod_last_reading = -1; //arbitrary value outside of the terrain
 }
 
 Recalibration_wall::~Recalibration_wall() {
@@ -30,10 +30,14 @@ Recalibration_wall::~Recalibration_wall() {
 }
 
 void Recalibration_wall::enter() {
+	SerialCtrl.print("recalibrating");
+	SerialCtrl.print(targetPos);
+	SerialCtrl.print(isX);
+	navigator.move(50.0f, 0); //40 mm/s
 }
 
 void Recalibration_wall::leave() {
-
+	SerialCtrl.print("end recalibrating wall");
 }
 
 void Recalibration_wall::doIt() {
@@ -47,16 +51,19 @@ void Recalibration_wall::doIt() {
 	{
 		cur_reading = odometry_wheel.get_pos_y();
 	}
-	if(fabs(cur_reading-motor_cod_last_reading) <= 0.001f && motor_cod_last_reading != -1)
+	SerialCtrl.print(cur_reading);
+	SerialCtrl.print("\t");
+	SerialCtrl.println(wheel_cod_last_reading);
+	if(fabs(cur_reading-wheel_cod_last_reading) <= 0.01f && wheel_cod_last_reading != -1)
 	{
 		navigator.forceStop();
 		float x = (isX) ? targetPos : odometry_wheel.get_pos_x();
 		float y = (!isX) ? targetPos : odometry_wheel.get_pos_y();
 		odometry_wheel.set_pos(x,y, targetTheta);
 		odometry_motor.set_pos(x,y, targetTheta);
-		fsmSupervisor.setNextState(NULL);
+		fsmSupervisor.setNextState(&etat_begin);
 	}
-	motor_cod_last_reading = cur_reading;
+	wheel_cod_last_reading = cur_reading;
 
 }
 

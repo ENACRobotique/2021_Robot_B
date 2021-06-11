@@ -15,8 +15,7 @@ namespace MatchDirector
     void update();
 
     void addScore(int add);
-
-    void abs_coords_to(); //move to somewhere using abs
+    void abs_coords_to(float x, float y); //move to somewhere using abs
     float get_abs_x();
     float get_abs_y();
     
