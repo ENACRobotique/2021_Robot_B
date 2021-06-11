@@ -12,7 +12,7 @@
 Etat_vide_with_serial etat_vide_with_serial = Etat_vide_with_serial();
 
 
-Etat_vide_with_serial::Etat_vide_with_serial(String msgBeg = "", String msgUpdate = "", String msgEnd = "") {
+Etat_vide_with_serial::Etat_vide_with_serial(String msgBeg, String msgUpdate, String msgEnd) {
 	time_start = 0;
 	this->msgBeg = msgBeg;
 	this->msgUpdate = msgUpdate;

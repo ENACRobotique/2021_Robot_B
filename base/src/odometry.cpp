@@ -136,7 +136,7 @@ void Odometry::set_pos(float x, float y, float theta) {
 	}
 	
 
-void Odometry::update_reading(Odometry *odom1 = NULL, Odometry *odom2 = NULL) {
+void Odometry::update_reading(Odometry *odom1, Odometry *odom2) {
 		cli();
 		int incr1 =_incr1;
 		int incr2 =_incr2;

@@ -42,6 +42,8 @@ namespace ActionList
     MoveServo retractBackGreen = MoveServo(CupColor::GREEN, false, false, false);
     MoveServo retractBackRed   = MoveServo(CupColor::RED, false, false, false);
 
+    #pragma endregion
+    
     MoveBar deployBar = MoveBar(true);
     MoveBar retractBar = MoveBar(false);  
 
