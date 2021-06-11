@@ -154,6 +154,20 @@ void update()
     {
        action_dispatcher(curAction);
     }
+    if(curSection == NULL)
+    {
+        //TODO : changement de curSection, dans un ordre prédeterminé sauf si le chemin est occupé:
+        /*
+        Recup ecueil 
+        phare
+        Dépose ecueil
+        Récup ecueil
+        Manche à air
+        dépose écueil
+
+        Si plus rien à faire : rentrer à la base/circuit d'attente
+        */
+    }
     if((millis()-start_millis > timer*1000-5000) & !moveBackToBase)
     {
         moveBackToBase = true;
@@ -187,14 +201,17 @@ Action* get_to_final(bool isGirouetteWhite)
     return GetToFinal;
 }
 
-
+void addScore(int add)
+{
+    score += add;
+}
 /* méthodes à rajouter :
 Temps estimé pour réaliser action
 (Heuristique action/temps réalsier une action)
 
 externes : 
 setArrivalCoordinate() ->comm.cpp pour arriver à bon port
-addScore()
+
 (freeEcocup() -> comm.cpp pour autoriser d'autres coords ??)
 
 */
