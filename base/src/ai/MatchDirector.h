@@ -9,8 +9,14 @@
 
 #ifndef MATCH_DIRECTOR_H
 #define MATCH_DIRECTOR_H
+/** @defgroup namespace Namespaces */
+
 namespace MatchDirector
 {
+    /**
+     * @brief Gestion à haut niveau
+     * @addtogroup namespace
+     */
     void init();
     void update();
 
@@ -19,6 +25,11 @@ namespace MatchDirector
     float get_abs_x();
     float get_abs_y();
 
+    /**
+     * @brief Fonction qui doit être appelé par match director peu de temps avant la fin, modifie les coordonnées à atteindre à la fin
+     * @ingroup namespace
+     * @param isGirouetteWhite Gère orientation nord/sud
+     */
     void compute_final_point(bool isGirouetteWhite);
     
     float timeToReachCoords();
