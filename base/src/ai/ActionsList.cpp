@@ -3,6 +3,8 @@
 #include "../stateMachine/Recalibration_wall.h"
 #include "../stateMachine/Wait_front_cup_succ.h"
 #include "../stateMachine/MoveServo.h"
+#include "../stateMachine/MoveBar.h"
+#include "../stateMachine/etat_begin.h"
 
 //#ifdef DEBUG_MATCH_DIRECTOR
 #include "../stateMachine/etat_vide_with_serial.h"
@@ -39,6 +41,11 @@ namespace ActionList
     MoveServo retractFrontRed  = MoveServo(CupColor::RED, true, false, false);
     MoveServo retractBackGreen = MoveServo(CupColor::GREEN, false, false, false);
     MoveServo retractBackRed   = MoveServo(CupColor::RED, false, false, false);
+
+    #pragma endregion
+    
+    MoveBar deployBar = MoveBar(true);
+    MoveBar retractBar = MoveBar(false);  
 
     Etat_vide_with_serial etat_test_serial_1 = Etat_vide_with_serial("phase 1 test movement initie 1");
     Etat_vide_with_serial etat_test_serial_2 = Etat_vide_with_serial("phase 2 test movement initie 2");
@@ -92,6 +99,19 @@ namespace ActionList
     Action EcocupsTopRight[10] = {};
     //Y = 400
     Action EcocupsBottomRight[10] = {};
+
+    Action MancheAirBottom[3] = {
+        {200.f, 200.f, 0.f, &deployBar, 1.0f},
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        {600.f, 200.f, 70.f, &retractBar, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+    };
+
+    //Doit être modifié par Get_To_Final dans match director avec les bonnes coords/angle
+    Action GetToFinal[2] =
+    {
+        {200.f, 0.f, 0.f, &etat_vide_unit_test, 0.0f},
+    };
+
 
     #pragma endregion
 

@@ -7,6 +7,7 @@
 
 namespace ActuatorSupervisor
 {
+
 	ControlServo armServos[5];
     ControlServo otherServos[2]; //[0] = Pavillon, [1] = tige horizontale
 
@@ -66,6 +67,15 @@ namespace ActuatorSupervisor
     {
         otherServos[0].moveServo(SERVO_PAV_ANGLE_RTRCTED);
     }
+    void deploy_bar()
+    {
+        otherServos[0].moveServo(SERVO_BAR_ANGLE_DPLOYED);
+    }
+    void retract_bar()
+    {
+        otherServos[0].moveServo(SERVO_BAR_ANGLE_RTRCTED);
+    }
+
     void switch_pompe(bool isOn, int pompe)
     {
         SerialCtrl.println("ENABLE POMPE NOT TESTED");

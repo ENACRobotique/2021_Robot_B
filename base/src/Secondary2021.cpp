@@ -1,4 +1,12 @@
-#include "Wire.h"
+/**
+ * @file Secondary2021.cpp
+ * @author jonathan Muchler
+ * @brief 
+ * @date 2021-06-12
+ * 
+ * @image html vue_globale_code_2021.png "vue globale du code - au debut juin 2021"
+ */
+
 #include "Arduino.h" 
 #include "odometry.h"
 #include "motorControl.h" 
@@ -15,10 +23,7 @@
 #include "examples/servoTest.h" 
 #include "examples/asservissementMoteur.h" 
 #include "examples/debugTest.h" 
-
 #include "examples/testXbee.h" 
-
-#include <Adafruit_PWMServoDriver.h>
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
 Metro debugLed = Metro(2000);
@@ -30,7 +35,6 @@ Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
 float sp[4] = {0, 3.14f, 0, -3.14f};
 int i = 0;
 
-Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(LED_DRIVER_ADDRESS);
 
 void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);

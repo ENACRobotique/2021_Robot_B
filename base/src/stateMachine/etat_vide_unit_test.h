@@ -5,8 +5,7 @@
  *      Author: Maxime
  */
 
-#ifndef STATEMACHINE_ETAT_BEGIN_H_
-#define STATEMACHINE_ETAT_BEGIN_H_
+#pragma once
 
 #include "AbstractState.h"
 
@@ -31,5 +30,3 @@ private:
 };
 
 extern Etat_vide_unit_test etat_vide_unit_test;
-
-#endif 

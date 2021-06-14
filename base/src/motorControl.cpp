@@ -120,47 +120,12 @@ namespace MotorControl {
 	SerialDebug.println(odometry_motor.get_omega()); 
 	#endif
 /*
-		SerialDebug.print("cmd omega : ");
-		SerialDebug.print(cmd_omega);
-		SerialDebug.print("\t"); */
-		/*
-		SerialDebug.print("cmd vitesse : "); 
-		SerialDebug.print(cmd_speed);
-		SerialDebug.print("\t"); 
-		SerialDebug.print("get odometry vitesse : "); 
-		SerialDebug.print(		odometry_motor.get_speed());
-		SerialDebug.print("\t"); 
-*/
-		/*
-		
-		SerialDebug.print("cons speed : "); 
-		//SerialDebug.println("\t");
-		//SerialDebug.print("cmd_speed detail : ");
-		//SerialDebug.print(cons_omega);
-		//SerialDebug.print("\t");
-		//SerialDebug.print("cmd omega : ");
-		//SerialDebug.print(cmd_omega);
-		//SerialDebug.print("\t");
-
-		//SerialDebug.print(cmd_speed);
-		//SerialDebug.print("\t");
-		//SerialDebug.print("speed odometry: ");
-		//SerialDebug.println(odometry_motor.get_omega());
-
-		SerialDebug.print("\t");
-		SerialDebug.println(error_integrale_omega);
-		SerialDebug.print("\t");
-		
+	
 		SerialDebug.print("cmd mot 2 & 1 : ");
 		SerialDebug.print(cmd_mot2);
 		SerialDebug.print("\t");
 		SerialDebug.print(cmd_mot1);
 		SerialDebug.print("\t");
-		//SerialDebug.println(); */ /*
-		SerialDebug.print("odometry_motor.get_omega : ");
-		SerialDebug.print(odometry_motor.get_omega());
-		SerialDebug.println(); */
-		//SerialDebug.print("\t");0
-		//SerialDebug.println("\t"); */
+		//SerialDebug.println(); */
 	}
 }

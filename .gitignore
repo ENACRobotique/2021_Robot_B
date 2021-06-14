@@ -34,3 +34,4 @@ kicad_robot/gerbers_teensy.zip
 .vscode/launch.json
 .vscode/tasks.json
 .vscode/c_cpp_properties.json
+/documentation_doxygen

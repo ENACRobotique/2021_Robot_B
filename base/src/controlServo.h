@@ -5,11 +5,13 @@
 #include "PWMServo.h"
 #include "Adafruit_PWMServoDriver.h"
 
-#define SERVOMIN  150
-#define SERVOMAX  600
-#define USMIN  600 
-#define USMAX  2400
-#define SERVO_FREQ 50
+#define SERVOMIN  100 // This is the 'minimum' pulse length count (out of 4096)
+#define SERVOMAX  515 // This is the 'maximum' pulse length count (out of 4096)
+#define FACTOR (SERVOMAX - SERVOMIN)/180 // Facteur de convertion de degrés en pulselength
+#define USMIN  600 // This is the rounded 'minimum' microsecond length based on the minimum pulse of 150
+#define USMAX  2400 // This is the rounded 'maximum' microsecond length based on the maximum pulse of 600
+#define SERVO_FREQ 50 // Analog servos run at ~50 Hz updates
+#define NB_SERVO 8
 
 /* allow an interface with one servo 
 they are stored in actuatorSupervisor
