@@ -1,3 +1,4 @@
+#include "ActionsList.h"
 #include "Action.h"
 #include "../stateMachine/etat_vide_unit_test.h"
 #include "../stateMachine/Recalibration_wall.h"
@@ -50,6 +51,36 @@ namespace ActionList
     Etat_vide_with_serial etat_test_serial_1 = Etat_vide_with_serial("phase 1 test movement initie 1");
     Etat_vide_with_serial etat_test_serial_2 = Etat_vide_with_serial("phase 2 test movement initie 2");
     Etat_vide_with_serial etat_test_serial_3 = Etat_vide_with_serial("phase 3 test movement initie 3");
+
+
+    Action* section(SectionOrder section_id)
+    {
+        switch (section_id)
+        {
+            case RecupEcueilNord:
+                /* code */
+                break;
+            case Phare:
+                /* code */
+                break;
+            case DeposeEcueilNord:
+                /* code */
+                break;
+            case MancheAir:
+                /* code */
+                break;
+            case RecupEcueilSud:
+                /* code */
+                break;
+            case DeposeEcueil:
+                /* code */
+                break;
+            
+            default:
+                break;
+            }
+    }
+
 
     //#ifdef DEBUG_MATCH_DIRECTOR
     Action TestMovement[5] =
