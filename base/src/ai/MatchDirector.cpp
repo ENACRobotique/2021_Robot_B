@@ -9,6 +9,12 @@
 #include "Arduino.h" //NULL definition
 #include "utils.h"
 
+/**
+ * @brief 
+ * @file MatchDirector.cpp
+ * @ingroup namespace
+
+ */
 namespace MatchDirector
 {
     enum class ActionOrder {
@@ -33,6 +39,11 @@ Can be modified by states if needed (for example, if an action is interacting wi
     //Section = multiple actions that usually lead to points at the end
     int curActIndex = 0;
     ActionState actionState = BEGIN;
+    /**
+     * @brief When there is a huge discrepancy between targeted position & position reached, this get reincremented and the same command is sent again
+     *  @ingroup namespace
+     */
+    int nbReadjust = 0; //
 
     float timer = 10; // en s, durée du match
     int score = 0;
@@ -40,6 +51,7 @@ Can be modified by states if needed (for example, if an action is interacting wi
     float offsetY = 0;
     uint32_t start_millis;
     bool moveBackToBase;
+
 
 void init()
 {
