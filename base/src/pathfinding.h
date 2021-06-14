@@ -22,6 +22,11 @@ struct Waypoint
     int wp_adj[MAX_WP];
 };
 
+/* à virer autre part ptet
+Waypoint wp_list[MAX_WP] = {
+    
+};*/
+
 /* Un graphe de distance entre des Waypoints*/
 struct Graph
 {
@@ -36,8 +41,7 @@ struct Graph
 /* Désigne une suite de points à emprunter pour se rendre d'un point A à un point B via les Waypoints*/
 struct Route
 {
-    Route();
-    /* Quantité de points à emprunter (destination comptée, point de départ omis) */
+    /* Quantité de waypoints à emprunter (destination omises, point de départ omis) */
     int length;
     /* Référence au point de départ*/
     float start[2];
@@ -88,10 +92,10 @@ class Geom_Vec
         float y;
 };
 
-namespace ATC
+namespace ATC /* convert to class with protecting hidden members? later */
 {
-    Graph generate_graph(Waypoint *waypoint_list[MAX_WP]);
-    Route find_route(Graph &graph, float depart[2], float destination[2], Lidar lidar, float robot_pos[3]);
+    Graph generate_graph(Waypoint *waypoint_list, int wp_number);
+    Route find_route(Graph *graph_orig, float depart[2], float destination[2], Lidar lidar, float robot_pos[3]); /* robot_pos[2] is in radians */
     bool is_path_blocked(float start[2], float end[2], Lidar lidar, float robot_pos[3]);
     int min_dist(unsigned int *dist, bool *Dset, int wp_number);
     DijkstraResult dijkstra_crap(Graph graph, int src_index);
