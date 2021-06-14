@@ -22,6 +22,8 @@ namespace MatchDirector
 
     void addScore(int add);
     void abs_coords_to(float x, float y); //move to somewhere using abs
+    float abs_x_to_local(float x);
+    float abs_y_to_local(float y);
     float get_abs_x();
     float get_abs_y();
 

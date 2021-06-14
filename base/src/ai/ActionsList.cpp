@@ -112,6 +112,22 @@ namespace ActionList
         {200.f, 0.f, 0.f, &etat_vide_unit_test, 0.0f},
     };
 
+    Action TestStrategieMvtOnly[4] = 
+    {
+        {600.f, 1780.f, 180.f, &etat_begin, 0.0f},
+        {400.f, 1780.f, -400.f, &etat_begin, 0.0f},
+        {650.f, 1750.f, 90.f, &recalibration_wall_bottom, 0.0f},
+        {650.f, 750.f,-400.f, &etat_begin, 0.0f},
+        /*
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        */
+    };
+
 
     #pragma endregion
 

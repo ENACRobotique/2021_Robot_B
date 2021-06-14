@@ -138,7 +138,7 @@ float Odometry::get_omega() {
 void Odometry::set_pos(float x, float y, float theta) {
 		pos_x = x;
 		pos_y = y;
-		pos_theta = PI*theta/180;
+		pos_theta = theta;
 	}
 	
 

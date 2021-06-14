@@ -61,7 +61,7 @@ namespace ActuatorSupervisor
     void deploy_pav()
     {
         otherServos[0].moveServo(SERVO_PAV_ANGLE_DPLOYED);
-        SerialCtrl.println("pavillon - ordre de déploiement");
+        //SerialCtrl.println("pavillon - ordre de déploiement");
     }
     void retract_pav()
     {

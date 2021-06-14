@@ -17,6 +17,8 @@ namespace ActionList
     extern Action TestMovement[5];
 
     extern Action GetToFinal[2];
+
+    extern Action TestStrategieMvtOnly[4];
 }
 
 
