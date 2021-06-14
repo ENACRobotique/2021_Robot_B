@@ -224,7 +224,7 @@ namespace MatchDirector
         {
             /*
             int k = 0;
-            while((order && 1 << k) == 1)
+            while((order && 1 << k) == 1 ) ET S'ASSURER QUE CETTE ACTION EXISTE (Par dire vrai pour k=0/1 00000000 quoi... attendre Le troisiéme k)
             {
                 k++;
             }
@@ -233,6 +233,7 @@ namespace MatchDirector
 
 
             Si plus rien à faire : rentrer à la base/circuit d'attente
+            Si temps pressant (< 30s), on rentre à la base
             */
         }
         if((millis()-start_millis > timer*1000-5000) & !moveBackToBase)
