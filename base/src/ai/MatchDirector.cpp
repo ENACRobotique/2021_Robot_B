@@ -75,15 +75,33 @@ float distance_squared (float xA, float yA, float xB, float yB)
 
 void abs_coords_to(float x, float y)
 {  
+    //SerialCtrl.print("commande envoyé : move_to local : ");
+    navigator.move_to(abs_x_to_local(x), abs_x_to_local(y));
+    
+}
+
+float abs_x_to_local(float x)
+{
     if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
     {
-        navigator.move_to(-x + offsetX, -y + offsetY);
+        return -x + offsetX;
     }
     else
     {
-        navigator.move_to(x - offsetX, y - offsetY);
+        return x - offsetX;
     }
-    
+}
+
+float abs_y_to_local(float y)
+{
+    if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
+    {
+        return -y + offsetY;
+    }
+    else
+    {
+        return y - offsetY;
+    }
 }
 
 float get_abs_x()
@@ -133,7 +151,14 @@ void action_dispatcher(Action action)
 {
     if(actionState == BEGIN)
     {
-        SerialCtrl.println("actionState == begin");
+        SerialCtrl.print("new action :");
+        SerialCtrl.print("\t");
+        SerialCtrl.print(action.x);
+        SerialCtrl.print("\t");
+        SerialCtrl.print(action.y);
+        SerialCtrl.print("\t");
+        SerialCtrl.println(action.angle);
+        //SerialCtrl.println("actionState == begin");
         abs_coords_to(action.x,action.y);
         actionState = MOVING;
     }
@@ -142,7 +167,7 @@ void action_dispatcher(Action action)
     {
         if (navigator.isTrajectoryFinished())
         {
-            SerialCtrl.println("actionState == Moving & trajectory over");
+            //SerialCtrl.println("actionState == Moving & trajectory over");
             if(!(action.angle <= 360.f)) // -180 <= action.angle <= 180° pour être pris en compte, (normalement donc on met 360 au cas où)
             {
                 navigator.turn_to(action.angle);
@@ -150,6 +175,7 @@ void action_dispatcher(Action action)
 
             actionState = TURNING;
         }
+        /*
         //le bloc ci-dessous se lance si on est avant le timer indiqué dans ActionList, ou si on est arrivé à destination/quasi destination 
         if ((fsmSupervisor.is_no_state_set() || !fsmSupervisor.is_switching_state())
             && ((timeToReachCoords(get_abs_x(), get_abs_y(), action.x,action.y) <= action.countdownState +1.1f) //car time toReachCoords >= 1 à tout moment
@@ -158,11 +184,14 @@ void action_dispatcher(Action action)
             SerialCtrl.println("actionState - fsmSueprvisor nextState ");
             fsmSupervisor.setNextState(action.state);
         } 
+        */
     }
 
     else if(actionState == TURNING && navigator.isTrajectoryFinished())// && fsmSupervisor.is_no_state_set())
-    {
-        SerialCtrl.println("actionState - turning done");
+    {           
+        SerialCtrl.println("actionState turning - fsm nextState ");
+         fsmSupervisor.setNextState(action.state);
+        //SerialCtrl.println("actionState - turning done");
         curActIndex++;
         actionState = BEGIN;
     } 
@@ -171,7 +200,6 @@ void action_dispatcher(Action action)
 void update()
 { 
     Action curAction = curSection[curActIndex];
-    
     //Une section : un ensemble d'actions, action_dispatcher s'occupe de voir ce qu'il doit faire avec une action ou passer à l'action suivante pour la prochaine loop
     if(curSection != NULL)
     {

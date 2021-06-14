@@ -54,9 +54,9 @@ namespace ActionList
     //#ifdef DEBUG_MATCH_DIRECTOR
     Action TestMovement[5] =
     {
-        {500.f, 1500.f, 0.f, &etat_test_serial_1, 0.0f},
-        {800.f, 2000.f, 90.f, &etat_test_serial_2, 0.0f},
-        {300.f, 1500.f, 180.f, &etat_test_serial_3, 0.0f},
+        {500.f, 1000.f, 0.f, &etat_test_serial_1, 0.0f},
+        {800.f, 1500.f, 90.f, &etat_test_serial_2, 0.0f},
+        {300.f, 1000.f, 180.f, &etat_test_serial_3, 0.0f},
     };
     //#endif
 
@@ -110,6 +110,22 @@ namespace ActionList
     Action GetToFinal[2] =
     {
         {200.f, 0.f, 0.f, &etat_vide_unit_test, 0.0f},
+    };
+
+    Action TestStrategieMvtOnly[4] = 
+    {
+        {600.f, 1780.f, 180.f, &etat_begin, 0.0f},
+        {400.f, 1780.f, -400.f, &etat_begin, 0.0f},
+        {650.f, 1750.f, 90.f, &recalibration_wall_bottom, 0.0f},
+        {650.f, 750.f,-400.f, &etat_begin, 0.0f},
+        /*
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+        */
     };
 
 

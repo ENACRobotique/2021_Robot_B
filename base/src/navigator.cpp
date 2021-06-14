@@ -64,6 +64,9 @@ void Navigator::step_backward(float d){
 
 
 void Navigator::turn_to(float theta){ // En degrés
+	odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
+	SerialCtrl.println("odometry motor reset to odometry wheel position !");
+
 	theta_target = center_radian(PI*theta/180);
 
 	/*SerialDebug.print("Angle: ");
@@ -198,6 +201,7 @@ void Navigator::update(){
 	else{
 		switch(move_state){
 		case INITIAL_TURN:
+
 
 			if(move_type==DISPLACEMENT){
 				alpha = odometry_motor.get_pos_theta() + center_axes(atan2((-y_target+odometry_motor.get_pos_y()),(-x_target+odometry_motor.get_pos_x())) - odometry_motor.get_pos_theta());

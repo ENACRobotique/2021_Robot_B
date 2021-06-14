@@ -15,6 +15,12 @@ Odometry odometry_motor = Odometry(MOT_ENCODEUR1_A,MOT_ENCODEUR1_B, MOT_ENCODEUR
 Odometry odometry_wheel = Odometry(WHEEL_ENCODEUR1_A,WHEEL_ENCODEUR1_B, WHEEL_ENCODEUR2_A,WHEEL_ENCODEUR2_B, 
 	CODER_INCR_TO_MM_1, CODER_INCR_TO_MM_2, CODER_WHEEL_BASE, false);
 
+/*
+Odometry odometry_wheel = Odometry(MOT_ENCODEUR1_A,MOT_ENCODEUR1_B, MOT_ENCODEUR2_A,MOT_ENCODEUR2_B, 
+	INCR_TO_MM_1, INCR_TO_MM_2, WHEELBASE, true);
+Odometry odometry_motor = Odometry(WHEEL_ENCODEUR1_A,WHEEL_ENCODEUR1_B, WHEEL_ENCODEUR2_A,WHEEL_ENCODEUR2_B, 
+	CODER_INCR_TO_MM_1, CODER_INCR_TO_MM_2, CODER_WHEEL_BASE, false);
+*/
 volatile int Odometry::_incr1 = 0;
 volatile int Odometry::_incr2 = 0;
 volatile int Odometry::_incr3 = 0;
@@ -132,7 +138,7 @@ float Odometry::get_omega() {
 void Odometry::set_pos(float x, float y, float theta) {
 		pos_x = x;
 		pos_y = y;
-		pos_theta = PI*theta/180;
+		pos_theta = theta;
 	}
 	
 

@@ -6,18 +6,25 @@
  */
 
 #include "../FsmSupervisor.h"
+#include "../ai/MatchDirector.h"
 #include "Recalibration_wall.h"
 #include "etat_begin.h"
 #include "navigator.h"
 #include "odometry.h"
 #include "math.h"
 
-Recalibration_wall recalibration_wall_left = Recalibration_wall(0.0f, 0.0f, true);
-Recalibration_wall recalibration_wall_top = Recalibration_wall(2000.f, 0.f, false);
-Recalibration_wall recalibration_wall_bottom = Recalibration_wall(0.0f, 0.0f, false);
+//Recalibration : valeurs configurés en supposant que le robot se reconfigure vers L'AVANT et pas l'arrière (faire attention en l'amenant devant le mur)
+Recalibration_wall recalibration_wall_left = Recalibration_wall(0.0f, 3.14f, true);
+Recalibration_wall recalibration_wall_top = Recalibration_wall(2000.f, 1.57f, false);
+Recalibration_wall recalibration_wall_bottom = Recalibration_wall(0.0f, -1.57f, false);
 Recalibration_wall recalibration_wall_right = Recalibration_wall(3000.0f, 0.0f, true);
 
-Recalibration_wall::Recalibration_wall(float targetPos, float targetTheta, bool isX) { //if isX = false => Y
+/**
+ * targetPos : en absolue (reconvertie en local en doIt)
+ * targetTheta : en radian
+ * isX : si c'est à faux, ça reconfigure le y
+ * **/
+Recalibration_wall::Recalibration_wall(float targetPos, float targetTheta, bool isX) { //if isX = false => Y,
 	time_start = 0;
 	this->targetPos = targetPos;
 	this->targetTheta = targetTheta;
@@ -51,14 +58,12 @@ void Recalibration_wall::doIt() {
 	{
 		cur_reading = odometry_wheel.get_pos_y();
 	}
-	SerialCtrl.print(cur_reading);
-	SerialCtrl.print("\t");
-	SerialCtrl.println(wheel_cod_last_reading);
+
 	if(fabs(cur_reading-wheel_cod_last_reading) <= 0.01f && wheel_cod_last_reading != -1)
 	{
 		navigator.forceStop();
-		float x = (isX) ? targetPos : odometry_wheel.get_pos_x();
-		float y = (!isX) ? targetPos : odometry_wheel.get_pos_y();
+		float x = (isX) ? MatchDirector::abs_x_to_local(targetPos) : odometry_wheel.get_pos_x(); //on recoit des coordonnées locales, donc faut les reconvertir
+		float y = (!isX) ? MatchDirector::abs_y_to_local(targetPos) : odometry_wheel.get_pos_y();
 		odometry_wheel.set_pos(x,y, targetTheta);
 		odometry_motor.set_pos(x,y, targetTheta);
 		fsmSupervisor.setNextState(&etat_begin);
