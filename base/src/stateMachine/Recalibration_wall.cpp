@@ -12,9 +12,10 @@
 #include "odometry.h"
 #include "math.h"
 
-Recalibration_wall recalibration_wall_left = Recalibration_wall(0.0f, 0.0f, true);
-Recalibration_wall recalibration_wall_top = Recalibration_wall(2000.f, 0.f, false);
-Recalibration_wall recalibration_wall_bottom = Recalibration_wall(0.0f, 0.0f, false);
+//Recalibration : valeurs configurés en supposant que le robot se reconfigure vers L'AVANT et pas l'arrière (faire attention en l'amenant devant le mur)
+Recalibration_wall recalibration_wall_left = Recalibration_wall(0.0f, 180.0f, true);
+Recalibration_wall recalibration_wall_top = Recalibration_wall(2000.f, 90.f, false);
+Recalibration_wall recalibration_wall_bottom = Recalibration_wall(0.0f, 270.0f, false);
 Recalibration_wall recalibration_wall_right = Recalibration_wall(3000.0f, 0.0f, true);
 
 Recalibration_wall::Recalibration_wall(float targetPos, float targetTheta, bool isX) { //if isX = false => Y
@@ -51,9 +52,7 @@ void Recalibration_wall::doIt() {
 	{
 		cur_reading = odometry_wheel.get_pos_y();
 	}
-	SerialCtrl.print(cur_reading);
-	SerialCtrl.print("\t");
-	SerialCtrl.println(wheel_cod_last_reading);
+
 	if(fabs(cur_reading-wheel_cod_last_reading) <= 0.01f && wheel_cod_last_reading != -1)
 	{
 		navigator.forceStop();
