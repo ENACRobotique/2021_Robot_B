@@ -196,9 +196,9 @@ bool ATC::is_path_blocked(float start[2], float end[2], Lidar lidar, float robot
     return false;
 }
 
-Route ATC::find_route(Graph graph_orig, float *depart, float *destination, Lidar lidar, float *robot_pos){
+Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lidar lidar, float *robot_pos){
     /* checking what is the closest waypoint to start */
-    Graph graph = graph_orig;
+    Graph graph = *graph_orig;
     unsigned int min_dist_start = 65535;
     int first_wp = -1;
     for (int index=0;index<graph.wp_number;index++){

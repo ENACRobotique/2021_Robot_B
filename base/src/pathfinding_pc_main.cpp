@@ -18,7 +18,7 @@ int main(){
     float dept[2] = {0.0, 0.0};
     float dest[2] = {3000.0, 2000.0};
     float rbpos[3] = {0.0, 0.0, 0.0};
-    Route route = ATC::find_route(graph_orig, dept, dest, lidar, rbpos);
+    Route route = ATC::find_route(&graph_orig, dept, dest, lidar, rbpos);
     std::cout << "Route:" << std::endl;
     std::cout << "long=" << route.length << std::endl;
     std::cout << "start=" << route.start << std::endl;
