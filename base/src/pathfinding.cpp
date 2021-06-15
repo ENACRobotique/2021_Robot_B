@@ -2,7 +2,6 @@
 //#include "params.h"
 #include <math.h>
 #include <algorithm>
-#include <iostream>
 
 Geom_Vec::Geom_Vec(float x, float y){
     this->x = x;
@@ -154,10 +153,10 @@ PseudoRoute ATC::going_to(int *parent, int index_dest, const int wp_number){
             reached_src = true;
         }
     }
-    for(int i=0;i<wp_number;i++){
+    /*for(int i=0;i<wp_number;i++){
         std::cout << parcours_inverse[i] << ", ";
     }
-    std::cout << std::endl;
+    std::cout << std::endl;*/
     PseudoRoute result;
     for(int i=0;i<wp_number;i++){
         result.parcours[wp_number-i-1] = parcours_inverse[i];
@@ -212,7 +211,8 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
             min_dist_start = dist_wp;
         }
     }
-    std::cout << "firstwp " << first_wp << std::endl;
+    /*std::cout << "firstwp " << first_wp << std::endl;*/
+
     /* TODO:reminder check if path between start point and first waypoint is free or not */
 
     /* checking what is the closest waypoint to destination */
@@ -227,13 +227,14 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
             min_dist_end = dist_wp;
         }
     }
-    std::cout << "lastwp " << last_wp << std::endl;
+    /*std::cout << "lastwp " << last_wp << std::endl;*/
+
     /* TODO:reminder check if path between destin point and last waypoint is free or not */
 
     /* shortest route with dijkstra */
     DijkstraResult dijres = ATC::dijkstra_crap(graph, first_wp);
 
-    std::cout << "dijres" << std::endl;
+    /*std::cout << "dijres" << std::endl;
     std::cout << "dep_index" << dijres.dep_index << std::endl;
     std::cout << "dist ";
     for(int i=0;i<MAX_WP;i++){
@@ -244,17 +245,17 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
     for(int i=0;i<MAX_WP;i++){
         std::cout << dijres.parent[i] << ", ";
     }
-    std::cout << std::endl;
+    std::cout << std::endl;*/
 
     PseudoRoute psroute = ATC::going_to(dijres.parent, last_wp, graph.wp_number);
 
-    std::cout << "psroute" << std::endl;
+    /*std::cout << "psroute" << std::endl;
     std::cout << "reaches " << psroute.reaches << std::endl;
     std::cout << "parcours ";
     for(int i=0;i<graph.wp_number;i++){
         std::cout << psroute.parcours[i] << ", ";
     }
-    std::cout << std::endl;
+    std::cout << std::endl;*/
 
     /* checking if route obstructed or not */
     int start = 0;
@@ -266,11 +267,11 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
     }
     bool route_ok = true;
     for(int index=start+1;index<graph.wp_number;index++){
-        std::cout << "path from " << psroute.parcours[index-1] << " to " << psroute.parcours[index] << ": ";
+        //std::cout << "path from " << psroute.parcours[index-1] << " to " << psroute.parcours[index] << ": ";
         float xywpa[2] = {(*graph.wp_list[psroute.parcours[index-1]]).x, (*graph.wp_list[psroute.parcours[index-1]]).y};
         float xywpb[2] = {(*graph.wp_list[psroute.parcours[index]]).x, (*graph.wp_list[psroute.parcours[index]]).y};
         bool path_blocked = ATC::is_path_blocked(xywpa, xywpb, lidar, robot_pos);
-        std::cout << "blocked? " << path_blocked << std::endl;
+        //std::cout << "blocked? " << path_blocked << std::endl;
         if (path_blocked){
             graph.graph[psroute.parcours[index-1]][psroute.parcours[index]] = 65535;
             graph.graph[psroute.parcours[index]][psroute.parcours[index-1]] = 65535;
@@ -291,14 +292,15 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
         route.end[0] = destination[0];
         route.end[1] = destination[1];
         for(int i=start;i<graph.wp_number;i++){
-            std::cout << psroute.parcours[i] <<std::endl;
+            //std::cout << psroute.parcours[i] <<std::endl;
             route.wp_list[i] = graph.wp_list[psroute.parcours[i]];
-            std::cout << (*route.wp_list[i]).x << ", " << (*route.wp_list[i]).y <<std::endl;
+            //std::cout << (*route.wp_list[i]).x << ", " << (*route.wp_list[i]).y <<std::endl;
         }
         return route;
     }
     else{
         /* la route est encombrée, faut recommencer */
+        /* TODO: tester */
         bool another_route_found = false;
         while (not(another_route_found)){
             bool this_route_ok = true;
@@ -316,7 +318,7 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
                     break;
                 }
             }
-            for(int index=this_start+1;index<MAX_WP;index++){
+            for(int index=this_start+1;index<graph.wp_number;index++){
                 float xywpa[2] = {(*graph.wp_list[this_psroute.parcours[index-1]]).x, (*graph.wp_list[this_psroute.parcours[index-1]]).y};
                 float xywpb[2] = {(*graph.wp_list[this_psroute.parcours[index]]).x, (*graph.wp_list[this_psroute.parcours[index]]).y};
                 bool path_blocked = ATC::is_path_blocked(xywpa, xywpb, lidar, robot_pos);
@@ -329,15 +331,16 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
             if (this_route_ok){
                 /* this route isn't the best, but it's free right now*/
                 Route route;
-                route.stuck = this_psroute.reaches;
+                route.stuck = not(this_psroute.reaches);
                 route.isfree = true;
                 route.isshortest = false;
-                route.length = MAX_WP-this_start;
+                route.start_list = this_start;
+                route.length = graph.wp_number-this_start;
                 route.start[0] = depart[0];
                 route.start[1] = depart[1];
                 route.end[0] = destination[0];
                 route.end[1] = destination[1];
-                for(int i=0;i<route.length;i++){
+                for(int i=this_start;i<graph.wp_number;i++){
                     route.wp_list[i] = graph.wp_list[this_psroute.parcours[i]];
                 }
                 return route;
@@ -345,16 +348,19 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
         }
         /* route got stuck return default with not free flag */
         Route route;
-        route.stuck = psroute.reaches;
+        route.stuck = not(psroute.reaches);
+        route.start_list = start;
         route.isfree = false;
         route.isshortest = true;
-        route.length = MAX_WP-start;
+        route.length = graph.wp_number-start;
         route.start[0] = depart[0];
         route.start[1] = depart[1];
         route.end[0] = destination[0];
         route.end[1] = destination[1];
-        for(int i=0;i<route.length;i++){
+        for(int i=start;i<graph.wp_number;i++){
+            //std::cout << psroute.parcours[i] <<std::endl;
             route.wp_list[i] = graph.wp_list[psroute.parcours[i]];
+            //std::cout << (*route.wp_list[i]).x << ", " << (*route.wp_list[i]).y <<std::endl;
         }
         return route;
     }
