@@ -50,8 +50,6 @@ struct Route
     bool isfree;
     /* La route est la plus courte, sans compter les éventuels obstacles */
     bool isshortest;
-    /* La position du pt de départ dans la liste wp_list */
-    int start_list;
 };
 
 /* Élement retourné par dijkstra */

@@ -51,7 +51,7 @@ int main(){
     std::cout << "isshortest=" << route.isshortest << std::endl;
     std::cout << "Points:" << std::endl;
     for(int i=0;i<route.length;i++){
-        std::cout << "point " << i << ": " << (*route.wp_list[i+route.start_list]).x << ", " << (*route.wp_list[i+route.start_list]).y << std::endl;
+        std::cout << "point " << i << ": " << (*route.wp_list[i]).x << ", " << (*route.wp_list[i]).y << std::endl;
     }
     std::cout << "fin prog" << std::endl;
     return 0;

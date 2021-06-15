@@ -283,7 +283,6 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
     if (route_ok){
         Route route;
         route.stuck = not(psroute.reaches);
-        route.start_list = start;
         route.isfree = route_ok;
         route.isshortest = true;
         route.length = graph.wp_number-start;
@@ -293,7 +292,7 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
         route.end[1] = destination[1];
         for(int i=start;i<graph.wp_number;i++){
             //std::cout << psroute.parcours[i] <<std::endl;
-            route.wp_list[i] = graph.wp_list[psroute.parcours[i]];
+            route.wp_list[i-start] = graph.wp_list[psroute.parcours[i]];
             //std::cout << (*route.wp_list[i]).x << ", " << (*route.wp_list[i]).y <<std::endl;
         }
         return route;
@@ -334,14 +333,13 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
                 route.stuck = not(this_psroute.reaches);
                 route.isfree = true;
                 route.isshortest = false;
-                route.start_list = this_start;
                 route.length = graph.wp_number-this_start;
                 route.start[0] = depart[0];
                 route.start[1] = depart[1];
                 route.end[0] = destination[0];
                 route.end[1] = destination[1];
                 for(int i=this_start;i<graph.wp_number;i++){
-                    route.wp_list[i] = graph.wp_list[this_psroute.parcours[i]];
+                    route.wp_list[i-this_start] = graph.wp_list[this_psroute.parcours[i]];
                 }
                 return route;
             }
@@ -349,7 +347,6 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
         /* route got stuck return default with not free flag */
         Route route;
         route.stuck = not(psroute.reaches);
-        route.start_list = start;
         route.isfree = false;
         route.isshortest = true;
         route.length = graph.wp_number-start;
@@ -359,7 +356,7 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
         route.end[1] = destination[1];
         for(int i=start;i<graph.wp_number;i++){
             //std::cout << psroute.parcours[i] <<std::endl;
-            route.wp_list[i] = graph.wp_list[psroute.parcours[i]];
+            route.wp_list[i-start] = graph.wp_list[psroute.parcours[i]];
             //std::cout << (*route.wp_list[i]).x << ", " << (*route.wp_list[i]).y <<std::endl;
         }
         return route;
