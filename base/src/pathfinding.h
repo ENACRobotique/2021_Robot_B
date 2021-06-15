@@ -22,11 +22,6 @@ struct Waypoint
     int wp_adj[MAX_WP];
 };
 
-/* à virer autre part ptet
-Waypoint wp_list[MAX_WP] = {
-    
-};*/
-
 /* Un graphe de distance entre des Waypoints*/
 struct Graph
 {
