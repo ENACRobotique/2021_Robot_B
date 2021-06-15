@@ -2,7 +2,7 @@
 #define PATHDINFING
 
 #include "lidar/Lidar.h"
-#include "params.h"
+//#include "params.h"
 
 const int MAX_WP = 30; /* à augmenter si bcp de points ajoutés */
 const unsigned int NO = 65535; /* entier max arduino non-signé, "approche l'infini" */
@@ -11,7 +11,7 @@ const unsigned int SHORT = 3500; /* raccourci pour connecter deux wp sur le grap
 const unsigned int LONGR = 4500; /* raccourci pour connecter deux wp sur le graphe sans calculer la vraie distance, avec un chemin désavantagé */
 
 const float PERIM_MAX = 1300;
-const float SEUIL_DANGEREUX = (PERIM_MAX/(2*PI)*1.5)*1.1;
+const float SEUIL_DANGEREUX = (PERIM_MAX/(2*3.1415)*1.5)*1.1; // TODO: remettre PI
 
 struct Waypoint
 {
@@ -55,6 +55,8 @@ struct Route
     bool isfree;
     /* La route est la plus courte, sans compter les éventuels obstacles */
     bool isshortest;
+    /* La position du pt de départ dans la liste wp_list */
+    int start_list;
 };
 
 /* Élement retourné par dijkstra */
@@ -95,11 +97,11 @@ class Geom_Vec
 namespace ATC /* convert to class with protecting hidden members? later */
 {
     Graph generate_graph(Waypoint *waypoint_list, int wp_number);
-    Route find_route(Graph *graph_orig, float depart[2], float destination[2], Lidar lidar, float robot_pos[3]); /* robot_pos[2] is in radians */
-    bool is_path_blocked(float start[2], float end[2], Lidar lidar, float robot_pos[3]);
+    Route find_route(Graph graph_orig, float *depart, float *destination, Lidar lidar, float *robot_pos); /* robot_pos[2] is in radians */
+    bool is_path_blocked(float *start, float *end, Lidar lidar, float *robot_pos);
     int min_dist(unsigned int *dist, bool *Dset, int wp_number);
     DijkstraResult dijkstra_crap(Graph graph, int src_index);
-    Geom_Vec from_pol_to_abs(float robot_pos[3], int lid_ang, float lid_dist);
+    Geom_Vec from_pol_to_abs(float *robot_pos, int lid_ang, float lid_dist);
     PseudoRoute going_to(int *parent, int index_dest, int wp_number);
 }
 

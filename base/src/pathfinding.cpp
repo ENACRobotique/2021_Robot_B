@@ -1,6 +1,8 @@
 #include "pathfinding.h"
-#include "params.h"
+//#include "params.h"
 #include <math.h>
+#include <algorithm>
+#include <iostream>
 
 Geom_Vec::Geom_Vec(float x, float y){
     this->x = x;
@@ -26,7 +28,7 @@ float Geom_Vec::dot(Geom_Vec other){
 
 float Geom_Vec::get_angle(){
     if (x != 0){
-        float at = (float) atan(y/x)*360/(2*PI);
+        float at = (float) atan(y/x)*360/(2*3.1415);
         if (x >= 0){ return at; }
         else{ return 180 + at; }
     }
@@ -120,8 +122,8 @@ DijkstraResult ATC::dijkstra_crap(Graph graph, int src_index){
 
 Geom_Vec ATC::from_pol_to_abs(float robot_pos[3], int lid_ang, float lid_dist){
     /* TODO: Vérifier que les résultats sont les bons */
-    float loc_px = lid_dist*cosf((lid_ang - robot_pos[3])*2*PI/360);
-    float loc_py = lid_dist*sinf((lid_ang - robot_pos[3])*2*PI/360);
+    float loc_px = lid_dist*cosf((lid_ang - robot_pos[3])*2*3.1415/360);
+    float loc_py = lid_dist*sinf((lid_ang - robot_pos[3])*2*3.1415/360);
     Geom_Vec abs_pt = Geom_Vec(robot_pos[0]+loc_px, robot_pos[1]+loc_py);
     return abs_pt;
 }
@@ -129,6 +131,9 @@ Geom_Vec ATC::from_pol_to_abs(float robot_pos[3], int lid_ang, float lid_dist){
 PseudoRoute ATC::going_to(int *parent, int index_dest, const int wp_number){
     bool reached_src = false;
     int parcours_inverse[wp_number];
+    for(int i=0;i<wp_number;i++){
+        parcours_inverse[i] = -128;
+    }
     int old_dest = index_dest;
     int i=0;
     bool shit = false;
@@ -149,11 +154,15 @@ PseudoRoute ATC::going_to(int *parent, int index_dest, const int wp_number){
             reached_src = true;
         }
     }
+    for(int i=0;i<wp_number;i++){
+        std::cout << parcours_inverse[i] << ", ";
+    }
+    std::cout << std::endl;
     PseudoRoute result;
     for(int i=0;i<wp_number;i++){
-        result.parcours[wp_number-i] = parcours_inverse[i];
+        result.parcours[wp_number-i-1] = parcours_inverse[i];
     }
-    result.reaches = shit;
+    result.reaches = not(shit);
     return result;
 }
 
@@ -171,8 +180,8 @@ bool ATC::is_path_blocked(float start[2], float end[2], Lidar lidar, float robot
         ang_span_end = angle_stp + 23;
     }
     else{
-        ang_span_begin = min(angle_str%360, angle_stp%360) - 22;
-        ang_span_end = max(angle_str%360, angle_stp%360) + 23;
+        ang_span_begin = std::min(angle_str%360, angle_stp%360) - 22;
+        ang_span_end = std::max(angle_str%360, angle_stp%360) + 23;
     }
     for(int ang=ang_span_begin;ang<ang_span_end;ang++){
         float dist_lid = lidar.get_distance(ang);
@@ -187,13 +196,13 @@ bool ATC::is_path_blocked(float start[2], float end[2], Lidar lidar, float robot
     return false;
 }
 
-Route ATC::find_route(Graph *graph_orig, float depart[2], float destination[2], Lidar lidar, float robot_pos[3]){
+Route ATC::find_route(Graph graph_orig, float *depart, float *destination, Lidar lidar, float *robot_pos){
     /* checking what is the closest waypoint to start */
-    Graph graph = *graph_orig;
+    Graph graph = graph_orig;
     unsigned int min_dist_start = 65535;
     int first_wp = -1;
     for (int index=0;index<graph.wp_number;index++){
-        float xyrobot[2] = {robot_pos[0], robot_pos[1]};
+        float xyrobot[2] = {depart[0], depart[1]};
         float xywp[2] = {(*graph.wp_list[index]).x, (*graph.wp_list[index]).y};
         unsigned int dist_wp = (unsigned int) Geom_Vec(xyrobot, xywp).length();
         if (dist_wp < min_dist_start){
@@ -201,13 +210,14 @@ Route ATC::find_route(Graph *graph_orig, float depart[2], float destination[2], 
             min_dist_start = dist_wp;
         }
     }
+    std::cout << "firstwp " << first_wp << std::endl;
     /* TODO:reminder check if path between start point and first waypoint is free or not */
 
     /* checking what is the closest waypoint to destination */
     unsigned int min_dist_end = 65535;
     int last_wp = -1;
     for (int index=0;index<graph.wp_number;index++){
-        float xyrobot[2] = {robot_pos[0], robot_pos[1]};
+        float xyrobot[2] = {destination[0], destination[1]};
         float xywp[2] = {(*graph.wp_list[index]).x, (*graph.wp_list[index]).y};
         unsigned int dist_wp = (unsigned int) Geom_Vec(xyrobot, xywp).length();
         if (dist_wp < min_dist_end){
@@ -215,25 +225,50 @@ Route ATC::find_route(Graph *graph_orig, float depart[2], float destination[2], 
             min_dist_end = dist_wp;
         }
     }
+    std::cout << "lastwp " << last_wp << std::endl;
     /* TODO:reminder check if path between destin point and last waypoint is free or not */
 
     /* shortest route with dijkstra */
     DijkstraResult dijres = ATC::dijkstra_crap(graph, first_wp);
+
+    std::cout << "dijres" << std::endl;
+    std::cout << "dep_index" << dijres.dep_index << std::endl;
+    std::cout << "dist ";
+    for(int i=0;i<MAX_WP;i++){
+        std::cout << dijres.dist[i] << ", ";
+    }
+    std::cout << std::endl;
+    std::cout << "parent ";
+    for(int i=0;i<MAX_WP;i++){
+        std::cout << dijres.parent[i] << ", ";
+    }
+    std::cout << std::endl;
+
     PseudoRoute psroute = ATC::going_to(dijres.parent, last_wp, graph.wp_number);
+
+    std::cout << "psroute" << std::endl;
+    std::cout << "reaches " << psroute.reaches << std::endl;
+    std::cout << "parcours ";
+    for(int i=0;i<graph.wp_number;i++){
+        std::cout << psroute.parcours[i] << ", ";
+    }
+    std::cout << std::endl;
 
     /* checking if route obstructed or not */
     int start = 0;
-    for(int i=0;i<MAX_WP;i++){
+    for(int i=0;i<graph.wp_number;i++){
         if (psroute.parcours[i] != -128){
             start=i;
             break;
         }
     }
     bool route_ok = true;
-    for(int index=start+1;index<MAX_WP;index++){
+    for(int index=start+1;index<graph.wp_number;index++){
+        std::cout << "path from " << psroute.parcours[index-1] << " to " << psroute.parcours[index] << ": ";
         float xywpa[2] = {(*graph.wp_list[psroute.parcours[index-1]]).x, (*graph.wp_list[psroute.parcours[index-1]]).y};
         float xywpb[2] = {(*graph.wp_list[psroute.parcours[index]]).x, (*graph.wp_list[psroute.parcours[index]]).y};
         bool path_blocked = ATC::is_path_blocked(xywpa, xywpb, lidar, robot_pos);
+        std::cout << "blocked? " << path_blocked << std::endl;
         if (path_blocked){
             graph.graph[psroute.parcours[index-1]][psroute.parcours[index]] = 65535;
             graph.graph[psroute.parcours[index]][psroute.parcours[index-1]] = 65535;
@@ -244,16 +279,19 @@ Route ATC::find_route(Graph *graph_orig, float depart[2], float destination[2], 
     /* si route ok du premier coup, constitution de la Route */
     if (route_ok){
         Route route;
-        route.stuck = psroute.reaches;
+        route.stuck = not(psroute.reaches);
+        route.start_list = start;
         route.isfree = route_ok;
         route.isshortest = true;
-        route.length = MAX_WP-start;
+        route.length = graph.wp_number-start;
         route.start[0] = depart[0];
         route.start[1] = depart[1];
         route.end[0] = destination[0];
         route.end[1] = destination[1];
-        for(int i=0;i<route.length;i++){
+        for(int i=start;i<graph.wp_number;i++){
+            std::cout << psroute.parcours[i] <<std::endl;
             route.wp_list[i] = graph.wp_list[psroute.parcours[i]];
+            std::cout << (*route.wp_list[i]).x << ", " << (*route.wp_list[i]).y <<std::endl;
         }
         return route;
     }
