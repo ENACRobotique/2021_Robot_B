@@ -6,6 +6,7 @@
  */
 
 #include "Action.h"
+#include "pathfinding.h"
 
 #ifndef MATCH_DIRECTOR_H
 #define MATCH_DIRECTOR_H
@@ -33,7 +34,14 @@ namespace MatchDirector
      * @param isGirouetteWhite Gère orientation nord/sud
      */
     void compute_final_point(bool isGirouetteWhite);
-    
+    /**
+     * @brief Fonction apppelée pour le pathfinding (call simplifié)
+     * @ingroup namespace
+     * @param entry [x,y]
+     * @param exit [x,y]
+     * @param robot_pos [x,y,theta], avec x y en mm et theta en degrés
+     **/
+    Route route_to_follow(float* entry, float* exit, float* robot_pos);
     float timeToReachCoords();
     void set_current_action(Action *action);
 

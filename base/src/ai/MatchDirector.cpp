@@ -253,6 +253,11 @@ void addScore(int add)
 {
     score += add;
 }
+
+Route route_to_follow(float* entry, float* exit, float* robot_pos)
+{
+    //ATC::
+}
 /* méthodes à rajouter :
 Temps estimé pour réaliser action
 (Heuristique action/temps réalsier une action)

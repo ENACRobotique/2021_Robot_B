@@ -24,6 +24,9 @@ namespace ActionList
     //TODO : Revoir les coordonnées !
     //longueur centre du robot à bras déployé : 105
     //+ diamètre bas ecocup => 160cm
+    const float sizeHalfWidthRobot = 80.f;
+    const float sizeHalfLengthRobot = 141.f;
+
 
     const float distCentreEcocup = 160.f;
     //	MoveServo(CupColor color, bool isFront, bool isDeploying, bool isSucc);
@@ -107,10 +110,21 @@ namespace ActionList
         {900.f, 1850.f, 270.f, &etat_vide_unit_test, 0.f}, //backing off the wall
 
     };
-    //Y = 400
-    Action EcocupsBottomLeft[10] = {
-        {10.f, 400.f, 90.f, &deployFrontServo, 3.0f},
+     Action EcocupsTopRight[10] = {
+        {2000.f, 2000.f-(sizeHalfWidthRobot+100.f), 90.f, &deployFrontServo, 3.0f},
+         //Going a little bit before the wall + deploy servo before arrival
     };
+        //Y = 400 ??
+    Action EcocupsBottomRight[10] = {
+        {3000.f-(sizeHalfWidthRobot+100.f),250.f , 270.f, &deployFrontServo, 3.0f},
+         //Going a little bit before the wall + deploy servo before arrival
+    };
+    Action EcocupsBottomLeft[10] = {
+        {sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
+         //Going a little bit before the wall + deploy servo before arrival
+    };
+
+
     Action depositLeft[10] = 
     {
         {200.f, 1490.f-distCentreEcocup, 90.f, &deployFrontServo, 2.0f},//Front -> direction vert /haut en premier
@@ -126,21 +140,22 @@ namespace ActionList
         //on release le vert du front
         //on rétracte le tout, on se centre
     };
-    // X = 2150
-    Action EcocupsTopRight[10] = {};
-    //Y = 400
-    Action EcocupsBottomRight[10] = {};
 
-    Action MancheAirBottom[3] = {
-        {200.f, 200.f, 0.f, &deployBar, 1.0f},
-        {600.f, 200.f, 0.f, &etat_begin, 0.0f},
+    Action MancheAirBottomLeft[3] = {
+        {200.f, sizeHalfWidthRobot, 0.f, &deployBar, 1.0f},
+        {600.f, sizeHalfWidthRobot, 0.f, &etat_begin, 0.0f},
         {600.f, 200.f, 70.f, &retractBar, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+    };
+  Action MancheAirBottomright[3] = {
+        {2800.f, sizeHalfWidthRobot, 180.f, &deployBar, 1.0f},
+        {2400.f, sizeHalfWidthRobot, 180.f, &etat_begin, 0.0f},
+        {2400.f, 200.f, 250.f, &retractBar, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
     };
 
     //Doit être modifié par Get_To_Final dans match director avec les bonnes coords/angle
     Action GetToFinal[2] =
     {
-        {200.f, 0.f, 0.f, &etat_vide_unit_test, 0.0f},
+        {200.f, 100.f, 0.f, &etat_begin, 0.0f},
     };
 
     Action TestStrategieMvtOnly[4] = 
@@ -158,7 +173,6 @@ namespace ActionList
         {600.f, 200.f, 0.f, &etat_begin, 0.0f},
         */
     };
-
 
     #pragma endregion
 

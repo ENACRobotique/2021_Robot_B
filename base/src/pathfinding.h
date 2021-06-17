@@ -1,6 +1,6 @@
 
 #ifndef PATHFINDING
-#define PATHDINFING
+#define PATHFINDING
 
 #include "lidar/Lidar.h"
 //#include "params.h"
@@ -90,6 +90,7 @@ class Geom_Vec
 
 namespace ATC /* convert to class with protecting hidden members? later */
 {
+    extern Graph graph;
     Graph generate_graph(Waypoint *waypoint_list, int wp_number);
     Route find_route(Graph *graph_orig, float *depart, float *destination, Lidar lidar, float *robot_pos); /* robot_pos[2] is in radians */
     bool is_path_blocked(float *start, float *end, Lidar lidar, float *robot_pos);
