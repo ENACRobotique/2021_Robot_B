@@ -87,6 +87,11 @@ class Geom_Vec
         float y;
 };
 
+struct PointSeq{
+    float point[MAX_WP+1][2];
+    int tot_len;
+};
+
 namespace ATC /* convert to class with protecting hidden members? later */
 {
     Graph generate_graph(Waypoint *waypoint_list, int wp_number);
@@ -96,6 +101,7 @@ namespace ATC /* convert to class with protecting hidden members? later */
     DijkstraResult dijkstra_crap(Graph graph, int src_index);
     Geom_Vec from_pol_to_abs(float *robot_pos, int lid_ang, float lid_dist);
     PseudoRoute going_to(int *parent, int index_dest, int wp_number);
+    PointSeq read_route(Route &route);
 }
 
 #endif //PATHFINDING

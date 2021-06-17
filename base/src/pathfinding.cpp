@@ -374,3 +374,15 @@ Graph ATC::generate_graph(Waypoint *waypoint_list, int wp_number){
     }
     return graph;
 }
+
+PointSeq ATC::read_route(Route &route){
+    PointSeq psq;
+    for(int i=0;i<route.length;i++){
+        psq.point[i][0] = (*route.wp_list[i]).x;
+        psq.point[i][1] = (*route.wp_list[i]).y;
+    }
+    psq.point[route.length][0] = route.end[0];
+    psq.point[route.length][1] = route.end[1];
+    psq.tot_len = route.length+1;
+    return psq;
+}

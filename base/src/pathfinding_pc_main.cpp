@@ -44,8 +44,8 @@ int main(){
     Route route = ATC::find_route(&graph_orig, dept, dest, lidar, rbpos);
     std::cout << "Route:" << std::endl;
     std::cout << "long=" << route.length << std::endl;
-    std::cout << "start=" << route.start << std::endl;
-    std::cout << "end=" << route.end << std::endl;
+    std::cout << "start=" << route.start[0] << ", " << route.start[1] << std::endl;
+    std::cout << "end=" << route.end[0] << ", " << route.end[1] << std::endl;
     std::cout << "stuck=" << route.stuck << std::endl;
     std::cout << "isfree=" << route.isfree << std::endl;
     std::cout << "isshortest=" << route.isshortest << std::endl;
@@ -54,6 +54,11 @@ int main(){
         std::cout << "point " << i << ": " << (*route.wp_list[i]).x << ", " << (*route.wp_list[i]).y << std::endl;
     }
     std::cout << "fin prog" << std::endl;
+    std::cout << "reading pointseq" << std::endl;
+    PointSeq stonks = ATC::read_route(route);
+    for(int i=0;i<stonks.tot_len;i++){
+        std::cout << "pt[" << i << "]: " << stonks.point[i][0] << ", " << stonks.point[i][1] << std::endl;
+    }
     return 0;
 }
 
