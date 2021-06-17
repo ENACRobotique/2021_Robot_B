@@ -64,7 +64,7 @@ float distance_squared (float xA, float yA, float xB, float yB)
 void abs_coords_to(float x, float y)
 {  
     //SerialCtrl.print("commande envoyé : move_to local : ");
-    navigator.move_to(abs_x_to_local(x), abs_x_to_local(y));
+    navigator.move_to(abs_x_to_local(x), abs_y_to_local(y));
     
 }
 
@@ -137,7 +137,8 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 //Handle the logic/state of an action : should it move, should it execute the next state,...
 void action_dispatcher(Action action)
 {
-    if(actionState == BEGIN)
+    //start only when fsmSupervisor has no state
+    if(actionState == BEGIN && fsmSupervisor.is_no_state_set())
     {
         SerialCtrl.print("new action :");
         SerialCtrl.print("\t");
