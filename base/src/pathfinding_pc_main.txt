@@ -3,6 +3,7 @@
 #include <iostream>
 
 int main(){
+    /*le tableau à copier*/
     Waypoint WP_COUPE[MAX_WP] = {
     
         //{coord_x, coord_y, {liste_adjacence avec distances}}
@@ -34,14 +35,15 @@ int main(){
     };
     Lidar lidar;
     Graph graph_orig = ATC::generate_graph(WP_COUPE, 23);
-    std::cout << "Graph:" << std::endl;
+    /*std::cout << "Graph:" << std::endl;
     std::cout << graph_orig.wp_number << std::endl;
     std::cout << graph_orig.wp_list << std::endl;
-    std::cout << graph_orig.graph << std::endl;
+    std::cout << graph_orig.graph << std::endl;*/
     float dept[2] = {0.0, 0.0};
     float dest[2] = {3000.0, 2000.0};
     float rbpos[3] = {0.0, 0.0, 0.0};
     Route route = ATC::find_route(&graph_orig, dept, dest, lidar, rbpos);
+    /* plein d'attributs de la route
     std::cout << "Route:" << std::endl;
     std::cout << "long=" << route.length << std::endl;
     std::cout << "start=" << route.start[0] << ", " << route.start[1] << std::endl;
@@ -53,8 +55,7 @@ int main(){
     for(int i=0;i<route.length;i++){
         std::cout << "point " << i << ": " << (*route.wp_list[i]).x << ", " << (*route.wp_list[i]).y << std::endl;
     }
-    std::cout << "fin prog" << std::endl;
-    std::cout << "reading pointseq" << std::endl;
+    std::cout << "reading pointseq" << std::endl*/
     PointSeq stonks = ATC::read_route(route);
     for(int i=0;i<stonks.tot_len;i++){
         std::cout << "pt[" << i << "]: " << stonks.point[i][0] << ", " << stonks.point[i][1] << std::endl;
