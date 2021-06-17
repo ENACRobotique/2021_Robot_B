@@ -24,6 +24,9 @@
 #include "examples/asservissementMoteur.h" 
 #include "examples/debugTest.h" 
 #include "examples/testXbee.h" 
+#include "pathfinding.h"
+#include "lidar/Lidar.h"
+//#include "raspberryParser.h"
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
 Metro debugLed = Metro(2000);
@@ -42,6 +45,7 @@ void setup() {
   //testXbee::init();
     SerialCtrl.begin(57600);
     Serial.begin(57600);
+    SerialCtrl.println("test 57600");
     //#ifdef DEBUG_ASSERVISSEMENT
       //Serial.println("cons_speed cons_omega actual_speed actual_omega");
     //#endif
@@ -77,7 +81,7 @@ void setup() {
 }
 
 void loop() {
-
+ 
   //testXbee::update();
     
       if(navTime.check())

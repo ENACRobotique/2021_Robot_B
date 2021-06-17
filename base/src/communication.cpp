@@ -106,8 +106,11 @@ namespace Communication {
         else if(buffer[0] == 'l') { //deploy front servo -> from start to deposit ecocup
             MatchDirector::set_current_action(ActionList::TestStrategieMvtOnly);
         }
-        else if(buffer[0] == 'd') { //deploy pavillon
-            ActuatorSupervisor::otherServos[1].moveServo(SERVO_PAV_ANGLE_DPLOYED);
+        else if(buffer[0] == 'd') { //deploy BAR
+            ActuatorSupervisor::otherServos[1].moveServo(SERVO_BAR_ANGLE_DPLOYED);
+        }
+        else if(buffer[0] == 'e') { //deploy BAR
+            ActuatorSupervisor::otherServos[1].moveServo(SERVO_BAR_ANGLE_RTRCTED);
         }
         else if(buffer[0] == 'r') { //deploy recalibration
             char wall;

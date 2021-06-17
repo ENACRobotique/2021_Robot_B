@@ -28,7 +28,7 @@ void Etat_begin::enter() {
 }
 
 void Etat_begin::leave() {
-	SerialDebug.println("Leaving etat_begin");
+	SerialCtrl.println("Leaving etat_begin");
 }
 
 void Etat_begin::doIt() {

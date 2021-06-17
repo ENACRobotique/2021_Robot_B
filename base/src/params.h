@@ -137,7 +137,6 @@ const unsigned long SERVO_MOVEMENT_DURATION = 1000;
 const unsigned long DETECTION_STOP_TIME = 1500;
 
 
-
 enum sensors {IR1=33,IR2,IR3,IR4,IR5,IR6,IR_test};
 const sensors IR_sel=IR_test;
 
@@ -157,7 +156,8 @@ const int SERVO_PAV_ANGLE_RTRCTED = 15;
 const int SERVO_PAV_ANGLE_DPLOYED = 105;
 
 const int SERVO_BAR_ANGLE_RTRCTED = 0;
-const int SERVO_BAR_ANGLE_DPLOYED = 130;
+const int SERVO_BAR_ANGLE_DPLOYED = 180;
+
 
 // const int NB_US = 4;
 #endif /* PARAMS_H_ */

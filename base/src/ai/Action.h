@@ -14,7 +14,7 @@ struct Action
 {
     float x;
     float y; //navigator turn automatically to go in straight line towards it
-    float angle = 0;
+    float angle = 0;//en deg
     AbstractState *state;
     float countdownState = 0;//state to execute x time before reaching coords
 };
