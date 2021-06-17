@@ -4,6 +4,9 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+
+
+
 template<typename T> 
 const T & clamp( const T & inf, const T & sup, const T & x ) 
 { 

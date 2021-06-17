@@ -156,7 +156,7 @@ const int SERVO_PAV_ANGLE_RTRCTED = 15;
 const int SERVO_PAV_ANGLE_DPLOYED = 105;
 
 const int SERVO_BAR_ANGLE_RTRCTED = 0;
-const int SERVO_BAR_ANGLE_DPLOYED = 130;
+const int SERVO_BAR_ANGLE_DPLOYED = 180;
 
 
 // const int NB_US = 4;

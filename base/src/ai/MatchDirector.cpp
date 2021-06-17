@@ -11,6 +11,7 @@
 
 namespace MatchDirector
 {
+    
     enum class ActionOrder {
         RecupEcueilNord,
         Phare,
@@ -148,6 +149,29 @@ void action_dispatcher(Action action)
         SerialCtrl.print("\t");
         SerialCtrl.println(action.angle);
         //SerialCtrl.println("actionState == begin");
+        float entry[2] = {get_abs_x(), get_abs_y()};
+        float exit[2] = {action.x, action.y};
+        float robotPos[3] = {get_abs_x(), get_abs_y(), odometry_wheel.get_pos_theta()};
+        PointSeq pts_follow = route_to_follow(entry, exit, robotPos);
+        SerialCtrl.print("point numéro 1");
+        SerialCtrl.print(pts_follow.point[0][0]);
+        SerialCtrl.print("\t");
+        SerialCtrl.print(pts_follow.point[0][1]);
+        SerialCtrl.print("\t");
+        SerialCtrl.println(pts_follow.point[0][2]);
+        SerialCtrl.print("point numéro 2");
+        SerialCtrl.print(pts_follow.point[1][0]);
+        SerialCtrl.print("\t");
+        SerialCtrl.print(pts_follow.point[1][1]);
+        SerialCtrl.print("\t");
+        SerialCtrl.println(pts_follow.point[1][2]);
+        SerialCtrl.print("point numéro 3");
+        SerialCtrl.print(pts_follow.point[2][0]);
+        SerialCtrl.print("\t");
+        SerialCtrl.print(pts_follow.point[2][1]);
+        SerialCtrl.print("\t");
+        SerialCtrl.println(pts_follow.point[2][2]);
+        
         abs_coords_to(action.x,action.y);
         actionState = MOVING;
     }
@@ -254,8 +278,10 @@ void addScore(int add)
     score += add;
 }
 
-Route route_to_follow(float* entry, float* exit, float* robot_pos)
+PointSeq route_to_follow(float* entry, float* exit, float* robot_pos)
 {
+    Route route = ATC::find_route(&ATC::graph, entry, exit, ATC::lidar, robot_pos);
+    return ATC::read_route(route);
     //ATC::
 }
 /* méthodes à rajouter :

@@ -36,6 +36,7 @@ namespace ATC {
         };
 
 Graph graph = ATC::generate_graph(WP_COUPE, 23);
+Lidar lidar = Lidar();
 
 }
 

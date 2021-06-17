@@ -160,10 +160,10 @@ namespace ActionList
 
     Action TestStrategieMvtOnly[4] = 
     {
-        {600.f, 1720.f, 180.f, &etat_begin, 0.0f},
-        {400.f, 1720.f, -400.f, &etat_begin, 0.0f},
+        {600.f, 1720.f, 180.f, &etat_test_serial_1, 0.0f},
+        {400.f, 1720.f, -400.f, &etat_test_serial_2, 0.0f},
         {650.f, 1750.f, 90.f, &recalibration_wall_bottom, 0.0f},
-        {650.f, 750.f,-400.f, &etat_begin, 0.0f},
+        {650.f, 750.f,-400.f, &etat_test_serial_3, 0.0f},
         /*
         {600.f, 200.f, 0.f, &etat_begin, 0.0f},
         {600.f, 200.f, 0.f, &etat_begin, 0.0f},

@@ -41,7 +41,7 @@ namespace MatchDirector
      * @param exit [x,y]
      * @param robot_pos [x,y,theta], avec x y en mm et theta en degrés
      **/
-    Route route_to_follow(float* entry, float* exit, float* robot_pos);
+    PointSeq route_to_follow(float* entry, float* exit, float* robot_pos);
     float timeToReachCoords();
     void set_current_action(Action *action);
 
