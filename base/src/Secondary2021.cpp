@@ -24,8 +24,8 @@
 #include "examples/asservissementMoteur.h" 
 #include "examples/debugTest.h" 
 #include "examples/testXbee.h" 
-#include "pathfinding.h"
-#include "lidar/Lidar.h"
+//#include "pathfinding.h"
+//#include "lidar/Lidar.h"
 //#include "raspberryParser.h"
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
