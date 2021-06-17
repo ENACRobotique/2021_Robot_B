@@ -17,7 +17,6 @@
 #include "navigator.h"
 #include "FsmSupervisor.h"
 #include "actuatorSupervisor.h"
-<<<<<<< HEAD
 #include "ai/MatchDirector.h"
 
 
@@ -25,11 +24,9 @@
 #include "examples/asservissementMoteur.h" 
 #include "examples/debugTest.h" 
 #include "examples/testXbee.h" 
-=======
 #include "pathfinding.h"
 #include "lidar/Lidar.h"
 //#include "raspberryParser.h"
->>>>>>> lidar_et_pathfinding
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
 Metro debugLed = Metro(2000);
