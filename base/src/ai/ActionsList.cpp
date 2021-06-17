@@ -77,6 +77,7 @@ namespace ActionList
                 break;
             
             default:
+                return NULL;
                 break;
             }
     }

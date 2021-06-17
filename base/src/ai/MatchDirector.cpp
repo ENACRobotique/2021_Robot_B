@@ -224,7 +224,8 @@ namespace MatchDirector
         {
             /*
             int k = 0;
-            while((order && 1 << k) == 1 ) ET S'ASSURER QUE CETTE ACTION EXISTE (Par dire vrai pour k=0/1 00000000 quoi... attendre Le troisiéme k)
+            //Tant que pas == 0 (tant qu'on a pas une action on réalisée à l'indice k) et que cette indice k est bien une action possbiel
+            while((order && 1 << k) != 1 << k && section(1 << k) != NULL ) ET S'ASSURER QUE CETTE ACTION EXISTE (Par dire vrai pour k=0/1 00000000 quoi... attendre Le troisiéme k)
             {
                 k++;
             }
