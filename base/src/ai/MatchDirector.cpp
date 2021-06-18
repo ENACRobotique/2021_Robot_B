@@ -9,6 +9,21 @@
 #include "Arduino.h" //NULL definition
 #include "utils.h"
 
+/**
+ * @brief 
+ * @file MatchDirector.cpp
+ * @ingroup namespace
+
+ */
+
+/**
+ * @brief Control navigator (which is the high level interface to move the robot/give it a certain orientation) 
+and FSM (which controls various actuators & execute codes depending on various states) 
+depending on the time left & an order of action. 
+Manage the score total, the score of an action is stored in Action. 
+Can be modified by states if needed (for example, if an action is interacting with a variable amount of object & the score depend on this amount).
+ * 
+ */
 namespace MatchDirector
 {
     
@@ -20,12 +35,7 @@ namespace MatchDirector
         RecupEcueilSud,
         DeposeEcueil,
     };
-/*Control navigator (which is the high level interface to move the robot/give it a certain orientation) 
-and FSM (which controls various actuators & execute codes depending on various states) 
-depending on the time left & an order of action. 
-Manage the score total, the score of an action is stored in Action. 
-Can be modified by states if needed (for example, if an action is interacting with a variable amount of object & the score depend on this amount).
-*/
+
 
     bool isStartingLeft = true;
     bool isDrivingBackward = false; //if move with navigator with positive number, robot goes backward
@@ -35,6 +45,17 @@ Can be modified by states if needed (for example, if an action is interacting wi
     int curActIndex = 0;
     ActionState actionState = BEGIN;
 
+    /**
+     * @brief When there is a huge discrepancy between targeted position & position reached, this get reincremented and the same command is sent again
+     *  @ingroup namespace
+     */
+    int nbReadjust = 0; //
+
+    /**
+     * @brief Number of time we can correct trajectory according to wheel encoder, in order not to be stuck trying to reach an unnatable precise position
+     * 
+     */
+    int nbCorectionAuthorized = 1;
     float timer = 10; // en s, durée du match
     int score = 0;
     float offsetX = 0; //offsets au début du terrain par rapport à l'abs
@@ -180,7 +201,17 @@ void action_dispatcher(Action action)
     {
         if (navigator.isTrajectoryFinished())
         {
-            //SerialCtrl.println("actionState == Moving & trajectory over");
+                // Si on est pas suffisament proche de la position et qu'on a le droit de se réajuster (permission lié à un "timeout" pour pas perdre trop de tps à se réajuster)
+                if (distance_squared(get_abs_x(), get_abs_y(), action.x,action.y) > ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR
+                    && nbReadjust >= nbCorectionAuthorized)
+                {
+                    nbReadjust++;
+                    actionState = BEGIN;
+                }
+                else
+                {
+                    actionState = TURNING;
+
             if(!(action.angle <= 360.f)) // -180 <= action.angle <= 180° pour être pris en compte, (normalement donc on met 360 au cas où)
             {
                 navigator.turn_to(action.angle);
@@ -201,7 +232,8 @@ void action_dispatcher(Action action)
     }
 
     else if(actionState == TURNING && navigator.isTrajectoryFinished())// && fsmSupervisor.is_no_state_set())
-    {           
+    {          
+        SerialCtrl.println("rajouter systéme de correction ici!"); 
         SerialCtrl.println("actionState turning - fsm nextState ");
          fsmSupervisor.setNextState(action.state);
         //SerialCtrl.println("actionState - turning done");
@@ -230,7 +262,20 @@ void update()
         Récup ecueil
         Manche à air
         dépose écueil
+            /*
+            int k = 0;
+            //Tant que pas == 0 (tant qu'on a pas une action on réalisée à l'indice k) et que cette indice k est bien une action possbiel
+            while((order && 1 << k) != 1 << k && section(1 << k) != NULL ) ET S'ASSURER QUE CETTE ACTION EXISTE (Par dire vrai pour k=0/1 00000000 quoi... attendre Le troisiéme k)
+            {
+                k++;
+            }
+            curSection = ActionList::section(1 << k);
+            order = order || 1 << k; 
 
+
+            Si plus rien à faire : rentrer à la base/circuit d'attente
+            Si temps pressant (< 30s), on rentre à la base
+            
         Si plus rien à faire : rentrer à la base/circuit d'attente
         */
     }
