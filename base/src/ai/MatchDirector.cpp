@@ -174,26 +174,9 @@ void action_dispatcher(Action action)
         float exit[2] = {action.x, action.y};
         float robotPos[3] = {get_abs_x(), get_abs_y(), odometry_wheel.get_pos_theta()};
         PointSeq pts_follow = route_to_follow(entry, exit, robotPos);
-        SerialCtrl.print("point numéro 1");
-        SerialCtrl.print(pts_follow.point[0][0]);
-        SerialCtrl.print("\t");
-        SerialCtrl.print(pts_follow.point[0][1]);
-        SerialCtrl.print("\t");
-        SerialCtrl.println(pts_follow.point[0][2]);
-        SerialCtrl.print("point numéro 2");
-        SerialCtrl.print(pts_follow.point[1][0]);
-        SerialCtrl.print("\t");
-        SerialCtrl.print(pts_follow.point[1][1]);
-        SerialCtrl.print("\t");
-        SerialCtrl.println(pts_follow.point[1][2]);
-        SerialCtrl.print("point numéro 3");
-        SerialCtrl.print(pts_follow.point[2][0]);
-        SerialCtrl.print("\t");
-        SerialCtrl.print(pts_follow.point[2][1]);
-        SerialCtrl.print("\t");
-        SerialCtrl.println(pts_follow.point[2][2]);
         
         abs_coords_to(action.x,action.y);
+        SerialCtrl.print("new action :");
         actionState = MOVING;
     }
 
@@ -203,17 +186,19 @@ void action_dispatcher(Action action)
         {
                 // Si on est pas suffisament proche de la position et qu'on a le droit de se réajuster (permission lié à un "timeout" pour pas perdre trop de tps à se réajuster)
                 if (distance_squared(get_abs_x(), get_abs_y(), action.x,action.y) > ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR
-                    && nbReadjust >= nbCorectionAuthorized)
+                    && nbReadjust < nbCorectionAuthorized / 2) // on divise par 2 pour laiser la moitié de corrections autorisés à la correction d'angle
                 {
+                    SerialCtrl.println("reajustement position car erreur trop grande (réel vs erreur admise): ");
                     nbReadjust++;
-                    actionState = BEGIN;
                 }
                 else
                 {
                     actionState = TURNING;
-
-            if(!(action.angle <= 360.f)) // -180 <= action.angle <= 180° pour être pris en compte, (normalement donc on met 360 au cas où)
+                }
+            if(!(action.angle <= -360.f)) // -180 <= action.angle <= 180° pour être pris en compte, (normalement donc on met 360 au cas où)
             {
+                SerialCtrl.print("turning to angle : ");
+                SerialCtrl.println(action.angle);
                 navigator.turn_to(action.angle);
             }
 
@@ -233,11 +218,26 @@ void action_dispatcher(Action action)
 
     else if(actionState == TURNING && navigator.isTrajectoryFinished())// && fsmSupervisor.is_no_state_set())
     {          
-        SerialCtrl.println("rajouter systéme de correction ici!"); 
+
+        if(abs(action.angle-odometry_wheel.get_pos_theta()) > ADMITTED_DEG_ANGLE_ERROR && nbReadjust < nbCorectionAuthorized)
+        {
+            SerialCtrl.println("reajustement angle");
+            SerialCtrl.println(odometry_wheel.get_pos_theta());
+            nbReadjust++;
+            actionState = MOVING;
+        }
+
+
+        //SerialCtrl.println(navigator.theta_target);
         SerialCtrl.println("actionState turning - fsm nextState ");
+        SerialCtrl.print("real pos : ");
+        SerialCtrl.print(get_abs_x());
+        SerialCtrl.print("\t");
+        SerialCtrl.println(get_abs_y());
          fsmSupervisor.setNextState(action.state);
         //SerialCtrl.println("actionState - turning done");
         curActIndex++;
+        nbReadjust = 0;
         actionState = BEGIN;
     } 
 }

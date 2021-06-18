@@ -23,8 +23,13 @@
     //#define SerialDebug = Serial;
     //#define SerialCtrl = Serial5;
     //(using stream instead of HardwareSerial because Serial doesn't inherit it)
-    static Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB   
-    static HardwareSerial& SerialCtrl = Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug
+    //static Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB 
+    static Stream& SerialCtrl = Serial; // used for debug printing - Serial1 -> USB 
+    
+    static HardwareSerial& SerialDebug = Serial2;//Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug
+/*
+    static HardwareSerial& SerialCtrl = Serial2;//Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug 
+    */
     static HardwareSerial& SerialLidar = Serial1;
 #endif
 
@@ -114,6 +119,7 @@ const float ADMITTED_SPEED_ERROR = 10;
 
 const float ADMITTED_POSITION_ERROR = 5; //3
 const float ADMITTED_ANGLE_ERROR = 0.01;
+const float ADMITTED_DEG_ANGLE_ERROR = 5;
 
 //const float MAX_DRIFT = 0.1;
 //const float WHEEL_DIAMETER = 55.0;

@@ -33,9 +33,9 @@ namespace MotorControl {
 	float Ki_speed = 0.15; //0.2
 	float Kp_speed = 0.4; //0.5
 	float Kd_speed = 0.05; //0.2
-	float Ki_omega = 15;//20;
-	float Kp_omega = 15;//10;
-	float Kd_omega = 5;//10;
+	float Ki_omega = 0;//15;
+	float Kp_omega = 40;//10;
+	float Kd_omega = 0;//10;
 
 /*
 	float Ki_speed = 0.2;//0.2;
@@ -108,17 +108,17 @@ namespace MotorControl {
 		analogWrite(MOT2_PWM, abs(cmd_mot2));
 		digitalWrite(MOT2_DIR, direction_sign(cmd_mot2));
 
-	#ifdef DEBUG_ASSERVISSEMENT 
+	//#ifdef DEBUG_ASSERVISSEMENT 
 	//a utiliser avec traceur série 
 	
-	SerialDebug.print(cons_speed);
-	SerialDebug.print("\t");
+	//SerialDebug.print(cons_speed);
+	//SerialDebug.print("\t");
 	SerialDebug.print(cons_omega);
 	SerialDebug.print("\t");
-	SerialDebug.print(odometry_motor.get_speed());
-	SerialDebug.print("\t");
+	//SerialDebug.print(odometry_motor.get_speed());
+	//SerialDebug.print("\t");
 	SerialDebug.println(odometry_motor.get_omega()); 
-	#endif
+	//#endif
 /*
 	
 		SerialDebug.print("cmd mot 2 & 1 : ");

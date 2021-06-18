@@ -215,6 +215,7 @@ void Odometry::update_pos(int incr1, int incr2)
 			SerialCtrl.println("\t");
 		}
 */
+		
 		#ifdef DEBUG_ODOMETRY
 		SerialDebug.print("x:");
 		SerialDebug.print(pos_x);

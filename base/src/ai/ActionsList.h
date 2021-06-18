@@ -10,6 +10,7 @@
 
 #include "Action.h"
 #include "../stateMachine/AbstractState.h"
+#include "../stateMachine/MoveServo.h"
 namespace ActionList
 {
     /**
@@ -32,7 +33,7 @@ namespace ActionList
     {
         return static_cast<SectionOrder>(static_cast<int>(a) | static_cast<int>(b));
     }
-
+    
 
     #define MINIMUM_FLOAT -3.4028235E+38
     extern Action NullAction;
@@ -48,6 +49,8 @@ namespace ActionList
     //extern Action GetToFinal[2];
 
     extern Action TestStrategieMvtOnly[5];
+
+    extern MoveServo deployFrontServo;
 }
 
 

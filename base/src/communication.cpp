@@ -112,6 +112,9 @@ namespace Communication {
         else if(buffer[0] == 'e') { //deploy BAR
             ActuatorSupervisor::otherServos[1].moveServo(SERVO_BAR_ANGLE_RTRCTED);
         }
+        else if(buffer[0] == 'g') { //deploy arm front for gobelet
+            fsmSupervisor.setNextState(&ActionList::deployFrontServo);
+        }
         else if(buffer[0] == 'r') { //deploy recalibration
             char wall;
             int nb = sscanf(buffer, "r %c", &wall);
