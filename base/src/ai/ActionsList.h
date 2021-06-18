@@ -33,14 +33,21 @@ namespace ActionList
         return static_cast<SectionOrder>(static_cast<int>(a) | static_cast<int>(b));
     }
 
+
+    #define MINIMUM_FLOAT -3.4028235E+38
+    extern Action NullAction;
+    /**
+    @brief return true if action == NullACtion */
+    bool isNull(Action* action);
+
     Action* section(SectionOrder section_id);
     void set_timer_counter(int timer);
     extern Action EcocupsTopLeft[10];
     extern Action TestMovement[5];
 
-    extern Action GetToFinal[2];
+    //extern Action GetToFinal[2];
 
-    extern Action TestStrategieMvtOnly[4];
+    extern Action TestStrategieMvtOnly[5];
 }
 
 

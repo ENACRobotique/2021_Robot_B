@@ -19,4 +19,9 @@ struct Action
     float countdownState = 0;//state to execute x time before reaching coords
 };
 
+/**
+ * @brief à utiliser pour terminer un array d'actions, car les fonctions qui recoivent ces array dans matchdirector ne sont pas capable de savoir quand l'array se termine sans
+ * */
+extern Action NullAction;
+
 #endif

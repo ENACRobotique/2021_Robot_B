@@ -38,14 +38,14 @@ Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
 float sp[4] = {0, 3.14f, 0, -3.14f};
 int i = 0;
 
-
+#include "ai/ActionsList.h"
 void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);
   //pinMode(11, OUTPUT);
   //testXbee::init();
     SerialCtrl.begin(57600);
     Serial.begin(57600);
-    SerialCtrl.println("test 57600");
+    SerialCtrl.println(ActionList::isNull(&ActionList::TestStrategieMvtOnly[0]));
     //#ifdef DEBUG_ASSERVISSEMENT
       //Serial.println("cons_speed cons_omega actual_speed actual_omega");
     //#endif

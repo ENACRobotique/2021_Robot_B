@@ -86,10 +86,12 @@ void Odometry::isr2() {
 
 void Odometry::isr3() {
 	if(digitalRead(WHEEL_ENCODEUR1_B)) {
+		//SerialCtrl.println("incr3++");
 		_incr3++;
 		//_incr3--;
 	}
 	else {
+		//SerialCtrl.println("incr3--");
 		_incr3--;
 		//_incr3++;
 	}
@@ -97,10 +99,12 @@ void Odometry::isr3() {
 
 void Odometry::isr4() {
 	if(digitalRead(WHEEL_ENCODEUR2_B)) {
+		//SerialCtrl.println("incr4++");
 		_incr4++;
 		//_incr4--;
 	}
 	else {
+		//SerialCtrl.println("incr4--");
 		_incr4--;
 		//_incr4++;
 	}

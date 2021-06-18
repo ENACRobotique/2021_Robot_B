@@ -214,12 +214,14 @@ void update()
 { 
     Action curAction = curSection[curActIndex];
     //Une section : un ensemble d'actions, action_dispatcher s'occupe de voir ce qu'il doit faire avec une action ou passer à l'action suivante pour la prochaine loop
-    if(curSection != NULL)
+    if(curSection != NULL && !ActionList::isNull(&curAction))
     {
        action_dispatcher(curAction);
     }
-    if(curSection == NULL)
+    // remplacer avec un else if pas de retoru à la base vu le temps restant
+    if(curSection == NULL || ActionList::isNull(&curAction))
     {
+        SerialCtrl.println("curSection is null or curAction is invalid !");
         //TODO : changement de curSection, dans un ordre prédeterminé sauf si le chemin est occupé:
         /*
         Recup ecueil 
@@ -257,6 +259,7 @@ void set_current_action(Action *action)
 void compute_final_point(bool isGirouetteWhite) 
 //White : Sud, Black : Nord
 {
+    /*
     float theta = 0.f;
 
     if(isStartingLeft)
@@ -271,6 +274,7 @@ void compute_final_point(bool isGirouetteWhite)
         ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 500.f : 1500.f;
         ActionList::GetToFinal[0].angle = 0.0f;
     }
+    */
 }
 
 void addScore(int add)

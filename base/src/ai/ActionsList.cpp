@@ -16,16 +16,36 @@ namespace ActionList
     int test = 5;
     int *score_counter;
 
+    Action NullAction = {MINIMUM_FLOAT, MINIMUM_FLOAT, MINIMUM_FLOAT, nullptr, MINIMUM_FLOAT};
+
+    const float sizeHalfWidthRobot = 80.f;
+    const float sizeHalfLengthRobot = 141.f;
+
     void set_timer_counter(int* timer)
     {
         score_counter = timer;
+    }
+
+    bool isNull(Action* action)
+    {
+        if (
+            (*action).x == NullAction.x
+            && (*action).y == NullAction.y
+            && (*action).angle == NullAction.angle
+            && (*action).state == NullAction.state
+            && (*action).countdownState == NullAction.countdownState
+        )
+        {
+            return true;
+        }
+        return false;
+
     }
     #pragma region ecocups
     //TODO : Revoir les coordonnées !
     //longueur centre du robot à bras déployé : 105
     //+ diamètre bas ecocup => 160cm
-    const float sizeHalfWidthRobot = 80.f;
-    const float sizeHalfLengthRobot = 141.f;
+
 
 
     const float distCentreEcocup = 160.f;
@@ -153,17 +173,19 @@ namespace ActionList
     };
 
     //Doit être modifié par Get_To_Final dans match director avec les bonnes coords/angle
+    /*
     Action GetToFinal[2] =
     {
         {200.f, 100.f, 0.f, &etat_begin, 0.0f},
     };
-
-    Action TestStrategieMvtOnly[4] = 
+    */
+    Action TestStrategieMvtOnly[5] = 
     {
         {600.f, 1720.f, 180.f, &etat_test_serial_1, 0.0f},
         {400.f, 1720.f, -400.f, &etat_test_serial_2, 0.0f},
         {650.f, 1750.f, 90.f, &recalibration_wall_bottom, 0.0f},
         {650.f, 750.f,-400.f, &etat_test_serial_3, 0.0f},
+        NullAction
         /*
         {600.f, 200.f, 0.f, &etat_begin, 0.0f},
         {600.f, 200.f, 0.f, &etat_begin, 0.0f},
