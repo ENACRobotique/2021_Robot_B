@@ -27,6 +27,7 @@
 #include "pathfinding.h"
 #include "lidar/Lidar.h"
 //#include "raspberryParser.h"
+#include "display.h"
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
 Metro debugLed = Metro(2000);
@@ -69,9 +70,8 @@ void setup() {
 	MotorControl::init();
   fsmSupervisor.init();
   ActuatorSupervisor::init();
-  MatchDirector::init(); 
-*/
-  debugTest::scanSerial();
+  controlDisplay::init();
+
   //while (!Serial);
   SerialCtrl.println("test serialctrl");
   Serial.println("test serial");
