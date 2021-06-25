@@ -30,7 +30,7 @@
 #include "Adafruit_PWMServoDriver.h"
 #include <Wire.h>
 
-//#define ENABLE_DEBUG_OUTPUT
+#define ENABLE_DEBUG_OUTPUT
 
 /*!
  *  @brief  Instantiates a new PCA9685 PWM driver chip with the I2C address on a
