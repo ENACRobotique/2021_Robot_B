@@ -6,11 +6,16 @@
 #include "../stateMachine/MoveServo.h"
 #include "../stateMachine/MoveBar.h"
 #include "../stateMachine/etat_begin.h"
+#include "../stateMachine/SwitchSection.h"
 
 //#ifdef DEBUG_MATCH_DIRECTOR
 #include "../stateMachine/etat_vide_with_serial.h"
 //#endif
 
+/**
+ * @brief action must have nullAction at the end, because it's an "infinite" length array in order to know in matchdirector when to stop and avoid overflow
+ * @ingroup namespace
+ */
 namespace ActionList
 {
     int test = 5;
@@ -45,8 +50,7 @@ namespace ActionList
     //TODO : Revoir les coordonnées !
     //longueur centre du robot à bras déployé : 105
     //+ diamètre bas ecocup => 160cm
-
-
+    
 
     const float distCentreEcocup = 160.f;
     //	MoveServo(CupColor color, bool isFront, bool isDeploying, bool isSucc);
@@ -67,6 +71,14 @@ namespace ActionList
     MoveServo retractBackRed   = MoveServo(CupColor::RED, false, false, false);
 
     #pragma endregion
+
+    #pragma region switch_sections
+
+    SwitchSection switchEcocup = SwitchSection(&*EcocupsTopLeft);
+    SwitchSection switchPhare = SwitchSection(&*PhareTopLeft);
+
+    #pragma endregion
+
     
     MoveBar deployBar = MoveBar(true);
     MoveBar retractBar = MoveBar(false);  
@@ -105,15 +117,6 @@ namespace ActionList
             }
     }
 
-
-    //#ifdef DEBUG_MATCH_DIRECTOR
-    Action TestMovement[5] =
-    {
-        {500.f, 1000.f, 0.f, &etat_test_serial_1, 0.0f},
-        {800.f, 1500.f, 90.f, &etat_test_serial_2, 0.0f},
-        {300.f, 1000.f, 180.f, &etat_test_serial_3, 0.0f},
-    };
-    //#endif
 
     /* Ecocup écueils : Ecart de 75 mm entre chaque ecocup */
     //X = 850
@@ -162,15 +165,17 @@ namespace ActionList
         //on rétracte le tout, on se centre
     };
 
-    Action MancheAirBottomLeft[3] = {
+    Action MancheAirBottomLeft[4] = {
         {200.f, sizeHalfWidthRobot, 0.f, &deployBar, 1.0f},
         {600.f, sizeHalfWidthRobot, 0.f, &etat_begin, 0.0f},
         {600.f, 200.f, 70.f, &retractBar, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        NullAction
     };
-  Action MancheAirBottomright[3] = {
+  Action MancheAirBottomRight[4] = {
         {2800.f, sizeHalfWidthRobot, 180.f, &deployBar, 1.0f},
         {2400.f, sizeHalfWidthRobot, 180.f, &etat_begin, 0.0f},
         {2400.f, 200.f, 250.f, &retractBar, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        NullAction
     };
 
     Action PhareLeft[4] = {
@@ -187,6 +192,17 @@ namespace ActionList
         {200.f, 100.f, 0.f, &etat_begin, 0.0f},
     };
     */
+
+
+   Action PhareTopLeft[4] = {
+        {600.f, 1980.f - sizeHalfWidthRobot, 180.f, &deployBar, 0.0f},
+        {400.f, 1980.f - sizeHalfWidthRobot, -400.f, &retractBar, 0.0f},
+        {400.f, 1980.f - sizeHalfWidthRobot, -400.f, &switchEcocup, 0.0f},
+        NullAction
+   };
+
+    //
+
     Action TestStrategieMvtOnly[5] = 
     {
         {600.f, 1800.f, 180.f, &etat_test_serial_1, 0.0f},

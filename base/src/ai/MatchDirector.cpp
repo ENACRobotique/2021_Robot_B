@@ -36,6 +36,8 @@ namespace MatchDirector
         DeposeEcueil,
     };
 
+    //ActionOrder actionOrder;
+
 
     bool isStartingLeft = true;
     bool isDrivingBackward = false; //if move with navigator with positive number, robot goes backward
@@ -62,6 +64,11 @@ namespace MatchDirector
     float offsetY = 0;
     uint32_t start_millis;
     bool moveBackToBase;
+    /**
+     * @brief Flag that is set depending if the activities is done in the 
+     * 
+     */
+    int activitiesDoneFlag = 0; 
 
 void init()
 {
@@ -251,9 +258,11 @@ void update()
        action_dispatcher(curAction);
     }
     // remplacer avec un else if pas de retoru à la base vu le temps restant
+    /*
     if(curSection == NULL || ActionList::isNull(&curAction))
     {
         SerialCtrl.println("curSection is null or curAction is invalid !");
+
         //TODO : changement de curSection, dans un ordre prédeterminé sauf si le chemin est occupé:
         /*
         Recup ecueil 
@@ -262,24 +271,17 @@ void update()
         Récup ecueil
         Manche à air
         dépose écueil
-            /*
-            int k = 0;
-            //Tant que pas == 0 (tant qu'on a pas une action on réalisée à l'indice k) et que cette indice k est bien une action possbiel
-            while((order && 1 << k) != 1 << k && section(1 << k) != NULL ) ET S'ASSURER QUE CETTE ACTION EXISTE (Par dire vrai pour k=0/1 00000000 quoi... attendre Le troisiéme k)
-            {
-                k++;
-            }
-            curSection = ActionList::section(1 << k);
-            order = order || 1 << k; 
 
+        Checker si la zone est dispo, sinon faire autre chose
+        Si rien n'est dispo : attendre
 
-            Si plus rien à faire : rentrer à la base/circuit d'attente
-            Si temps pressant (< 30s), on rentre à la base
-            
         Si plus rien à faire : rentrer à la base/circuit d'attente
+        Si temps pressant (< 30s), on rentre à la base
+            
         */
-    }
-    if((millis()-start_millis > timer*1000-5000) & !moveBackToBase)
+    //}
+    
+    if((millis()-start_millis > timer*1000-10000) & !moveBackToBase)
     {
         moveBackToBase = true;
         //set_current_action(*(compute_final_point()));

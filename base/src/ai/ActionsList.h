@@ -34,7 +34,6 @@ namespace ActionList
         return static_cast<SectionOrder>(static_cast<int>(a) | static_cast<int>(b));
     }
     
-
     #define MINIMUM_FLOAT -3.4028235E+38
     extern Action NullAction;
     /**
@@ -43,9 +42,20 @@ namespace ActionList
 
     Action* section(SectionOrder section_id);
     void set_timer_counter(int timer);
-    extern Action EcocupsTopLeft[10];
-    extern Action TestMovement[5];
 
+
+
+    #pragma region partie_gauche
+
+    extern Action PhareTopLeft[4];
+    extern Action EcocupsTopLeft[10];
+    extern Action DeposeLeft[5];
+    extern Action MancheAirBottomLeft[4];
+    extern Action EcocupsBottomLeft[10];
+    //On redepose left ici
+    //Puis on go final
+
+    #pragma endregion
     //extern Action GetToFinal[2];
 
     extern Action TestStrategieMvtOnly[5];
