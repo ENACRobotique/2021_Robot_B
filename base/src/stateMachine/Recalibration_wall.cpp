@@ -5,7 +5,6 @@
  *      Author: Jonathan Muchler
  */
 
-#include "Arduino.h"
 #include "../FsmSupervisor.h"
 #include "../ai/MatchDirector.h"
 #include "Recalibration_wall.h"
@@ -39,7 +38,6 @@ Recalibration_wall::~Recalibration_wall() {
 }
 
 void Recalibration_wall::enter() {
-	time_start = millis();
 	SerialCtrl.print("recalibrating");
 	SerialCtrl.print(targetPos);
 	SerialCtrl.print(isX);
@@ -62,7 +60,7 @@ void Recalibration_wall::doIt() {
 		cur_reading = odometry_wheel.get_pos_y();
 	}
 
-	if(fabs(cur_reading-wheel_cod_last_reading) <= 0.01f && wheel_cod_last_reading != -1 && millis() - time_start >= 250.f)
+	if(fabs(cur_reading-wheel_cod_last_reading) <= 0.01f && wheel_cod_last_reading != -1)
 	{
 		navigator.forceStop();
 		float x = (isX) ? MatchDirector::abs_x_to_local(targetPos) : odometry_wheel.get_pos_x(); //on recoit des coordonnées locales, donc faut les reconvertir

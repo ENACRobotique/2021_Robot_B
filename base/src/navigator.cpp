@@ -30,7 +30,7 @@ Navigator::Navigator(){
 
 void Navigator::move_to(float x, float y){
 	odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
-	SerialDebug.println("odometry motor reset to odometry wheel position !");
+	SerialCtrl.println("odometry motor reset to odometry wheel position !");
 	x_target = x;
 	y_target = y;
 	move_type = DISPLACEMENT;
@@ -252,16 +252,14 @@ void Navigator::update(){
 
 			speed_cons=compute_cons_speed();
 			omega_cons = compute_cons_omega();
-			/*
-			SerialCtrl.println("cruise mode : ");
-			SerialCtrl.print("\t speed_cons :  ");
-			SerialCtrl.print(speed_cons);
-			SerialCtrl.print("\t omega_cons :  ");
-			SerialCtrl.print(omega_cons);
-			SerialCtrl.print("\t distance :  ");
-			SerialCtrl.print(distance);
-			SerialCtrl.println("***");
-			*/
+			Serial.println("cruise mode : ");
+			Serial.print("\t speed_cons :  ");
+			Serial.print(speed_cons);
+			Serial.print("\t omega_cons :  ");
+			Serial.print(omega_cons);
+			Serial.print("\t distance :  ");
+			Serial.print(distance);
+			Serial.println("***");
 			MotorControl::set_cons(speed_cons,omega_cons);
 			break;
 		case STOPPED:
