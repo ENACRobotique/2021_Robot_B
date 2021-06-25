@@ -64,6 +64,9 @@ const int MOT2_DIR = 33;//34;
 const int SERVO_PAV = 37;
 const int SERVO_BAR = 38;
 
+const int DISPALY_CLK = 9;
+const int DISPLAY_DATA = 10;
+
 //PCA 9685PW - not pin from teensy !
 const int EV5 = 14; //EV = ElectroVanne
 const int EV4 = 13;
