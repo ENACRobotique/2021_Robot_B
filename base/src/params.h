@@ -23,13 +23,17 @@
     //#define SerialDebug = Serial;
     //#define SerialCtrl = Serial5;
     //(using stream instead of HardwareSerial because Serial doesn't inherit it)
-    //static Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB 
-    static Stream& SerialCtrl = Serial; // used for debug printing - Serial1 -> USB 
-    
-    static HardwareSerial& SerialDebug = Serial2;//Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug
-/*
+
+    //config normale :
+    static Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB 
     static HardwareSerial& SerialCtrl = Serial2;//Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug 
-    */
+
+    //config debug : 
+    //static Stream& SerialCtrl = Serial; // used for debug printing - Serial1 -> USB 
+    //static HardwareSerial& SerialDebug = Serial2;//Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug
+
+
+    
     static HardwareSerial& SerialLidar = Serial1;
 #endif
 
