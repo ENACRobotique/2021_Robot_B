@@ -24,7 +24,7 @@ namespace ActionList
     Action NullAction = {MINIMUM_FLOAT, MINIMUM_FLOAT, MINIMUM_FLOAT, nullptr, MINIMUM_FLOAT};
 
     const float sizeHalfWidthRobot = 80.f;
-    const float sizeHalfLengthRobot = 141.f;
+    const float sizeHalfLengthRobot = 210.f;
 
     void set_timer_counter(int* timer)
     {
@@ -120,11 +120,11 @@ namespace ActionList
     /* Ecocup écueils : Ecart de 75 mm entre chaque ecocup */
     //X = 850
     Action EcocupsTopLeft[10] = {
-        {700.f, 1980.f - sizeHalfLengthRobot, 90.f, &deployFrontServo, 3.0f}, //Going a little bit before the wall + deploy servo before arrival
+        //{700.f, 1980.f - sizeHalfLengthRobot, 90.f, &deployFrontServo, 3.0f}, //Going a little bit before the wall + deploy servo before arrival
         {700.f, 1980.f - sizeHalfLengthRobot, 90.f, &recalibration_wall_top, 0.f},
-        {700.f, 2000.f- sizeHalfLengthRobot, 90.f, &wait_font_cup_succ, 0.f}, 
-        {700.f, 2000.f- sizeHalfLengthRobot, 90.f, &retractFrontServo, 0.f},
-        {700.f, 1800.f, 90.f, &etat_vide_unit_test, 0.f}, //backing off the wall$ //TODO : faire un SwitchSection
+        //{700.f, 2000.f- sizeHalfLengthRobot, 90.f, &wait_font_cup_succ, 0.f}, 
+        //{700.f, 2000.f- sizeHalfLengthRobot, 90.f, &retractFrontServo, 0.f},
+        {700.f, 1800.f, 90.f, &switchPhare, 0.f}, //backing off the wall$ //TODO : faire un SwitchSection
         NullAction 
 
 
@@ -192,9 +192,9 @@ namespace ActionList
 
 
    Action PhareTopLeft[4] = {
-        {600.f, 1980.f - sizeHalfLengthRobot, 0.f, &deployBar, 0.0f},
-        {400.f, 1980.f - sizeHalfLengthRobot, -400.f, &retractBar, 0.0f},
-        {400.f, 1980.f - sizeHalfLengthRobot, -400.f, &switchEcocup, 0.0f},
+        {600.f, 2000.f - sizeHalfLengthRobot, 0.f, &deployBar, 0.0f},
+        {350.f, 2000.f - sizeHalfLengthRobot, -400.f, &retractBar, 0.0f},
+        {350.f, 2000.f - sizeHalfLengthRobot, -400.f, &etat_vide_with_serial, 0.0f},
         NullAction
    };
 

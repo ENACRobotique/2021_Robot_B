@@ -217,16 +217,16 @@ void Odometry::update_pos(int incr1, int incr2)
 */
 		
 		#ifdef DEBUG_ODOMETRY
-		SerialDebug.print("x:");
-		SerialDebug.print(pos_x);
-		SerialDebug.print("\t y:");
-		SerialDebug.print(pos_y);
-		SerialDebug.print("\t pos_theta:");
-		SerialDebug.print(pos_theta);
-		SerialDebug.print("\tspeed:");
-		SerialDebug.print(speed);
-		SerialDebug.print("\treal omega:");
-		SerialDebug.println(omega);
+		SerialCtrl.print("x:");
+		SerialCtrl.print(pos_x);
+		SerialCtrl.print("\t y:");
+		SerialCtrl.print(pos_y);
+		SerialCtrl.print("\t pos_theta:");
+		SerialCtrl.print(pos_theta);
+		SerialCtrl.print("\tspeed:");
+		SerialCtrl.print(speed);
+		SerialCtrl.print("\treal omega:");
+		SerialCtrl.println(omega);
 
 		#endif
 }

@@ -57,7 +57,7 @@ namespace MatchDirector
      * @brief Number of time we can correct trajectory according to wheel encoder, in order not to be stuck trying to reach an unnatable precise position
      * 
      */
-    int nbCorectionAuthorized = 1;
+    int nbCorectionAuthorized = 0;
     float timer = 10; // en s, durée du match
     int score = 0;
     float offsetX = 0; //offsets au début du terrain par rapport à l'abs
@@ -183,7 +183,6 @@ void action_dispatcher(Action action)
         PointSeq pts_follow = route_to_follow(entry, exit, robotPos);
         
         abs_coords_to(action.x,action.y);
-        SerialCtrl.print("new action :");
         actionState = MOVING;
     }
 
@@ -228,7 +227,7 @@ void action_dispatcher(Action action)
 
         if(abs(action.angle-odometry_wheel.get_pos_theta()) > ADMITTED_DEG_ANGLE_ERROR && nbReadjust < nbCorectionAuthorized)
         {
-            SerialCtrl.println("reajustement angle");
+            SerialCtrl.print("reajustement angle   ");
             SerialCtrl.println(odometry_wheel.get_pos_theta());
             nbReadjust++;
             actionState = MOVING;

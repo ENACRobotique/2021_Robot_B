@@ -9,6 +9,7 @@
 #include "../ai/MatchDirector.h"
 #include "FsmSupervisor.h"
 #include "etat_begin.h"
+#include "params.h"
 
 
 SwitchSection::SwitchSection(Action* action) {
@@ -27,6 +28,7 @@ void SwitchSection::leave() {
 }
 
 void SwitchSection::doIt() {
+	SerialCtrl.println("SwitchSection in progress");
 	MatchDirector::set_current_action(action);
 	fsmSupervisor.setNextState(&etat_begin);
 }
