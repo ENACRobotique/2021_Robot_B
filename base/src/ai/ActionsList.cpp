@@ -182,6 +182,13 @@ namespace ActionList
         NullAction
     };
 
+    Action PhareLeft[4] = {
+        {600.f, 1800.f, 0.f, &deployBar, 0.0f},
+        {400.f, 1800.f, -400.f, &retractBar, 0.0f},
+        {400.f, 1800.f, -400.f, &retractBar, 0.0f},
+        NullAction
+    }
+
     //Doit être modifié par Get_To_Final dans match director avec les bonnes coords/angle
     /*
     Action GetToFinal[2] =
