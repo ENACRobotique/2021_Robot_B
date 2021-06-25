@@ -57,7 +57,7 @@ namespace MatchDirector
      * @brief Number of time we can correct trajectory according to wheel encoder, in order not to be stuck trying to reach an unnatable precise position
      * 
      */
-    int nbCorectionAuthorized = 1;
+    int nbCorectionAuthorized = 0;
     float timer = 10; // en s, durée du match
     int score = 0;
     float offsetX = 0; //offsets au début du terrain par rapport à l'abs
