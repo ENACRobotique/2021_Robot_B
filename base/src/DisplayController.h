@@ -12,8 +12,10 @@ class DisplayController{
         void setNbDisplayed(int intToDisplay);
         int getNbDisplayed ();
     private:
-        uint8_t segments_black;
+        uint8_t segments_black[4];
         int NbDisplayed;
         TM1637Display DisplayObject;
 };
+
+extern DisplayController displayController;
 #endif
