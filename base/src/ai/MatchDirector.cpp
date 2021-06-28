@@ -8,6 +8,7 @@
 #include "../actuatorSupervisor.h"
 #include "Arduino.h" //NULL definition
 #include "utils.h"
+#include "DisplayController.h"
 
 /**
  * @brief 
@@ -336,6 +337,7 @@ void compute_final_point(bool isGirouetteWhite)
 void addScore(int add)
 {
     score += add;
+    displayController.setNbDisplayed(score);
 }
 
 PointSeq route_from_action(float actionX, float actionY)
