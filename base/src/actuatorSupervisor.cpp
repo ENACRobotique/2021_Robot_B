@@ -4,6 +4,7 @@
 #include "actuatorSupervisor.h"
 #include "Wire.h"
 #include "Adafruit_PWMServoDriver.h"
+#include "Adafruit_TCS34725.h"
 
 namespace ActuatorSupervisor
 {
@@ -12,6 +13,10 @@ namespace ActuatorSupervisor
     ControlServo otherServos[2]; //[0] = Pavillon, [1] = tige horizontale
 
     Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(LED_DRIVER_ADDRESS, Wire);
+
+    Adafruit_TCS34725 tcs0 = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_700MS, TCS34725_GAIN_1X); //Attention modif à prévoir dans la library pour les capteurs chinois
+    Adafruit_TCS34725 tcs1 = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_700MS, TCS34725_GAIN_1X);
+
 
     void init()
     {
@@ -152,8 +157,62 @@ namespace ActuatorSupervisor
 
 }
 ActuatorSupervisor::CupColor ActuatorSupervisor::get_color(int sensor_nb) {
-    SerialCtrl.println("get_color non implémenté !");
-    return NONE;    
+    uint16_t r, g, b, c, colorTemp, lux;
+    tcaselect(sensor_nb);
+    
+    switch (sensor_nb)
+    {
+        case 0:
+            tcs0.begin();
+            tcs0.getRawData(&r, &g, &b, &c);
+
+            break;
+        
+        default:
+        SerialCtrl.println("cup color not implemented !!");
+            break;
+    }
+
+    SerialCtrl.print("sensor number # with color g and r: #");
+    SerialCtrl.print(sensor_nb);
+    SerialCtrl.print(g);
+    SerialCtrl.println(r);
+    if(g >= 5000.f)
+    {
+        return CupColor::GREEN;
+    }
+    else if (r >= 5000.f)
+    {
+        return CupColor::RED;
+    }
+    else
+    {
+        return CupColor::NONE;
+    }
+        
+
+
+
+    /*
+    uint16_t r, g, b, c, colorTemp, lux;
+    tcs[i].getRawData(&r, &g, &b, &c);
+    colorTemp = tcs[i].calculateColorTemperature(r, g, b);
+    lux = tcs[i].calculateLux(r, g, b);
+    Serial.print("Sensor #");Serial.print(i); Serial.print(" --- ");
+    Serial.print("Color Temp: "); Serial.print(colorTemp, DEC); Serial.print(" K - ");
+    Serial.print("Lux: "); Serial.print(lux, DEC); Serial.print(" - ");
+    Serial.print("R: "); Serial.print(r, DEC); Serial.print(" ");
+    Serial.print("G: "); Serial.print(g, DEC); Serial.print(" ");
+    Serial.print("B: "); Serial.print(b, DEC); Serial.print(" ");
+    Serial.print("C: "); Serial.print(c, DEC); Serial.print(" ");
+    */
+}  
+
+void tcaselect(uint8_t i) {
+  if (i > 7) return;
+  Wire.beginTransmission(TCAADDR);
+  Wire.write(1 << i);
+  Wire.endTransmission();  
 }
 
 
@@ -182,3 +241,4 @@ void loop() {
 }
 
 */
+
