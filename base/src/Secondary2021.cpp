@@ -43,7 +43,7 @@ void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);
   //pinMode(11, OUTPUT);
   //testXbee::init();
-    //SerialCtrl.begin(57600);
+    Serial2.begin(57600);
     Serial.begin(57600);
     //SerialDebug.begin(57600);
     SerialDebug.println("test SerialDebug 1");
@@ -59,7 +59,7 @@ void setup() {
     SerialCtrl.println("initialization serialCtrl");
     */
   //Wire.begin();
-  /*
+  
   controlTime.reset();
 	debugLed.reset();
 	navTime.reset();
@@ -70,7 +70,7 @@ void setup() {
   fsmSupervisor.init();
   ActuatorSupervisor::init();
   MatchDirector::init(); 
-*/
+
   debugTest::scanSerial();
   //while (!Serial);
   SerialCtrl.println("test serialctrl");
@@ -85,8 +85,7 @@ void setup() {
 }
 
 void loop() {
-    debugTest::scanSerial();
- /*
+ 
   //testXbee::update();
     
       if(navTime.check())
@@ -98,7 +97,7 @@ void loop() {
 
 		if(controlTime.check()) {
       Odometry::update_reading(&odometry_motor, &odometry_wheel);
-      MotorControl::update();
+      //MotorControl::update();
 		} 
 
     
@@ -120,5 +119,5 @@ void loop() {
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
   
-*/
+
 } 

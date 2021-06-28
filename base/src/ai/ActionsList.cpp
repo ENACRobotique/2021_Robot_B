@@ -153,21 +153,6 @@ namespace ActionList
     };
 
 
-    Action depositLeft[10] = 
-    {
-        {200.f, 1490.f-distCentreEcocup, 90.f, &deployFrontServo, 2.0f},//Front -> direction vert /haut en premier
-        //deploy back servo
-        //{200.f, 1490.f-distCentreEcocup, 90.f, &release_front_green, 0.0f},
-        //{200.f, 1490.f-distCentreEcocup, 90.f, &wait_front_cup_release, 0.0f},
-        //{200.f, 920.f+distCentreEcocup, 90.f, &release_back_red, 0.0f},
-        //{200.f, 920.f+distCentreEcocup, 90.f, &wait_back_release, 0.0f},
-        //{200.f, 1200.f, 270.f, &etat_vide, 0.0f},
-        //{200.f, 1490.f-distCentreEcocup, 90.f, &release_back_green, 2.0f}
-        //wait back release
-        //on va vers le côté rouge
-        //on release le vert du front
-        //on rétracte le tout, on se centre
-    };
 
     Action MancheAirBottomLeft[4] = {
         {200.f, sizeHalfWidthRobot, 0.f, &deployBar, 1.0f},
@@ -181,13 +166,6 @@ namespace ActionList
         {2400.f, 200.f, 250.f, &retractBar, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         NullAction
     };
-
-    Action PhareLeft[4] = {
-        {600.f, 1800.f, 0.f, &deployBar, 0.0f},
-        {400.f, 1800.f, -400.f, &retractBar, 0.0f},
-        {400.f, 1800.f, -400.f, &retractBar, 0.0f},
-        NullAction
-    }
 
     //Doit être modifié par Get_To_Final dans match director avec les bonnes coords/angle
     /*
@@ -205,7 +183,23 @@ namespace ActionList
         NullAction
    };
 
-    //
+    Action DeposeTopLeft[5] = { //green
+
+        {200.f, 1490.f-distCentreEcocup, -90.f, &deployFrontGreen, 0.0f},//Front -> direction vert /haut en premier
+        {200.f, 1490.f-distCentreEcocup, -90.f, &wait_font_cup_succ, 0.0f},
+        {200.f, 1490.f-distCentreEcocup, -90.f, &retractFrontGreen, 0.0f},
+        {600.f, 1650.f, 90.f, &etat_begin, 0.0f},
+        NullAction
+    };
+
+    Action DeposeBottomLeft[5] = { //Red
+        {200.f, 920.f+distCentreEcocup, 90.f, &deployFrontRed, 0.0f},
+        {200.f, 920.f+distCentreEcocup, 90.f, &wait_font_cup_succ, 0.0f},
+        {200.f, 1490.f-distCentreEcocup, -90.f, &retractFrontRed, 0.0f},
+        {200.f, 1200.f, 270.f, &etat_begin, 0.0f},
+        NullAction
+    };
+    
 
     Action TestStrategieMvtOnly[5] = 
     {
