@@ -60,7 +60,7 @@ namespace ActuatorSupervisor
         //delay(10);
         //pwm.begin();
         //pwm.setPWMFreq(PWM_FREQUENCY);    
-        SerialCtrl.println("init done for actuatorSupervisor ! ");
+        SerialDebug.println("init done for actuatorSupervisor ! ");
     }
 
     void deploy_pav()

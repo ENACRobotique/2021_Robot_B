@@ -23,16 +23,12 @@
     //#define SerialDebug = Serial;
     //#define SerialCtrl = Serial5;
     //(using stream instead of HardwareSerial because Serial doesn't inherit it)
-
-    //config normale :
     static Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB 
-    static HardwareSerial& SerialCtrl = Serial2;//Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug 
-
-    //config debug : 
     //static Stream& SerialCtrl = Serial; // used for debug printing - Serial1 -> USB 
+    
     //static HardwareSerial& SerialDebug = Serial2;//Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug
 
-
+    static HardwareSerial& SerialCtrl = Serial2;//Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug 
     
     static HardwareSerial& SerialLidar = Serial1;
 #endif
@@ -63,6 +59,9 @@ const int MOT2_DIR = 33;//34;
 
 const int SERVO_PAV = 37;
 const int SERVO_BAR = 38;
+
+const int DISPALY_CLK = 8;
+const int DISPLAY_DATA = 7;
 
 //PCA 9685PW - not pin from teensy !
 const int EV5 = 14; //EV = ElectroVanne

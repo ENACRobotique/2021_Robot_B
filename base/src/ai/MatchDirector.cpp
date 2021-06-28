@@ -8,6 +8,7 @@
 #include "../actuatorSupervisor.h"
 #include "Arduino.h" //NULL definition
 #include "utils.h"
+#include "DisplayController.h"
 
 /**
  * @brief 
@@ -177,12 +178,17 @@ void action_dispatcher(Action action)
         SerialCtrl.print("\t");
         SerialCtrl.println(action.angle);
         //SerialCtrl.println("actionState == begin");
-        float entry[2] = {get_abs_x(), get_abs_y()};
-        float exit[2] = {action.x, action.y};
-        float robotPos[3] = {get_abs_x(), get_abs_y(), odometry_wheel.get_pos_theta()};
-        PointSeq pts_follow = route_to_follow(entry, exit, robotPos);
+        if(curActIndex == 0) //pathfinding avec waypoint uniquement entre les sections (car gros déplacement)
+        {
+            route_from_action(action.x,action.y);
+        }
+        else //pathfinding uniquement 
+        {
+            abs_coords_to(action.x,action.y);
+        }
+
         
-        abs_coords_to(action.x,action.y);
+
         SerialCtrl.print("new action :");
         actionState = MOVING;
     }
@@ -191,8 +197,12 @@ void action_dispatcher(Action action)
     {
         if (navigator.isTrajectoryFinished())
         {
+                if(curActIndex == 0)
+                {
+
+                }
                 // Si on est pas suffisament proche de la position et qu'on a le droit de se réajuster (permission lié à un "timeout" pour pas perdre trop de tps à se réajuster)
-                if (distance_squared(get_abs_x(), get_abs_y(), action.x,action.y) > ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR
+                else if (distance_squared(get_abs_x(), get_abs_y(), action.x,action.y) > ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR
                     && nbReadjust < nbCorectionAuthorized / 2) // on divise par 2 pour laiser la moitié de corrections autorisés à la correction d'angle
                 {
                     SerialCtrl.println("reajustement position car erreur trop grande (réel vs erreur admise): ");
@@ -327,10 +337,20 @@ void compute_final_point(bool isGirouetteWhite)
 void addScore(int add)
 {
     score += add;
+    displayController.setNbDisplayed(score);
+}
+
+PointSeq route_from_action(float actionX, float actionY)
+{
+        float entry[2] = {get_abs_x(), get_abs_y()};
+        float exit[2] = {actionX, actionY};
+        float robotPos[3] = {get_abs_x(), get_abs_y(), odometry_wheel.get_pos_theta()};
+        return route_to_follow(entry, exit, robotPos);
 }
 
 PointSeq route_to_follow(float* entry, float* exit, float* robot_pos)
 {
+    
     Route route = ATC::find_route(&ATC::graph, entry, exit, ATC::lidar, robot_pos);
     return ATC::read_route(route);
     //ATC::
