@@ -110,7 +110,7 @@ void loop() {
     }
     if(stateTime.check())
     {   
-      //MatchDirector::update();      
+      MatchDirector::update();      
       fsmSupervisor.update();
 
     }
