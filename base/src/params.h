@@ -94,6 +94,9 @@ const int DISPLAY2 = 8;
 #pragma region addresses I2C et params driver de led
 const int LED_DRIVER_ADDRESS = 0x46; //0x46 is configured, 0x70 is "all called led address" (don't use it )
 const int PWM_FREQUENCY = 50;
+
+const int TCAADDR =  0x70;
+
 #pragma endregion
 
 const float SPEED_MAX = 500.0f; //0.5f;

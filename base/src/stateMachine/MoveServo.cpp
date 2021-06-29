@@ -2,6 +2,7 @@
 #include "../FsmSupervisor.h"
 #include "../params.h"
 #include "../actuatorSupervisor.h"
+#include "etat_begin.h"
 
 MoveServo::MoveServo(CupColor color, bool isFront, bool isDeploying, bool isSucc) {
     //color = NONE => GREEN+RED, isFront = false => back, isDeployed = false => retract
@@ -33,7 +34,7 @@ void MoveServo::enter()
 
 void MoveServo::doIt() {
     if(((millis() - time_start) > SERVO_MOVEMENT_DURATION*2) ){
-        fsmSupervisor.setNextState(NULL);
+        fsmSupervisor.setNextState(&etat_begin);
 	} 
 }
 

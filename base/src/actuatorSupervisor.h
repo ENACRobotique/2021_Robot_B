@@ -34,6 +34,8 @@ namespace ActuatorSupervisor {
 	int ev_nb_to_pin(int ev);
     int pompe_nb_to_pin(int pompe);
 
+	void tcaselect(uint8_t i);
+
 
 
 
