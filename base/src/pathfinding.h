@@ -2,7 +2,7 @@
 #ifndef PATHFINDING
 #define PATHFINDING
 
-#include "lidar/Lidar.h"
+#include "lidar/LidarData.h"
 //#include "params.h"
 
 const int MAX_WP = 30; /* à augmenter si bcp de points ajoutés */
@@ -95,11 +95,11 @@ struct PointSeq{
 
 namespace ATC /* convert to class with protecting hidden members? later */
 {
-    extern Lidar lidar;
+    extern LidarData lidar;
     extern Graph graph;
     Graph generate_graph(Waypoint *waypoint_list, int wp_number);
-    Route find_route(Graph *graph_orig, float *depart, float *destination, Lidar *lidar, float *robot_pos); /* robot_pos[2] is in radians */
-    bool is_path_blocked(float *start, float *end, Lidar *lidar, float *robot_pos);
+    Route find_route(Graph *graph_orig, float *depart, float *destination, LidarData *lidar, float *robot_pos); /* robot_pos[2] is in radians */
+    bool is_path_blocked(float *start, float *end, LidarData *lidar, float *robot_pos);
     int min_dist(unsigned int *dist, bool *Dset, int wp_number);
     DijkstraResult dijkstra_crap(Graph graph, int src_index);
     Geom_Vec from_pol_to_abs(float *robot_pos, int lid_ang, float lid_dist);

@@ -25,7 +25,8 @@
 #include "examples/debugTest.h" 
 #include "examples/testXbee.h" 
 #include "pathfinding.h"
-#include "lidar/Lidar.h"
+#include "lidar/LidarData.h"
+#include <lidar/RPLidar.h>
 //#include "raspberryParser.h"
 #include "DisplayController.h"
 
@@ -38,6 +39,13 @@ Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
 
 float sp[4] = {0, 3.14f, 0, -3.14f};
 int i = 0;
+
+// RPLidar driver instance 
+RPLidar rplidar;
+// Lidar data container is initialised in pathfinding, as part of ATC namespace (not sure if good idea)
+
+#define RPLIDAR_MOTOR 3 // The PWM pin for control the speed of RPLIDAR's motor.
+                        // This pin should connected with the RPLIDAR's MOTOCTRL signal 
 
 #include "ai/ActionsList.h"
 void setup() {
@@ -60,6 +68,12 @@ void setup() {
     SerialCtrl.println("initialization serialCtrl");
     */
   //Wire.begin();
+
+  // bind the RPLIDAR driver to the arduino hardware serial
+  rplidar.begin(Serial1); //TODO: changer pour le bon canal serial
+  
+  // set pin modes
+  pinMode(RPLIDAR_MOTOR, OUTPUT);
   
   controlTime.reset();
 	debugLed.reset();
@@ -122,5 +136,30 @@ void loop() {
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
 
+  //lidar code copy-pasted from rplidar examples
+  if (IS_OK(rplidar.waitPoint())) {
+    float distance = rplidar.getCurrentPoint().distance; //distance value in mm unit
+    float angle    = rplidar.getCurrentPoint().angle; //anglue value in degree
+    bool  startBit = rplidar.getCurrentPoint().startBit; //whether this point is belong to a new scan
+    byte  quality  = rplidar.getCurrentPoint().quality; //quality of the current measurement
+    
+    //perform data processing here... 
+
+    ATC::lidar.set_data((int)angle, distance, quality);
+    
+  } else {
+    analogWrite(RPLIDAR_MOTOR, 0); //stop the rplidar motor
+    
+    // try to detect RPLIDAR... 
+    rplidar_response_device_info_t info;
+    if (IS_OK(rplidar.getDeviceInfo(info, 100))) {
+       // detected...
+       rplidar.startScan();
+       
+       // start motor rotating at max allowed speed
+       analogWrite(RPLIDAR_MOTOR, 255);
+       delay(1000);
+    }
+  }
 
 } 

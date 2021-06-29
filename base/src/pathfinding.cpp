@@ -3,42 +3,40 @@
 #include <math.h>
 #include <algorithm>
 
-namespace ATC {
 
-    Waypoint WP_COUPE[MAX_WP] = {
+Waypoint WP_COUPE[MAX_WP] = {
         
-        //{coord_x, coord_y, {liste_adjacence avec distances}}
-        //ne pas changer l'ordre!
-        { 230,  400, {    0,    NO,   569,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP pour aller cherche les gobelets dans écueuil bleu
-        {1500,  572, {   NO,     0,   728,   727,    NO,   428, 828-9,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Sud Centre
-        { 772,  572, {  569,   728,     0,1455-9,    NO,    NO,    NO,   428,    NO, 828-9,    NO, LONGR,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP corner SO
-        {2227,  572, {   NO,   727,1455-9,     0,   569,    NO,    NO,    NO,   428,    NO, 828-9,    NO, LONGR,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP corner SE
-        {2770,  400, {   NO,    NO,    NO,   569,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP pour aller checher les gobelets dans écueuil jaune
-        {1500, 1000, {   NO,   428,    NO,    NO,    NO,     0,   400,   728,   727,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Centre du terrain
-        {1500, 1400, {   NO, 828-9,    NO,    NO,    NO,   400,     0,    NO,    NO,   728,   727,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Nord Centre
-        { 772, 1000, {   NO,    NO,   428,    NO,    NO,   728,    NO,     0,1455-9,   400,    NO, LONGR,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Centre Ouest
-        {2227, 1000, {   NO,    NO,    NO,   428,    NO,   727,    NO,1455-9,     0,    NO,   400,    NO, LONGR,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Centre Est
-        { 772, 1400, {   NO,    NO, 828-9,    NO,    NO,    NO,   728,   400,    NO,     0,1455-9, LONGR,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP corner NO
-        {2227, 1400, {   NO,    NO,    NO, 828-9,    NO,    NO,   727,    NO,   400,1455-9,     0,    NO, LONGR,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP corner NE
-        { 772, 1200, {   NO,    NO, LONGR,    NO,    NO,    NO,    NO, LONGR,    NO, LONGR,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,   YES,    NO,    NO}}, //WP link to blue garage (do not stop at this point otherwise)
-        {2227, 1200, {   NO,    NO,    NO, LONGR,    NO,    NO,    NO,    NO, LONGR,    NO, LONGR,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,   YES}}, //WP link to yellow garage (do not stop at this point otherwise)
-        { 670, 1600, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,   YES,    NO,   YES,    NO,    NO,    NO,    NO,    NO}}, //WP interm node north west (bleu)
-        {2330, 1600, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,   YES,    NO,   YES,    NO,    NO,    NO,    NO}}, //WP interm node north east (yellow)
-        { 300, 1900, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP proche phare bleu
-        {2700, 1900, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP proche phare yellow
-        { 825, 1900, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,    NO,    NO,    NO,    NO}}, //WP proche eceuils bleu nord
-        {2175, 1900, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,    NO,    NO,    NO}}, //WP proche eceuils jaune nord
-        { 300, 1343, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO,    NO,    NO}}, //WP garage rob1A bleu
-        { 150, 1057, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO,    NO}}, //WP garage rob2A bleu
-        {2700, 1057, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO}}, //WP garage rob1A yellow
-        {2850, 1343, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    0 }} //WP garage rob2A yellow
+    //{coord_x, coord_y, {liste_adjacence avec distances}}
+    //ne pas changer l'ordre!
+    { 230,  400, {    0,    NO,   569,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP pour aller cherche les gobelets dans écueuil bleu
+    {1500,  572, {   NO,     0,   728,   727,    NO,   428, 828-9,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Sud Centre
+    { 772,  572, {  569,   728,     0,1455-9,    NO,    NO,    NO,   428,    NO, 828-9,    NO, LONGR,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP corner SO
+    {2227,  572, {   NO,   727,1455-9,     0,   569,    NO,    NO,    NO,   428,    NO, 828-9,    NO, LONGR,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP corner SE
+    {2770,  400, {   NO,    NO,    NO,   569,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP pour aller checher les gobelets dans écueuil jaune
+    {1500, 1000, {   NO,   428,    NO,    NO,    NO,     0,   400,   728,   727,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Centre du terrain
+    {1500, 1400, {   NO, 828-9,    NO,    NO,    NO,   400,     0,    NO,    NO,   728,   727,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Nord Centre
+    { 772, 1000, {   NO,    NO,   428,    NO,    NO,   728,    NO,     0,1455-9,   400,    NO, LONGR,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Centre Ouest
+    {2227, 1000, {   NO,    NO,    NO,   428,    NO,   727,    NO,1455-9,     0,    NO,   400,    NO, LONGR,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Centre Est
+    { 772, 1400, {   NO,    NO, 828-9,    NO,    NO,    NO,   728,   400,    NO,     0,1455-9, LONGR,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP corner NO
+    {2227, 1400, {   NO,    NO,    NO, 828-9,    NO,    NO,   727,    NO,   400,1455-9,     0,    NO, LONGR,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP corner NE
+    { 772, 1200, {   NO,    NO, LONGR,    NO,    NO,    NO,    NO, LONGR,    NO, LONGR,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,   YES,    NO,    NO}}, //WP link to blue garage (do not stop at this point otherwise)
+    {2227, 1200, {   NO,    NO,    NO, LONGR,    NO,    NO,    NO,    NO, LONGR,    NO, LONGR,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,   YES}}, //WP link to yellow garage (do not stop at this point otherwise)
+    { 670, 1600, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,   YES,    NO,   YES,    NO,    NO,    NO,    NO,    NO}}, //WP interm node north west (bleu)
+    {2330, 1600, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,   YES,    NO,   YES,    NO,    NO,    NO,    NO}}, //WP interm node north east (yellow)
+    { 300, 1900, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP proche phare bleu
+    {2700, 1900, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP proche phare yellow
+    { 825, 1900, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,    NO,    NO,    NO,    NO}}, //WP proche eceuils bleu nord
+    {2175, 1900, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,    NO,    NO,    NO}}, //WP proche eceuils jaune nord
+    { 300, 1343, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO,    NO,    NO}}, //WP garage rob1A bleu
+    { 150, 1057, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO,    NO}}, //WP garage rob2A bleu
+    {2700, 1057, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO}}, //WP garage rob1A yellow
+    {2850, 1343, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    0 }} //WP garage rob2A yellow
 
-        };
+};
 
-Graph graph = ATC::generate_graph(WP_COUPE, 23);
-Lidar lidar = Lidar();
+LidarData ATC::lidar;
 
-}
+Graph ATC::graph = ATC::generate_graph(WP_COUPE, 23);
 
 Geom_Vec::Geom_Vec(float x, float y){
     this->x = x;
@@ -202,7 +200,7 @@ PseudoRoute ATC::going_to(int *parent, int index_dest, const int wp_number){
     return result;
 }
 
-bool ATC::is_path_blocked(float start[2], float end[2], Lidar *lidar, float robot_pos[3]){
+bool ATC::is_path_blocked(float start[2], float end[2], LidarData *lidar, float robot_pos[3]){
     float xyrobot[2] = {robot_pos[0], robot_pos[1]};
 
     int angle_str = (int) Geom_Vec(xyrobot, start).get_angle();
@@ -232,7 +230,7 @@ bool ATC::is_path_blocked(float start[2], float end[2], Lidar *lidar, float robo
     return false;
 }
 
-Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lidar *lidar, float *robot_pos){
+Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, LidarData *lidar, float *robot_pos){
     /* checking what is the closest waypoint to start */
     Graph graph = *graph_orig;
     unsigned int min_dist_start = 65535;
