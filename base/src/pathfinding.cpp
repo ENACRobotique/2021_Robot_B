@@ -218,6 +218,10 @@ bool ATC::is_path_blocked(float start[2], float end[2], LidarData *lidar, float 
         ang_span_end = std::max(angle_str%360, angle_stp%360) + 23;
     }
     for(int ang=ang_span_begin;ang<ang_span_end;ang++){
+        //vérif validité mesure
+        //bool quality_good = (*lidar).get_quality(ang) > seuil qualité
+        
+        //si mesure valide:
         float dist_lid = (*lidar).get_distance(ang);
         Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
         if (0 < pt.x and pt.x < 3000 and 0 < pt.y and pt.y < 2000){
@@ -226,6 +230,7 @@ bool ATC::is_path_blocked(float start[2], float end[2], LidarData *lidar, float 
                 return true;
             }
         }
+        //si mesure invalide, ne rien faire
     }
     return false;
 }
