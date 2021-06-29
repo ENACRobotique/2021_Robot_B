@@ -165,7 +165,7 @@ PseudoRoute ATC::going_to(int *parent, int index_dest, const int wp_number){
     return result;
 }
 
-bool ATC::is_path_blocked(float start[2], float end[2], Lidar lidar, float robot_pos[3]){
+bool ATC::is_path_blocked(float start[2], float end[2], Lidar *lidar, float robot_pos[3]){
     float xyrobot[2] = {robot_pos[0], robot_pos[1]};
 
     int angle_str = (int) Geom_Vec(xyrobot, start).get_angle();
@@ -183,7 +183,7 @@ bool ATC::is_path_blocked(float start[2], float end[2], Lidar lidar, float robot
         ang_span_end = std::max(angle_str%360, angle_stp%360) + 23;
     }
     for(int ang=ang_span_begin;ang<ang_span_end;ang++){
-        float dist_lid = lidar.get_distance(ang);
+        float dist_lid = (*lidar).get_distance(ang);
         Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
         if (0 < pt.x and pt.x < 3000 and 0 < pt.y and pt.y < 2000){
             float dist_pt_attempt = Geom_Vec(start, end).dist_to_point(pt);
@@ -195,9 +195,7 @@ bool ATC::is_path_blocked(float start[2], float end[2], Lidar lidar, float robot
     return false;
 }
 
-Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lidar lidar, float *robot_pos){
-    /* TODO: implémenter si first et last wp sont les mêmes, route + courte*/
-
+Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lidar *lidar, float *robot_pos){
     /* checking what is the closest waypoint to start */
     Graph graph = *graph_orig;
     unsigned int min_dist_start = 65535;
@@ -213,7 +211,7 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
     }
     /*std::cout << "firstwp " << first_wp << std::endl;*/
 
-    /* TODO:reminder check if path between start point and first waypoint is free or not */
+    
 
     /* checking what is the closest waypoint to destination */
     unsigned int min_dist_end = 65535;
@@ -229,7 +227,32 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
     }
     /*std::cout << "lastwp " << last_wp << std::endl;*/
 
-    /* TODO:reminder check if path between destin point and last waypoint is free or not */
+    /* si first et last wp sont les mêmes, route + courte*/
+    if (first_wp == last_wp){
+        //check direct route free or not
+        bool direct_blocked = ATC::is_path_blocked(depart, destination, lidar, robot_pos);
+        //générer la route et retourner
+        Route direct_route;
+        direct_route.stuck = false;
+        direct_route.isfree = not(direct_blocked);
+        direct_route.isshortest = true;
+        direct_route.length = 0;
+        direct_route.start[0] = depart[0];
+        direct_route.start[1] = depart[1];
+        direct_route.end[0] = destination[0];
+        direct_route.end[1] = destination[1];
+        return direct_route;
+    }
+
+    /* check if path between start point and first waypoint is free or not */
+    float xywpdep[2] = {(*graph.wp_list[first_wp]).x, (*graph.wp_list[first_wp]).y};
+    bool start_obstructed = ATC::is_path_blocked(depart, xywpdep, lidar, robot_pos);
+
+    /* check if path between destin point and last waypoint is free or not */
+    float xywpdest[2] = {(*graph.wp_list[last_wp]).x, (*graph.wp_list[last_wp]).y};
+    bool end_obstructed = ATC::is_path_blocked(depart, xywpdest, lidar, robot_pos);
+
+    bool access_to_graph_obstructed = start_obstructed and end_obstructed;
 
     /* shortest route with dijkstra */
     DijkstraResult dijres = ATC::dijkstra_crap(graph, first_wp);
@@ -283,7 +306,7 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
     if (route_ok){
         Route route;
         route.stuck = not(psroute.reaches);
-        route.isfree = route_ok;
+        route.isfree = route_ok and not(access_to_graph_obstructed);
         route.isshortest = true;
         route.length = graph.wp_number-start;
         route.start[0] = depart[0];
@@ -331,7 +354,7 @@ Route ATC::find_route(Graph *graph_orig, float *depart, float *destination, Lida
                 /* this route isn't the best, but it's free right now*/
                 Route route;
                 route.stuck = not(this_psroute.reaches);
-                route.isfree = true;
+                route.isfree = true and not(access_to_graph_obstructed);
                 route.isshortest = false;
                 route.length = graph.wp_number-this_start;
                 route.start[0] = depart[0];
