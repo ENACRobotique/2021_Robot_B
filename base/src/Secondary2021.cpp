@@ -44,7 +44,7 @@ int i = 0;
 RPLidar rplidar;
 // Lidar data container is initialised in pathfinding, as part of ATC namespace (not sure if good idea)
 
-#define RPLIDAR_MOTOR 3 // The PWM pin for control the speed of RPLIDAR's motor.
+#define RPLIDAR_MOTOR 37 // The PWM pin for control the speed of RPLIDAR's motor.
                         // This pin should connected with the RPLIDAR's MOTOCTRL signal 
 
 #include "ai/ActionsList.h"
@@ -68,9 +68,15 @@ void setup() {
     SerialCtrl.println("initialization serialCtrl");
     */
   //Wire.begin();
+  for(int i=0; i<10; i++) {
+    SerialCtrl.println("starting...");
+    delay(100);
+  }
 
+  // start lidar motor
+  analogWrite(RPLIDAR_MOTOR, 200);
   // bind the RPLIDAR driver to the arduino hardware serial
-  rplidar.begin(Serial1); //TODO: changer pour le bon canal serial
+  rplidar.begin(SerialLidar); //TODO: changer pour le bon canal serial
   
   // set pin modes
   pinMode(RPLIDAR_MOTOR, OUTPUT);
@@ -86,8 +92,8 @@ void setup() {
   ActuatorSupervisor::init();
   MatchDirector::init(); 
 
-  debugTest::scanSerial();
-  displayController.init();
+  //debugTest::scanSerial();
+  //displayController.init();
 
   //while (!Serial);
   SerialCtrl.println("test serialctrl");
@@ -145,10 +151,20 @@ void loop() {
     
     //perform data processing here... 
 
+    SerialCtrl.print(angle);
+    SerialCtrl.print("\t");
+        SerialCtrl.print(distance);
+      SerialCtrl.print("\t");
+          SerialCtrl.print(quality);
+      SerialCtrl.println("\t");
     ATC::lidar.set_data((int)angle, distance, quality);
+
+    SerialCtrl.println(distance);
     
   } else {
-    analogWrite(RPLIDAR_MOTOR, 0); //stop the rplidar motor
+
+    SerialCtrl.println("err");
+    //analogWrite(RPLIDAR_MOTOR, 0); //stop the rplidar motor
     
     // try to detect RPLIDAR... 
     rplidar_response_device_info_t info;
