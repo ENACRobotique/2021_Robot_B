@@ -3,10 +3,12 @@
 #include "../actuatorSupervisor.h"
 #include "params.h"
 #include "FsmSupervisor.h"
+#include "../ai/MatchDirector.h"
 
 
-MoveBar::MoveBar(bool isDeployed) {
+MoveBar::MoveBar(bool isDeployed, int score) {
     this->isDeploying = isDeploying;
+    this->score = score;
 }
 
 void MoveBar::enter() {
@@ -29,5 +31,6 @@ void MoveBar::doIt() {
 }
 
 void MoveBar::leave() {
+    MatchDirector::addScore(this->score);
     SerialDebug.println("Leaving Deployment of Servo Pavillon");
 }
