@@ -157,7 +157,9 @@ void loop() {
       SerialCtrl.print("\t");
           SerialCtrl.print(quality);
       SerialCtrl.println("\t");
-    ATC::lidar.set_data((int)angle, distance, quality);
+    //calc nearest int, and round angle accordingly
+    float nearest = floorf(angle+0.5);
+    ATC::lidar.set_data((int)nearest, distance, quality);
 
     SerialCtrl.println(distance);
     
