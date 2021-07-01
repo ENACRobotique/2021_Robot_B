@@ -53,11 +53,13 @@ namespace MatchDirector
      *  @ingroup namespace
      */
     int nbReadjust = 0; //
-
+    PointSeq curSeq;
+    int curSeqIndex = 0;
     /**
      * @brief Number of time we can correct trajectory according to wheel encoder, in order not to be stuck trying to reach an unnatable precise position
      * 
      */
+    
     int nbCorectionAuthorized = 0;
     float timer = 10; // en s, durée du match
     int score = 0;
@@ -178,9 +180,13 @@ void action_dispatcher(Action action)
         SerialCtrl.print("\t");
         SerialCtrl.println(action.angle);
         //SerialCtrl.println("actionState == begin");
-        if(curActIndex == 0) //pathfinding avec waypoint uniquement entre les sections (car gros déplacement)
+        if(curActIndex == 0 && false) //pathfinding avec waypoint uniquement entre les sections (car gros déplacement)
         {
-            route_from_action(action.x,action.y);
+            curSeq = route_from_action(action.x,action.y);
+            curSeqIndex = 0;
+            abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
+            curSeqIndex++;
+
         }
         else //pathfinding uniquement 
         {
@@ -188,18 +194,22 @@ void action_dispatcher(Action action)
         }
 
         
-
-        SerialCtrl.print("new action :");
         actionState = MOVING;
     }
 
     else if(actionState == MOVING)
     {
+
         if (navigator.isTrajectoryFinished())
         {
-                if(curActIndex == 0)
+                if((curActIndex == 0 && curSeqIndex < curSeq.tot_len) && false)
                 {
-
+                    SerialCtrl.print("movement pathfinding : ");
+                    SerialCtrl.print(curSeq.point[curSeqIndex][0]);
+                    SerialCtrl.print("\t");
+                    SerialCtrl.println(curSeq.point[curSeqIndex][1]);
+                    abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
+                    curSeqIndex++;
                 }
                 // Si on est pas suffisament proche de la position et qu'on a le droit de se réajuster (permission lié à un "timeout" pour pas perdre trop de tps à se réajuster)
                 else if (distance_squared(get_abs_x(), get_abs_y(), action.x,action.y) > ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR
@@ -219,7 +229,7 @@ void action_dispatcher(Action action)
                 navigator.turn_to(action.angle);
             }
 
-            actionState = TURNING;
+            //actionState = TURNING;
         }
         /*
         //le bloc ci-dessous se lance si on est avant le timer indiqué dans ActionList, ou si on est arrivé à destination/quasi destination 

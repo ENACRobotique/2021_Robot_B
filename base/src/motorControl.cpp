@@ -33,9 +33,9 @@ namespace MotorControl {
 	float Ki_speed = 0.15; //0.2
 	float Kp_speed = 0.4; //0.5
 	float Kd_speed = 0.05; //0.2
-	float Ki_omega = 0;//15;
+	float Ki_omega = 10;//15;
 	float Kp_omega = 40;//10;
-	float Kd_omega = 0;//10;
+	float Kd_omega = 10;//10;
 
 /*
 	float Ki_speed = 0.2;//0.2;
