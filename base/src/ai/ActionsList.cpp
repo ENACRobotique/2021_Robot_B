@@ -86,6 +86,7 @@ namespace ActionList
     
     MoveBar deployBar = MoveBar(true);
     MoveBar retractBar = MoveBar(false);  
+    MoveBar retractBarScore = MoveBar(false, 15);   
 
     Etat_vide_with_serial etat_test_serial_1 = Etat_vide_with_serial("phase 1 test movement initie 1");
     Etat_vide_with_serial etat_test_serial_2 = Etat_vide_with_serial("phase 2 test movement initie 2");
@@ -163,13 +164,13 @@ namespace ActionList
         {200.f, sizeHalfWidthRobot, 0.f, &deployBar, 0.0f}, //on recule du mur pour tourner
         {200.f, sizeHalfWidthRobot, -90.f, &etat_begin, 1.0f},
         {600.f, sizeHalfWidthRobot, -90.f, &etat_begin, 0.0f},
-        {600.f, 200.f, -70.f, &retractBar, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        {600.f, 200.f, -70.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         NullAction
     };
   Action MancheAirBottomRight[4] = {
         {2800.f, sizeHalfWidthRobot, 180.f, &deployBar, 1.0f},
         {2400.f, sizeHalfWidthRobot, 180.f, &etat_begin, 0.0f},
-        {2400.f, 200.f, 250.f, &retractBar, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        {2400.f, 200.f, 250.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         NullAction
     };
 
@@ -184,7 +185,7 @@ namespace ActionList
 
    Action PhareTopLeft[4] = {
         {600.f, 1980.f - sizeHalfLengthRobot, 0.f, &deployBar, 0.0f},
-        {400.f, 1980.f - sizeHalfLengthRobot, -400.f, &retractBar, 0.0f},
+        {400.f, 1980.f - sizeHalfLengthRobot, -400.f, &retractBarScore, 0.0f},
         {400.f, 1980.f - sizeHalfLengthRobot, -400.f, &switchEcocupTopLeft, 0.0f},
         NullAction
    };
