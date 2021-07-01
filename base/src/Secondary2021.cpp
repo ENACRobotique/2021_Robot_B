@@ -100,7 +100,7 @@ void loop() {
 
 		if(controlTime.check()) {
       Odometry::update_reading(&odometry_motor, &odometry_wheel);
-      //MotorControl::update();
+      MotorControl::update();
 		} 
 
     
@@ -117,7 +117,7 @@ void loop() {
  
     if(TestTime.check())
     {
-      asservissementMoteur::update();
+      //asservissementMoteur::update();
     }
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);

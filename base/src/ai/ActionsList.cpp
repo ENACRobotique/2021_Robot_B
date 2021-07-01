@@ -124,7 +124,7 @@ namespace ActionList
         {700.f, 1980.f - sizeHalfLengthRobot, 90.f, &recalibration_wall_top, 0.f},
         //{700.f, 2000.f- sizeHalfLengthRobot, 90.f, &wait_font_cup_succ, 0.f}, 
         //{700.f, 2000.f- sizeHalfLengthRobot, 90.f, &retractFrontServo, 0.f},
-        {700.f, 1800.f, 90.f, &switchPhare, 0.f}, //backing off the wall$ //TODO : faire un SwitchSection
+        {700.f, 1800.f, 0.f, &switchPhare, 0.f}, //backing off the wall$ //TODO : faire un SwitchSection
         NullAction 
 
 
