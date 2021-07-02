@@ -170,7 +170,7 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 void action_dispatcher(Action action)
 {
     //start only when fsmSupervisor has no state
-    if(actionState == BEGIN && fsmSupervisor.is_no_state_set())
+    if(actionState == BEGIN && fsmSupervisor.is_no_state_set() && navigator.isTrajectoryFinished())
     {
         SerialCtrl.print("new action :");
         SerialCtrl.print("\t");
@@ -180,7 +180,7 @@ void action_dispatcher(Action action)
         SerialCtrl.print("\t");
         SerialCtrl.println(action.angle);
         //SerialCtrl.println("actionState == begin");
-        if(curActIndex == 0)// && false) //pathfinding avec waypoint uniquement entre les sections (car gros déplacement)
+        if(curSeqIndex == 0)// && false) //pathfinding avec waypoint uniquement entre les sections (car gros déplacement)
         {
             curSeq = route_from_action(action.x,action.y);
             curSeqIndex = 0;
@@ -188,6 +188,11 @@ void action_dispatcher(Action action)
             SerialCtrl.print(curSeq.point[curSeqIndex][0]);
             curSeqIndex++;
 
+        }
+        else if(curSeqIndex >= 1)
+        {
+            SerialCtrl.print("do nothing");
+            //do nothing
         }
         else //pathfinding uniquement 
         {
@@ -203,14 +208,15 @@ void action_dispatcher(Action action)
 
         if (navigator.isTrajectoryFinished())
         {
-                if((curActIndex == 0 && curSeqIndex < curSeq.tot_len))//() && false)
+                if( curSeqIndex < curSeq.tot_len)//() && false)
                 {
                     SerialCtrl.print("movement pathfinding : ");
                     SerialCtrl.print(curSeq.point[curSeqIndex][0]);
                     SerialCtrl.print("\t");
                     SerialCtrl.println(curSeq.point[curSeqIndex][1]);
+                    SerialCtrl.println(curSeqIndex);
                     abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
-                    curSeqIndex++;
+                    curSeqIndex+=1;
                     actionState = BEGIN;
                 }
                 // Si on est pas suffisament proche de la position et qu'on a le droit de se réajuster (permission lié à un "timeout" pour pas perdre trop de tps à se réajuster)
@@ -224,12 +230,6 @@ void action_dispatcher(Action action)
                 {
                     actionState = TURNING;
                 }
-            if(!(action.angle <= -360.f)) // -180 <= action.angle <= 180° pour être pris en compte, (normalement donc on met 360 au cas où)
-            {
-                SerialCtrl.print("turning to angle : ");
-                SerialCtrl.println(action.angle);
-                navigator.turn_to(action.angle);
-            }
 
             //actionState = TURNING;
         }
@@ -248,6 +248,12 @@ void action_dispatcher(Action action)
     else if(actionState == TURNING && navigator.isTrajectoryFinished())// && fsmSupervisor.is_no_state_set())
     {          
 
+        if(!(action.angle <= -360.f)) // -180 <= action.angle <= 180° pour être pris en compte, (normalement donc on met 360 au cas où)
+        {
+            SerialCtrl.print("turning to angle : ");
+            SerialCtrl.println(action.angle);
+            navigator.turn_to(action.angle);
+        }
         if(abs(action.angle-odometry_wheel.get_pos_theta()) > ADMITTED_DEG_ANGLE_ERROR && nbReadjust < nbCorectionAuthorized)
         {
             SerialCtrl.println("reajustement angle");
