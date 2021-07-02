@@ -10,6 +10,7 @@
 
 //#ifdef DEBUG_MATCH_DIRECTOR
 #include "../stateMachine/etat_vide_with_serial.h"
+#include "params.h"
 //#endif
 
 /**
@@ -74,12 +75,12 @@ namespace ActionList
 
     #pragma region switch_sections
 
-    SwitchSection switchEcocupTopLeft = SwitchSection(&*EcocupsTopLeft);
-    SwitchSection switchPhareLeft = SwitchSection(&*PhareTopLeft);
-    SwitchSection switchDeposeTopLeft = SwitchSection(&*DeposeTopLeft);
-    SwitchSection switchDeposeBottomLeft = SwitchSection(&*DeposeBottomLeft);
-    SwitchSection switchMancheLeft = SwitchSection(&*MancheAirBottomLeft);
-    SwitchSection switchEcocupBottomLeft = SwitchSection(&*EcocupsBottomLeft);
+    SwitchSection switchEcocupTopLeft = SwitchSection(EcocupsTopLeft);
+    SwitchSection switchPhareLeft = SwitchSection(PhareTopLeft);
+    SwitchSection switchDeposeTopLeft = SwitchSection(DeposeTopLeft);
+    SwitchSection switchDeposeBottomLeft = SwitchSection(DeposeBottomLeft);
+    SwitchSection switchMancheLeft = SwitchSection(MancheAirBottomLeft);
+    SwitchSection switchEcocupBottomLeft = SwitchSection(EcocupsBottomLeft);
 
     #pragma endregion
 
@@ -153,18 +154,19 @@ namespace ActionList
          //Going a little bit before the wall + deploy servo before arrival
     };
     Action EcocupsBottomLeft[10] = {
-        {sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
+        {200.f, sizeHalfWidthRobot, 90.f, &recalibration_wall_bottom, 0.0f},
+        //{200.f, 120.f, -180.f, &switchMancheAir, 0.0f},
+        NullAction
+        //{sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
          //Going a little bit before the wall + deploy servo before arrival
     };
 
 
 
-    Action MancheAirBottomLeft[6] = {
-        {200.f, sizeHalfWidthRobot, 0.f, &recalibration_wall_bottom, 0.0f},
-        {200.f, sizeHalfWidthRobot, 0.f, &deployBar, 0.0f}, //on recule du mur pour tourner
-        {200.f, sizeHalfWidthRobot, -90.f, &etat_begin, 1.0f},
-        {600.f, sizeHalfWidthRobot, -90.f, &etat_begin, 0.0f},
-        {600.f, 200.f, -70.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+    Action MancheAirBottomLeft[4] = {
+        {200.f, sizeHalfWidthRobot, -180.f, &deployBar, 1.0f},
+        {600.f, sizeHalfWidthRobot, -180.f, &etat_begin, 0.0f},
+        {600.f, 200.f, 70.f, &retractBar, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         NullAction
     };
   Action MancheAirBottomRight[4] = {
@@ -184,9 +186,9 @@ namespace ActionList
 
 
    Action PhareTopLeft[4] = {
-        {600.f, 1980.f - sizeHalfLengthRobot, 0.f, &deployBar, 0.0f},
-        {400.f, 1980.f - sizeHalfLengthRobot, -400.f, &retractBarScore, 0.0f},
-        {400.f, 1980.f - sizeHalfLengthRobot, -400.f, &switchEcocupTopLeft, 0.0f},
+        {600.f, 1820.f, 0.f, &deployBar, 0.0f},
+        {250.f, 1820.f, -400.f, &retractBar, 0.0f},
+        {400.f, 1820.f, -400.f, &etat_begin, 0.0f},
         NullAction
    };
 

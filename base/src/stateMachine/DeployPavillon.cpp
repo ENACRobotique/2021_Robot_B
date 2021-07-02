@@ -10,12 +10,13 @@ DeployPavillon::DeployPavillon() {
 }
 
 void DeployPavillon::enter() {
-    ActuatorSupervisor::armServos[0].moveServo(SERVO_PAV_ANGLE_DPLOYED);
+    ActuatorSupervisor::armServos[0].moveServo(SERVO_PAV_ANGLE_DPLOYED-25);
     time_start = millis();
 }
 
 void DeployPavillon::doIt() {
     if(((millis() - time_start) > SERVO_MOVEMENT_DURATION*2) ){
+        ActuatorSupervisor::armServos[0].moveServo(SERVO_PAV_ANGLE_DPLOYED);
         fsmSupervisor.setNextState(NULL);
 	} 
 }

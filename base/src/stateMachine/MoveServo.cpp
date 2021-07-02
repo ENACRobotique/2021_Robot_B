@@ -6,7 +6,7 @@
 
 MoveServo::MoveServo(CupColor color, bool isFront, bool isDeploying, bool isSucc) {
     //color = NONE => GREEN+RED, isFront = false => back, isDeployed = false => retract
-    SerialDebug.println("instantiation of MoveServo done ! ");
+    //SerialCtrl.println("instantiation of MoveServo done ! ");
     time_start = 0;
     this->color = color;
     this->isFront = isFront;

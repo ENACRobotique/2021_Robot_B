@@ -7,13 +7,14 @@
 
 
 MoveBar::MoveBar(bool isDeployed, int score) {
-    this->isDeploying = isDeploying;
+    this->isDeploying = isDeployed;
     this->score = score;
 }
 
 void MoveBar::enter() {
     if(isDeploying)
     {
+        SerialCtrl.println("deploying bar ! ");
         ActuatorSupervisor::deploy_bar();
     }
     else

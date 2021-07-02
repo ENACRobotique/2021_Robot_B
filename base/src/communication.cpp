@@ -12,6 +12,8 @@
 
 #include "stateMachine/Recalibration_wall.h"
 
+#include "stateMachine/MoveBar.h"
+
 
 #define COM_DEBUG
 
@@ -129,7 +131,7 @@ namespace Communication {
             case 'b':
                 fsmSupervisor.setNextState(&recalibration_wall_bottom);
                 break;
-            
+                
             default:
                 break;
             }
