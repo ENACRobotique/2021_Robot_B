@@ -10,6 +10,7 @@
 
 //#ifdef DEBUG_MATCH_DIRECTOR
 #include "../stateMachine/etat_vide_with_serial.h"
+#include "params.h"
 //#endif
 
 /**
@@ -177,9 +178,9 @@ namespace ActionList
 
 
    Action PhareTopLeft[4] = {
-        {600.f, 1980.f - sizeHalfLengthRobot, 0.f, &deployBar, 0.0f},
-        {400.f, 1980.f - sizeHalfLengthRobot, -400.f, &retractBar, 0.0f},
-        {400.f, 1980.f - sizeHalfLengthRobot, -400.f, &switchEcocup, 0.0f},
+        {600.f, 1860.f, 0.f, &deployBar, 0.0f},
+        {360.f, 1860.f, -400.f, &retractBar, 0.0f},
+        {400.f, 1860.f, -400.f, &etat_begin, 0.0f},
         NullAction
    };
 

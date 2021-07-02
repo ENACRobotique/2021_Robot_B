@@ -82,11 +82,11 @@ namespace ActuatorSupervisor
     }
     void deploy_bar()
     {
-        otherServos[0].moveServo(SERVO_BAR_ANGLE_DPLOYED);
+        otherServos[1].moveServo(SERVO_BAR_ANGLE_DPLOYED);
     }
     void retract_bar()
     {
-        otherServos[0].moveServo(SERVO_BAR_ANGLE_RTRCTED);
+        otherServos[1].moveServo(SERVO_BAR_ANGLE_RTRCTED);
     }
 
     void switch_pompe(bool isOn, int pompe)

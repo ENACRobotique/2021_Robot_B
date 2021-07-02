@@ -13,13 +13,13 @@
 class MoveBar : public AbstractState {
 public:
 	MoveBar(bool isDeployed);
-
+	bool isDeploying; //false => retracting
 	void enter();
 	void doIt();
 	void leave();
 
 protected:
 	unsigned long time_start;
-	bool isDeploying; //false => retracting
+
 	
 };

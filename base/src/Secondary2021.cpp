@@ -39,10 +39,12 @@ Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
 float sp[4] = {0, 3.14f, 0, -3.14f};
 int i = 0;
 
+bool hasStarted = false;
+
 #include "ai/ActionsList.h"
 void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);
-  //pinMode(11, OUTPUT);
+  pinMode(24, INPUT_PULLUP); //tirette
   //testXbee::init();
     Serial2.begin(57600);
     Serial.begin(57600);
@@ -88,7 +90,11 @@ void setup() {
 }
 
 void loop() {
- 
+    if(digitalRead(TIRETTE) == HIGH && hasStarted == false)
+    {
+      MatchDirector::set_current_action(ActionList::EcocupsTopLeft);
+      hasStarted = true;
+    }
   //testXbee::update();
     
       if(navTime.check())

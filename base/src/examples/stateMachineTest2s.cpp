@@ -3,7 +3,6 @@
 #include "FsmSupervisor.h"
 #include "../stateMachine/Recalibration_wall.h"
 
-bool hasStarted = false;
 
 //actuellement on teste une recalibration sur le mur de départ, donc ne pas coller le robot au mur !
 void stateMachineTest2s::init() {
