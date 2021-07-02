@@ -320,6 +320,9 @@ void update()
 void set_current_action(Action *action)
 {
     curSection = action;
+    actionState = BEGIN;
+    curActIndex = 0;
+    SerialCtrl.println("new section set !");
 }
 
 //to be called when receveing information from raspberry about girouette in communication.h

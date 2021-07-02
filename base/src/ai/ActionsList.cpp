@@ -74,8 +74,8 @@ namespace ActionList
 
     #pragma region switch_sections
 
-    SwitchSection switchEcocup = SwitchSection(&*EcocupsTopLeft);
-    SwitchSection switchPhare = SwitchSection(&*PhareTopLeft);
+    SwitchSection switchEcocup = SwitchSection(EcocupsTopLeft);
+    SwitchSection switchPhare = SwitchSection(PhareTopLeft);
 
     #pragma endregion
 

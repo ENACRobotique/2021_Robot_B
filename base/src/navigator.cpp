@@ -20,7 +20,7 @@ Navigator navigator = Navigator();
 Navigator::Navigator(){
 	turn_done = false;
 	displacement_done = false;
-	trajectory_done = false;
+	trajectory_done = true;
 	x_target = 0;
 	y_target = 0;
 	theta_target = 0;
