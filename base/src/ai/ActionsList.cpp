@@ -163,7 +163,7 @@ namespace ActionList
 
 
 
-    Action MancheAirBottomLeft[4] = {
+    Action MancheAirBottomLeft[6] = {
         {200.f, sizeHalfWidthRobot, -180.f, &deployBar, 1.0f},
         {600.f, sizeHalfWidthRobot, -180.f, &etat_begin, 0.0f},
         {600.f, 200.f, 70.f, &retractBar, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
