@@ -149,15 +149,18 @@ namespace ActionList
          //Going a little bit before the wall + deploy servo before arrival
     };
     Action EcocupsBottomLeft[10] = {
-        {sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
+        {200.f, sizeHalfWidthRobot, 90.f, &recalibration_wall_bottom, 0.0f},
+        //{200.f, 120.f, -180.f, &switchMancheAir, 0.0f},
+        NullAction
+        //{sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
          //Going a little bit before the wall + deploy servo before arrival
     };
 
 
 
     Action MancheAirBottomLeft[4] = {
-        {200.f, sizeHalfWidthRobot, 0.f, &deployBar, 1.0f},
-        {600.f, sizeHalfWidthRobot, 0.f, &etat_begin, 0.0f},
+        {200.f, sizeHalfWidthRobot, -180.f, &deployBar, 1.0f},
+        {600.f, sizeHalfWidthRobot, -180.f, &etat_begin, 0.0f},
         {600.f, 200.f, 70.f, &retractBar, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         NullAction
     };
@@ -178,9 +181,9 @@ namespace ActionList
 
 
    Action PhareTopLeft[4] = {
-        {600.f, 1860.f, 0.f, &deployBar, 0.0f},
-        {360.f, 1860.f, -400.f, &retractBar, 0.0f},
-        {400.f, 1860.f, -400.f, &etat_begin, 0.0f},
+        {600.f, 1820.f, 0.f, &deployBar, 0.0f},
+        {250.f, 1820.f, -400.f, &retractBar, 0.0f},
+        {400.f, 1820.f, -400.f, &etat_begin, 0.0f},
         NullAction
    };
 
