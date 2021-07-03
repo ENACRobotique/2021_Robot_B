@@ -107,7 +107,7 @@ void setup() {
 }
 
 void loop() {
-  
+  /*
  
   //testXbee::update();
     
@@ -141,7 +141,7 @@ void loop() {
     }
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
-
+  */
   //lidar code copy-pasted from rplidar examples
   if (IS_OK(rplidar.waitPoint())) {
     float distance = rplidar.getCurrentPoint().distance; //distance value in mm unit
@@ -149,21 +149,27 @@ void loop() {
     bool  startBit = rplidar.getCurrentPoint().startBit; //whether this point is belong to a new scan
     byte  quality  = rplidar.getCurrentPoint().quality; //quality of the current measurement
     
-    //perform data processing here... 
+    //perform data processing here...
+    //calc nearest int, and round angle accordingly
+    float nearest = floorf(angle+0.5);
+    if (quality != 0){
+      ATC::lidar.set_data((int)nearest, distance, quality);
+    }
+    
 
     SerialCtrl.print(angle);
     SerialCtrl.print("\t");
-        SerialCtrl.print(distance);
+        SerialCtrl.print(distance);      
       SerialCtrl.print("\t");
-          SerialCtrl.print(quality);
+          SerialCtrl.println(quality); /*
       SerialCtrl.print("\t");
           SerialCtrl.print(startBit);
       SerialCtrl.println("\t");
-    //calc nearest int, and round angle accordingly
-    float nearest = floorf(angle+0.5);
-    ATC::lidar.set_data((int)nearest, distance, quality);
+      */
+    
+    //rplidar.stop();
+    //rplidar.startScan();
 
-    SerialCtrl.println(distance);
     
   } else {
 
