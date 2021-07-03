@@ -41,7 +41,6 @@ float sp[4] = {0, 3.14f, 0, -3.14f};
 int i = 0;
 
 // RPLidar driver instance 
-RPLidar rplidar;
 // Lidar data container is initialised in pathfinding, as part of ATC namespace (not sure if good idea)
 
 #define RPLIDAR_MOTOR 37 // The PWM pin for control the speed of RPLIDAR's motor.
@@ -70,13 +69,12 @@ void setup() {
   //Wire.begin();
   for(int i=0; i<10; i++) {
     SerialCtrl.println("starting...");
-    delay(100);
+    delay(10);
   }
 
   // start lidar motor
   analogWrite(RPLIDAR_MOTOR, 200);
   // bind the RPLIDAR driver to the arduino hardware serial
-  rplidar.begin(SerialLidar); //TODO: changer pour le bon canal serial
   
   // set pin modes
   pinMode(RPLIDAR_MOTOR, OUTPUT);
@@ -143,49 +141,6 @@ void loop() {
   //delay(800);
   */
   //lidar code copy-pasted from rplidar examples
-  if (IS_OK(rplidar.waitPoint())) {
-    float distance = rplidar.getCurrentPoint().distance; //distance value in mm unit
-    float angle    = rplidar.getCurrentPoint().angle; //anglue value in degree
-    bool  startBit = rplidar.getCurrentPoint().startBit; //whether this point is belong to a new scan
-    byte  quality  = rplidar.getCurrentPoint().quality; //quality of the current measurement
-    
-    //perform data processing here...
-    //calc nearest int, and round angle accordingly
-    float nearest = floorf(angle+0.5);
-    if (quality != 0){
-      ATC::lidar.set_data((int)nearest, distance, quality);
-    }
-    
 
-    SerialCtrl.print(angle);
-    SerialCtrl.print("\t");
-        SerialCtrl.print(distance);      
-      SerialCtrl.print("\t");
-          SerialCtrl.println(quality); /*
-      SerialCtrl.print("\t");
-          SerialCtrl.print(startBit);
-      SerialCtrl.println("\t");
-      */
-    
-    //rplidar.stop();
-    //rplidar.startScan();
-
-    
-  } else {
-
-    SerialCtrl.println("err");
-    //analogWrite(RPLIDAR_MOTOR, 0); //stop the rplidar motor
-    
-    // try to detect RPLIDAR... 
-    rplidar_response_device_info_t info;
-    if (IS_OK(rplidar.getDeviceInfo(info, 100))) {
-       // detected...
-       rplidar.startScan();
-       
-       // start motor rotating at max allowed speed
-       analogWrite(RPLIDAR_MOTOR, 255);
-       delay(1000);
-    }
-  }
 
 } 
