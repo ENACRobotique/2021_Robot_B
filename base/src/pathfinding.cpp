@@ -34,7 +34,7 @@ Waypoint WP_COUPE[MAX_WP] = {
 
 };
 
-LidarData ATC::lidar = LidarData(true);
+LidarData ATC::lidar = LidarData(false);
 
 Graph ATC::graph = ATC::generate_graph(WP_COUPE, 23);
 
@@ -221,13 +221,16 @@ bool ATC::is_path_blocked(float start[2], float end[2], LidarData *lidar, float 
         //vérif validité mesure
         //bool quality_good = (*lidar).get_quality(ang) > seuil qualité
         
-        //si mesure valide:
+        
         float dist_lid = (*lidar).get_distance(ang);
-        Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
-        if (0 < pt.x and pt.x < 3000 and 0 < pt.y and pt.y < 2000){
-            float dist_pt_attempt = Geom_Vec(start, end).dist_to_point(pt);
-            if (dist_pt_attempt < SEUIL_DANGEREUX){
-                return true;
+        //si mesure valide:
+        if (dist_lid>0 and (*lidar).get_quality(ang) > 0){
+            Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
+            if (0 < pt.x and pt.x < 3000 and 0 < pt.y and pt.y < 2000){
+                float dist_pt_attempt = Geom_Vec(start, end).dist_to_point(pt);
+                if (dist_pt_attempt < SEUIL_DANGEREUX){
+                    return true;
+                }
             }
         }
         //si mesure invalide, ne rien faire

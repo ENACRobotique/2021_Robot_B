@@ -116,7 +116,7 @@ void loop() {
  
     if(digitalRead(TIRETTE) == HIGH && hasStarted == false)
     {
-      MatchDirector::set_current_action(ActionList::EcocupsTopLeft);
+      MatchDirector::set_current_action(ActionList::PhareTopLeft);
       hasStarted = true;
 
     }

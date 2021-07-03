@@ -49,15 +49,15 @@ void readLidar() {
     if(distanceq2) { // Si la lecture est valide
      angle = float(angleq6) / 64.0;
      distance = float(distanceq2) / 4.0;
+     int nearest = (int(angle+0.5f) + 180)%360; //offset de 180° car monté à l'envers
+     ATC::lidar.set_data(nearest, distance, quality);
 
-/*
-    Serial2.print(angle);
-    Serial2.print("\t");
-    Serial2.print(distance);
-    Serial2.print("\t");
-    Serial2.print(quality);
-    Serial2.print("\n");
-*/
+    SerialCtrl.print(nearest);
+    SerialCtrl.print("\t");
+    SerialCtrl.print(ATC::lidar.get_distance(nearest));
+    SerialCtrl.print("\t");
+    SerialCtrl.print(ATC::lidar.get_distance(quality));
+    SerialCtrl.print("\n");
     }
    break;
   }

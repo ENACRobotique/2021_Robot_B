@@ -184,6 +184,28 @@ void action_dispatcher(Action action)
         {
             SerialCtrl.println("curSeqIndex == 0");
             curSeq = route_from_action(action.x,action.y);
+            float begin[2] = {get_abs_x(), get_abs_y()};
+            float full_pos[3] = {get_abs_x(), get_abs_y(), odometry_wheel.get_pos_theta()};
+            float end[2] = {curSeq.point[0][0], curSeq.point[0][1]};
+            for (int i = 0; i < 360; i++)
+            {
+                if(ATC::lidar.get_distance(i) != 0)
+                {
+                    SerialCtrl.print("angle : ");
+                    SerialCtrl.print(i);
+                            SerialCtrl.print(" distance : ");
+                    SerialCtrl.println(ATC::lidar.get_distance(i));
+                }
+                    /* code */
+            }
+            if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos))
+            {
+                SerialCtrl.println("path is BLOCKEd ! WAITING ! ");
+
+                
+
+                return;
+            }
             curSeqIndex = 0;
             abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
             SerialCtrl.print(curSeq.point[curSeqIndex][0]);
@@ -377,7 +399,6 @@ PointSeq route_from_action(float actionX, float actionY)
 PointSeq route_to_follow(float* entry, float* exit, float* robot_pos)
 {
     Route route = ATC::find_route(&ATC::graph, entry, exit, &ATC::lidar, robot_pos);
-   
     return ATC::read_route(route);
     //ATC::
 }
