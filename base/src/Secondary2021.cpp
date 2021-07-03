@@ -53,33 +53,34 @@ void setup() {
   pinMode(24, INPUT_PULLUP); //tirette
   //testXbee::init();
   Serial1.begin(115200); //lidar
-    Serial2.begin(57600);
-    Serial.begin(57600);
-    //SerialDebug.begin(57600);
-    SerialDebug.println("test SerialDebug 1");
-    //SerialCtrl.println(ActionList::isNull(&ActionList::TestStrategieMvtOnly[0]));
-    //#ifdef DEBUG_ASSERVISSEMENT
-      //Serial.println("cons_speed cons_omega actual_speed actual_omega");
-    //#endif
-    
-    //while(!Serial) {} 
-    /*
-    Serial.println("initialization serialDebug");
-    Serial.println("timer du match mis à 10s !!");
-    SerialCtrl.println("initialization serialCtrl");
-    */
+  Serial2.begin(57600);
+  Serial.begin(57600);
+  //SerialDebug.begin(57600);
+  SerialDebug.println("test SerialDebug 1");
+  //SerialCtrl.println(ActionList::isNull(&ActionList::TestStrategieMvtOnly[0]));
+  //#ifdef DEBUG_ASSERVISSEMENT
+    //Serial.println("cons_speed cons_omega actual_speed actual_omega");
+  //#endif
+  
+  //while(!Serial) {} 
+  /*
+  Serial.println("initialization serialDebug");
+  Serial.println("timer du match mis à 10s !!");
+  SerialCtrl.println("initialization serialCtrl");
+  */
   //Wire.begin();
   for(int i=0; i<10; i++) {
     SerialCtrl.println("starting...");
     delay(10);
   }
 
+  pinMode(RPLIDAR_MOTOR, OUTPUT);
   // start lidar motor
   analogWrite(RPLIDAR_MOTOR, 200);
   // bind the RPLIDAR driver to the arduino hardware serial
   
   // set pin modes
-  pinMode(RPLIDAR_MOTOR, OUTPUT);
+
   
   controlTime.reset();
 	debugLed.reset();
@@ -91,6 +92,9 @@ void setup() {
   fsmSupervisor.init();
   ActuatorSupervisor::init();
   MatchDirector::init(); 
+
+   Serial1.write(0xA5); 
+   Serial1.write(0x20);
 
   //debugTest::scanSerial();
   //displayController.init();
@@ -113,6 +117,7 @@ void loop() {
     {
       MatchDirector::set_current_action(ActionList::EcocupsTopLeft);
       hasStarted = true;
+
     }
   //testXbee::update();
     

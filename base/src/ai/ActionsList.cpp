@@ -154,7 +154,8 @@ namespace ActionList
          //Going a little bit before the wall + deploy servo before arrival
     };
     Action EcocupsBottomLeft[10] = {
-        {200.f, sizeHalfWidthRobot, -90.f, &recalibration_wall_bottom, 0.0f},
+        {200.f, 1080.f, -90.f, &etat_begin, 0.0f},
+        {200.f, 100.f, -90.f, &recalibration_wall_bottom, 0.0f},
         {200.f, 120.f, -90.f, &switchMancheLeft, 0.0f},
         NullAction
         //{sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},

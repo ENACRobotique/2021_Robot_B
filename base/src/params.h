@@ -111,13 +111,13 @@ const int SPEED_MAX_CRUISE = 350;
 const int ACCEL_MAX_CAP = 100;
 const int SPEED_MAX_CAP = 100;
 
-const float ACCEL_OMEGA_MAX_CRUISE = 1;
-const float OMEGA_MAX_CRUISE = 1.5;
+const float ACCEL_OMEGA_MAX_CRUISE = 1.f;
+const float OMEGA_MAX_CRUISE = 1.5f;
 
-const float ACCEL_OMEGA_MAX_CAP = 0.3;
-const float OMEGA_MAX_CAP = 0.5;
+const float ACCEL_OMEGA_MAX_CAP = 0.3f;
+const float OMEGA_MAX_CAP = 0.6f;
 
-const float ACCEL_OMEGA_MAX = 1;
+const float ACCEL_OMEGA_MAX = 0.75f;
 
 
 const float ADMITTED_OMEGA_ERROR = 0.03;
