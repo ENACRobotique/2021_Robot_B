@@ -1,4 +1,5 @@
 #include "rplidar.h"
+#include "Arduino.h"
 
 void readLidar() {
  uint8_t current;

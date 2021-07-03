@@ -1,6 +1,6 @@
 #ifndef LIDAR_DATA
 #define LIDAR_DATA
-#include "RPLidar.h"
+#include "rptypes.h"
 
 /* À implémenter */
 class LidarData{
