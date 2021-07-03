@@ -56,7 +56,7 @@ void readLidar() {
      Serial2.print(";");
      Serial2.print(quality);
      Serial2.print("\n");
-2
+
     }
    break;
   }

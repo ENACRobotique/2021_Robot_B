@@ -1,6 +1,7 @@
 #ifndef LIDAR_DATA
 #define LIDAR_DATA
 #include "rptypes.h"
+#include "Arduino.h"
 
 /* À implémenter */
 class LidarData{

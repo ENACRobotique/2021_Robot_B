@@ -34,6 +34,7 @@
 
 #pragma once
 
+#include "Arduino.h"
 #include <vector>
 #include "types.h"
 #include "rplidar_protocol.h"
