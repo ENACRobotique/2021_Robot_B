@@ -39,9 +39,9 @@ Metro commXBee = Metro((unsigned long)(COMMUNICATION_PERIOD * 1000));
 Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
 
 float sp[4] = {0, 3.14f, 0, -3.14f};
-int i = 0;
+int start_time = 0;
+bool lidarLaunched = false;
 
-RPLidar driver;
 // Lidar data container is initialised in pathfinding, as part of ATC namespace (not sure if good idea)
 
 #define RPLIDAR_MOTOR 37 // The PWM pin for control the speed of RPLIDAR's motor.
@@ -73,13 +73,13 @@ void setup() {
     SerialCtrl.println("starting...");
     delay(10);
   }
-
+  pinMode(RPLIDAR_MOTOR, OUTPUT);
   // start lidar motor
   analogWrite(RPLIDAR_MOTOR, 200);
   // bind the RPLIDAR driver to the arduino hardware serial
-  
+  start_time = millis();
   // set pin modes
-  pinMode(RPLIDAR_MOTOR, OUTPUT);
+
   
   controlTime.reset();
 	debugLed.reset();
@@ -98,6 +98,7 @@ void setup() {
   //while (!Serial);
   SerialCtrl.println("test serialctrl");
   Serial.println("test serial");
+
   //ActuatorSupervisor::switch_pompe(true, 0);
   //navigator.move_to(500.f, 0.f);
 
@@ -107,7 +108,13 @@ void setup() {
 }
 
 void loop() {
-  /*
+  if((millis()-start_time) > 2000.f && lidarLaunched == false)
+  {
+    Serial1.write(0xA5); 
+    Serial1.write(0x20);
+    lidarLaunched = true;
+  }
+  
  
   //testXbee::update();
     
@@ -141,7 +148,7 @@ void loop() {
     }
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
-  */
+  
   //lidar code copy-pasted from rplidar examples
 
 readLidar();

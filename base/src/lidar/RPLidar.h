@@ -47,15 +47,14 @@ void readLidar() {
     distanceq2 |= current << 8;
     n = 0;
     if(distanceq2) { // Si la lecture est valide
-     angle = float(angleq6) / 64.0 * PI / 180.0;
+     angle = float(angleq6) / 64.0;
      distance = float(distanceq2) / 4.0;
 
-     Serial2.print(distance);
-     Serial2.print(";");
      Serial2.print(angle);
-     Serial2.print(";");
-     Serial2.print(quality);
-     Serial2.print("\n");
+    Serial2.print("\t");
+     Serial2.print(distance);
+     Serial2.print("\t");
+     Serial2.println(quality);
 
     }
    break;
