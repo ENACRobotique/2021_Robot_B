@@ -156,6 +156,8 @@ void loop() {
         SerialCtrl.print(distance);
       SerialCtrl.print("\t");
           SerialCtrl.print(quality);
+      SerialCtrl.print("\t");
+          SerialCtrl.print(startBit);
       SerialCtrl.println("\t");
     //calc nearest int, and round angle accordingly
     float nearest = floorf(angle+0.5);
