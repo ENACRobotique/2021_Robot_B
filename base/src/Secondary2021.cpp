@@ -25,7 +25,9 @@
 #include "examples/debugTest.h" 
 #include "examples/testXbee.h" 
 #include "pathfinding.h"
-#include "lidar/Lidar.h"
+#include "lidar/LidarData.h"
+#include "lidar/rplidar.h"
+#include "lidar/RPLidar.h"
 //#include "raspberryParser.h"
 #include "DisplayController.h"
 
@@ -39,6 +41,11 @@ Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
 float sp[4] = {0, 3.14f, 0, -3.14f};
 int i = 0;
 
+RPLidar driver;
+// Lidar data container is initialised in pathfinding, as part of ATC namespace (not sure if good idea)
+
+#define RPLIDAR_MOTOR 37 // The PWM pin for control the speed of RPLIDAR's motor.
+                        // This pin should connected with the RPLIDAR's MOTOCTRL signal 
 bool hasStarted = false;
 
 #include "ai/ActionsList.h"
@@ -46,6 +53,7 @@ void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);
   pinMode(24, INPUT_PULLUP); //tirette
   //testXbee::init();
+  Serial1.begin(115200); //lidar
     Serial2.begin(57600);
     Serial.begin(57600);
     //SerialDebug.begin(57600);
@@ -62,6 +70,17 @@ void setup() {
     SerialCtrl.println("initialization serialCtrl");
     */
   //Wire.begin();
+  for(int i=0; i<10; i++) {
+    SerialCtrl.println("starting...");
+    delay(10);
+  }
+
+  // start lidar motor
+  analogWrite(RPLIDAR_MOTOR, 200);
+  // bind the RPLIDAR driver to the arduino hardware serial
+  
+  // set pin modes
+  pinMode(RPLIDAR_MOTOR, OUTPUT);
   
   controlTime.reset();
 	debugLed.reset();
@@ -74,8 +93,8 @@ void setup() {
   ActuatorSupervisor::init();
   MatchDirector::init(); 
 
-  debugTest::scanSerial();
-  displayController.init();
+  //debugTest::scanSerial();
+  //displayController.init();
 
   //while (!Serial);
   SerialCtrl.println("test serialctrl");
@@ -90,6 +109,7 @@ void setup() {
 }
 
 void loop() {
+ 
     if(digitalRead(TIRETTE) == HIGH && hasStarted == false)
     {
       MatchDirector::set_current_action(ActionList::EcocupsTopLeft);
@@ -113,6 +133,7 @@ void loop() {
     if(commXBee.check())
     {
       Communication::update();
+      readLidar();
     }
     if(stateTime.check())
     {   
@@ -127,6 +148,9 @@ void loop() {
     }
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
-  
 
+
+
+=======
+  
 } 

@@ -371,8 +371,8 @@ PointSeq route_from_action(float actionX, float actionY)
 
 PointSeq route_to_follow(float* entry, float* exit, float* robot_pos)
 {
-    
-    Route route = ATC::find_route(&ATC::graph, entry, exit, ATC::lidar, robot_pos);
+    Route route = ATC::find_route(&ATC::graph, entry, exit, &ATC::lidar, robot_pos);
+   
     return ATC::read_route(route);
     //ATC::
 }
