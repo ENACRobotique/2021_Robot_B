@@ -9,6 +9,7 @@
 #include "../ai/MatchDirector.h"
 #include "FsmSupervisor.h"
 #include "etat_begin.h"
+#include "params.h"
 
 
 SwitchSection::SwitchSection(Action* action) {

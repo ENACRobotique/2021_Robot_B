@@ -20,7 +20,7 @@ Navigator navigator = Navigator();
 Navigator::Navigator(){
 	turn_done = false;
 	displacement_done = false;
-	trajectory_done = false;
+	trajectory_done = true;
 	x_target = 0;
 	y_target = 0;
 	theta_target = 0;
@@ -64,7 +64,7 @@ void Navigator::step_backward(float d){
 
 
 void Navigator::turn_to(float theta){ // En degrés
-	odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
+	//odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
 	SerialCtrl.println("odometry motor reset to odometry wheel position !");
 
 	theta_target = center_radian(PI*theta/180);
@@ -145,6 +145,8 @@ float Navigator::compute_cons_speed()
 
 float Navigator::compute_cons_omega()
 {
+	//angle_fore : angle actuel réinitialisé à zéro depuis le debut du "tournage" ??
+
 	float omega_cons, angle_fore, alpha, t_rotation_stop;
 	int sgn;
 
@@ -173,16 +175,20 @@ float Navigator::compute_cons_omega()
 		else{
 			omega_cons = sgn*max(0,abs(odometry_motor.get_omega()) - NAVIGATOR_PERIOD*ACCEL_OMEGA_MAX);
 		}
-	} /*
-	SerialDebug.print("Consigne angle:");
-	SerialDebug.print(omega_cons);
-	SerialDebug.print("\t");
-	SerialDebug.print("Alpha:");
-	SerialDebug.print(alpha);
-	SerialDebug.print("\t");
-	SerialDebug.print("angle_fore:");
-	SerialDebug.println(angle_fore);
-*/
+	} 
+	/*
+	SerialCtrl.print("Consigne angle:");
+	SerialCtrl.print(omega_cons);
+	SerialCtrl.print("omega actuel : ");
+	SerialCtrl.print(odometry_motor.get_omega());
+	SerialCtrl.print("\t");
+	SerialCtrl.print("Alpha:");
+	SerialCtrl.print(alpha);
+	SerialCtrl.print("\t");
+	SerialCtrl.print("angle_fore:");
+	SerialCtrl.println(angle_fore);
+	*/
+
 	return omega_cons;
 }
 
@@ -248,6 +254,7 @@ void Navigator::update(){
 
 			speed_cons=compute_cons_speed();
 			omega_cons = compute_cons_omega();
+			/*
 			Serial.println("cruise mode : ");
 			Serial.print("\t speed_cons :  ");
 			Serial.print(speed_cons);
@@ -256,6 +263,7 @@ void Navigator::update(){
 			Serial.print("\t distance :  ");
 			Serial.print(distance);
 			Serial.println("***");
+			*/
 			MotorControl::set_cons(speed_cons,omega_cons);
 			break;
 		case STOPPED:

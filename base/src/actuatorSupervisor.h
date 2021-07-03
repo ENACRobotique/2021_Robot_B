@@ -25,14 +25,17 @@ namespace ActuatorSupervisor {
 	void deploy_pav();
 	void deploy_bar();
 	void retract_bar();
+	
 	//bool isFrontAttached/detached
 	void switch_pompe(bool isOn, int pompe); //control the mosfet on the secondary card, if isOn = true, switch it on, pompe should be between 0 & 4(POMPE1, [...] POMPE 5)
 	void switch_ev(bool isOn, int ev);
+	void tcaselect(uint8_t i);
 	CupColor get_color(int sensor_nb);
 
 	int servo_nb_to_pin(int servo);
 	int ev_nb_to_pin(int ev);
     int pompe_nb_to_pin(int pompe);
+
 
 
 

@@ -11,6 +11,8 @@
 #include "Action.h"
 #include "../stateMachine/AbstractState.h"
 #include "../stateMachine/MoveServo.h"
+#include "../stateMachine/MoveBar.h"
+
 namespace ActionList
 {
     /**
@@ -43,24 +45,29 @@ namespace ActionList
     Action* section(SectionOrder section_id);
     void set_timer_counter(int timer);
 
-
+    //MoveBar deployBar;
+    //MoveBar retractBar;
 
     #pragma region partie_gauche
 
     extern Action PhareTopLeft[4];
     extern Action EcocupsTopLeft[10];
-    extern Action DeposeLeft[5];
-    extern Action MancheAirBottomLeft[4];
+    extern Action DeposeTopLeft[5];
+    extern Action DeposeBottomLeft[5];
+    extern Action MancheAirBottomLeft[6];
     extern Action EcocupsBottomLeft[10];
     //On redepose left ici
     //Puis on go final
 
     #pragma endregion
-    //extern Action GetToFinal[2];
+    extern Action GetToFinal[2];
 
     extern Action TestStrategieMvtOnly[5];
 
     extern MoveServo deployFrontServo;
+
+    extern MoveBar deployBar;
+    extern MoveBar retractBar; 
 }
 
 
