@@ -26,7 +26,8 @@
 #include "examples/testXbee.h" 
 #include "pathfinding.h"
 #include "lidar/LidarData.h"
-#include <lidar/RPLidar.h>
+#include "lidar/rplidar.h"
+#include "lidar/RPLidar.h"
 //#include "raspberryParser.h"
 #include "DisplayController.h"
 
@@ -40,7 +41,7 @@ Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
 float sp[4] = {0, 3.14f, 0, -3.14f};
 int i = 0;
 
-// RPLidar driver instance 
+RPLidar driver;
 // Lidar data container is initialised in pathfinding, as part of ATC namespace (not sure if good idea)
 
 #define RPLIDAR_MOTOR 37 // The PWM pin for control the speed of RPLIDAR's motor.
@@ -51,6 +52,7 @@ void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);
   //pinMode(11, OUTPUT);
   //testXbee::init();
+  Serial1.begin(115200); //lidar
     Serial2.begin(57600);
     Serial.begin(57600);
     //SerialDebug.begin(57600);
@@ -142,5 +144,5 @@ void loop() {
   */
   //lidar code copy-pasted from rplidar examples
 
-
+readLidar();
 } 
