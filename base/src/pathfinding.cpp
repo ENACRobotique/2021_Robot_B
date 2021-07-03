@@ -19,18 +19,18 @@ Waypoint WP_COUPE[MAX_WP] = {
     {2227, 1000, {   NO,    NO,    NO,   428,    NO,   727,    NO,1455-9,     0,    NO,   400,    NO, LONGR,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Centre Est
     { 772, 1400, {   NO,    NO, 828-9,    NO,    NO,    NO,   728,   400,    NO,     0,1455-9, LONGR,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP corner NO
     {2227, 1400, {   NO,    NO,    NO, 828-9,    NO,    NO,   727,    NO,   400,1455-9,     0,    NO, LONGR,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP corner NE
-    { 772, 1200, {   NO,    NO, LONGR,    NO,    NO,    NO,    NO, LONGR,    NO, LONGR,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,   YES,    NO,    NO}}, //WP link to blue garage (do not stop at this point otherwise)
-    {2227, 1200, {   NO,    NO,    NO, LONGR,    NO,    NO,    NO,    NO, LONGR,    NO, LONGR,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,   YES}}, //WP link to yellow garage (do not stop at this point otherwise)
+    { 772, 1200, {   NO,    NO, LONGR,    NO,    NO,    NO,    NO, LONGR,    NO, LONGR,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO}}, //WP link to blue garage (do not stop at this point otherwise)
+    {2227, 1200, {   NO,    NO,    NO, LONGR,    NO,    NO,    NO,    NO, LONGR,    NO, LONGR,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO}}, //WP link to yellow garage (do not stop at this point otherwise)
     { 670, 1600, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,   YES,    NO,   YES,    NO,    NO,    NO,    NO,    NO}}, //WP interm node north west (bleu)
     {2330, 1600, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,   YES,    NO,   YES,    NO,    NO,    NO,    NO}}, //WP interm node north east (yellow)
     { 300, 1800, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP proche phare bleu
     {2700, 1800, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP proche phare yellow
     { 825, 1800, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,    NO,    NO,    NO,    NO}}, //WP proche eceuils bleu nord
     {2175, 1800, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,    NO,    NO,    NO}}, //WP proche eceuils jaune nord
-    { 300, 1343, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO,    NO,    NO}}, //WP garage rob1A bleu
-    { 150, 1057, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO,    NO}}, //WP garage rob2A bleu
-    {2700, 1057, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO}}, //WP garage rob1A yellow
-    {2850, 1343, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    0 }} //WP garage rob2A yellow
+    { 200, 1200, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO,    NO,    NO}}, //WP garage rob1A bleu
+    {9999, 9999, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO,    NO}}, //WP garage rob2A bleu (isolé)
+    {2800, 1200, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO}}, //WP garage rob1A yellow
+    {9999, 9999, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    0 }} //WP garage rob2A yellow (isolé)
 
 };
 
