@@ -180,7 +180,7 @@ void action_dispatcher(Action action)
         SerialCtrl.print("\t");
         SerialCtrl.println(action.angle);
         //SerialCtrl.println("actionState == begin");
-        if(curSeqIndex == 0)// && false) //pathfinding avec waypoint uniquement entre les sections (car gros déplacement)
+        if(curSeqIndex == 0 && false) //pathfinding avec waypoint uniquement entre les sections (car gros déplacement)
         {
             curSeq = route_from_action(action.x,action.y);
             curSeqIndex = 0;
@@ -208,7 +208,7 @@ void action_dispatcher(Action action)
 
         if (navigator.isTrajectoryFinished())
         {
-                if( curSeqIndex < curSeq.tot_len)//() && false)
+                if( curSeqIndex < curSeq.tot_len && false)
                 {
                     SerialCtrl.print("movement pathfinding : ");
                     SerialCtrl.print(curSeq.point[curSeqIndex][0]);
