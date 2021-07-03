@@ -41,7 +41,6 @@ Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
 float sp[4] = {0, 3.14f, 0, -3.14f};
 int i = 0;
 
-RPLidar driver;
 // Lidar data container is initialised in pathfinding, as part of ATC namespace (not sure if good idea)
 
 #define RPLIDAR_MOTOR 37 // The PWM pin for control the speed of RPLIDAR's motor.
@@ -151,6 +150,5 @@ void loop() {
 
 
 
-=======
   
 } 
