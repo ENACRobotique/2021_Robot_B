@@ -1,10 +1,19 @@
 #include "LidarData.h"
 
-LidarData::LidarData(){
+LidarData::LidarData(bool fake=true){
+    if (fake){
+        for(int i=0;i<360;i++){
+        distance[i] = 65535;
+        quality[i] = 14;
+        last_time[i] = 0;
+    }
+    }
+    else{
     for(int i=0;i<360;i++){
         distance[i] = 0;
         quality[i] = 0;
         last_time[i] = 0;
+    }
     }
 }
 

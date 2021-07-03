@@ -3,10 +3,10 @@
 #include "rptypes.h"
 #include "Arduino.h"
 
-/* À implémenter */
+/* stonks */
 class LidarData{
     public:
-        LidarData();
+        LidarData(bool fake=true);
         float get_distance(int angle);
         byte get_quality(int angle);
         float get_time(int angle);
