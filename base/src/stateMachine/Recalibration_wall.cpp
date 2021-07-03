@@ -63,8 +63,8 @@ void Recalibration_wall::doIt() {
 	if(fabs(cur_reading-wheel_cod_last_reading) <= 0.01f && wheel_cod_last_reading != -1)
 	{
 		navigator.forceStop();
-		float x = (isX) ? MatchDirector::abs_x_to_local(targetPos) : odometry_motor.get_pos_x(); //on recoit des coordonnées locales, donc faut les reconvertir
-		float y = (!isX) ? MatchDirector::abs_y_to_local(targetPos) : odometry_motor.get_pos_y();
+		float x = (isX) ? MatchDirector::abs_x_to_local(targetPos) : odometry_wheel.get_pos_x(); //on recoit des coordonnées locales, donc faut les reconvertir
+		float y = (!isX) ? MatchDirector::abs_y_to_local(targetPos) : odometry_wheel.get_pos_y();
 		odometry_wheel.set_pos(x,y, targetTheta);
 		odometry_motor.set_pos(x,y, targetTheta);
 		fsmSupervisor.setNextState(&etat_begin);

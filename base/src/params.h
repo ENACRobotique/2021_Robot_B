@@ -104,7 +104,7 @@ const float OMEGA_MAX = 1.4f;
 
 
 const int EMERGENCY_BRAKE = 1800;
-const int ACCEL_MAX = 500;
+const int ACCEL_MAX = 300;
 const int ACCEL_MAX_THROW = 100;
 const int SPEED_MAX_CRUISE = 350;
 

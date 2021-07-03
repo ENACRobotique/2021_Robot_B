@@ -61,7 +61,7 @@ namespace MatchDirector
      */
     
     int nbCorectionAuthorized = 0;
-    float timer = 10; // en s, durée du match
+    float timer = 100; // en s, durée du match
     int score = 0;
     float offsetX = 0; //offsets au début du terrain par rapport à l'abs
     float offsetY = 0;
@@ -82,7 +82,7 @@ void init()
 
     //en fonction de la taille du terrain 
 
-    offsetY = 1000.0f; //largeur terrain/2
+    offsetY = 1090.0f; //largeur terrain/2
     offsetX = (isStartingLeft) ? robot_center_x : (3000.0f - robot_center_x); //3000-> longueur terrain
     //DEBUG : 
     //curSection = EcocupsTopLeft;
@@ -309,10 +309,10 @@ void update()
         */
     //}
     
-    if((millis()-start_millis > timer*1000-10000) & !moveBackToBase)
+    if((millis()-start_millis > timer*1000-20000) & !moveBackToBase) //20s avant !
     {
         moveBackToBase = true;
-        //set_current_action(*(compute_final_point()));
+        //set_current_action(ActionList::GetToFinal);
     }
     if(millis()-start_millis > timer*1000-5000) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
     {
@@ -337,9 +337,9 @@ void set_current_action(Action *action)
 void compute_final_point(bool isGirouetteWhite) 
 //White : Sud, Black : Nord
 {
-    /*
+    
     float theta = 0.f;
-
+/*
     if(isStartingLeft)
     {
         ActionList::GetToFinal[0].x = 200.f;
@@ -351,8 +351,8 @@ void compute_final_point(bool isGirouetteWhite)
         ActionList::GetToFinal[0].x = 2800.f;
         ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 500.f : 1500.f;
         ActionList::GetToFinal[0].angle = 0.0f;
-    }
-    */
+    } */
+    
 }
 
 void addScore(int add)

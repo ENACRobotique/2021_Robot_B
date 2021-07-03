@@ -29,7 +29,7 @@ Navigator::Navigator(){
 }
 
 void Navigator::move_to(float x, float y){
-	//odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
+	odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
 	SerialCtrl.println("odometry motor reset to odometry wheel position !");
 	x_target = x;
 	y_target = y;

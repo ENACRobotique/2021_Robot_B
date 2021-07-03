@@ -130,7 +130,7 @@ namespace ActionList
         {700.f, 1980.f - sizeHalfLengthRobot, 90.f, &recalibration_wall_top, 0.f},
         //{700.f, 2000.f- sizeHalfLengthRobot, 90.f, &wait_font_cup_succ, 0.f}, 
         //{700.f, 2000.f- sizeHalfLengthRobot, 90.f, &retractFrontServo, 0.f},
-        {700.f, 1800.f, 90.f, &switchPhareLeft, 0.f}, //backing off the wall$ //TODO : faire un SwitchSection
+        {700.f, 1800.f, 0.f, &switchPhareLeft, 0.f}, //backing off the wall$ //TODO : faire un SwitchSection
         NullAction 
 
 
@@ -154,8 +154,8 @@ namespace ActionList
          //Going a little bit before the wall + deploy servo before arrival
     };
     Action EcocupsBottomLeft[10] = {
-        {200.f, sizeHalfWidthRobot, 90.f, &recalibration_wall_bottom, 0.0f},
-        //{200.f, 120.f, -180.f, &switchMancheAir, 0.0f},
+        {200.f, sizeHalfWidthRobot, -90.f, &recalibration_wall_bottom, 0.0f},
+        {200.f, 120.f, -90.f, &switchMancheLeft, 0.0f},
         NullAction
         //{sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
          //Going a little bit before the wall + deploy servo before arrival
@@ -166,7 +166,7 @@ namespace ActionList
     Action MancheAirBottomLeft[6] = {
         {200.f, sizeHalfWidthRobot, -180.f, &deployBar, 1.0f},
         {600.f, sizeHalfWidthRobot, -180.f, &etat_begin, 0.0f},
-        {600.f, 200.f, 70.f, &retractBar, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        {600.f, 200.f, 70.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         NullAction
     };
   Action MancheAirBottomRight[4] = {
@@ -187,8 +187,8 @@ namespace ActionList
 
    Action PhareTopLeft[4] = {
         {600.f, 1820.f, 0.f, &deployBar, 0.0f},
-        {250.f, 1820.f, -400.f, &retractBar, 0.0f},
-        {400.f, 1820.f, -400.f, &etat_begin, 0.0f},
+        {250.f, 1820.f, -400.f, &retractBarScore, 0.0f},
+        {400.f, 1820.f, -400.f, &switchEcocupBottomLeft, 0.0f},
         NullAction
    };
 

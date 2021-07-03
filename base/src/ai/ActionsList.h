@@ -60,7 +60,7 @@ namespace ActionList
     //Puis on go final
 
     #pragma endregion
-    //extern Action GetToFinal[2];
+    extern Action GetToFinal[2];
 
     extern Action TestStrategieMvtOnly[5];
 
