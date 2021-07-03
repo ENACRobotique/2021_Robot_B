@@ -182,6 +182,7 @@ void action_dispatcher(Action action)
         //SerialCtrl.println("actionState == begin");
         if(curSeqIndex == 0)// && false) //pathfinding avec waypoint uniquement entre les sections (car gros déplacement)
         {
+            SerialCtrl.println("curSeqIndex == 0");
             curSeq = route_from_action(action.x,action.y);
             curSeqIndex = 0;
             abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
@@ -191,10 +192,12 @@ void action_dispatcher(Action action)
         }
         else if(curSeqIndex >= 1)
         {
+            SerialCtrl.println("curSeqIndex >= 1");
             //do nothing
         }
         else //pathfinding uniquement 
         {
+            SerialCtrl.println("chemin direct !");
             abs_coords_to(action.x,action.y);
         }
 
@@ -207,12 +210,13 @@ void action_dispatcher(Action action)
 
         if (navigator.isTrajectoryFinished())
         {
-                if( curSeqIndex < curSeq.tot_len)// && false)
+                if( curSeqIndex > 0 && curSeqIndex < curSeq.tot_len)// && false)
                 {
                     SerialCtrl.print("movement pathfinding : ");
                     SerialCtrl.print(curSeq.point[curSeqIndex][0]);
                     SerialCtrl.print("\t");
-                    SerialCtrl.println(curSeq.point[curSeqIndex][1]);
+                    SerialCtrl.print(curSeq.point[curSeqIndex][1]);
+                    SerialCtrl.println("\t");
                     SerialCtrl.println(curSeqIndex);
                     abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
                     curSeqIndex+=1;
@@ -263,7 +267,6 @@ void action_dispatcher(Action action)
 
 
         //SerialCtrl.println(navigator.theta_target);
-        SerialCtrl.println("actionState turning - fsm nextState ");
         SerialCtrl.print("real pos : ");
         SerialCtrl.print(get_abs_x());
         SerialCtrl.print("\t");
@@ -271,6 +274,7 @@ void action_dispatcher(Action action)
         fsmSupervisor.setNextState(action.state);
         //SerialCtrl.println("actionState - turning done");
         curActIndex++;
+        curSeqIndex = -1;
         nbReadjust = 0;
         actionState = BEGIN;
 
@@ -330,6 +334,7 @@ void set_current_action(Action *action)
     curSection = action;
     actionState = BEGIN;
     curActIndex = 0;
+    curSeqIndex = 0;
     SerialCtrl.println("new section set !");
 }
 
