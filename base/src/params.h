@@ -23,16 +23,12 @@
     //#define SerialDebug = Serial;
     //#define SerialCtrl = Serial5;
     //(using stream instead of HardwareSerial because Serial doesn't inherit it)
-
-    //config normale :
     static Stream& SerialDebug = Serial; // used for debug printing - Serial1 -> USB 
-    static HardwareSerial& SerialCtrl = Serial2;//Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug 
-
-    //config debug : 
     //static Stream& SerialCtrl = Serial; // used for debug printing - Serial1 -> USB 
+    
     //static HardwareSerial& SerialDebug = Serial2;//Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug
 
-
+    static HardwareSerial& SerialCtrl = Serial2;//Serial2; //used for Xbee, sending and receiveing remotly instructions, remote debug 
     
     static HardwareSerial& SerialLidar = Serial1;
 #endif
@@ -64,8 +60,8 @@ const int MOT2_DIR = 33;//34;
 const int SERVO_PAV = 37;
 const int SERVO_BAR = 38;
 
-const int DISPALY_CLK = 9;
-const int DISPLAY_DATA = 10;
+const int DISPALY_CLK = 8;
+const int DISPLAY_DATA = 7;
 
 //PCA 9685PW - not pin from teensy !
 const int EV5 = 14; //EV = ElectroVanne
@@ -98,6 +94,9 @@ const int DISPLAY2 = 8;
 #pragma region addresses I2C et params driver de led
 const int LED_DRIVER_ADDRESS = 0x46; //0x46 is configured, 0x70 is "all called led address" (don't use it )
 const int PWM_FREQUENCY = 50;
+
+const int TCAADDR =  0x70;
+
 #pragma endregion
 
 const float SPEED_MAX = 500.0f; //0.5f;
@@ -105,7 +104,7 @@ const float OMEGA_MAX = 1.4f;
 
 
 const int EMERGENCY_BRAKE = 1800;
-const int ACCEL_MAX = 500;
+const int ACCEL_MAX = 300;
 const int ACCEL_MAX_THROW = 100;
 const int SPEED_MAX_CRUISE = 350;
 
@@ -165,8 +164,8 @@ const int SERVO_ANGLE_RETRACTED = 150;
 const int SERVO_ANGLE_DEPLOYED = 60;
 
 //servos : 
-const int SERVO_PAV_ANGLE_RTRCTED = 15;
-const int SERVO_PAV_ANGLE_DPLOYED = 105;
+const int SERVO_PAV_ANGLE_RTRCTED = 175;
+const int SERVO_PAV_ANGLE_DPLOYED = 80;
 
 const int SERVO_BAR_ANGLE_RTRCTED = 0;
 const int SERVO_BAR_ANGLE_DPLOYED = 180;

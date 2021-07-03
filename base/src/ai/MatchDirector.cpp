@@ -8,6 +8,7 @@
 #include "../actuatorSupervisor.h"
 #include "Arduino.h" //NULL definition
 #include "utils.h"
+#include "DisplayController.h"
 
 /**
  * @brief 
@@ -52,13 +53,15 @@ namespace MatchDirector
      *  @ingroup namespace
      */
     int nbReadjust = 0; //
-
+    PointSeq curSeq;
+    int curSeqIndex = 0;
     /**
      * @brief Number of time we can correct trajectory according to wheel encoder, in order not to be stuck trying to reach an unnatable precise position
      * 
      */
-    int nbCorectionAuthorized = 1;
-    float timer = 10; // en s, durée du match
+    
+    int nbCorectionAuthorized = 0;
+    float timer = 100; // en s, durée du match
     int score = 0;
     float offsetX = 0; //offsets au début du terrain par rapport à l'abs
     float offsetY = 0;
@@ -79,7 +82,7 @@ void init()
 
     //en fonction de la taille du terrain 
 
-    offsetY = 1000.0f; //largeur terrain/2
+    offsetY = 1090.0f; //largeur terrain/2
     offsetX = (isStartingLeft) ? robot_center_x : (3000.0f - robot_center_x); //3000-> longueur terrain
     //DEBUG : 
     //curSection = EcocupsTopLeft;
@@ -167,7 +170,7 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 void action_dispatcher(Action action)
 {
     //start only when fsmSupervisor has no state
-    if(actionState == BEGIN && fsmSupervisor.is_no_state_set())
+    if(actionState == BEGIN && fsmSupervisor.is_no_state_set() && navigator.isTrajectoryFinished())
     {
         SerialCtrl.print("new action :");
         SerialCtrl.print("\t");
@@ -177,22 +180,47 @@ void action_dispatcher(Action action)
         SerialCtrl.print("\t");
         SerialCtrl.println(action.angle);
         //SerialCtrl.println("actionState == begin");
-        float entry[2] = {get_abs_x(), get_abs_y()};
-        float exit[2] = {action.x, action.y};
-        float robotPos[3] = {get_abs_x(), get_abs_y(), odometry_wheel.get_pos_theta()};
-        PointSeq pts_follow = route_to_follow(entry, exit, robotPos);
+        if(curSeqIndex == 0 && false) //pathfinding avec waypoint uniquement entre les sections (car gros déplacement)
+        {
+            curSeq = route_from_action(action.x,action.y);
+            curSeqIndex = 0;
+            abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
+            SerialCtrl.print(curSeq.point[curSeqIndex][0]);
+            curSeqIndex++;
+
+        }
+        else if(curSeqIndex >= 1)
+        {
+            SerialCtrl.print("do nothing");
+            //do nothing
+        }
+        else //pathfinding uniquement 
+        {
+            abs_coords_to(action.x,action.y);
+        }
+
         
-        abs_coords_to(action.x,action.y);
-        SerialCtrl.print("new action :");
         actionState = MOVING;
     }
 
     else if(actionState == MOVING)
     {
+
         if (navigator.isTrajectoryFinished())
         {
+                if( curSeqIndex < curSeq.tot_len && false)
+                {
+                    SerialCtrl.print("movement pathfinding : ");
+                    SerialCtrl.print(curSeq.point[curSeqIndex][0]);
+                    SerialCtrl.print("\t");
+                    SerialCtrl.println(curSeq.point[curSeqIndex][1]);
+                    SerialCtrl.println(curSeqIndex);
+                    abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
+                    curSeqIndex+=1;
+                    actionState = BEGIN;
+                }
                 // Si on est pas suffisament proche de la position et qu'on a le droit de se réajuster (permission lié à un "timeout" pour pas perdre trop de tps à se réajuster)
-                if (distance_squared(get_abs_x(), get_abs_y(), action.x,action.y) > ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR
+                else if (distance_squared(get_abs_x(), get_abs_y(), action.x,action.y) > ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR
                     && nbReadjust < nbCorectionAuthorized / 2) // on divise par 2 pour laiser la moitié de corrections autorisés à la correction d'angle
                 {
                     SerialCtrl.println("reajustement position car erreur trop grande (réel vs erreur admise): ");
@@ -202,14 +230,8 @@ void action_dispatcher(Action action)
                 {
                     actionState = TURNING;
                 }
-            if(!(action.angle <= -360.f)) // -180 <= action.angle <= 180° pour être pris en compte, (normalement donc on met 360 au cas où)
-            {
-                SerialCtrl.print("turning to angle : ");
-                SerialCtrl.println(action.angle);
-                navigator.turn_to(action.angle);
-            }
 
-            actionState = TURNING;
+            //actionState = TURNING;
         }
         /*
         //le bloc ci-dessous se lance si on est avant le timer indiqué dans ActionList, ou si on est arrivé à destination/quasi destination 
@@ -226,6 +248,12 @@ void action_dispatcher(Action action)
     else if(actionState == TURNING && navigator.isTrajectoryFinished())// && fsmSupervisor.is_no_state_set())
     {          
 
+        if(!(action.angle <= -360.f)) // -180 <= action.angle <= 180° pour être pris en compte, (normalement donc on met 360 au cas où)
+        {
+            SerialCtrl.print("turning to angle : ");
+            SerialCtrl.println(action.angle);
+            navigator.turn_to(action.angle);
+        }
         if(abs(action.angle-odometry_wheel.get_pos_theta()) > ADMITTED_DEG_ANGLE_ERROR && nbReadjust < nbCorectionAuthorized)
         {
             SerialCtrl.println("reajustement angle");
@@ -281,10 +309,10 @@ void update()
         */
     //}
     
-    if((millis()-start_millis > timer*1000-10000) & !moveBackToBase)
+    if((millis()-start_millis > timer*1000-20000) & !moveBackToBase) //20s avant !
     {
         moveBackToBase = true;
-        //set_current_action(*(compute_final_point()));
+        //set_current_action(ActionList::GetToFinal);
     }
     if(millis()-start_millis > timer*1000-5000) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
     {
@@ -300,15 +328,18 @@ void update()
 void set_current_action(Action *action)
 {
     curSection = action;
+    actionState = BEGIN;
+    curActIndex = 0;
+    SerialCtrl.println("new section set !");
 }
 
 //to be called when receveing information from raspberry about girouette in communication.h
 void compute_final_point(bool isGirouetteWhite) 
 //White : Sud, Black : Nord
 {
-    /*
+    
     float theta = 0.f;
-
+/*
     if(isStartingLeft)
     {
         ActionList::GetToFinal[0].x = 200.f;
@@ -320,18 +351,28 @@ void compute_final_point(bool isGirouetteWhite)
         ActionList::GetToFinal[0].x = 2800.f;
         ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 500.f : 1500.f;
         ActionList::GetToFinal[0].angle = 0.0f;
-    }
-    */
+    } */
+    
 }
 
 void addScore(int add)
 {
     score += add;
+    displayController.setNbDisplayed(score);
+}
+
+PointSeq route_from_action(float actionX, float actionY)
+{
+        float entry[2] = {get_abs_x(), get_abs_y()};
+        float exit[2] = {actionX, actionY};
+        float robotPos[3] = {get_abs_x(), get_abs_y(), odometry_wheel.get_pos_theta()};
+        return route_to_follow(entry, exit, robotPos);
 }
 
 PointSeq route_to_follow(float* entry, float* exit, float* robot_pos)
 {
     Route route = ATC::find_route(&ATC::graph, entry, exit, &ATC::lidar, robot_pos);
+   
     return ATC::read_route(route);
     //ATC::
 }

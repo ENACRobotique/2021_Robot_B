@@ -1,5 +1,5 @@
 /*
- * deploy_front_servo.h
+ * MoveBar
  *
  *  Created on: 03 april 2021
  *      Author: robot
@@ -12,7 +12,7 @@
 
 class MoveBar : public AbstractState {
 public:
-	MoveBar(bool isDeployed);
+	MoveBar(bool isDeployed, int score = 0);
 
 	void enter();
 	void doIt();
@@ -20,6 +20,7 @@ public:
 
 protected:
 	unsigned long time_start;
+	int score;
 	bool isDeploying; //false => retracting
 	
 };

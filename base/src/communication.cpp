@@ -12,6 +12,8 @@
 
 #include "stateMachine/Recalibration_wall.h"
 
+#include "stateMachine/MoveBar.h"
+
 
 #define COM_DEBUG
 
@@ -104,7 +106,7 @@ namespace Communication {
             }
         }
         else if(buffer[0] == 'l') { //deploy front servo -> from start to deposit ecocup
-            MatchDirector::set_current_action(ActionList::PhareTopLeft);
+            MatchDirector::set_current_action(ActionList::EcocupsTopLeft);
         }
         else if(buffer[0] == 'd') { //deploy BAR
             ActuatorSupervisor::otherServos[1].moveServo(SERVO_BAR_ANGLE_DPLOYED);
@@ -129,7 +131,7 @@ namespace Communication {
             case 'b':
                 fsmSupervisor.setNextState(&recalibration_wall_bottom);
                 break;
-            
+                
             default:
                 break;
             }

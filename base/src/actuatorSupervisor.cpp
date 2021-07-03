@@ -4,6 +4,8 @@
 #include "actuatorSupervisor.h"
 #include "Wire.h"
 #include "Adafruit_PWMServoDriver.h"
+#include "Adafruit_TCS34725.h"
+#include "ai/MatchDirector.h"
 
 namespace ActuatorSupervisor
 {
@@ -12,6 +14,11 @@ namespace ActuatorSupervisor
     ControlServo otherServos[2]; //[0] = Pavillon, [1] = tige horizontale
 
     Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver(LED_DRIVER_ADDRESS, Wire);
+
+    Adafruit_TCS34725 tcs0 = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_2_4MS, TCS34725_GAIN_1X); //Attention modif à prévoir dans la library pour les capteurs chinois
+    Adafruit_TCS34725 tcs1 = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_2_4MS, TCS34725_GAIN_1X);
+
+    bool pavillon_deployed = false;
 
     void init()
     {
@@ -55,12 +62,18 @@ namespace ActuatorSupervisor
         //delay(10);
         //pwm.begin();
         //pwm.setPWMFreq(PWM_FREQUENCY);    
-        SerialCtrl.println("init done for actuatorSupervisor ! ");
+        SerialDebug.println("init done for actuatorSupervisor ! ");
     }
 
     void deploy_pav()
     {
-        otherServos[0].moveServo(SERVO_PAV_ANGLE_DPLOYED);
+        if(pavillon_deployed == false)
+        {
+            MatchDirector::addScore(10);
+            otherServos[0].moveServo(SERVO_PAV_ANGLE_DPLOYED);
+            pavillon_deployed = true;
+        }
+
         //SerialCtrl.println("pavillon - ordre de déploiement");
     }
     void retract_pav()
@@ -69,11 +82,11 @@ namespace ActuatorSupervisor
     }
     void deploy_bar()
     {
-        otherServos[0].moveServo(SERVO_BAR_ANGLE_DPLOYED);
+        otherServos[1].moveServo(SERVO_BAR_ANGLE_DPLOYED);
     }
     void retract_bar()
     {
-        otherServos[0].moveServo(SERVO_BAR_ANGLE_RTRCTED);
+        otherServos[1].moveServo(SERVO_BAR_ANGLE_RTRCTED);
     }
 
     void switch_pompe(bool isOn, int pompe)
@@ -150,12 +163,70 @@ namespace ActuatorSupervisor
         }
     }
 
-}
-ActuatorSupervisor::CupColor ActuatorSupervisor::get_color(int sensor_nb) {
-    SerialCtrl.println("get_color non implémenté !");
-    return NONE;    
-}
 
+
+    void tcaselect(uint8_t i) {
+    if (i > 7) return;
+    Wire.beginTransmission(TCAADDR);
+    Wire.write(1 << i);
+    Wire.endTransmission();  
+    }
+
+    CupColor get_color(int sensor_nb) {
+        uint16_t r, g, b, c, colorTemp, lux;
+        uint8_t sensor_nb_casted = (uint8_t) sensor_nb;
+        tcaselect(sensor_nb_casted);
+        //tcaselect(sensor_nb_casted);
+        
+        switch (sensor_nb)
+        {
+            case 0:
+                tcs0.begin();
+                tcs0.getRawData(&r, &g, &b, &c);
+
+                break;
+            
+            default:
+            SerialCtrl.println("cup color not implemented !!");
+                break;
+        }
+
+        SerialCtrl.print("sensor number # with color g and r: #");
+        SerialCtrl.print(sensor_nb);
+        SerialCtrl.print(g);
+        SerialCtrl.println(r);
+        if(g >= 5000.f)
+        {
+            return CupColor::GREEN;
+        }
+        else if (r >= 5000.f)
+        {
+            return CupColor::RED;
+        }
+        else
+        {
+            return CupColor::NONE;
+        }
+        
+
+
+
+    /*
+    uint16_t r, g, b, c, colorTemp, lux;
+    tcs[i].getRawData(&r, &g, &b, &c);
+    colorTemp = tcs[i].calculateColorTemperature(r, g, b);
+    lux = tcs[i].calculateLux(r, g, b);
+    Serial.print("Sensor #");Serial.print(i); Serial.print(" --- ");
+    Serial.print("Color Temp: "); Serial.print(colorTemp, DEC); Serial.print(" K - ");
+    Serial.print("Lux: "); Serial.print(lux, DEC); Serial.print(" - ");
+    Serial.print("R: "); Serial.print(r, DEC); Serial.print(" ");
+    Serial.print("G: "); Serial.print(g, DEC); Serial.print(" ");
+    Serial.print("B: "); Serial.print(b, DEC); Serial.print(" ");
+    Serial.print("C: "); Serial.print(c, DEC); Serial.print(" ");
+    */
+}  
+
+}
 
 /*
 
@@ -182,3 +253,4 @@ void loop() {
 }
 
 */
+

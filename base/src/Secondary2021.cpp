@@ -46,18 +46,19 @@ bool lidarLaunched = false;
 
 #define RPLIDAR_MOTOR 37 // The PWM pin for control the speed of RPLIDAR's motor.
                         // This pin should connected with the RPLIDAR's MOTOCTRL signal 
+bool hasStarted = false;
 
 #include "ai/ActionsList.h"
 void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);
-  //pinMode(11, OUTPUT);
+  pinMode(24, INPUT_PULLUP); //tirette
   //testXbee::init();
   Serial1.begin(115200); //lidar
     Serial2.begin(57600);
     Serial.begin(57600);
     //SerialDebug.begin(57600);
     SerialDebug.println("test SerialDebug 1");
-    SerialCtrl.println("test SerialCtrl 1");
+    //SerialCtrl.println(ActionList::isNull(&ActionList::TestStrategieMvtOnly[0]));
     //#ifdef DEBUG_ASSERVISSEMENT
       //Serial.println("cons_speed cons_omega actual_speed actual_omega");
     //#endif
@@ -101,13 +102,15 @@ void setup() {
 
   //ActuatorSupervisor::switch_pompe(true, 0);
   //navigator.move_to(500.f, 0.f);
+  //pwm.begin();
 
   //Serial2.println("Scanner debut");
   //debugTest::scanSerial();
- 
+  
 }
 
 void loop() {
+<<<<<<< HEAD
   if((millis()-start_time) > 2000.f && lidarLaunched == false)
   {
     Serial1.write(0xA5); 
@@ -115,7 +118,14 @@ void loop() {
     lidarLaunched = true;
   }
   
+=======
+>>>>>>> 36e0f0522684736352d4b8fd24df34445f1abfea
  
+    if(digitalRead(TIRETTE) == HIGH && hasStarted == false)
+    {
+      MatchDirector::set_current_action(ActionList::EcocupsTopLeft);
+      hasStarted = true;
+    }
   //testXbee::update();
     
       if(navTime.check())
@@ -134,6 +144,7 @@ void loop() {
     if(commXBee.check())
     {
       Communication::update();
+      readLidar();
     }
     if(stateTime.check())
     {   
@@ -148,8 +159,14 @@ void loop() {
     }
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
+<<<<<<< HEAD
   
   //lidar code copy-pasted from rplidar examples
+=======
+>>>>>>> 36e0f0522684736352d4b8fd24df34445f1abfea
 
-readLidar();
+
+
+=======
+  
 } 
