@@ -135,7 +135,7 @@ const float INCR_TO_MM = 0.3414969475;   //PI*WHEEL_DIAMETER/805.12; ou divisé 
 const float INCR_TO_MM_1 = INCR_TO_MM * 1;
 const float INCR_TO_MM_2 = INCR_TO_MM * 1;
 const float CODER_WHEEL_BASE = 222.;
-const float CODER_INCR_TO_MM = 0.06946857;   //PI*WHEEL_DIAMETER/805.12; ou divisé par 701 pour l'encodeur des moteurs 12V
+const float CODER_INCR_TO_MM = 0.06546857;   //PI*WHEEL_DIAMETER/805.12; ou divisé par 701 pour l'encodeur des moteurs 12V
 const float CODER_INCR_TO_MM_1 = CODER_INCR_TO_MM * 1.0133755;
 const float CODER_INCR_TO_MM_2 = CODER_INCR_TO_MM * 0.98697281;
 //const float INCR_TO_TOURS = 1/805.12;
@@ -164,7 +164,7 @@ const int SERVO_ANGLE_RETRACTED = 150;
 const int SERVO_ANGLE_DEPLOYED = 60;
 
 //servos : 
-const int SERVO_PAV_ANGLE_RTRCTED = 175;
+const int SERVO_PAV_ANGLE_RTRCTED = 185;
 const int SERVO_PAV_ANGLE_DPLOYED = 80;
 
 const int SERVO_BAR_ANGLE_RTRCTED = 0;

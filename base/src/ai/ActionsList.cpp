@@ -167,10 +167,11 @@ namespace ActionList
 
     Action MancheAirBottomLeft[8] = {
         {300.f, 100.f, -90.f, &recalibration_wall_bottom, 0.0f},
-        {200.f, 150.f, -180.f, &recalibration_wall_left, 0.0f},
-        {200.f, 100.f, -180.f, &deployBar, 0.0f},
-        {600.f, 100.f, -180.f, &etat_begin, 0.0f},
-        {600.f, 200.f, -140.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        {300.f, 200.f, -90.f, &etat_begin, 0.0f},
+        {150.f, 150.f, -180.f, &recalibration_wall_left, 0.0f},
+        {100.f, 110.f, -180.f, &deployBar, 0.0f},
+        {800.f, 100.f, -180.f, &etat_begin, 0.0f},
+        {800.f, 150.f, -140.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         NullAction
     };
 

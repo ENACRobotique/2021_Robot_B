@@ -63,7 +63,7 @@ namespace MatchDirector
 
 
     int nbCorectionAuthorized = 0;
-    float timer = 200; // en s, durée du match
+    float timer = 500; // en s, durée du match
     int score = 0;
     float offsetX = 0; //offsets au début du terrain par rapport à l'abs
     float offsetY = 0;
@@ -215,8 +215,9 @@ void action_dispatcher(Action action)
             curSeq = route_from_action(action.x,action.y);
 
             float end[2] = {curSeq.point[0][0], curSeq.point[0][1]};
-            if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos))
+            if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos) && false)
             {
+                /*
                 for (int i = 0; i < 360; i++)
                 {
                     if(ATC::lidar.get_distance(i) != 0)
@@ -226,26 +227,32 @@ void action_dispatcher(Action action)
                                 SerialCtrl.print(" distance : ");
                         SerialCtrl.println(ATC::lidar.get_distance(i));
                     }
-                    /* code */
             }
-                SerialCtrl.println("path is BLOCKEd ! WAITING ! ");
-                return;
+            */
+                SerialCtrl.println("path is BLOCKEd ! WAITING 1! ");
             }
-            curSeqIndex = 0;
-            abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
-            curSeqIndex++;
+            else
+            {
+                curSeqIndex = 0;
+                abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
+                curSeqIndex++;
+                actionState = MOVING;
+            }
+
 
         }
         else if(curSeqIndex >= 1)
         {
+            actionState = MOVING;
             SerialCtrl.println("curSeqIndex >= 1");
             //do nothing
         }
         else //pathfinding uniquement 
         {
             float end[2] = {action.x, action.y};
-            if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos))
+            if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos) && false)
             {
+                /*
                 for (int i = 0; i < 360; i++)
                 {
                     if(ATC::lidar.get_distance(i) != 0)
@@ -255,17 +262,20 @@ void action_dispatcher(Action action)
                                 SerialCtrl.print(" distance : ");
                         SerialCtrl.println(ATC::lidar.get_distance(i));
                     }
-                    /* code */
                 }
-                SerialCtrl.println("path is BLOCKEd ! WAITING ! ");
-                return;
+                */
+                SerialCtrl.println("path is BLOCKEd ! WAITING 2! ");
             }
-            SerialCtrl.println("chemin direct !");
-            abs_coords_to(action.x,action.y);
+            else
+            {
+                SerialCtrl.println("chemin direct !");
+                abs_coords_to(action.x,action.y);
+                actionState = MOVING;
+            }
+
         }
 
         
-        actionState = MOVING;
     }
 
     else if(actionState == MOVING)
@@ -282,10 +292,12 @@ void action_dispatcher(Action action)
                     SerialCtrl.print("\t");
                     SerialCtrl.println(curSeqIndex);
                     float end[2] = {curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]};
-                    if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos))
+                    if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos) && false)
                     {
+                        /*
                         for (int i = 0; i < 360; i++)
                     {
+                        
                         if(ATC::lidar.get_distance(i) != 0)
                         {
                             SerialCtrl.print("angle : ");
@@ -293,13 +305,16 @@ void action_dispatcher(Action action)
                                     SerialCtrl.print(" distance : ");
                             SerialCtrl.println(ATC::lidar.get_distance(i));
                         }
-                        /* code */
+                        
+                    }*/
+                        SerialCtrl.println("path is BLOCKEd ! WAITING 3! ");
                     }
-                        SerialCtrl.println("path is BLOCKEd ! WAITING ! ");
-                        return;
+                    else
+                    {
+                        abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
+                        curSeqIndex+=1;
                     }
-                    abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
-                    curSeqIndex+=1;
+
                     actionState = BEGIN;
                 }
                 // Si on est pas suffisament proche de la position et qu'on a le droit de se réajuster (permission lié à un "timeout" pour pas perdre trop de tps à se réajuster)
