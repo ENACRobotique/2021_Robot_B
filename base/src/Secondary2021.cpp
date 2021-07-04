@@ -108,7 +108,7 @@ void setup() {
    Serial1.write(0x20);
 
   //debugTest::scanSerial();
-  //displayController.init();
+  displayController.init();
 
   //while (!Serial);
   SerialCtrl.println("test serialctrl");

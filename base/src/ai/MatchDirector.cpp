@@ -63,7 +63,7 @@ namespace MatchDirector
 
 
     int nbCorectionAuthorized = 0;
-    float timer = 100; // en s, durée du match
+    float timer = 200; // en s, durée du match
     int score = 0;
     float offsetX = 0; //offsets au début du terrain par rapport à l'abs
     float offsetY = 0;
@@ -215,25 +215,24 @@ void action_dispatcher(Action action)
             curSeq = route_from_action(action.x,action.y);
 
             float end[2] = {curSeq.point[0][0], curSeq.point[0][1]};
-            for (int i = 0; i < 360; i++)
-            {
-                if(ATC::lidar.get_distance(i) != 0)
-                {
-                    SerialCtrl.print("angle : ");
-                    SerialCtrl.print(i);
-                            SerialCtrl.print(" distance : ");
-                    SerialCtrl.println(ATC::lidar.get_distance(i));
-                }
-                    /* code */
-            }
             if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos))
             {
+                for (int i = 0; i < 360; i++)
+                {
+                    if(ATC::lidar.get_distance(i) != 0)
+                    {
+                        SerialCtrl.print("angle : ");
+                        SerialCtrl.print(i);
+                                SerialCtrl.print(" distance : ");
+                        SerialCtrl.println(ATC::lidar.get_distance(i));
+                    }
+                    /* code */
+            }
                 SerialCtrl.println("path is BLOCKEd ! WAITING ! ");
                 return;
             }
             curSeqIndex = 0;
             abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
-            SerialCtrl.print(curSeq.point[curSeqIndex][0]);
             curSeqIndex++;
 
         }
@@ -247,6 +246,17 @@ void action_dispatcher(Action action)
             float end[2] = {action.x, action.y};
             if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos))
             {
+                for (int i = 0; i < 360; i++)
+                {
+                    if(ATC::lidar.get_distance(i) != 0)
+                    {
+                        SerialCtrl.print("angle : ");
+                        SerialCtrl.print(i);
+                                SerialCtrl.print(" distance : ");
+                        SerialCtrl.println(ATC::lidar.get_distance(i));
+                    }
+                    /* code */
+                }
                 SerialCtrl.println("path is BLOCKEd ! WAITING ! ");
                 return;
             }
@@ -269,11 +279,22 @@ void action_dispatcher(Action action)
                     SerialCtrl.print(curSeq.point[curSeqIndex][0]);
                     SerialCtrl.print("\t");
                     SerialCtrl.print(curSeq.point[curSeqIndex][1]);
-                    SerialCtrl.println("\t");
+                    SerialCtrl.print("\t");
                     SerialCtrl.println(curSeqIndex);
                     float end[2] = {curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]};
                     if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos))
                     {
+                        for (int i = 0; i < 360; i++)
+                    {
+                        if(ATC::lidar.get_distance(i) != 0)
+                        {
+                            SerialCtrl.print("angle : ");
+                            SerialCtrl.print(i);
+                                    SerialCtrl.print(" distance : ");
+                            SerialCtrl.println(ATC::lidar.get_distance(i));
+                        }
+                        /* code */
+                    }
                         SerialCtrl.println("path is BLOCKEd ! WAITING ! ");
                         return;
                     }
@@ -346,6 +367,7 @@ void update()
     {
 
         start_millis = millis();
+        displayController.setNbDisplayed(0);
     }
     Action curAction = curSection[curActIndex];
     //Une section : un ensemble d'actions, action_dispatcher s'occupe de voir ce qu'il doit faire avec une action ou passer à l'action suivante pour la prochaine loop
@@ -400,6 +422,7 @@ void set_current_action(Action *action)
     actionState = BEGIN;
     curActIndex = 0;
     curSeqIndex = 0;
+    navigator.forceStop();
     SerialCtrl.println("new section set !");
 }
 

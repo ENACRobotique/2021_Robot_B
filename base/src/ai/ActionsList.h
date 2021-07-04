@@ -50,11 +50,11 @@ namespace ActionList
 
     #pragma region partie_gauche
     //côté bleu
-    extern Action PhareTopLeft[4];
+    extern Action PhareTopLeft[5];
     extern Action EcocupsTopLeft[10];
     extern Action DeposeTopLeft[5];
     extern Action DeposeBottomLeft[5];
-    extern Action MancheAirBottomLeft[4];
+    extern Action MancheAirBottomLeft[8];
     extern Action EcocupsBottomLeft[10];
     //côté jaune
     extern Action PhareTopRight[4];
