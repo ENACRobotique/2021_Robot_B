@@ -8,11 +8,11 @@ Waypoint WP_COUPE[MAX_WP] = {
         
     //{coord_x, coord_y, {liste_adjacence avec distances}}
     //ne pas changer l'ordre!
-    { 230,  400, {    0,    NO,   569,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP pour aller cherche les gobelets dans écueuil bleu
+    { 450,  400, {    0,    NO,   569,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP pour aller cherche les gobelets dans écueuil bleu
     {1500,  572, {   NO,     0,   728,   727,    NO,   428, 828-9,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Sud Centre
     { 772,  572, {  569,   728,     0,1455-9,    NO,    NO,    NO,   428,    NO, 828-9,    NO, LONGR,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP corner SO
     {2227,  572, {   NO,   727,1455-9,     0,   569,    NO,    NO,    NO,   428,    NO, 828-9,    NO, LONGR,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP corner SE
-    {2770,  400, {   NO,    NO,    NO,   569,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP pour aller checher les gobelets dans écueuil jaune
+    {2550,  400, {   NO,    NO,    NO,   569,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP pour aller checher les gobelets dans écueuil jaune
     {1500, 1000, {   NO,   428,    NO,    NO,    NO,     0,   400,   728,   727,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Centre du terrain
     {1500, 1400, {   NO, 828-9,    NO,    NO,    NO,   400,     0,    NO,    NO,   728,   727,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Nord Centre
     { 772, 1000, {   NO,    NO,   428,    NO,    NO,   728,    NO,     0,1455-9,   400,    NO, LONGR,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP Centre Ouest
@@ -23,8 +23,8 @@ Waypoint WP_COUPE[MAX_WP] = {
     {2227, 1200, {   NO,    NO,    NO, LONGR,    NO,    NO,    NO,    NO, LONGR,    NO, LONGR,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO}}, //WP link to yellow garage (do not stop at this point otherwise)
     { 670, 1600, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,   YES,    NO,   YES,    NO,    NO,    NO,    NO,    NO}}, //WP interm node north west (bleu)
     {2330, 1600, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,   YES,    NO,   YES,    NO,    NO,    NO,    NO}}, //WP interm node north east (yellow)
-    { 300, 1800, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP proche phare bleu
-    {2700, 1800, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP proche phare yellow
+    { 500, 1800, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP proche phare bleu
+    {2500, 1800, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,     0,    NO,    NO,    NO,    NO,    NO,    NO}}, //WP proche phare yellow
     { 825, 1800, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,    NO,    NO,    NO,    NO}}, //WP proche eceuils bleu nord
     {2175, 1800, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,     0,    NO,    NO,    NO,    NO}}, //WP proche eceuils jaune nord
     { 200, 1200, {   NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO,   YES,    NO,    NO,    NO,    NO,    NO,    NO,    NO,     0,    NO,    NO,    NO}}, //WP garage rob1A bleu

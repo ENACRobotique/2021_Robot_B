@@ -81,6 +81,7 @@ namespace ActionList
     SwitchSection switchDeposeBottomLeft = SwitchSection(DeposeBottomLeft);
     SwitchSection switchMancheLeft = SwitchSection(MancheAirBottomLeft);
     SwitchSection switchEcocupBottomLeft = SwitchSection(EcocupsBottomLeft);
+    SwitchSection switchMancheRight = SwitchSection(MancheAirBottomRight);
 
     #pragma endregion
 
@@ -164,12 +165,13 @@ namespace ActionList
 
 
 
-    Action MancheAirBottomLeft[6] = {
+    Action MancheAirBottomLeft[4] = {
         {200.f, sizeHalfWidthRobot, -180.f, &deployBar, 1.0f},
         {600.f, sizeHalfWidthRobot, -180.f, &etat_begin, 0.0f},
         {600.f, 200.f, 70.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         NullAction
     };
+
   Action MancheAirBottomRight[4] = {
         {2800.f, sizeHalfWidthRobot, 180.f, &deployBar, 1.0f},
         {2400.f, sizeHalfWidthRobot, 180.f, &etat_begin, 0.0f},
@@ -178,12 +180,13 @@ namespace ActionList
     };
 
     //Doit être modifié par Get_To_Final dans match director avec les bonnes coords/angle
-    /*
+    
     Action GetToFinal[2] =
     {
         {200.f, 100.f, 0.f, &etat_begin, 0.0f},
+        NullAction
     };
-    */
+    
 
 
    Action PhareTopLeft[4] = {
@@ -209,6 +212,15 @@ namespace ActionList
         {200.f, 1200.f, 270.f, &switchMancheLeft, 0.0f},
         NullAction
     };
+
+
+
+    Action PhareTopRight[4] = {
+        {2500.f, 1800.f, 180.f, &deployBar, 0.0f}, //offset sur l'angle de 180
+        {2750.f, 1820.f, -400.f, &retractBarScore, 0.0f},
+        {2600.f, 1820.f, -400.f, &switchMancheRight, 0.0f},
+        NullAction
+   };
     
 
     Action TestStrategieMvtOnly[5] = 

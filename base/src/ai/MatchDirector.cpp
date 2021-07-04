@@ -338,7 +338,7 @@ void update()
     if((millis()-start_millis > timer*1000-20000) & !moveBackToBase) //20s avant !
     {
         moveBackToBase = true;
-        //set_current_action(ActionList::GetToFinal);
+        set_current_action(ActionList::GetToFinal);
     }
     if(millis()-start_millis > timer*1000-5000) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
     {
@@ -366,7 +366,7 @@ void compute_final_point(bool isGirouetteWhite)
 {
     
     float theta = 0.f;
-/*
+
     if(isStartingLeft)
     {
         ActionList::GetToFinal[0].x = 200.f;
@@ -378,7 +378,7 @@ void compute_final_point(bool isGirouetteWhite)
         ActionList::GetToFinal[0].x = 2800.f;
         ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 500.f : 1500.f;
         ActionList::GetToFinal[0].angle = 0.0f;
-    } */
+    } 
     
 }
 

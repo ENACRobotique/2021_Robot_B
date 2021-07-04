@@ -52,6 +52,7 @@ bool hasStarted = false;
 void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);
   pinMode(24, INPUT_PULLUP); //tirette
+  pinMode(COLOR, INPUT_PULLUP); //switch couleur
   //testXbee::init();
   Serial1.begin(115200); //lidar
   Serial2.begin(57600);
@@ -81,6 +82,14 @@ void setup() {
   // bind the RPLIDAR driver to the arduino hardware serial
   
   // set pin modes
+
+  if(digitalRead(COLOR) == LOW){
+    SerialCtrl.println("Color switch in yellow(right) position");
+    MatchDirector::isStartingLeft = false;
+  }
+  else{
+    SerialCtrl.println("Color switch in blue(left) position");
+  }
 
   
   controlTime.reset();
@@ -116,7 +125,13 @@ void loop() {
  
     if(digitalRead(TIRETTE) == HIGH && hasStarted == false)
     {
-      MatchDirector::set_current_action(ActionList::PhareTopLeft);
+      if(digitalRead(COLOR) == LOW){
+        MatchDirector::set_current_action(ActionList::PhareTopRight);
+      }
+      else{
+        MatchDirector::set_current_action(ActionList::PhareTopLeft);
+      }
+      
       hasStarted = true;
 
     }
