@@ -5,7 +5,7 @@ unsigned long LIDAR_LASTMSG = millis();
 
 void checkAndRestartLidar(){
     if (millis() - LIDAR_LASTMSG > 500UL){
-        //restart lidar
+        SerialCtrl.println("restarting lidar");
         LIDAR_LASTMSG = millis();
         Serial1.write(0xA5); 
         Serial1.write(0x20);
@@ -65,12 +65,14 @@ void readLidar() {
      int nearest = (180+int(angle+0.5f))%360;
      LIDAR_LASTMSG = millis();
 
+/*
     SerialCtrl.print(nearest);
     SerialCtrl.print("\t");
     SerialCtrl.print(ATC::lidar.get_distance(nearest));
     SerialCtrl.print("\t");
     SerialCtrl.print(ATC::lidar.get_quality(nearest));
     SerialCtrl.print("\n");
+    */
     ATC::lidar.set_data(nearest, distance, quality);
 
 

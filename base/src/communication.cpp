@@ -83,11 +83,19 @@ namespace Communication {
             SerialCtrl.print("\t");
             SerialCtrl.println(odometry_motor.get_pos_theta());
         }
-        else if(buffer[0] == '2') {
+        else if(buffer[0] == '3') {
             SerialCtrl.print("pos - odometry_wheel : ");
             SerialCtrl.print(odometry_wheel.get_pos_x());
             SerialCtrl.print("\t");
             SerialCtrl.print(odometry_wheel.get_pos_y());
+            SerialCtrl.print("\t");
+            SerialCtrl.println(odometry_wheel.get_pos_theta());
+        } 
+        else if(buffer[0] == '2') {
+            SerialCtrl.print("pos - odometry_wheel ABSOLUTE : ");
+            SerialCtrl.print(MatchDirector::get_abs_wheel_x());
+            SerialCtrl.print("\t");
+            SerialCtrl.print(MatchDirector::get_abs_wheel_y());
             SerialCtrl.print("\t");
             SerialCtrl.println(odometry_wheel.get_pos_theta());
         } 

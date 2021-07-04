@@ -27,6 +27,8 @@ namespace MatchDirector
     float abs_y_to_local(float y);
     float get_abs_x();
     float get_abs_y();
+    float  get_abs_wheel_x();
+    float  get_abs_wheel_y();
 
     /**
      * @brief Fonction qui doit être appelé par match director peu de temps avant la fin, modifie les coordonnées à atteindre à la fin
@@ -50,6 +52,7 @@ namespace MatchDirector
     extern Action *curSection;
     extern bool isStartingLeft;
     extern bool isDrivingBackward; //if move with navigator with positive number, robot goes backward
+    extern bool hasStarted;
 
 } // namespace MatchDirector
 

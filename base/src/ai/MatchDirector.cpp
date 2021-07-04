@@ -59,7 +59,9 @@ namespace MatchDirector
      * @brief Number of time we can correct trajectory according to wheel encoder, in order not to be stuck trying to reach an unnatable precise position
      * 
      */
-    
+    bool hasStarted;
+
+
     int nbCorectionAuthorized = 0;
     float timer = 100; // en s, durée du match
     int score = 0;
@@ -75,7 +77,8 @@ namespace MatchDirector
 
 void init()
 {
-    start_millis = millis();
+    start_millis =  3600000;
+    hasStarted = false;
     moveBackToBase = false;
     //TODO : call only when match has started;
     //TODO : implement timer count;
@@ -145,6 +148,29 @@ float get_abs_y()
     else 
     {
         return odometry_motor.get_pos_y() + offsetY;
+    }
+}
+float get_abs_wheel_x()
+{
+    if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
+    {
+        return -odometry_wheel.get_pos_x() + offsetX;
+    }
+    else 
+    {
+        return odometry_wheel.get_pos_x() + offsetX;
+    }
+}
+
+float get_abs_wheel_y()
+{
+    if((!isStartingLeft && !isDrivingBackward) || (isStartingLeft && isDrivingBackward))
+    {
+        return -odometry_wheel.get_pos_y() + offsetY;
+    }
+    else 
+    {
+        return odometry_wheel.get_pos_y() + offsetY;
     }
 }
 float timeToReachCoords(float begX, float begY, float targetX, float targetY)
@@ -305,6 +331,11 @@ void action_dispatcher(Action action)
 
 void update()
 { 
+    if(hasStarted && start_millis == 3600000)
+    {
+
+        start_millis = millis();
+    }
     Action curAction = curSection[curActIndex];
     //Une section : un ensemble d'actions, action_dispatcher s'occupe de voir ce qu'il doit faire avec une action ou passer à l'action suivante pour la prochaine loop
     if(curSection != NULL && !ActionList::isNull(&curAction))
@@ -335,12 +366,13 @@ void update()
         */
     //}
     
-    if((millis()-start_millis > timer*1000-20000) & !moveBackToBase) //20s avant !
+    if((millis()-start_millis > timer*1000-20000) & !moveBackToBase && hasStarted) //20s avant !
     {
+        SerialCtrl.print("returning to base ! ");
         moveBackToBase = true;
         set_current_action(ActionList::GetToFinal);
     }
-    if(millis()-start_millis > timer*1000-5000) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
+    if(millis()-start_millis > timer*1000-5000 && hasStarted) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
     {
         ActuatorSupervisor::deploy_pav();
 

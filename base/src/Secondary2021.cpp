@@ -47,7 +47,7 @@ bool lidarStarted = false;
 
 #define RPLIDAR_MOTOR 37 // The PWM pin for control the speed of RPLIDAR's motor.
                         // This pin should connected with the RPLIDAR's MOTOCTRL signal 
-bool hasStarted = false;
+
 float startTime = 0;
 #include "ai/ActionsList.h"
 void setup() {
@@ -134,11 +134,12 @@ void loop() {
  }
   if(millis() -startTime >= 2000.f && lidarStarted == false)
   {
+    SerialCtrl.println("reinit lidar");
     lidarStarted = true;
     Serial1.write(0xA5); 
    Serial1.write(0x20);
   }
-    if(digitalRead(TIRETTE) == HIGH && hasStarted == false)
+    if(digitalRead(TIRETTE) == HIGH && MatchDirector::hasStarted == false)
     {
       if(digitalRead(COLOR) == LOW){
         MatchDirector::set_current_action(ActionList::PhareTopRight);
@@ -147,7 +148,7 @@ void loop() {
         MatchDirector::set_current_action(ActionList::PhareTopLeft);
       }
       
-      hasStarted = true;
+      MatchDirector::hasStarted = true;
 
     }
   //testXbee::update();
@@ -161,7 +162,7 @@ void loop() {
 
 		if(controlTime.check()) {
       Odometry::update_reading(&odometry_motor, &odometry_wheel);
-      //MotorControl::update();
+      MotorControl::update();
 		} 
 
     
@@ -169,8 +170,8 @@ void loop() {
     {
       Communication::update();
       readLidar();
-      if(millis() -startTime >= 3000.f && lidarStarted == true){
-        //checkAndRestartLidar();
+      if((millis() -startTime >= 3000.f && lidarStarted == true)||true){
+        checkAndRestartLidar();
       }
       
     }
