@@ -134,6 +134,7 @@ void loop() {
  }
   if(millis() -startTime >= 2000.f && lidarStarted == false)
   {
+      analogWrite(RPLIDAR_MOTOR, 255);
     SerialCtrl.println("reinit lidar");
     lidarStarted = true;
     Serial1.write(0xA5); 
