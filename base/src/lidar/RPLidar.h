@@ -13,6 +13,8 @@ void readLidar() {
  float distance;
 
  while(Serial1.available()) {
+     //SerialCtrl.print("serial size : ");
+     //SerialCtrl.println(Serial1.available());
   current = Serial1.read();
 
   switch(n) {

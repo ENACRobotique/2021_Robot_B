@@ -40,6 +40,7 @@ Metro stateTime = Metro((unsigned long)(STATE_PERIOD * 1000));
 
 float sp[4] = {0, 3.14f, 0, -3.14f};
 int i = 0;
+bool lidarStarted = false;
 
 //LidarData ATC::lidar; because
 // Lidar data container is initialised in pathfinding, as part of ATC namespace (not sure if good idea)
@@ -47,7 +48,7 @@ int i = 0;
 #define RPLIDAR_MOTOR 37 // The PWM pin for control the speed of RPLIDAR's motor.
                         // This pin should connected with the RPLIDAR's MOTOCTRL signal 
 bool hasStarted = false;
-
+float startTime = 0;
 #include "ai/ActionsList.h"
 void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);
@@ -123,6 +124,20 @@ void setup() {
 
 void loop() {
  
+ if(debugLed.check())
+ {
+    
+   while(Serial1.available())
+   {
+     Serial1.flush();
+   }
+ }
+  if(millis() -startTime >= 2000.f && lidarStarted == false)
+  {
+    lidarStarted = true;
+    Serial1.write(0xA5); 
+   Serial1.write(0x20);
+  }
     if(digitalRead(TIRETTE) == HIGH && hasStarted == false)
     {
       if(digitalRead(COLOR) == LOW){
@@ -146,7 +161,7 @@ void loop() {
 
 		if(controlTime.check()) {
       Odometry::update_reading(&odometry_motor, &odometry_wheel);
-      MotorControl::update();
+      //MotorControl::update();
 		} 
 
     
