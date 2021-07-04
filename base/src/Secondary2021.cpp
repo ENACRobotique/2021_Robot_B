@@ -127,10 +127,10 @@ void loop() {
  if(debugLed.check())
  {
     
-   while(Serial1.available())
+   /*while(Serial1.available())
    {
      Serial1.flush();
-   }
+   }*/
  }
   if(millis() -startTime >= 2000.f && lidarStarted == false)
   {
@@ -169,6 +169,10 @@ void loop() {
     {
       Communication::update();
       readLidar();
+      if(millis() -startTime >= 3000.f && lidarStarted == true){
+        //checkAndRestartLidar();
+      }
+      
     }
     if(stateTime.check())
     {   

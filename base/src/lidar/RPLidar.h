@@ -1,6 +1,17 @@
 #include "rplidar.h"
 #include "Arduino.h"
 
+unsigned long LIDAR_LASTMSG = millis();
+
+void checkAndRestartLidar(){
+    if (millis() - LIDAR_LASTMSG > 500UL){
+        //restart lidar
+        LIDAR_LASTMSG = millis();
+        Serial1.write(0xA5); 
+        Serial1.write(0x20);
+    }
+}
+
 void readLidar() {
  uint8_t current;
  static uint8_t n = 0;
@@ -13,8 +24,8 @@ void readLidar() {
  float distance;
 
  while(Serial1.available()) {
-     //SerialCtrl.print("serial size : ");
-     //SerialCtrl.println(Serial1.available());
+    // SerialCtrl.print("size ");
+    // SerialCtrl.println(Serial1.available());
   current = Serial1.read();
 
   switch(n) {
@@ -51,15 +62,18 @@ void readLidar() {
     if(distanceq2) { // Si la lecture est valide
      angle = float(angleq6) / 64.0;
      distance = float(distanceq2) / 4.0;
-     int nearest = (int(angle+0.5f) + 180)%360; //offset de 180° car monté à l'envers
-     ATC::lidar.set_data(nearest, distance, quality);
+     int nearest = (180+int(angle+0.5f))%360;
+     LIDAR_LASTMSG = millis();
 
     SerialCtrl.print(nearest);
     SerialCtrl.print("\t");
     SerialCtrl.print(ATC::lidar.get_distance(nearest));
     SerialCtrl.print("\t");
-    SerialCtrl.print(ATC::lidar.get_distance(quality));
+    SerialCtrl.print(ATC::lidar.get_quality(nearest));
     SerialCtrl.print("\n");
+    ATC::lidar.set_data(nearest, distance, quality);
+
+
     }
    break;
   }

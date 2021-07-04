@@ -20,7 +20,7 @@ LidarData::LidarData(bool fake=true){
 void LidarData::set_data(int angle, float dist, byte qual){
     distance[angle] = dist;
     quality[angle] = qual;
-    last_time[angle] = millis();
+    last_time[angle] = 0;
 }
 
 float LidarData::get_distance(int angle){
