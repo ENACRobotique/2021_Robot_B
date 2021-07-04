@@ -31,6 +31,9 @@ class Odometry
 		void update_pos(int incr1, int incr2);
 		void init();
 
+
+		int nbr1;
+		int nbr2;
 	private:
 		const int PIN_COD1_A;
 		const int PIN_COD1_B;
@@ -45,6 +48,7 @@ class Odometry
 		static volatile int _incr2;
 		static volatile int _incr3;
 		static volatile int _incr4;
+
 
 		float pos_x, pos_y, pos_theta;
 
@@ -63,3 +67,18 @@ extern Odometry odometry_motor;
 extern Odometry odometry_wheel;
 
 #endif /* ODOMETRY_H_ */
+
+/*
+
+1419
+18:50:27.597 -> 1405
+
+18:51:01.226 -> 1428
+18:51:01.226 -> 1454
+
+
+18:51:39.930 -> 1413
+18:51:39.930 -> 1463
+
+
+*/

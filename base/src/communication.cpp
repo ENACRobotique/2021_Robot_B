@@ -145,6 +145,12 @@ namespace Communication {
             }
 
         }
+        else if(buffer[0] == '9')
+        {
+            SerialCtrl.println(odometry_wheel.nbr1);
+            SerialCtrl.println(odometry_wheel.nbr2);
+            
+        }
         else if(buffer[0] == 'a') {
             float x,y;
             int nb = sscanf(buffer, "a %f %f", &x, &y);

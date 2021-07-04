@@ -45,7 +45,7 @@ bool lidarStarted = false;
 //LidarData ATC::lidar; because
 // Lidar data container is initialised in pathfinding, as part of ATC namespace (not sure if good idea)
 
-#define RPLIDAR_MOTOR 37 // The PWM pin for control the speed of RPLIDAR's motor.
+#define RPLIDAR_MOTOR 38 // The PWM pin for control the speed of RPLIDAR's motor.
                         // This pin should connected with the RPLIDAR's MOTOCTRL signal 
 
 float startTime = 0;
@@ -172,7 +172,7 @@ void loop() {
       Communication::update();
       readLidar();
       if((millis() -startTime >= 3000.f && lidarStarted == true)||true){
-        checkAndRestartLidar();
+        //checkAndRestartLidar();
       }
       
     }

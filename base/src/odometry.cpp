@@ -38,7 +38,8 @@ Odometry::Odometry(int PIN_COD1_A, int PIN_COD1_B,int PIN_COD2_A,int PIN_COD2_B,
 	WHEEL_BASE(WHEEL_BASE),
 	isMotor(isMotor)
 {
-
+	nbr1 = 0;
+	nbr2 = 0;
 }	
 
 Odometry::~Odometry() {
@@ -177,8 +178,8 @@ void Odometry::update_reading(Odometry *odom1, Odometry *odom2) {
 
 void Odometry::update_pos(int incr1, int incr2)
 {
-		//nbr1 += incr1;
-		//nbr2 += incr2;
+		nbr1 += incr1;
+		nbr2 += incr2;
 
 		/*SerialDebug.print("nbr1 ");
 		SerialDebug.print(nbr1);

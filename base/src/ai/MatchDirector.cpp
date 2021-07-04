@@ -195,6 +195,9 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 //Handle the logic/state of an action : should it move, should it execute the next state,...
 void action_dispatcher(Action action)
 {
+    float begin[2] = {get_abs_x(), get_abs_y()};
+    float full_pos[3] = {get_abs_x(), get_abs_y(), odometry_wheel.get_pos_theta()};
+
     //start only when fsmSupervisor has no state
     if(actionState == BEGIN && fsmSupervisor.is_no_state_set() && navigator.isTrajectoryFinished())
     {
@@ -210,8 +213,7 @@ void action_dispatcher(Action action)
         {
             SerialCtrl.println("curSeqIndex == 0");
             curSeq = route_from_action(action.x,action.y);
-            float begin[2] = {get_abs_x(), get_abs_y()};
-            float full_pos[3] = {get_abs_x(), get_abs_y(), odometry_wheel.get_pos_theta()};
+
             float end[2] = {curSeq.point[0][0], curSeq.point[0][1]};
             for (int i = 0; i < 360; i++)
             {
@@ -227,9 +229,6 @@ void action_dispatcher(Action action)
             if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos))
             {
                 SerialCtrl.println("path is BLOCKEd ! WAITING ! ");
-
-                
-
                 return;
             }
             curSeqIndex = 0;
@@ -245,6 +244,12 @@ void action_dispatcher(Action action)
         }
         else //pathfinding uniquement 
         {
+            float end[2] = {action.x, action.y};
+            if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos))
+            {
+                SerialCtrl.println("path is BLOCKEd ! WAITING ! ");
+                return;
+            }
             SerialCtrl.println("chemin direct !");
             abs_coords_to(action.x,action.y);
         }
@@ -266,6 +271,12 @@ void action_dispatcher(Action action)
                     SerialCtrl.print(curSeq.point[curSeqIndex][1]);
                     SerialCtrl.println("\t");
                     SerialCtrl.println(curSeqIndex);
+                    float end[2] = {curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]};
+                    if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos))
+                    {
+                        SerialCtrl.println("path is BLOCKEd ! WAITING ! ");
+                        return;
+                    }
                     abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
                     curSeqIndex+=1;
                     actionState = BEGIN;

@@ -111,16 +111,16 @@ const int SPEED_MAX_CRUISE = 350;
 const int ACCEL_MAX_CAP = 100;
 const int SPEED_MAX_CAP = 100;
 
-const float ACCEL_OMEGA_MAX_CRUISE = 1.f;
-const float OMEGA_MAX_CRUISE = 1.5f;
+//const float ACCEL_OMEGA_MAX_CRUISE = 1.f;
+//const float OMEGA_MAX_CRUISE = 1.5f;
 
-const float ACCEL_OMEGA_MAX_CAP = 0.3f;
-const float OMEGA_MAX_CAP = 0.6f;
+//const float ACCEL_OMEGA_MAX_CAP = 0.3f;
+//const float OMEGA_MAX_CAP = 0.6f;
 
 const float ACCEL_OMEGA_MAX = 0.75f;
 
 
-const float ADMITTED_OMEGA_ERROR = 0.03;
+const float ADMITTED_OMEGA_ERROR = 0.01;
 const float ADMITTED_SPEED_ERROR = 10;
 
 const float ADMITTED_POSITION_ERROR = 5; //3
@@ -135,9 +135,9 @@ const float INCR_TO_MM = 0.3414969475;   //PI*WHEEL_DIAMETER/805.12; ou divisé 
 const float INCR_TO_MM_1 = INCR_TO_MM * 1;
 const float INCR_TO_MM_2 = INCR_TO_MM * 1;
 const float CODER_WHEEL_BASE = 222.;
-const float CODER_INCR_TO_MM = 0.061359232;   //PI*WHEEL_DIAMETER/805.12; ou divisé par 701 pour l'encodeur des moteurs 12V
-const float CODER_INCR_TO_MM_1 = CODER_INCR_TO_MM * 1;
-const float CODER_INCR_TO_MM_2 = CODER_INCR_TO_MM * 1;
+const float CODER_INCR_TO_MM = 0.06946857;   //PI*WHEEL_DIAMETER/805.12; ou divisé par 701 pour l'encodeur des moteurs 12V
+const float CODER_INCR_TO_MM_1 = CODER_INCR_TO_MM * 1.0133755;
+const float CODER_INCR_TO_MM_2 = CODER_INCR_TO_MM * 0.98697281;
 //const float INCR_TO_TOURS = 1/805.12;
 const float CONTROL_PERIOD = 0.02;
 const float NAVIGATOR_PERIOD = 0.05;
