@@ -10,7 +10,7 @@ LidarData::LidarData(bool fake=true){
     }
     else{
     for(int i=0;i<360;i++){
-        distance[i] = 0;
+        distance[i] = -1;
         quality[i] = 0;
         last_time[i] = 0;
     }
