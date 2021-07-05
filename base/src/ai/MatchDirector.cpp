@@ -85,7 +85,7 @@ void init()
 
     //en fonction de la taille du terrain 
 
-    offsetY = 1090.0f; //largeur terrain/2
+    offsetY = (isStartingLeft) ? 1090.0f : 1315.f ; //largeur terrain/2
     offsetX = (isStartingLeft) ? robot_center_x : (3000.0f - robot_center_x); //3000-> longueur terrain
     //DEBUG : 
     //curSection = EcocupsTopLeft;
