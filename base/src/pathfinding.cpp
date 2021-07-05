@@ -487,8 +487,8 @@ PointSeq ATC::read_route(Route &route){
 }
 
 bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
-    int ang_start = (front)? -15 : (180-15);
-    int ang_stop = (front)? 16 : (180+16);
+    int ang_start = (front)? -45 : (180-45);
+    int ang_stop = (front)? 46 : (180+46);
     for(int ang=ang_start;ang<ang_stop;ang++){
         if ((*lidar).get_quality(ang%360)>0){
             float dist_lid = (*lidar).get_distance(ang%360);
@@ -499,7 +499,11 @@ bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
                     SerialCtrl.print(ang);
                     SerialCtrl.print(" dist: ");
                     SerialCtrl.print(dist_lid);
-                    SerialCtrl.println(" in zone and too close(50cm)");
+                    SerialCtrl.print(" in zone(");
+                    SerialCtrl.print(pt.x);
+                    SerialCtrl.print(", ");
+                    SerialCtrl.print(pt.y);
+                    SerialCtrl.println(") and too close(<50cm)");
                     return true;
                 }
             }
