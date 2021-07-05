@@ -496,20 +496,24 @@ bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
             int seuil = ((-20 < ang and ang < 20) or(180-20 < ang and ang < 180+20))? 700: 400;
             if (0.0f < dist_lid and dist_lid < seuil){
                 Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
-                if (0.0f < pt.x and pt.x < 3000.0f and 0.0f < pt.y and pt.y < 2000.0f){
-                
-                    SerialCtrl.print("proximity_check: ang:");
+                SerialCtrl.print("proximity_check: ang:");
                     SerialCtrl.print(ang);
                     SerialCtrl.print(" dist: ");
                     SerialCtrl.print(dist_lid);
-                    SerialCtrl.print(" in zone(");
+                    SerialCtrl.print(" abs(");
                     SerialCtrl.print(pt.x);
                     SerialCtrl.print(", ");
                     SerialCtrl.print(pt.y);
                     SerialCtrl.print(") measured ");
                     SerialCtrl.print(time_since);
-                    SerialCtrl.println("sec ago.");
+                    SerialCtrl.print("sec ago ");
+                if (0.0f < pt.x and pt.x < 3000.0f and 0.0f < pt.y and pt.y < 2000.0f){
+                
+                    SerialCtrl.println(" PROXIMITY");
                     return true;
+                }
+                else{
+                    SerialCtrl.println(" CLEAR");
                 }
             }
         }
