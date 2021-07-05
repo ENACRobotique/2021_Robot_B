@@ -161,14 +161,14 @@ namespace ActionList
         {2279.f,1036.f,-400.f, &etat_begin, 0.f},
         {2228.f,572.f,-400.f, &etat_begin, 0.f},
         {2550.f,400.f,-400.f, &etat_begin, 0.f},
-        {2700.f,200.f,-400.f, &switchMancheLeft, 0.f},
+        {2700.f,200.f,-400.f, &switchMancheRight, 0.f},
     };
     Action EcocupsBottomLeft[10] = {
         {670.f,1600.f,-400.f, &etat_begin, 0.f},
         {721.f,1036.f,-400.f, &etat_begin, 0.f},
         {772.f,572.f,-400.f, &etat_begin, 0.f},
         {450.f,400.f,-400.f, &etat_begin, 0.f},
-        {300.f,200.f,-400.f, &switchMancheRight, 0.f},
+        {300.f,200.f,-400.f, &switchMancheLeft, 0.f},
         NullAction
         //{sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
          //Going a little bit before the wall + deploy servo before arrival

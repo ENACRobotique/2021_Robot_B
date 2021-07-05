@@ -276,6 +276,8 @@ void action_dispatcher(Action action)
         SerialCtrl.print(get_abs_x());
         SerialCtrl.print("\t");
         SerialCtrl.println(get_abs_y());
+        SerialCtrl.print("\t");
+        SerialCtrl.print(odometry_wheel.get_pos_theta());
         fsmSupervisor.setNextState(action.state);
         //SerialCtrl.println("actionState - turning done");
         curActIndex++;
