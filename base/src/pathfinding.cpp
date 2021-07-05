@@ -505,16 +505,10 @@ bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
                     SerialCtrl.print(" in zone(");
                     SerialCtrl.print(pt.x);
                     SerialCtrl.print(", ");
-<<<<<<< HEAD
-                    SerialCtrl.print(pt.y); 
-                    SerialCtrl.println(") and too close(<50cm)");
-                    
-=======
                     SerialCtrl.print(pt.y);
                     SerialCtrl.print(") measured ");
                     SerialCtrl.print(time_since);
                     SerialCtrl.println("sec ago.");
->>>>>>> 7dacff3efa61c156c585eb5ef2994cd70db23439
                     return true;
                 }
             }
