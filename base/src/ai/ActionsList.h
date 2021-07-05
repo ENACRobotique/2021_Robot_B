@@ -52,17 +52,17 @@ namespace ActionList
     //côté bleu
     extern Action PhareTopLeft[5];
     extern Action EcocupsTopLeft[10];
+    extern Action EcocupsTopRight[10];
     extern Action DeposeTopLeft[5];
     extern Action DeposeBottomLeft[5];
     extern Action MancheAirBottomLeft[8];
     extern Action EcocupsBottomLeft[10];
     //côté jaune
-    extern Action PhareTopRight[4];
-    //extern Action EcocupsTopRight[10];
+    extern Action PhareTopRight[5];
     //extern Action DeposeTopRight[5];
     //extern Action DeposeBottomRight[5];
     extern Action MancheAirBottomRight[4];
-    //extern Action EcocupsBottomRight[10];
+    extern Action EcocupsBottomRight[10];
     //On redepose left ici
     //Puis on go final
 

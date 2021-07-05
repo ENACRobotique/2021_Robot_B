@@ -81,6 +81,10 @@ namespace ActionList
     SwitchSection switchDeposeBottomLeft = SwitchSection(DeposeBottomLeft);
     SwitchSection switchMancheLeft = SwitchSection(MancheAirBottomLeft);
     SwitchSection switchEcocupBottomLeft = SwitchSection(EcocupsBottomLeft);
+
+    
+    SwitchSection switchPhareRight = SwitchSection(PhareTopRight);
+    SwitchSection switchEcocupsBottomRight = SwitchSection(EcocupsBottomRight);
     SwitchSection switchMancheRight = SwitchSection(MancheAirBottomRight);
 
     #pragma endregion
@@ -147,13 +151,17 @@ namespace ActionList
         */
 
      Action EcocupsTopRight[10] = {
-        {2000.f, 2000.f-(sizeHalfWidthRobot+100.f), 90.f, &deployFrontServo, 3.0f},
-         //Going a little bit before the wall + deploy servo before arrival
+        {2228.f,1400.f,-400.f, &etat_begin, 0.f},
+        {2650.f,1800.f,-400.f, &switchPhareRight, 0.f},
+        NullAction
     };
         //Y = 400 ??
     Action EcocupsBottomRight[10] = {
-        {3000.f-(sizeHalfWidthRobot+100.f),250.f , 270.f, &deployFrontServo, 3.0f},
-         //Going a little bit before the wall + deploy servo before arrival
+        {2330.f,1600.f,-400.f, &etat_begin, 0.f},
+        {2279.f,1036.f,-400.f, &etat_begin, 0.f},
+        {2228.f,572.f,-400.f, &etat_begin, 0.f},
+        {2550.f,400.f,-400.f, &etat_begin, 0.f},
+        {2700.f,200.f,-400.f, &switchMancheLeft, 0.f},
     };
     Action EcocupsBottomLeft[10] = {
         {670.f,1600.f,-400.f, &etat_begin, 0.f},
@@ -223,10 +231,11 @@ namespace ActionList
 
 
 
-    Action PhareTopRight[4] = {
-        {2500.f, 1800.f, 180.f, &deployBar, 0.0f}, //offset sur l'angle de 180
+    Action PhareTopRight[5] = {
+        {2500.f, 1800.f, 90.f, &recalibration_wall_top, 0.f},
+        {2500.f, 1800.f, 0.f, &deployBar, 0.0f},
         {2750.f, 1820.f, -400.f, &retractBarScore, 0.0f},
-        {2600.f, 1820.f, -400.f, &switchMancheRight, 0.0f},
+        {2600.f, 1820.f, -400.f, &switchEcocupsBottomRight, 0.0f},
         NullAction
    };
     

@@ -143,7 +143,7 @@ void loop() {
     if(digitalRead(TIRETTE) == HIGH && MatchDirector::hasStarted == false)
     {
       if(digitalRead(COLOR) == LOW){
-        MatchDirector::set_current_action(ActionList::PhareTopRight);
+        MatchDirector::set_current_action(ActionList::EcocupsTopRight);
       }
       else{
         MatchDirector::set_current_action(ActionList::EcocupsTopLeft);
@@ -192,7 +192,7 @@ void loop() {
 
     //as fast as possible : 
     readLidar();
-    
+
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
 
