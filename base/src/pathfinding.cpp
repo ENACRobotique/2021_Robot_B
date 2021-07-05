@@ -492,7 +492,7 @@ bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
     for(int ang=ang_start;ang<ang_stop;ang++){
         if ((*lidar).get_quality(ang%360)>0 and (*lidar).get_time(ang%360) - millis() < 3000){
             float dist_lid = (*lidar).get_distance(ang%360);
-            int seuil = (-20 < ang and ang < 20)? 700: 400;
+            int seuil = ((-20 < ang and ang < 20) or(180-20 < ang and ang < 180+20))? 700: 400;
             if (dist_lid < seuil){
                 Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
                 if (0 < pt.x and pt.x < 3000 and 0 < pt.y and pt.y < 2000){
