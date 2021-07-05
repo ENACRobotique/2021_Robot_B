@@ -1,5 +1,6 @@
 #include "pathfinding.h"
-//#include "params.h"
+#include "params.h"
+#include "Arduino.h"
 #include <math.h>
 #include <algorithm>
 
@@ -201,6 +202,21 @@ PseudoRoute ATC::going_to(int *parent, int index_dest, const int wp_number){
 }
 
 bool ATC::is_path_blocked(float start[2], float end[2], LidarData *lidar, float robot_pos[3]){
+    SerialCtrl.print("is_path_blocked: start: ");
+    SerialCtrl.print(start[0]);
+    SerialCtrl.print(", ");
+    SerialCtrl.print(start[1]);
+    SerialCtrl.print(" end: ");
+    SerialCtrl.print(end[0]);
+    SerialCtrl.print(", ");
+    SerialCtrl.print(end[1]);
+    SerialCtrl.print(" rbpos: ");
+    SerialCtrl.print(robot_pos[0]);
+    SerialCtrl.print(", ");
+    SerialCtrl.print(robot_pos[1]);
+    SerialCtrl.print(", ");
+    SerialCtrl.println(robot_pos[2]);
+
     float xyrobot[2] = {robot_pos[0], robot_pos[1]};
 
     int angle_str = (int) Geom_Vec(xyrobot, start).get_angle();
@@ -218,23 +234,40 @@ bool ATC::is_path_blocked(float start[2], float end[2], LidarData *lidar, float 
         ang_span_end = std::max(angle_str%360, angle_stp%360) + 23;
     }
     for(int ang=ang_span_begin;ang<ang_span_end;ang++){
-        //vérif validité mesure
-        //bool quality_good = (*lidar).get_quality(ang) > seuil qualité
-        
-        
         float dist_lid = (*lidar).get_distance(ang);
-        //si mesure valide:
-        if (dist_lid>0 and (*lidar).get_quality(ang) > 0){
+        SerialCtrl.print("ang: ");
+        SerialCtrl.print(ang);
+        //si mesure valide et suffisamment écartée (15cm):
+        if (dist_lid>150 and (*lidar).get_quality(ang) > 0){
+            SerialCtrl.print(" valide dist: ");
+            SerialCtrl.print(dist_lid);
             Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
+            SerialCtrl.print(" plot x:");
+            SerialCtrl.print(pt.x);
+            SerialCtrl.print(" y: ");
+            SerialCtrl.print(pt.y);
             if (0 < pt.x and pt.x < 3000 and 0 < pt.y and pt.y < 2000){
+                SerialCtrl.print(" valide dist_to_path: ");
                 float dist_pt_attempt = Geom_Vec(start, end).dist_to_point(pt);
+                SerialCtrl.print(dist_pt_attempt);
                 if (dist_pt_attempt < SEUIL_DANGEREUX){
+                    SerialCtrl.println(" path is blocked");
                     return true;
                 }
+                else{
+                    SerialCtrl.println(" point_does_not_block");
+                }
             }
+            else{
+                SerialCtrl.println(" hors terrain");
+            }
+        }
+        else{
+            SerialCtrl.println(" invalide ou trop proche");
         }
         //si mesure invalide, ne rien faire
     }
+    SerialCtrl.println("path is not blocked");
     return false;
 }
 
@@ -451,4 +484,26 @@ PointSeq ATC::read_route(Route &route){
     psq.point[route.length][1] = route.end[1];
     psq.tot_len = route.length+1;
     return psq;
+}
+
+bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
+    int ang_start = (front)? -15 : (180-15);
+    int ang_stop = (front)? 16 : (180+16);
+    for(int ang=ang_start;ang<ang_stop;ang++){
+        if ((*lidar).get_quality(ang%360)>0){
+            float dist_lid = (*lidar).get_distance(ang%360);
+            if (dist_lid < 500){
+                Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
+                if (0 < pt.x and pt.x < 3000 and 0 < pt.y and pt.y < 2000){
+                    SerialCtrl.print("proximity_check: ang:");
+                    SerialCtrl.print(ang);
+                    SerialCtrl.print(" dist: ");
+                    SerialCtrl.print(dist_lid);
+                    SerialCtrl.println(" in zone and too close(50cm)");
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
 }
