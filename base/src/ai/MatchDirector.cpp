@@ -63,7 +63,7 @@ namespace MatchDirector
 
 
     int nbCorectionAuthorized = 0;
-    float timer = 500; // en s, durée du match
+    float timer = 200; // en s, durée du match
     int score = 0;
     float offsetX = 0; //offsets au début du terrain par rapport à l'abs
     float offsetY = 0;
@@ -195,7 +195,6 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 //Handle the logic/state of an action : should it move, should it execute the next state,...
 void action_dispatcher(Action action)
 {
-    float begin[2] = {get_abs_x(), get_abs_y()};
     float full_pos[3] = {get_abs_x(), get_abs_y(), odometry_wheel.get_pos_theta()};
 
     //start only when fsmSupervisor has no state
@@ -209,144 +208,55 @@ void action_dispatcher(Action action)
         SerialCtrl.print("\t");
         SerialCtrl.println(action.angle);
         //SerialCtrl.println("actionState == begin");
-        if(curSeqIndex == 0)// && false) //pathfinding avec waypoint uniquement entre les sections (car gros déplacement)
+       
+        if(ATC::proximity_check(&ATC::lidar, true, full_pos) && false)
         {
-            SerialCtrl.println("curSeqIndex == 0");
-            curSeq = route_from_action(action.x,action.y);
-
-            float end[2] = {curSeq.point[0][0], curSeq.point[0][1]};
-            if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos) && false)
+            /*
+            for (int i = 0; i < 360; i++)
             {
-                /*
-                for (int i = 0; i < 360; i++)
+                if(ATC::lidar.get_distance(i) != 0)
                 {
-                    if(ATC::lidar.get_distance(i) != 0)
-                    {
-                        SerialCtrl.print("angle : ");
-                        SerialCtrl.print(i);
-                                SerialCtrl.print(" distance : ");
-                        SerialCtrl.println(ATC::lidar.get_distance(i));
-                    }
+                    SerialCtrl.print("angle : ");
+                    SerialCtrl.print(i);
+                            SerialCtrl.print(" distance : ");
+                    SerialCtrl.println(ATC::lidar.get_distance(i));
+                }
             }
             */
-                SerialCtrl.println("path is BLOCKEd ! WAITING 1! ");
-            }
-            else
-            {
-                curSeqIndex = 0;
-                abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
-                curSeqIndex++;
-                actionState = MOVING;
-            }
-
-
+            SerialCtrl.println("path is BLOCKEd ! WAITING 2! ");
         }
-        else if(curSeqIndex >= 1)
+        else
         {
+            SerialCtrl.println("chemin direct !");
+            abs_coords_to(action.x,action.y);
             actionState = MOVING;
-            SerialCtrl.println("curSeqIndex >= 1");
-            //do nothing
         }
-        else //pathfinding uniquement 
-        {
-            float end[2] = {action.x, action.y};
-            if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos) && false)
-            {
-                /*
-                for (int i = 0; i < 360; i++)
-                {
-                    if(ATC::lidar.get_distance(i) != 0)
-                    {
-                        SerialCtrl.print("angle : ");
-                        SerialCtrl.print(i);
-                                SerialCtrl.print(" distance : ");
-                        SerialCtrl.println(ATC::lidar.get_distance(i));
-                    }
-                }
-                */
-                SerialCtrl.println("path is BLOCKEd ! WAITING 2! ");
-            }
-            else
-            {
-                SerialCtrl.println("chemin direct !");
-                abs_coords_to(action.x,action.y);
-                actionState = MOVING;
-            }
-
-        }
-
         
     }
 
     else if(actionState == MOVING)
     {
-
         if (navigator.isTrajectoryFinished())
         {
-                if( curSeqIndex > 0 && curSeqIndex < curSeq.tot_len)// && false)
+            // Si on est pas suffisament proche de la position et qu'on a le droit de se réajuster (permission lié à un "timeout" pour pas perdre trop de tps à se réajuster)
+            if (distance_squared(get_abs_x(), get_abs_y(), action.x,action.y) > ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR
+                && nbReadjust < nbCorectionAuthorized / 2) // on divise par 2 pour laiser la moitié de corrections autorisés à la correction d'angle
+            {
+                SerialCtrl.println("reajustement position car erreur trop grande (réel vs erreur admise): ");
+                nbReadjust++;
+            }
+            else
+            {
+                if(!(action.angle <= -360.f)) // -180 <= action.angle <= 180° pour être pris en compte, (normalement donc on met 360 au cas où)
                 {
-                    SerialCtrl.print("movement pathfinding : ");
-                    SerialCtrl.print(curSeq.point[curSeqIndex][0]);
-                    SerialCtrl.print("\t");
-                    SerialCtrl.print(curSeq.point[curSeqIndex][1]);
-                    SerialCtrl.print("\t");
-                    SerialCtrl.println(curSeqIndex);
-                    float end[2] = {curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]};
-                    if(ATC::is_path_blocked(begin,end, &ATC::lidar,full_pos) && false)
-                    {
-                        /*
-                        for (int i = 0; i < 360; i++)
-                    {
-                        
-                        if(ATC::lidar.get_distance(i) != 0)
-                        {
-                            SerialCtrl.print("angle : ");
-                            SerialCtrl.print(i);
-                                    SerialCtrl.print(" distance : ");
-                            SerialCtrl.println(ATC::lidar.get_distance(i));
-                        }
-                        
-                    }*/
-                        SerialCtrl.println("path is BLOCKEd ! WAITING 3! ");
-                    }
-                    else
-                    {
-                        abs_coords_to(curSeq.point[curSeqIndex][0], curSeq.point[curSeqIndex][1]);
-                        curSeqIndex+=1;
-                    }
+                    SerialCtrl.print("turning to angle : ");
+                    SerialCtrl.println(action.angle);
+                    navigator.turn_to(action.angle);
+                }
+                actionState = TURNING;
+            }
 
-                    actionState = BEGIN;
-                }
-                // Si on est pas suffisament proche de la position et qu'on a le droit de se réajuster (permission lié à un "timeout" pour pas perdre trop de tps à se réajuster)
-                else if (distance_squared(get_abs_x(), get_abs_y(), action.x,action.y) > ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR
-                    && nbReadjust < nbCorectionAuthorized / 2) // on divise par 2 pour laiser la moitié de corrections autorisés à la correction d'angle
-                {
-                    SerialCtrl.println("reajustement position car erreur trop grande (réel vs erreur admise): ");
-                    nbReadjust++;
-                }
-                else
-                {
-                    if(!(action.angle <= -360.f)) // -180 <= action.angle <= 180° pour être pris en compte, (normalement donc on met 360 au cas où)
-                    {
-                        SerialCtrl.print("turning to angle : ");
-                        SerialCtrl.println(action.angle);
-                        navigator.turn_to(action.angle);
-                    }
-                    actionState = TURNING;
-                }
-
-            //actionState = TURNING;
         }
-        /*
-        //le bloc ci-dessous se lance si on est avant le timer indiqué dans ActionList, ou si on est arrivé à destination/quasi destination 
-        if ((fsmSupervisor.is_no_state_set() || !fsmSupervisor.is_switching_state())
-            && ((timeToReachCoords(get_abs_x(), get_abs_y(), action.x,action.y) <= action.countdownState +1.1f) //car time toReachCoords >= 1 à tout moment
-                || distance_squared(get_abs_x(), get_abs_y(), action.x,action.y) <= ADMITTED_POSITION_ERROR*ADMITTED_POSITION_ERROR))
-        {
-            SerialCtrl.println("actionState - fsmSueprvisor nextState ");
-            fsmSupervisor.setNextState(action.state);
-        } 
-        */
     }
 
     else if(actionState == TURNING && navigator.isTrajectoryFinished())// && fsmSupervisor.is_no_state_set())

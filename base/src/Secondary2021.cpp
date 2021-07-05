@@ -146,7 +146,7 @@ void loop() {
         MatchDirector::set_current_action(ActionList::PhareTopRight);
       }
       else{
-        MatchDirector::set_current_action(ActionList::PhareTopLeft);
+        MatchDirector::set_current_action(ActionList::EcocupsTopLeft);
       }
       
       MatchDirector::hasStarted = true;
@@ -170,7 +170,9 @@ void loop() {
     if(commXBee.check())
     {
       Communication::update();
-      readLidar();
+
+      float full_pos[3] = {MatchDirector::get_abs_x(), MatchDirector::get_abs_y(), odometry_wheel.get_pos_theta()};
+      ATC::proximity_check(&ATC::lidar, true, full_pos);
       if((millis() -startTime >= 3000.f && lidarStarted == true)||true){
         //checkAndRestartLidar();
       }
@@ -187,6 +189,10 @@ void loop() {
     {
       //asservissementMoteur::update();
     }
+
+    //as fast as possible : 
+    readLidar();
+    
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
 
