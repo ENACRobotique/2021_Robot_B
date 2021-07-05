@@ -490,7 +490,8 @@ bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
     int ang_start = (front)? -45 : (180-45);
     int ang_stop = (front)? 46 : (180+46);
     for(int ang=ang_start;ang<ang_stop;ang++){
-        if ((*lidar).get_quality(ang%360)>0 and (*lidar).get_time(ang%360) - millis() < 3000){
+        unsigned long time_since = (*lidar).get_time(ang%360) - millis();
+        if ((*lidar).get_quality(ang%360)>0 and time_since < 3000){
             float dist_lid = (*lidar).get_distance(ang%360);
             int seuil = ((-20 < ang and ang < 20) or(180-20 < ang and ang < 180+20))? 700: 400;
             if (dist_lid < seuil){
@@ -504,7 +505,9 @@ bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
                     SerialCtrl.print(pt.x);
                     SerialCtrl.print(", ");
                     SerialCtrl.print(pt.y);
-                    SerialCtrl.println(") and too close(<50cm)");
+                    SerialCtrl.print(") measured ");
+                    SerialCtrl.print(time_since);
+                    SerialCtrl.println("sec ago.");
                     return true;
                 }
             }
