@@ -105,6 +105,7 @@ namespace ATC /* convert to class with protecting hidden members? later */
     Geom_Vec from_pol_to_abs(float *robot_pos, int lid_ang, float lid_dist);
     PseudoRoute going_to(int *parent, int index_dest, int wp_number);
     PointSeq read_route(Route &route);
+    bool proximity_check(LidarData *lidar, bool front);
 }
 
 #endif //PATHFINDING

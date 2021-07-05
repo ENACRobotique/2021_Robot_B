@@ -485,3 +485,16 @@ PointSeq ATC::read_route(Route &route){
     psq.tot_len = route.length+1;
     return psq;
 }
+
+bool ATC::proximity_check(LidarData *lidar, bool front){
+    int ang_start = (front)? -15 : (180-15);
+    int ang_stop = (front)? 16 : (180+16);
+    for(int ang=ang_start;ang<ang_stop;ang++){
+        if ((*lidar).get_quality(ang%360)>0){
+            if ((*lidar).get_distance(ang%360) < 500){
+                return true;
+            }
+        }
+    }
+    return false;
+}
