@@ -486,13 +486,17 @@ PointSeq ATC::read_route(Route &route){
     return psq;
 }
 
-bool ATC::proximity_check(LidarData *lidar, bool front){
+bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
     int ang_start = (front)? -15 : (180-15);
     int ang_stop = (front)? 16 : (180+16);
     for(int ang=ang_start;ang<ang_stop;ang++){
         if ((*lidar).get_quality(ang%360)>0){
-            if ((*lidar).get_distance(ang%360) < 500){
-                return true;
+            float dist_lid = (*lidar).get_distance(ang%360);
+            if (dist_lid < 500){
+                Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
+                if (0 < pt.x and pt.x < 3000 and 0 < pt.y and pt.y < 2000){
+                    return true;
+                }
             }
         }
     }
