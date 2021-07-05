@@ -155,9 +155,9 @@ namespace ActionList
          //Going a little bit before the wall + deploy servo before arrival
     };
     Action EcocupsBottomLeft[10] = {
-        {200.f, 1080.f, -90.f, &etat_begin, 0.0f},
-        {200.f, 100.f, -90.f, &recalibration_wall_bottom, 0.0f},
-        {200.f, 120.f, -90.f, &switchMancheLeft, 0.0f},
+        {200.f, 1080.f, -400.f, &etat_begin, 0.0f},
+        {200.f, 200.f, -90.f, &recalibration_wall_bottom, 0.0f},
+        {200.f, 200.f, -90.f, &switchMancheLeft, 0.0f},
         NullAction
         //{sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
          //Going a little bit before the wall + deploy servo before arrival
@@ -166,11 +166,12 @@ namespace ActionList
 
 
     Action MancheAirBottomLeft[8] = {
-        {300.f, 100.f, -90.f, &recalibration_wall_bottom, 0.0f},
-        {300.f, 200.f, -90.f, &etat_begin, 0.0f},
-        {150.f, 150.f, -180.f, &recalibration_wall_left, 0.0f},
-        {100.f, 110.f, -180.f, &deployBar, 0.0f},
-        {800.f, 100.f, -180.f, &etat_begin, 0.0f},
+        {300.f, 200.f, -90.f, &recalibration_wall_bottom, 0.0f},
+        {300.f, 200.f, -400.f, &etat_begin, 0.0f},
+        {200.f, 300.f, -180.f, &recalibration_wall_left, 0.0f},
+        {300.f, 300.f, -400.f, &etat_begin, 0.0f},
+        {120.f, 150.f, -170.f, &deployBar, 0.0f},
+        {800.f, 150.f, -180.f, &etat_begin, 0.0f},
         {800.f, 150.f, -140.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         NullAction
     };
