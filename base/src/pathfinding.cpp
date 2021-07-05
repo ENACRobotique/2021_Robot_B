@@ -495,7 +495,7 @@ bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
             if (dist_lid < 500){
                 Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
                 if (0 < pt.x and pt.x < 3000 and 0 < pt.y and pt.y < 2000){
-                    /*
+                
                     SerialCtrl.print("proximity_check: ang:");
                     SerialCtrl.print(ang);
                     SerialCtrl.print(" dist: ");
@@ -503,7 +503,7 @@ bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
                     SerialCtrl.print(" in zone(");
                     SerialCtrl.print(pt.x);
                     SerialCtrl.print(", ");
-                    SerialCtrl.print(pt.y); */
+                    SerialCtrl.print(pt.y); 
                     SerialCtrl.println(") and too close(<50cm)");
                     
                     return true;

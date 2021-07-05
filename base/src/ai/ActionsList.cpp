@@ -160,8 +160,7 @@ namespace ActionList
         {721.f,1036.f,-400.f, &etat_begin, 0.f},
         {772.f,572.f,-400.f, &etat_begin, 0.f},
         {450.f,400.f,-400.f, &etat_begin, 0.f},
-        {300.f,200.f,-400.f, &etat_begin, 0.f},
-        {772.f,1400.f,-400.f, &switchMancheLeft, 0.f},
+        {300.f,200.f,-400.f, &switchMancheLeft, 0.f},
         NullAction
         //{sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
          //Going a little bit before the wall + deploy servo before arrival
