@@ -61,7 +61,7 @@ namespace ActionList
     extern Action PhareTopRight[5];
     //extern Action DeposeTopRight[5];
     //extern Action DeposeBottomRight[5];
-    extern Action MancheAirBottomRight[4];
+    extern Action MancheAirBottomRight[10];
     extern Action EcocupsBottomRight[10];
     //On redepose left ici
     //Puis on go final

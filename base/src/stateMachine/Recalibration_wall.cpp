@@ -15,10 +15,15 @@
 
 //Recalibration : valeurs configurés en supposant que le robot se reconfigure vers L'AVANT et pas l'arrière (faire attention en l'amenant devant le mur)
 //prendre en compte pas les coordonnées dumur mais ceux du centre du robot
-Recalibration_wall recalibration_wall_left = Recalibration_wall(100.0f, (MatchDirector::isStartingLeft)? 3.14f : 0.f, true);
-Recalibration_wall recalibration_wall_top = Recalibration_wall(1900.f, (MatchDirector::isStartingLeft) ? 1.57f : -1.57f, false);
-Recalibration_wall recalibration_wall_bottom = Recalibration_wall(85.0f, (MatchDirector::isStartingLeft) ? -1.57f : 1.57f, false);
-Recalibration_wall recalibration_wall_right = Recalibration_wall(2900.0f, (MatchDirector::isStartingLeft) ? 0.0f : 3.14f, true);
+Recalibration_wall recalibration_wall_left = Recalibration_wall(100.0f, 3.14f, true);
+Recalibration_wall recalibration_wall_top = Recalibration_wall(1900.f,  1.57f, false);
+Recalibration_wall recalibration_wall_bottom = Recalibration_wall(85.0f,  -1.57f, false);
+Recalibration_wall recalibration_wall_right = Recalibration_wall(2900.0f, 0.0f, true);
+
+Recalibration_wall recalibration_wall_left_right = Recalibration_wall(100.0f, 0.f, true);
+Recalibration_wall recalibration_wall_top_right = Recalibration_wall(1900.f, -1.57f, false);
+Recalibration_wall recalibration_wall_bottom_right = Recalibration_wall(85.0f, 1.57f, false);
+Recalibration_wall recalibration_wall_right_right = Recalibration_wall(2900.0f, 3.14f, true);
 
 /**
  * targetPos : en absolue (reconvertie en local en doIt)

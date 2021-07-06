@@ -39,3 +39,8 @@ extern Recalibration_wall recalibration_wall_left;
 extern Recalibration_wall recalibration_wall_top;
 extern Recalibration_wall recalibration_wall_bottom;
 extern Recalibration_wall recalibration_wall_right;
+
+extern Recalibration_wall recalibration_wall_left_right;
+extern Recalibration_wall recalibration_wall_top_right;
+extern Recalibration_wall recalibration_wall_bottom_right;
+extern Recalibration_wall recalibration_wall_right_right ;

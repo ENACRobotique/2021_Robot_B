@@ -154,16 +154,16 @@ namespace ActionList
         */
 
      Action EcocupsTopRight[10] = {
-        {2228.f,1400.f,-400.f, &etat_begin, 0.f},
-        {2650.f,1800.f,-400.f, &switchPhareRight, 0.f},
+        {2200.f,1250.f,-90.f, &switchPhareRight, 0.f},
+        //{2500.f,1750.f,-400.f, &switchPhareRight, 0.f},
         NullAction
     };
         //Y = 400 ??
     Action EcocupsBottomRight[10] = {
-        {2330.f,1600.f,-400.f, &etat_begin, 0.f},
-        {2279.f,1036.f,-400.f, &etat_begin, 0.f},
+        //{2330.f,1600.f,-400.f, &etat_begin, 0.f},
+       // {2279.f,1036.f,-400.f, &etat_begin, 0.f},
         {2228.f,572.f,-400.f, &etat_begin, 0.f},
-        {2550.f,400.f,-400.f, &etat_begin, 0.f},
+        //{2550.f,400.f,-400.f, &etat_begin, 0.f},
         {2700.f,200.f,-400.f, &switchMancheRight, 0.f},
     };
     Action EcocupsBottomLeft[10] = {
@@ -191,7 +191,7 @@ namespace ActionList
         NullAction
     };
 
-  Action MancheAirBottomRight[4] = {
+  Action MancheAirBottomRight[10] = {
         {2800.f, sizeHalfWidthRobot, 0.f, &deployBar, 1.0f},
         {2400.f, sizeHalfWidthRobot, 0.f, &etat_begin, 0.0f},
         {2400.f, 20.f, 250.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
@@ -237,8 +237,8 @@ namespace ActionList
 
 
     Action PhareTopRight[5] = {
-        {2500.f, 1800.f, -90.f, &recalibration_wall_top, 0.f},
-        {2500.f, 1800.f, -180.f, &deployBar, 0.0f},
+        {2600.f, 1800.f, -90.f, &recalibration_wall_top_right, 0.f},
+        {2600.f, 1800.f, -180.f, &deployBar, 0.0f},
         {2750.f, 1820.f, -400.f, &retractBarScore, 0.0f},
         {2600.f, 1820.f, -400.f, &switchEcocupsBottomRight, 0.0f},
         NullAction
