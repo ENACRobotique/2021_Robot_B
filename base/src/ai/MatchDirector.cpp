@@ -6,6 +6,7 @@
 #include "../odometry.h"
 #include "../FsmSupervisor.h" 
 #include "../actuatorSupervisor.h"
+#include "../stateMachine/etat_begin.h"
 #include "Arduino.h" //NULL definition
 #include "utils.h"
 #include "DisplayController.h"
@@ -196,7 +197,13 @@ float timeToReachCoords(float begX, float begY, float targetX, float targetY)
 void action_dispatcher(Action action)
 {
     float full_pos[3] = {get_abs_x(), get_abs_y(), odometry_wheel.get_pos_theta()};
-
+    /*
+    SerialCtrl.println("debug 1");
+    SerialCtrl.println(actionState == BEGIN);
+    SerialCtrl.println(fsmSupervisor.is_no_state_set());
+    SerialCtrl.println(navigator.isTrajectoryFinished());
+    SerialCtrl.println("debug 2");
+    */
     //start only when fsmSupervisor has no state
     if(actionState == BEGIN && fsmSupervisor.is_no_state_set() && navigator.isTrajectoryFinished())
     {
@@ -254,6 +261,7 @@ void action_dispatcher(Action action)
                     navigator.turn_to(action.angle);
                 }
                 actionState = TURNING;
+                SerialCtrl.println("turning");
             }
 
         }
@@ -286,7 +294,7 @@ void action_dispatcher(Action action)
         fsmSupervisor.setNextState(action.state);
         //SerialCtrl.println("actionState - turning done");
         curActIndex++;
-        curSeqIndex = -1;
+        //curSeqIndex = -1;
         nbReadjust = 0;
         actionState = BEGIN;
 
@@ -352,9 +360,11 @@ void update()
 void set_current_action(Action *action)
 {
     curSection = action;
+    fsmSupervisor.setNextState(&etat_begin);
     actionState = BEGIN;
     curActIndex = 0;
     curSeqIndex = 0;
+    nbReadjust = 0;
     navigator.forceStop();
     SerialCtrl.println("new section set !");
 }

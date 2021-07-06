@@ -65,7 +65,7 @@ void Navigator::step_backward(float d){
 
 
 void Navigator::turn_to(float theta){ // En degrés
-	//odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
+	odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
 	SerialCtrl.println("odometry motor reset to odometry wheel position !");
 
 	theta_target = center_radian(PI*theta/180);
@@ -201,6 +201,7 @@ void Navigator::update(){
 		if(abs(odometry_motor.get_speed()) < ADMITTED_SPEED_ERROR){
 			move_state = STOPPED;
 			speed_cons = 0;
+			trajectory_done = true;
 		}
 		MotorControl::set_cons(speed_cons,0);
 	}

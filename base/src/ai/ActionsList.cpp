@@ -136,9 +136,9 @@ namespace ActionList
         //{772.f,1200.f,-400.f, &etat_begin, 0.f},
         //{150.0f, 1090.0f, 180.f, &recalibration_wall_left, 0.f},
         //{180.f, 1090.f, 0.f, &etat_begin, 0.f},
-        {772.f,1400.f,90.f, &etat_begin, 0.f},
+        {772.f,1400.f,90.f, &switchPhareLeft, 0.f},
         //{670.f,1600.f,-400.f, &etat_begin, 0.f},
-        {350.f,1800.f,90.f, &switchPhareLeft, 0.f},
+        //{350.f,1800.f,90.f, &switchPhareLeft, 0.f},
         //{500.f,1800.f,-400.f, &switchPhareLeft, 0.f},
         NullAction 
 
@@ -167,11 +167,10 @@ namespace ActionList
         {2700.f,200.f,-400.f, &switchMancheRight, 0.f},
     };
     Action EcocupsBottomLeft[10] = {
-        {670.f,1600.f,-400.f, &etat_begin, 0.f},
+        //{670.f,1600.f,-400.f, &etat_begin, 0.f},
         {721.f,1036.f,-400.f, &etat_begin, 0.f},
-        {772.f,572.f,-400.f, &etat_begin, 0.f},
-        {450.f,400.f,-400.f, &etat_begin, 0.f},
-        {300.f,200.f,-400.f, &switchMancheLeft, 0.f},
+        {772.f,572.f,-400.f, &switchMancheLeft, 0.f},
+        //{300.f,200.f,-400.f, &switchMancheLeft, 0.f},
         NullAction
         //{sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
          //Going a little bit before the wall + deploy servo before arrival
@@ -183,8 +182,8 @@ namespace ActionList
         {300.f, 200.f, -90.f, &recalibration_wall_bottom, 0.0f},
         {300.f, 200.f, -400.f, &etat_begin, 0.0f},
         {150.f, 180.f, -180.f, &recalibration_wall_left, 0.0f},
-        {100.f, 150.f, -400.f, &etat_begin, 0.0f},
-        {120.f, 150.f, -180.f, &deployBar, 0.0f},
+        {100.f, 150.f, -180.f, &deployBar, 0.0f},
+        //{120.f, 150.f, -180.f, &deployBar, 0.0f},
         {800.f, 150.f, -180.f, &etat_begin, 0.0f},
         {800.f, 150.f, -140.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         {750.f, 150.f, -400.f, &etat_begin, 0.f},
@@ -213,7 +212,8 @@ namespace ActionList
         {500.f, 1800.f, 90.f, &recalibration_wall_top, 0.f},
         {500.f, 1800.f, 0.f, &deployBar, 0.0f},
         {350.f, 1820.f, -400.f, &retractBarScore, 0.0f},
-        {400.f, 1820.f, -400.f, &switchEcocupBottomLeft, 0.0f},
+        {670.f,1600.f,-400.f, &switchEcocupBottomLeft, 0.f},
+       //{350.f, 1820.f, -400.f, &switchEcocupBottomLeft, 0.0f},
         NullAction
    };
 

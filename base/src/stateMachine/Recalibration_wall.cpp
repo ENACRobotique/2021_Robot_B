@@ -41,7 +41,7 @@ void Recalibration_wall::enter() {
 	SerialCtrl.print("recalibrating");
 	SerialCtrl.print(targetPos);
 	SerialCtrl.print(isX);
-	navigator.move(50.0f, 0); //40 mm/s
+	navigator.move(80.0f, 0); //80 mm/s
 }
 
 void Recalibration_wall::leave() {
