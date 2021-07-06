@@ -55,7 +55,7 @@ namespace ActionList
     extern Action EcocupsTopRight[10];
     extern Action DeposeTopLeft[5];
     extern Action DeposeBottomLeft[5];
-    extern Action MancheAirBottomLeft[8];
+    extern Action MancheAirBottomLeft[10];
     extern Action EcocupsBottomLeft[10];
     //côté jaune
     extern Action PhareTopRight[5];

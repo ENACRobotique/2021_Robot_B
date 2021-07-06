@@ -23,6 +23,7 @@ Navigator::Navigator(){
 	trajectory_done = true;
 	x_target = 0;
 	y_target = 0;
+	sgn = 1;
 	theta_target = 0;
 	move_type = TURN;
 	move_state = STOPPED;
@@ -97,7 +98,7 @@ void Navigator::throw_to(float x, float y, float theta){
 float Navigator::compute_cons_speed()
 {
 	float speed_cons, dist_fore, t_stop, dist_objective;
-	int sgn,MAX_ACCEL;
+	float MAX_ACCEL;
 
 	if(move_type == THROW){
 		MAX_ACCEL = ACCEL_MAX_THROW;
@@ -148,7 +149,6 @@ float Navigator::compute_cons_omega()
 	//angle_fore : angle actuel réinitialisé à zéro depuis le debut du "tournage" ??
 
 	float omega_cons, angle_fore, alpha, t_rotation_stop;
-	int sgn;
 
 	if(move_type == DISPLACEMENT){
 		alpha = odometry_motor.get_pos_theta() + center_axes(atan2((-y_target+odometry_motor.get_pos_y()),(-x_target+odometry_motor.get_pos_x())) - odometry_motor.get_pos_theta());
@@ -196,7 +196,7 @@ void Navigator::update(){
 	float omega_cons,speed_cons,alpha,distance;
 
 	if(move_type == BRAKE){
-		int sgn = scalaire(cos(odometry_motor.get_pos_theta()),sin(odometry_motor.get_pos_theta()),x_target - odometry_motor.get_pos_x(),y_target - odometry_motor.get_pos_y());
+		sgn = scalaire(cos(odometry_motor.get_pos_theta()),sin(odometry_motor.get_pos_theta()),x_target - odometry_motor.get_pos_x(),y_target - odometry_motor.get_pos_y());
 		speed_cons = sgn*max(0,abs(odometry_motor.get_speed()) - EMERGENCY_BRAKE*NAVIGATOR_PERIOD);
 		if(abs(odometry_motor.get_speed()) < ADMITTED_SPEED_ERROR){
 			move_state = STOPPED;

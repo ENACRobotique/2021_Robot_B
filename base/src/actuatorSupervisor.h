@@ -23,6 +23,7 @@ namespace ActuatorSupervisor {
 
 	void init();
 	void deploy_pav();
+	void retract_pav();
 	void deploy_bar();
 	void retract_bar();
 	

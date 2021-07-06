@@ -79,6 +79,7 @@ namespace ActuatorSupervisor
     void retract_pav()
     {
         otherServos[0].moveServo(SERVO_PAV_ANGLE_RTRCTED);
+        pavillon_deployed = false;
     }
     void deploy_bar()
     {

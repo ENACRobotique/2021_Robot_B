@@ -270,14 +270,19 @@ void action_dispatcher(Action action)
             actionState = MOVING;
         }
 
-
+        SerialCtrl.print("odometry wheel pos: ");
+        SerialCtrl.print(get_abs_wheel_x());
+        SerialCtrl.print("\t");
+        SerialCtrl.print(get_abs_wheel_y());
+        SerialCtrl.print("\t");
+        SerialCtrl.println(odometry_wheel.get_pos_theta());
         //SerialCtrl.println(navigator.theta_target);
         SerialCtrl.print("real pos : ");
         SerialCtrl.print(get_abs_x());
         SerialCtrl.print("\t");
         SerialCtrl.println(get_abs_y());
         SerialCtrl.print("\t");
-        SerialCtrl.print(odometry_wheel.get_pos_theta());
+        SerialCtrl.println(odometry_motor.get_pos_theta());
         fsmSupervisor.setNextState(action.state);
         //SerialCtrl.println("actionState - turning done");
         curActIndex++;
@@ -363,13 +368,13 @@ void compute_final_point(bool isGirouetteWhite)
     if(isStartingLeft)
     {
         ActionList::GetToFinal[0].x = 200.f;
-        ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 500.f : 1500.f;
+        ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 800.f : 1600.f;
         ActionList::GetToFinal[0].angle = 0.0f;
     }
     else
     {
         ActionList::GetToFinal[0].x = 2800.f;
-        ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 500.f : 1500.f;
+        ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 800.f : 1600.f;
         ActionList::GetToFinal[0].angle = 0.0f;
     } 
     

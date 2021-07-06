@@ -86,6 +86,7 @@ namespace ActionList
     SwitchSection switchPhareRight = SwitchSection(PhareTopRight);
     SwitchSection switchEcocupsBottomRight = SwitchSection(EcocupsBottomRight);
     SwitchSection switchMancheRight = SwitchSection(MancheAirBottomRight);
+    SwitchSection switchFinal = SwitchSection(GetToFinal);
 
     #pragma endregion
 
@@ -133,9 +134,11 @@ namespace ActionList
     Action EcocupsTopLeft[10] = {
 
         //{772.f,1200.f,-400.f, &etat_begin, 0.f},
-        {772.f,1400.f,-400.f, &etat_begin, 0.f},
+        {150.0f, 1090.0f, 0.f, &recalibration_wall_left, 0.f},
+        {180.f, 1090.f, -400.f, &etat_begin, 0.f},
+        {772.f,1400.f,90.f, &etat_begin, 0.f},
         //{670.f,1600.f,-400.f, &etat_begin, 0.f},
-        {350.f,1800.f,-400.f, &switchPhareLeft, 0.f},
+        {350.f,1800.f,90.f, &switchPhareLeft, 0.f},
         //{500.f,1800.f,-400.f, &switchPhareLeft, 0.f},
         NullAction 
 
@@ -176,14 +179,16 @@ namespace ActionList
 
 
 
-    Action MancheAirBottomLeft[8] = {
+    Action MancheAirBottomLeft[10] = {
         {300.f, 200.f, -90.f, &recalibration_wall_bottom, 0.0f},
         {300.f, 200.f, -400.f, &etat_begin, 0.0f},
-        {200.f, 300.f, -180.f, &recalibration_wall_left, 0.0f},
-        {300.f, 300.f, -400.f, &etat_begin, 0.0f},
-        {120.f, 150.f, -170.f, &deployBar, 0.0f},
+        {150.f, 180.f, -180.f, &recalibration_wall_left, 0.0f},
+        {100.f, 150.f, -400.f, &etat_begin, 0.0f},
+        {120.f, 150.f, -180.f, &deployBar, 0.0f},
         {800.f, 150.f, -180.f, &etat_begin, 0.0f},
         {800.f, 150.f, -140.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        {750.f, 150.f, -400.f, &etat_begin, 0.f},
+        {600.f, 250.f, -400.f, &switchFinal, 0.f},
         NullAction
     };
 
@@ -198,7 +203,7 @@ namespace ActionList
     
     Action GetToFinal[2] =
     {
-        {200.f, 200.f, 0.f, &etat_begin, 0.0f},
+        {200.f, 800.f, 0.f, &etat_begin, 0.0f},
         NullAction
     };
     

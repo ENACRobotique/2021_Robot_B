@@ -42,6 +42,10 @@ float sp[4] = {0, 3.14f, 0, -3.14f};
 int i = 0;
 bool lidarStarted = false;
 
+float prevX = -1.;
+float prevY = -1.;
+bool isRobotStopped = false;
+
 //LidarData ATC::lidar; because
 // Lidar data container is initialised in pathfinding, as part of ATC namespace (not sure if good idea)
 
@@ -172,7 +176,21 @@ void loop() {
       Communication::update();
 
       float full_pos[3] = {MatchDirector::get_abs_x(), MatchDirector::get_abs_y(), odometry_wheel.get_pos_theta()};
-      ATC::proximity_check(&ATC::lidar, true, full_pos);
+      bool isFront = (navigator.sgn == 1) ? true : false;
+      if(ATC::proximity_check(&ATC::lidar, true, full_pos))
+      {
+        SerialCtrl.println("robot stopped due to obstacle in front");
+        isRobotStopped = true;
+        prevX = navigator.x_target;
+        prevY = navigator.y_target;
+        navigator.forceStop();
+      }
+      else if (isRobotStopped)
+      {
+        SerialCtrl.println("robot restarting, obstacle noved ");
+        isRobotStopped = false;
+        navigator.move_to(prevX, prevY);
+      }
       if((millis() -startTime >= 3000.f && lidarStarted == true)||true){
         //checkAndRestartLidar();
       }

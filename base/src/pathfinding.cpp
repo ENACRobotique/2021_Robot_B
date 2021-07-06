@@ -157,8 +157,8 @@ DijkstraResult ATC::dijkstra_crap(Graph graph, int src_index){
 
 Geom_Vec ATC::from_pol_to_abs(float robot_pos[3], int lid_ang, float lid_dist){
     /* TODO: Vérifier que les résultats sont les bons */
-    float loc_px = lid_dist*cosf((lid_ang - robot_pos[3])*2*3.1415/360);
-    float loc_py = lid_dist*sinf((lid_ang - robot_pos[3])*2*3.1415/360);
+    float loc_px = lid_dist*cosf((-lid_ang + robot_pos[3])*2*3.1415/360);
+    float loc_py = lid_dist*sinf((-lid_ang + robot_pos[3])*2*3.1415/360);
     Geom_Vec abs_pt = Geom_Vec(robot_pos[0]+loc_px, robot_pos[1]+loc_py);
     return abs_pt;
 }
@@ -238,7 +238,7 @@ bool ATC::is_path_blocked(float start[2], float end[2], LidarData *lidar, float 
         SerialCtrl.print("ang: ");
         SerialCtrl.print(ang);
         //si mesure valide et suffisamment écartée (15cm):
-        if (dist_lid>150 and (*lidar).get_quality(ang) > 0){
+        if (dist_lid>150.0f and (*lidar).get_quality(ang) > 0){
             SerialCtrl.print(" valide dist: ");
             SerialCtrl.print(dist_lid);
             Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
@@ -487,33 +487,34 @@ PointSeq ATC::read_route(Route &route){
 }
 
 bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
+    float marge = 100.0f;
     int ang_start = (front)? -45 : (180-45);
     int ang_stop = (front)? 46 : (180+46);
     for(int ang=ang_start;ang<ang_stop;ang++){
-        unsigned long time_since = (*lidar).get_time(ang%360) - millis();
-        if ((*lidar).get_quality(ang%360)>0 and time_since < 3000){
-            float dist_lid = (*lidar).get_distance(ang%360);
-            int seuil = ((-20 < ang and ang < 20) or(180-20 < ang and ang < 180+20))? 700: 400;
-            if (0.0f < dist_lid and dist_lid < seuil){
+        float time_since = (float)millis() - (*lidar).get_time((ang+360)%360);
+        if ((*lidar).get_quality((ang+360)%360)>0 and time_since < 3000){
+            float dist_lid = (*lidar).get_distance((ang+360)%360);
+            int seuil = ((-20 < ang and ang < 20) or (180-20 < ang and ang < 180+20))? 750: 300;
+            if (1.0f < dist_lid and dist_lid < seuil){
                 Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
-                SerialCtrl.print("proximity_check: ang:");
-                    SerialCtrl.print(ang);
-                    SerialCtrl.print(" dist: ");
+                SerialCtrl.print("p ");
+                    SerialCtrl.print((ang+360)%360);
+                    SerialCtrl.print(" ");
                     SerialCtrl.print(dist_lid);
-                    SerialCtrl.print(" abs(");
+                    SerialCtrl.print(" ");
                     SerialCtrl.print(pt.x);
-                    SerialCtrl.print(", ");
+                    SerialCtrl.print(" ");
                     SerialCtrl.print(pt.y);
-                    SerialCtrl.print(") measured ");
+                    SerialCtrl.print(" ");
                     SerialCtrl.print(time_since);
-                    SerialCtrl.print("sec ago ");
-                if (0.0f < pt.x and pt.x < 3000.0f and 0.0f < pt.y and pt.y < 2000.0f){
+                    SerialCtrl.print(" ");
+                if (marge < pt.x and pt.x < 3000.0f-marge and marge < pt.y and pt.y < 2000.0f-marge){
                 
-                    SerialCtrl.println(" PROXIMITY");
+                    SerialCtrl.println("P");
                     return true;
                 }
                 else{
-                    SerialCtrl.println(" CLEAR");
+                    SerialCtrl.println("C");
                 }
             }
         }
