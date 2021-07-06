@@ -13,7 +13,7 @@
 
 class Recalibration_wall : public AbstractState {
 public:
-	Recalibration_wall(float targetPos, float targetTheta, bool isX); //targetTheta en radian !
+	Recalibration_wall(float targetPos, float targetTheta, bool isX, bool is_forward = true); //targetTheta en radian !
 	virtual ~Recalibration_wall();
 
 	void doIt();
@@ -31,6 +31,7 @@ private:
 	unsigned long time_start;
 	float wheel_cod_last_reading;
 	bool isX;
+	bool is_forward;
 	float targetPos;
 	float targetTheta;
 };

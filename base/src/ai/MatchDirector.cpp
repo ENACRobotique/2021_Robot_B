@@ -43,7 +43,7 @@ namespace MatchDirector
 
     bool isStartingLeft = true;
     bool isDrivingBackward = false; //if move with navigator with positive number, robot goes backward
-
+    bool isRobotStopped = false;
     Action *curSection = NULL; // undefined size of array
     //Section = multiple actions that usually lead to points at the end
     int curActIndex = 0;
@@ -88,8 +88,11 @@ void init()
 
     offsetY = (isStartingLeft) ? 1090.0f : 1315.f ; //largeur terrain/2
     offsetX = (isStartingLeft) ? robot_center_x : (3000.0f - robot_center_x); //3000-> longueur terrain
+   
+   ActionList::GetToFinal[0].x = (isStartingLeft) ? 250.f:2750.f;
     //DEBUG : 
     //curSection = EcocupsTopLeft;
+
 }
 
 float distance_squared (float xA, float yA, float xB, float yB)
@@ -311,7 +314,7 @@ void update()
     }
     Action curAction = curSection[curActIndex];
     //Une section : un ensemble d'actions, action_dispatcher s'occupe de voir ce qu'il doit faire avec une action ou passer à l'action suivante pour la prochaine loop
-    if(curSection != NULL && !ActionList::isNull(&curAction))
+    if(curSection != NULL && !ActionList::isNull(&curAction) && !isRobotStopped)
     {
        action_dispatcher(curAction);
     }
@@ -339,7 +342,7 @@ void update()
         */
     //}
     
-    if((millis()-start_millis > timer*1000-20000) & !moveBackToBase && hasStarted) //20s avant !
+    if((millis()-start_millis > timer*1000-20000) & !moveBackToBase && hasStarted && isRobotStopped) //20s avant !
     {
         SerialCtrl.print("returning to base ! ");
         moveBackToBase = true;
@@ -351,7 +354,7 @@ void update()
         SerialCtrl.print("final stop initiated : 2s left !  ");
         moveBackToBase = false;
         navigator.forceStop();
-        set_current_action(&NullAction);
+        set_current_action(&ActionList::NullAction);
     }
     if(millis()-start_millis > timer*1000-5000 && hasStarted) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
     {
@@ -380,21 +383,75 @@ void set_current_action(Action *action)
 void compute_final_point(bool isGirouetteWhite) 
 //White : Sud, Black : Nord
 {
-    
+
+ActionList::GetToFinal[2];
     float theta = 0.f;
 
     if(isStartingLeft)
     {
-        ActionList::GetToFinal[0].x = 200.f;
-        ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 800.f : 1600.f;
-        ActionList::GetToFinal[0].angle = 0.0f;
+        if(isGirouetteWhite) //sud
+        {
+            if(curSection == NULL)
+            {
+                set_current_action(ActionList::GetToFinalLeftHoldingSouth);
+            }
+            else
+            {
+                set_current_action(ActionList::GetToFinalLeftEnRouteSouth);
+            }
+        }
+        else // nord
+        {
+            if(curSection == NULL)
+            {
+                set_current_action(ActionList::GetToFinalLeftHoldingNorth);
+            }
+            else
+            {
+                set_current_action(ActionList::GetToFinalLeftEnRouteNorth);
+            }
+        }
     }
     else
     {
-        ActionList::GetToFinal[0].x = 2800.f;
+
+        if(isGirouetteWhite) //sud
+        {
+            if(curSection == NULL)
+            {
+                set_current_action(ActionList::GetToFinalRightHoldingSouth);
+            }
+            else
+            {
+                set_current_action(ActionList::GetToFinalRightEnRouteSouth);
+            }
+        }
+        else
+        {
+            if(curSection == NULL)
+            {
+                set_current_action(ActionList::GetToFinalRightHoldingNorth);
+            }
+            else
+            {
+                set_current_action(ActionList::GetToFinalRightEnRouteNorth);
+            }
+        }
+    } 
+
+    /*
+ActionList::GetToFinal[0].x = 200.f;
         ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 800.f : 1600.f;
         ActionList::GetToFinal[0].angle = 0.0f;
-    } 
+    }
+    */
+   /*
+
+           ActionList::GetToFinal[0].x = 2800.f;
+        ActionList::GetToFinal[0].y = (isGirouetteWhite) ? 800.f : 1600.f;
+        ActionList::GetToFinal[0].angle = 0.0f;
+
+*/
     
 }
 

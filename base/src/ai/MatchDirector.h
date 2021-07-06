@@ -30,6 +30,8 @@ namespace MatchDirector
     float  get_abs_wheel_x();
     float  get_abs_wheel_y();
 
+    extern bool isRobotStopped;
+
     /**
      * @brief Fonction qui doit être appelé par match director peu de temps avant la fin, modifie les coordonnées à atteindre à la fin
      * @ingroup namespace

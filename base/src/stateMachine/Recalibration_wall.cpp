@@ -23,18 +23,19 @@ Recalibration_wall recalibration_wall_right = Recalibration_wall(2900.0f, 0.0f, 
 Recalibration_wall recalibration_wall_left_right = Recalibration_wall(100.0f, 0.f, true);
 Recalibration_wall recalibration_wall_top_right = Recalibration_wall(1900.f, -1.57f, false);
 Recalibration_wall recalibration_wall_bottom_right = Recalibration_wall(85.0f, 1.57f, false);
-Recalibration_wall recalibration_wall_right_right = Recalibration_wall(2900.0f, 3.14f, true);
+Recalibration_wall recalibration_wall_right_right = Recalibration_wall(2900.0f, 0.f, true, false);
 
 /**
  * targetPos : en absolue (reconvertie en local en doIt)
  * targetTheta : en radian
  * isX : si c'est à faux, ça reconfigure le y
  * **/
-Recalibration_wall::Recalibration_wall(float targetPos, float targetTheta, bool isX) { //if isX = false => Y,
+Recalibration_wall::Recalibration_wall(float targetPos, float targetTheta, bool isX, bool is_forward) { //if isX = false => Y,
 	time_start = 0;
 	this->targetPos = targetPos;
 	this->targetTheta = targetTheta;
 	this->isX = isX;
+	this->is_forward = is_forward;
 	wheel_cod_last_reading = -1; //arbitrary value outside of the terrain
 }
 
@@ -46,7 +47,7 @@ void Recalibration_wall::enter() {
 	SerialCtrl.print("recalibrating");
 	SerialCtrl.print(targetPos);
 	SerialCtrl.print(isX);
-	navigator.move(80.0f, 0); //80 mm/s
+	navigator.move((is_forward) ? 80.0f : -80.f, 0); //80 mm/s
 }
 
 void Recalibration_wall::leave() {

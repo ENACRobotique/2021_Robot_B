@@ -162,9 +162,9 @@ namespace ActionList
     Action EcocupsBottomRight[10] = {
         //{2330.f,1600.f,-400.f, &etat_begin, 0.f},
        // {2279.f,1036.f,-400.f, &etat_begin, 0.f},
-        {2228.f,572.f,-400.f, &etat_begin, 0.f},
+        {2028.f,1072.f,-400.f, &etat_begin, 0.f},
         //{2550.f,400.f,-400.f, &etat_begin, 0.f},
-        {2700.f,200.f,-400.f, &switchMancheRight, 0.f},
+        {2400.f,600.f,-400.f, &switchMancheRight, 0.f},
     };
     Action EcocupsBottomLeft[10] = {
         //{670.f,1600.f,-400.f, &etat_begin, 0.f},
@@ -181,20 +181,25 @@ namespace ActionList
     Action MancheAirBottomLeft[10] = {
         {300.f, 200.f, -90.f, &recalibration_wall_bottom, 0.0f},
         {300.f, 200.f, -400.f, &etat_begin, 0.0f},
-        {150.f, 180.f, -180.f, &recalibration_wall_left, 0.0f},
+        {150.f, 150.f, -180.f, &recalibration_wall_left, 0.0f},
         {100.f, 150.f, -180.f, &deployBar, 0.0f},
         //{120.f, 150.f, -180.f, &deployBar, 0.0f},
         {800.f, 150.f, -180.f, &etat_begin, 0.0f},
         {800.f, 150.f, -140.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
-        {750.f, 150.f, -400.f, &etat_begin, 0.f},
-        {600.f, 250.f, -400.f, &etat_begin, 0.f},
+        //{750.f, 150.f, -400.f, &etat_begin, 0.f},
+        {600.f, 250.f, -400.f, &switchFinal, 0.f},
         NullAction
     };
 
   Action MancheAirBottomRight[10] = {
-        {2800.f, sizeHalfWidthRobot, 0.f, &deployBar, 1.0f},
-        {2400.f, sizeHalfWidthRobot, 0.f, &etat_begin, 0.0f},
-        {2400.f, 20.f, 250.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        {2700.f, 200.f, 90.f, &recalibration_wall_bottom_right, 0.0f},
+        {2700.f, 180.f, 0.f, &etat_begin, 0.0f},
+        {2850.f, 150.f, 0.f, &recalibration_wall_right_right, 0.0f},
+        {2900.f, 160.f, 0.f, &deployBar, 0.0f},
+        {2650.f, 165.f, 0.f, &etat_begin, 0.0f},
+        {2200.f, 163.f, -20.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        {2200.f, 350.f, -400.f, &switchFinal, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+
         NullAction
     };
 
@@ -202,7 +207,7 @@ namespace ActionList
     
     Action GetToFinal[2] =
     {
-        {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+        {200.f, 700.f, 0.f, &etat_begin, 0.0f},
         NullAction
     };
     
@@ -238,9 +243,9 @@ namespace ActionList
 
     Action PhareTopRight[5] = {
         {2600.f, 1800.f, -90.f, &recalibration_wall_top_right, 0.f},
-        {2600.f, 1800.f, -180.f, &deployBar, 0.0f},
-        {2750.f, 1820.f, -400.f, &retractBarScore, 0.0f},
-        {2600.f, 1820.f, -400.f, &switchEcocupsBottomRight, 0.0f},
+        {2600.f, 1830.f, -180.f, &deployBar, 0.0f},
+        {2750.f, 1840.f, -400.f, &retractBarScore, 0.0f},
+        {2600.f, 1820.f, 90.f, &switchEcocupsBottomRight, 0.0f},
         NullAction
    };
     
@@ -264,14 +269,14 @@ namespace ActionList
 
     #pragma endregion
 
-/*
+
 Action GetToFinalLeftHoldingSouth[5] = {
-    {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+    {200.f, 800.f, 90.f, &etat_begin, 0.0f},
     NullAction
 };
 
 Action GetToFinalRightHoldingSouth[5] = {
-    {2800.f, 800.f, 0.f, &etat_begin, 0.0f},
+    {2800.f, 800.f, -90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalLeftEnRouteSouth[5]= {
@@ -283,21 +288,23 @@ Action GetToFinalRightEnRouteSouth[5]= {
     NullAction
 };
 Action GetToFinalLeftHoldingNorth[5] = {
-    {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+    {200.f, 800.f, -90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalRightHoldingNorth[5]= {
-    {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+    {2800.f, 800.f, 90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalLeftEnRouteNorth[5]= {
+    {200.f, 1200.f, 0.f, &etat_begin, 0.0f},
     {200.f, 800.f, 0.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalRightEnRouteNorth[5]= {
-    {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+    {2800.f, 1200.f, 0.f, &etat_begin, 0.0f},
+    {2800.f, 800.f, 0.f, &etat_begin, 0.0f},
     NullAction
 };
-*/
+
 }
  
