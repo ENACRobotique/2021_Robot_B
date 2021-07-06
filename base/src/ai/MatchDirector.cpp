@@ -346,6 +346,13 @@ void update()
         addScore(20);
         set_current_action(ActionList::GetToFinal);
     }
+    if((millis()-start_millis > timer*1000-2000) & !moveBackToBase && hasStarted) //20s avant !
+    {
+        SerialCtrl.print("final stop initiated : 2s left !  ");
+        moveBackToBase = false;
+        navigator.forceStop();
+        set_current_action(&NullAction);
+    }
     if(millis()-start_millis > timer*1000-5000 && hasStarted) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
     {
         ActuatorSupervisor::deploy_pav();
