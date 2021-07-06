@@ -487,20 +487,23 @@ PointSeq ATC::read_route(Route &route){
 }
 
 bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
-    float marge = 100.0f;
+    float marge = 150.0f;
     int ang_start = (front)? -45 : (180-45);
     int ang_stop = (front)? 46 : (180+46);
     for(int ang=ang_start;ang<ang_stop;ang++){
         float time_since = (float)millis() - (*lidar).get_time((ang+360)%360);
-        if ((*lidar).get_quality((ang+360)%360)>0 and time_since < 3000){
+        byte qual_lid = (*lidar).get_quality((ang+360)%360);
+        if (qual_lid >0 and time_since < 2000){
             float dist_lid = (*lidar).get_distance((ang+360)%360);
-            int seuil = ((-20 < ang and ang < 20) or (180-20 < ang and ang < 180+20))? 750: 300;
-            if (1.0f < dist_lid and dist_lid < seuil){
+            int seuil = ((-20 < ang and ang < 20) or (180-20 < ang and ang < 180+20))? 375: 300;
+            if (150.0f < dist_lid and dist_lid < seuil){
                 Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
                 SerialCtrl.print("p ");
                     SerialCtrl.print((ang+360)%360);
                     SerialCtrl.print(" ");
                     SerialCtrl.print(dist_lid);
+                    SerialCtrl.print(" ");
+                    SerialCtrl.print(qual_lid);
                     SerialCtrl.print(" ");
                     SerialCtrl.print(pt.x);
                     SerialCtrl.print(" ");

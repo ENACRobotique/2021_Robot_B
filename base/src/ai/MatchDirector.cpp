@@ -63,7 +63,7 @@ namespace MatchDirector
 
 
     int nbCorectionAuthorized = 0;
-    float timer = 200; // en s, durée du match
+    float timer = 100; // en s, durée du match
     int score = 0;
     float offsetX = 0; //offsets au début du terrain par rapport à l'abs
     float offsetY = 0;
@@ -335,6 +335,7 @@ void update()
     {
         SerialCtrl.print("returning to base ! ");
         moveBackToBase = true;
+        addScore(20);
         set_current_action(ActionList::GetToFinal);
     }
     if(millis()-start_millis > timer*1000-5000 && hasStarted) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin

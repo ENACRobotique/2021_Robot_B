@@ -134,8 +134,8 @@ namespace ActionList
     Action EcocupsTopLeft[10] = {
 
         //{772.f,1200.f,-400.f, &etat_begin, 0.f},
-        {150.0f, 1090.0f, 0.f, &recalibration_wall_left, 0.f},
-        {180.f, 1090.f, -400.f, &etat_begin, 0.f},
+        //{150.0f, 1090.0f, 180.f, &recalibration_wall_left, 0.f},
+        //{180.f, 1090.f, 0.f, &etat_begin, 0.f},
         {772.f,1400.f,90.f, &etat_begin, 0.f},
         //{670.f,1600.f,-400.f, &etat_begin, 0.f},
         {350.f,1800.f,90.f, &switchPhareLeft, 0.f},
@@ -188,7 +188,7 @@ namespace ActionList
         {800.f, 150.f, -180.f, &etat_begin, 0.0f},
         {800.f, 150.f, -140.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         {750.f, 150.f, -400.f, &etat_begin, 0.f},
-        {600.f, 250.f, -400.f, &switchFinal, 0.f},
+        {600.f, 250.f, -400.f, &etat_begin, 0.f},
         NullAction
     };
 

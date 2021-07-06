@@ -123,7 +123,6 @@ void setup() {
 
   //Serial2.println("Scanner debut");
   //debugTest::scanSerial();
-  
 }
 
 void loop() {
