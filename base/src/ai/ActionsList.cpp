@@ -264,5 +264,40 @@ namespace ActionList
 
     #pragma endregion
 
+/*
+Action GetToFinalLeftHoldingSouth[5] = {
+    {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+    NullAction
+};
+
+Action GetToFinalRightHoldingSouth[5] = {
+    {2800.f, 800.f, 0.f, &etat_begin, 0.0f},
+    NullAction
+};
+Action GetToFinalLeftEnRouteSouth[5]= {
+    {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+    NullAction
+};
+Action GetToFinalRightEnRouteSouth[5]= {
+    {2800.f, 800.f, 0.f, &etat_begin, 0.0f},
+    NullAction
+};
+Action GetToFinalLeftHoldingNorth[5] = {
+    {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+    NullAction
+};
+Action GetToFinalRightHoldingNorth[5]= {
+    {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+    NullAction
+};
+Action GetToFinalLeftEnRouteNorth[5]= {
+    {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+    NullAction
+};
+Action GetToFinalRightEnRouteNorth[5]= {
+    {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+    NullAction
+};
+*/
 }
  

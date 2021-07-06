@@ -67,6 +67,14 @@ namespace ActionList
     //Puis on go final
 
     #pragma endregion
+    extern Action GetToFinalLeftHoldingSouth[5];
+    extern Action GetToFinalRightHoldingSouth[5];
+    extern Action GetToFinalLeftEnRouteSouth[5];
+    extern Action GetToFinalRightEnRouteSouth[5];
+    extern Action GetToFinalLeftHoldingNorth[5];
+    extern Action GetToFinalRightHoldingNorth[5];
+    extern Action GetToFinalLeftEnRouteNorth[5];
+    extern Action GetToFinalRightEnRouteNorth[5];
     extern Action GetToFinal[2];
 
     extern Action TestStrategieMvtOnly[5];
