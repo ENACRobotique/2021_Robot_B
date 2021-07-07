@@ -31,7 +31,7 @@ Navigator::Navigator(){
 
 void Navigator::move_to(float x, float y){
 	odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
-	SerialCtrl.println("odometry motor reset to odometry wheel position !");
+	SerialCtrl.println("nav::move_to| odometry motor reset to odometry wheel position !");
 	x_target = x;
 	y_target = y;
 	move_type = DISPLACEMENT;
@@ -66,7 +66,7 @@ void Navigator::step_backward(float d){
 
 void Navigator::turn_to(float theta){ // En degrés
 	odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
-	SerialCtrl.println("odometry motor reset to odometry wheel position !");
+	SerialCtrl.println("nav::turn_to|odometry motor reset to odometry wheel position !");
 
 	theta_target = center_radian(PI*theta/180);
 

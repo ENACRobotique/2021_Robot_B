@@ -498,7 +498,8 @@ bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
             int seuil = ((-20 < ang and ang < 20) or (180-20 < ang and ang < 180+20))? 375: 300;
             if (150.0f < dist_lid and dist_lid < seuil){
                 Geom_Vec pt = from_pol_to_abs(robot_pos, ang, dist_lid);
-                SerialCtrl.print("p ");
+                if (marge < pt.x and pt.x < 3000.0f-marge and marge < pt.y and pt.y < 2000.0f-marge){
+                    SerialCtrl.print("p ");
                     SerialCtrl.print((ang+360)%360);
                     SerialCtrl.print(" ");
                     SerialCtrl.print(dist_lid);
@@ -511,13 +512,11 @@ bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
                     SerialCtrl.print(" ");
                     SerialCtrl.print(time_since);
                     SerialCtrl.print(" ");
-                if (marge < pt.x and pt.x < 3000.0f-marge and marge < pt.y and pt.y < 2000.0f-marge){
-                
                     SerialCtrl.println("P");
                     return true;
                 }
                 else{
-                    SerialCtrl.println("C");
+                    
                 }
             }
         }
