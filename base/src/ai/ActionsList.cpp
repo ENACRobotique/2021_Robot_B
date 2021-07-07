@@ -184,8 +184,8 @@ namespace ActionList
         {150.f, 150.f, -180.f, &recalibration_wall_left, 0.0f},
         {100.f, 150.f, -180.f, &deployBar, 0.0f},
         //{120.f, 150.f, -180.f, &deployBar, 0.0f},
-        {800.f, 150.f, -180.f, &etat_begin, 0.0f},
-        {800.f, 150.f, -140.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        {800.f, 150.f, -140.f, &etat_begin, 0.0f},
+        {800.f, 150.f, -100.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         //{750.f, 150.f, -400.f, &etat_begin, 0.f},
         {600.f, 250.f, -400.f, &switchFinal, 0.f},
         NullAction
@@ -244,7 +244,7 @@ namespace ActionList
     Action PhareTopRight[5] = {
         {2600.f, 1800.f, -90.f, &recalibration_wall_top_right, 0.f},
         {2600.f, 1830.f, -180.f, &deployBar, 0.0f},
-        {2750.f, 1840.f, -400.f, &retractBarScore, 0.0f},
+        {2720.f, 1840.f, -400.f, &retractBarScore, 0.0f},
         {2600.f, 1820.f, 90.f, &switchEcocupsBottomRight, 0.0f},
         NullAction
    };

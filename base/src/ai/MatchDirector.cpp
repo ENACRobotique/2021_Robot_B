@@ -10,6 +10,7 @@
 #include "Arduino.h" //NULL definition
 #include "utils.h"
 #include "DisplayController.h"
+#include "motorControl.h"
 
 /**
  * @brief 
@@ -342,19 +343,22 @@ void update()
         */
     //}
     
-    if((millis()-start_millis > timer*1000-20000) & !moveBackToBase && hasStarted && isRobotStopped) //20s avant !
+    if((millis()-start_millis > timer*1000-20000) && (millis()-start_millis< timer*1000-3000) && !moveBackToBase && hasStarted && isRobotStopped) //20s avant !
     {
         SerialCtrl.print("returning to base ! ");
         moveBackToBase = true;
         addScore(20);
         set_current_action(ActionList::GetToFinal);
     }
-    if((millis()-start_millis > timer*1000-2000) & !moveBackToBase && hasStarted) //20s avant !
+    if((millis()-start_millis > timer*1000-2000) && !moveBackToBase && hasStarted) //20s avant !
     {
         SerialCtrl.print("final stop initiated : 2s left !  ");
         moveBackToBase = false;
         navigator.forceStop();
         set_current_action(&ActionList::NullAction);
+       
+       // analogWrite(MOT1_PWM, 0);
+		//analogWrite(MOT2_PWM, 0);
     }
     if(millis()-start_millis > timer*1000-5000 && hasStarted) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
     {
