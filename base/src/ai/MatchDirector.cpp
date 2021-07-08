@@ -398,10 +398,12 @@ ActionList::GetToFinal[2];
             if(curSection == NULL)
             {
                 set_current_action(ActionList::GetToFinalLeftHoldingSouth);
+                            SerialCtrl.println("4");
             }
             else
             {
                 set_current_action(ActionList::GetToFinalLeftEnRouteSouth);
+                            SerialCtrl.println("5");
             }
         }
         else // nord
@@ -409,10 +411,12 @@ ActionList::GetToFinal[2];
             if(curSection == NULL)
             {
                 set_current_action(ActionList::GetToFinalLeftHoldingNorth);
+                SerialCtrl.println("6");
             }
             else
             {
                 set_current_action(ActionList::GetToFinalLeftEnRouteNorth);
+                            SerialCtrl.println("7");
             }
         }
     }
@@ -424,10 +428,12 @@ ActionList::GetToFinal[2];
             if(curSection == NULL)
             {
                 set_current_action(ActionList::GetToFinalRightHoldingSouth);
+                            SerialCtrl.println("8");
             }
             else
             {
                 set_current_action(ActionList::GetToFinalRightEnRouteSouth);
+                            SerialCtrl.println("9");
             }
         }
         else
@@ -435,10 +441,12 @@ ActionList::GetToFinal[2];
             if(curSection == NULL)
             {
                 set_current_action(ActionList::GetToFinalRightHoldingNorth);
+                            SerialCtrl.println("10");
             }
             else
             {
                 set_current_action(ActionList::GetToFinalRightEnRouteNorth);
+                            SerialCtrl.println("11");
             }
         }
     } 
