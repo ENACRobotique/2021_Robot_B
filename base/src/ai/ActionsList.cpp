@@ -196,8 +196,8 @@ namespace ActionList
         {2700.f, 180.f, 0.f, &etat_begin, 0.0f},
         {2850.f, 150.f, 0.f, &recalibration_wall_right_right, 0.0f},
         {2900.f, 160.f, 0.f, &deployBar, 0.0f},
-        {2650.f, 165.f, 0.f, &etat_begin, 0.0f},
-        {2200.f, 163.f, -20.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        {2600.f, 165.f, -70.f, &etat_begin, 0.0f},
+        {2200.f, 163.f, -70.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         {2200.f, 350.f, -400.f, &switchFinal, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
 
         NullAction
