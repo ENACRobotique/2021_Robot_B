@@ -7,6 +7,7 @@
 
 #include "navigator.h"
 
+#include "ai/MatchDirector.h"
 #include "params.h"
 #include "odometry.h"
 #include "motorControl.h"
@@ -30,6 +31,8 @@ Navigator::Navigator(){
 }
 
 void Navigator::move_to(float x, float y){
+	if(!MatchDirector::isRobotStopped)
+	{
 	odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
 	SerialCtrl.println("nav::move_to| odometry motor reset to odometry wheel position !");
 	x_target = x;
@@ -41,6 +44,8 @@ void Navigator::move_to(float x, float y){
 	SerialDebug.print(x_target);
 	SerialDebug.print("\t");
 	SerialDebug.println(y_target);
+	}
+
 }//aa
 
 void Navigator::move(float v, float omega){
@@ -65,6 +70,8 @@ void Navigator::step_backward(float d){
 
 
 void Navigator::turn_to(float theta){ // En degrés
+if(!MatchDirector::isRobotStopped)
+	{
 	odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
 	SerialCtrl.println("nav::turn_to|odometry motor reset to odometry wheel position !");
 
@@ -80,6 +87,7 @@ void Navigator::turn_to(float theta){ // En degrés
 	move_type = TURN;
 	move_state = INITIAL_TURN;
 	trajectory_done = false;
+	}
 }
 
 void Navigator::throw_to(float x, float y, float theta){

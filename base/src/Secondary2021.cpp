@@ -176,7 +176,7 @@ void loop() {
 
       float full_pos[3] = {MatchDirector::get_abs_x(), MatchDirector::get_abs_y(), odometry_wheel.get_pos_theta()};
       bool isFront = (navigator.sgn == 1) ? true : false;
-      if(ATC::proximity_check(&ATC::lidar, true, full_pos))
+      if(ATC::proximity_check(&ATC::lidar, true, full_pos) && (millis()-MatchDirector::start_millis < MatchDirector::timer*1000))
       {
         SerialCtrl.println("robot stopped due to obstacle in front");
         MatchDirector::isRobotStopped = true;

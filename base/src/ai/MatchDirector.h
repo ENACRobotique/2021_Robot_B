@@ -21,6 +21,10 @@ namespace MatchDirector
     void init();
     void update();
 
+    extern float timer; // en s, durée du match
+    extern uint32_t start_millis;
+
+
     void addScore(int add);
     void abs_coords_to(float x, float y); //move to somewhere using abs
     float abs_x_to_local(float x);
