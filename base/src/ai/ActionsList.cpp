@@ -13,6 +13,8 @@
 #include "params.h"
 //#endif
 
+#define EXCLUDE_POS -1000.f
+
 /**
  * @brief action must have nullAction at the end, because it's an "infinite" length array in order to know in matchdirector when to stop and avoid overflow
  * @ingroup namespace
@@ -160,17 +162,9 @@ namespace ActionList
     };
         //Y = 400 ??
     Action EcocupsBottomRight[10] = {
-        //{2330.f,1600.f,-400.f, &etat_begin, 0.f},
-       ////////////////////// {2279.f,1036.f,-400.f, &etat_begin, 0.f},
-        {2028.f,1072.f,-400.f, &etat_begin, 0.f},
-        ////////////////{2550.f,400.f,-400.f, &etat_begin, 0.f},
-        {2400.f,600.f,-400.f, &etat_begin, 0.f},
-        {2700.f, 200.f, 90.f, &recalibration_wall_bottom_right, 0.0f},
-        {2700.f, 180.f, 0.f, &etat_begin, 0.0f},
-        {2850.f, 150.f, 0.f, &recalibration_wall_right_right, 0.0f},
-        //{2850.f, 150.f, 0.f, &switchFinal, 0.0f},
-        {2850.f, 150.f, 0.f, &switchMancheRight, 0.0f},
-        //{2400.f,600.f,-400.f, &switchMancheRight, 0.f},
+        {(3000.f-721.f),1036.f,-400.f, &etat_begin, 0.f},
+        ///////////////////{350.f,772.f,-400.f, &switchFinal, 0.f},
+        {(3000.f-472.f),572.f,-400.f, &switchMancheRight, 0.f},
         NullAction
     };
     Action EcocupsBottomLeft[10] = {
@@ -199,14 +193,16 @@ namespace ActionList
     };
 
   Action MancheAirBottomRight[10] = {
-
-        {2900.f, 160.f, 0.f, &deployBar, 0.0f},
-
-        {2700.f, 165.f, -70.f, &etat_begin, 0.0f},
-        {2700.f, 165.f, -0.f, &etat_begin, 0.0f},
-        {2200.f, 163.f, -70.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
-        {2200.f, 350.f, -400.f, &switchFinal, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
-
+        {  (3000.f-300.f), 200.f, (180.f-90.f), &recalibration_wall_bottom_right, 0.0f},
+        {  (3000.f-300.f), 150.f, 0.f, &etat_begin, 0.0f},
+        {  (3000.f-120.f), 150.f, (180.f-180.f), &recalibration_wall_right_right, 0.0f},
+        {EXCLUDE_POS, EXCLUDE_POS, -400.f, &deployBar, 0.0f},
+        /////////{  (3000.f-80.f), 150.f, (180.f-180.f), &deployBar, 0.0f},
+        //{(3000.f-120.f), 150.f, 0.f, &deployBar, 0.0f},
+        //{(3000.f-800.f), 150.f, 0.f, &etat_begin, 0.0f},
+        {  (3000.f-800.f), 150.f, (-110.f), &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        //{(3000.f-750.f), 150.f, -400.f, &etat_begin, 0.f},
+        {  (3000.f-600.f), 250.f, -400.f, &switchFinal, 0.f},
         NullAction
     };
 
@@ -220,9 +216,11 @@ namespace ActionList
     
 
 
-   Action PhareTopLeft[5] = {
+   Action PhareTopLeft[7] = {
         {500.f, 1830.f, 90.f, &recalibration_wall_top, 0.f},
-        {500.f, 1840.f, 0.f, &deployBar, 0.0f},
+        {EXCLUDE_POS, EXCLUDE_POS, 0.f, &deployBar, 0.0f},
+        //{500.f, 1840.f, 0.f, &deployBar, 0.0f},
+        {500.f, 1840.f, 0.f, &etat_begin, 0.0f},
         {350.f, 1860.f, -400.f, &retractBarScore, 0.0f},
         {670.f,1600.f,-400.f, &switchEcocupBottomLeft, 0.f},
        //{350.f, 1820.f, -400.f, &switchEcocupBottomLeft, 0.0f},
@@ -248,9 +246,11 @@ namespace ActionList
 
 
 
-    Action PhareTopRight[5] = {
+    Action PhareTopRight[7] = {
         {2600.f, 1800.f, -90.f, &recalibration_wall_top_right, 0.f},
-        {2600.f, 1830.f, -180.f, &deployBar, 0.0f},
+        {EXCLUDE_POS, EXCLUDE_POS, 0.f, &deployBar, 0.0f},
+        {2600.f, 1830.f, -180.f, &etat_begin, 0.0f},
+        //{2600.f, 1830.f, -180.f, &deployBar, 0.0f},
         {2715.f, 1840.f, -400.f, &retractBarScore, 0.0f},
         {2600.f, 1820.f, 90.f, &switchEcocupsBottomRight, 0.0f},
         NullAction
@@ -310,9 +310,8 @@ Action GetToFinalLeftEnRouteNorth[5]= {
     NullAction
 };
 Action GetToFinalRightEnRouteNorth[5]= {
-    {2600.f, 1200.f, -90.f, &etat_begin, 0.0f},
-    {2870.f, 1800.f, -90.f, &etat_begin, 0.0f},
-    {250.f, 1800.f, 90.f, &etat_begin, 0.0f},
+    {2700.f, 1200.f, -90.f, &etat_begin, 0.0f},
+    {2870.f, 1600.f, -90.f, &etat_begin, 0.0f},
     NullAction
 };
 

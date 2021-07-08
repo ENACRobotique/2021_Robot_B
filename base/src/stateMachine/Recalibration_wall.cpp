@@ -12,6 +12,7 @@
 #include "navigator.h"
 #include "odometry.h"
 #include "math.h"
+#include "actuatorSupervisor.h"
 
 //Recalibration : valeurs configurés en supposant que le robot se reconfigure vers L'AVANT et pas l'arrière (faire attention en l'amenant devant le mur)
 //prendre en compte pas les coordonnées dumur mais ceux du centre du robot

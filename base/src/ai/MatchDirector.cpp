@@ -236,7 +236,7 @@ void action_dispatcher(Action action)
             */
             SerialCtrl.println("path is BLOCKEd ! WAITING 2! ");
         }
-        else
+        else if(action.x >= -100.f && action.y >= -100.f)
         {
             SerialCtrl.println("chemin direct !");
             abs_coords_to(action.x,action.y);
@@ -347,7 +347,8 @@ void update()
     {
         SerialCtrl.print("returning to base ! ");
         moveBackToBase = true;
-        addScore(20);
+        //addScore(20);
+        addScore(6);
         compute_final_point();
     }
     if((millis()-start_millis > timer*1000-2000) && hasStarted) //20s avant !
