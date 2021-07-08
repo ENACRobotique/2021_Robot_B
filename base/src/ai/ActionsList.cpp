@@ -217,9 +217,9 @@ namespace ActionList
 
 
    Action PhareTopLeft[5] = {
-        {500.f, 1800.f, 90.f, &recalibration_wall_top, 0.f},
-        {500.f, 1820.f, 0.f, &deployBar, 0.0f},
-        {350.f, 1850.f, -400.f, &retractBarScore, 0.0f},
+        {500.f, 1830.f, 90.f, &recalibration_wall_top, 0.f},
+        {500.f, 1840.f, 0.f, &deployBar, 0.0f},
+        {350.f, 1860.f, -400.f, &retractBarScore, 0.0f},
         {670.f,1600.f,-400.f, &switchEcocupBottomLeft, 0.f},
        //{350.f, 1820.f, -400.f, &switchEcocupBottomLeft, 0.0f},
         NullAction
