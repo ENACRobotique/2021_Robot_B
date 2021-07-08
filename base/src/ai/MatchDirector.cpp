@@ -343,7 +343,7 @@ void update()
         */
     //}
     
-    if((millis()-start_millis > timer*1000-20000) && (millis()-start_millis< timer*1000-3000) && !moveBackToBase && hasStarted && isRobotStopped) //20s avant !
+    if((millis()-start_millis > timer*1000-20000) && (millis()-start_millis< timer*1000-3000) && !moveBackToBase && hasStarted && !isRobotStopped) //20s avant !
     {
         SerialCtrl.print("returning to base ! ");
         moveBackToBase = true;
