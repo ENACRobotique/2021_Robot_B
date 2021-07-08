@@ -1,4 +1,4 @@
-#include "rplidar.h"
+//#include "rplidar.h"
 #include "Arduino.h"
 
 unsigned long LIDAR_LASTMSG = millis();
