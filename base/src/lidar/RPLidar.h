@@ -66,12 +66,12 @@ void readLidar() {
      LIDAR_LASTMSG = millis();
 
     if ((int)millis()%50 == 0){
-        SerialCtrl.print(nearest);
+        /*SerialCtrl.print(nearest);
     SerialCtrl.print("\t");
     SerialCtrl.print(ATC::lidar.get_distance(nearest));
     SerialCtrl.print("\t");
     SerialCtrl.print(ATC::lidar.get_quality(nearest));
-    SerialCtrl.print("\n");
+    SerialCtrl.print("\n");*/
     }
     
     
