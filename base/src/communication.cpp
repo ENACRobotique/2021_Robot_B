@@ -167,7 +167,7 @@ namespace Communication {
         else if(buffer[0] == 'p') { //parking
             char color; //w = white, b = black
             int nb = sscanf(buffer, "p %c", &color);
-            MatchDirector::compute_final_point((color == 'w') ? true : false);
+            MatchDirector::isGirouetteWhite = (color == 'w') ? true : false;
         }
 
 

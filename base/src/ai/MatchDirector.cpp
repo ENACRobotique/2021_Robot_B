@@ -40,7 +40,7 @@ namespace MatchDirector
     };
 
     //ActionOrder actionOrder;
-
+bool isGirouetteWhite = false;
 
     bool isStartingLeft = true;
     bool isDrivingBackward = false; //if move with navigator with positive number, robot goes backward
@@ -348,7 +348,7 @@ void update()
         SerialCtrl.print("returning to base ! ");
         moveBackToBase = true;
         addScore(20);
-        set_current_action(ActionList::GetToFinal);
+        compute_final_point();
     }
     if((millis()-start_millis > timer*1000-2000) && !moveBackToBase && hasStarted) //20s avant !
     {
@@ -384,7 +384,7 @@ void set_current_action(Action *action)
 }
 
 //to be called when receveing information from raspberry about girouette in communication.h
-void compute_final_point(bool isGirouetteWhite) 
+void compute_final_point() 
 //White : Sud, Black : Nord
 {
 
