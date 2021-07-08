@@ -171,6 +171,7 @@ namespace ActionList
         //{2850.f, 150.f, 0.f, &switchFinal, 0.0f},
         {2850.f, 150.f, 0.f, &switchMancheRight, 0.0f},
         //{2400.f,600.f,-400.f, &switchMancheRight, 0.f},
+        NullAction
     };
     Action EcocupsBottomLeft[10] = {
         //{670.f,1600.f,-400.f, &etat_begin, 0.f},
