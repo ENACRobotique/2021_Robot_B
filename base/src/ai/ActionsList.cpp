@@ -170,9 +170,8 @@ namespace ActionList
     Action EcocupsBottomLeft[10] = {
         //{670.f,1600.f,-400.f, &etat_begin, 0.f},
         {721.f,1036.f,-400.f, &etat_begin, 0.f},
-        {772.f,572.f,-400.f, &switchFinal, 0.f},
-        //{772.f,572.f,-400.f, &switchMancheLeft, 0.f},
-        //{300.f,200.f,-400.f, &switchMancheLeft, 0.f},
+        ///////////////////{772.f,572.f,-400.f, &switchFinal, 0.f},
+        {772.f,572.f,-400.f, &switchMancheLeft, 0.f},
         NullAction
         //{sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
          //Going a little bit before the wall + deploy servo before arrival
@@ -186,8 +185,8 @@ namespace ActionList
         {150.f, 150.f, -180.f, &recalibration_wall_left, 0.0f},
         {100.f, 150.f, -180.f, &deployBar, 0.0f},
         //{120.f, 150.f, -180.f, &deployBar, 0.0f},
-        {800.f, 150.f, -140.f, &etat_begin, 0.0f},
-        {800.f, 150.f, -100.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
+        //{800.f, 150.f, -140.f, &etat_begin, 0.0f},
+        {800.f, 150.f, -170.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         //{750.f, 150.f, -400.f, &etat_begin, 0.f},
         {600.f, 250.f, -400.f, &switchFinal, 0.f},
         NullAction
@@ -200,6 +199,7 @@ namespace ActionList
         {2900.f, 160.f, 0.f, &deployBar, 0.0f},
 
         {2700.f, 165.f, -70.f, &etat_begin, 0.0f},
+        {2700.f, 165.f, -0.f, &etat_begin, 0.0f},
         {2200.f, 163.f, -70.f, &retractBarScore, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
         {2200.f, 350.f, -400.f, &switchFinal, 0.0f}, //on léve la deuxiéme manche à air en tournant, et on rétracte de suite
 
@@ -218,8 +218,8 @@ namespace ActionList
 
    Action PhareTopLeft[5] = {
         {500.f, 1800.f, 90.f, &recalibration_wall_top, 0.f},
-        {500.f, 1800.f, 0.f, &deployBar, 0.0f},
-        {350.f, 1820.f, -400.f, &retractBarScore, 0.0f},
+        {500.f, 1820.f, 0.f, &deployBar, 0.0f},
+        {350.f, 1850.f, -400.f, &retractBarScore, 0.0f},
         {670.f,1600.f,-400.f, &switchEcocupBottomLeft, 0.f},
        //{350.f, 1820.f, -400.f, &switchEcocupBottomLeft, 0.0f},
         NullAction
@@ -274,38 +274,38 @@ namespace ActionList
 
 
 Action GetToFinalLeftHoldingSouth[5] = {
-    {200.f, 800.f, 90.f, &etat_begin, 0.0f},
+    {400.f, 800.f, 90.f, &etat_begin, 0.0f},
     NullAction
 };
 
 Action GetToFinalRightHoldingSouth[5] = {
-    {2800.f, 800.f, -90.f, &etat_begin, 0.0f},
+    {2600.f, 800.f, -90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalLeftEnRouteSouth[5]= {
-    {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+    {400.f, 800.f, 90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalRightEnRouteSouth[5]= {
-    {2800.f, 800.f, 0.f, &etat_begin, 0.0f},
+    {2600.f, 800.f, -90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalLeftHoldingNorth[5] = {
-    {200.f, 800.f, -90.f, &etat_begin, 0.0f},
+    {400.f, 800.f, 90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalRightHoldingNorth[5]= {
-    {2800.f, 800.f, 90.f, &etat_begin, 0.0f},
+    {2600.f, 800.f, -90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalLeftEnRouteNorth[5]= {
-    {200.f, 1200.f, 0.f, &etat_begin, 0.0f},
-    {200.f, 800.f, 0.f, &etat_begin, 0.0f},
+    {400.f, 1200.f, 90.f, &etat_begin, 0.0f},
+    {400.f, 800.f, 90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalRightEnRouteNorth[5]= {
-    {2800.f, 1200.f, 0.f, &etat_begin, 0.0f},
-    {2800.f, 800.f, 0.f, &etat_begin, 0.0f},
+    {2600.f, 1200.f, -90.f, &etat_begin, 0.0f},
+    {2600.f, 800.f, -90.f, &etat_begin, 0.0f},
     NullAction
 };
 

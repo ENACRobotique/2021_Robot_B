@@ -1,4 +1,4 @@
-#include "rplidar.h"
+//#include "rplidar.h"
 #include "Arduino.h"
 
 unsigned long LIDAR_LASTMSG = millis();
@@ -66,12 +66,14 @@ void readLidar() {
      LIDAR_LASTMSG = millis();
 
     if ((int)millis()%50 == 0){
+        /*
         SerialCtrl.print(nearest);
     SerialCtrl.print("\t");
     SerialCtrl.print(ATC::lidar.get_distance(nearest));
     SerialCtrl.print("\t");
     SerialCtrl.print(ATC::lidar.get_quality(nearest));
     SerialCtrl.print("\n");
+    */
     }
     
     

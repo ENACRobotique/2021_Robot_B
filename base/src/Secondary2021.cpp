@@ -26,7 +26,7 @@
 #include "examples/testXbee.h" 
 #include "pathfinding.h"
 #include "lidar/LidarData.h"
-#include "lidar/rplidar.h"
+//#include "lidar/rplidar.h"
 #include "lidar/RPLidar.h"
 //#include "raspberryParser.h"
 #include "DisplayController.h"

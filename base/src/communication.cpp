@@ -169,6 +169,12 @@ namespace Communication {
             int nb = sscanf(buffer, "p %c", &color);
             MatchDirector::isGirouetteWhite = (color == 'w') ? true : false;
         }
+        else if(buffer[0] == 'y') { //test manche à air
+            MatchDirector::set_current_action(ActionList::EcocupsBottomLeft);
+        }
+        else if(buffer[0] == 'z') { //test manche à air
+            MatchDirector::set_current_action(ActionList::EcocupsBottomRight);
+        }
 
 
 
