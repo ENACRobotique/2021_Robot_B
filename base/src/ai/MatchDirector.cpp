@@ -350,15 +350,16 @@ void update()
         addScore(20);
         compute_final_point();
     }
-    if((millis()-start_millis > timer*1000-2000) && !moveBackToBase && hasStarted) //20s avant !
+    if((millis()-start_millis > timer*1000-2000) && hasStarted) //20s avant !
     {
         SerialCtrl.print("final stop initiated : 2s left !  ");
         moveBackToBase = false;
         navigator.forceStop();
         set_current_action(&ActionList::NullAction);
        
-       // analogWrite(MOT1_PWM, 0);
-		//analogWrite(MOT2_PWM, 0);
+        analogWrite(MOT1_PWM, 0);
+		analogWrite(MOT2_PWM, 0);
+        for(;;);
     }
     if(millis()-start_millis > timer*1000-5000 && hasStarted) // -5000 : hardcode du pavillon qui doit se déclencher à 5s de la fin
     {

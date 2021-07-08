@@ -31,7 +31,7 @@ Navigator::Navigator(){
 }
 
 void Navigator::move_to(float x, float y){
-	if(!MatchDirector::isRobotStopped)
+	if((millis()-MatchDirector::start_millis < MatchDirector::timer*1000))
 	{
 	odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
 	SerialCtrl.println("nav::move_to| odometry motor reset to odometry wheel position !");
@@ -70,7 +70,7 @@ void Navigator::step_backward(float d){
 
 
 void Navigator::turn_to(float theta){ // En degrés
-if(!MatchDirector::isRobotStopped)
+if((millis()-MatchDirector::start_millis < MatchDirector::timer*1000))
 	{
 	odometry_motor.set_pos(odometry_wheel.get_pos_x(), odometry_wheel.get_pos_y(), odometry_wheel.get_pos_theta());
 	SerialCtrl.println("nav::turn_to|odometry motor reset to odometry wheel position !");
