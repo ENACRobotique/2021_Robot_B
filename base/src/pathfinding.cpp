@@ -488,8 +488,8 @@ PointSeq ATC::read_route(Route &route){
 
 bool ATC::proximity_check(LidarData *lidar, bool front, float *robot_pos){
     float marge = 150.0f;
-    int ang_start = (front)? -50 : (180-50);
-    int ang_stop = (front)? 51 : (180+51);
+    int ang_start = (front)? -45 : (180-45);
+    int ang_stop = (front)? 46 : (180+46);
     for(int ang=ang_start;ang<ang_stop;ang++){
         float time_since = (float)millis() - (*lidar).get_time((ang+360)%360);
         byte qual_lid = (*lidar).get_quality((ang+360)%360);
