@@ -29,15 +29,14 @@ namespace MatchDirector
     float get_abs_y();
     float  get_abs_wheel_x();
     float  get_abs_wheel_y();
-
-    extern bool isRobotStopped;
+extern bool isGirouetteWhite ;   extern bool isRobotStopped;
 
     /**
      * @brief Fonction qui doit être appelé par match director peu de temps avant la fin, modifie les coordonnées à atteindre à la fin
      * @ingroup namespace
      * @param isGirouetteWhite Gère orientation nord/sud
      */
-    void compute_final_point(bool isGirouetteWhite);
+    void compute_final_point();
     /**
      * @brief Fonction apppelée pour le pathfinding (call simplifié)
      * @ingroup namespace
