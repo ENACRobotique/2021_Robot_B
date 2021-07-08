@@ -152,7 +152,7 @@ namespace ActionList
         {900.f, 1900.f, 270.f, &retractFrontGreen, 0.f},
         {900.f, 1850.f, 270.f, &etat_vide_unit_test, 0.f}, //backing off the wall
         */
-
+ 
      Action EcocupsTopRight[10] = {
         {2200.f,1250.f,-90.f, &switchPhareRight, 0.f},
         //{2500.f,1750.f,-400.f, &switchPhareRight, 0.f},
@@ -164,7 +164,12 @@ namespace ActionList
        ////////////////////// {2279.f,1036.f,-400.f, &etat_begin, 0.f},
         {2028.f,1072.f,-400.f, &etat_begin, 0.f},
         ////////////////{2550.f,400.f,-400.f, &etat_begin, 0.f},
-        {2400.f,600.f,-400.f, &switchFinal, 0.f},
+        {2400.f,600.f,-400.f, &etat_begin, 0.f},
+        {2700.f, 200.f, 90.f, &recalibration_wall_bottom_right, 0.0f},
+        {2700.f, 180.f, 0.f, &etat_begin, 0.0f},
+        {2850.f, 150.f, 0.f, &recalibration_wall_right_right, 0.0f},
+        //{2850.f, 150.f, 0.f, &switchFinal, 0.0f},
+        {2850.f, 150.f, 0.f, &switchMancheRight, 0.0f},
         //{2400.f,600.f,-400.f, &switchMancheRight, 0.f},
     };
     Action EcocupsBottomLeft[10] = {
@@ -193,9 +198,7 @@ namespace ActionList
     };
 
   Action MancheAirBottomRight[10] = {
-        {2700.f, 200.f, 90.f, &recalibration_wall_bottom_right, 0.0f},
-        {2700.f, 180.f, 0.f, &etat_begin, 0.0f},
-        {2850.f, 150.f, 0.f, &recalibration_wall_right_right, 0.0f},
+
         {2900.f, 160.f, 0.f, &deployBar, 0.0f},
 
         {2700.f, 165.f, -70.f, &etat_begin, 0.0f},
@@ -279,7 +282,7 @@ Action GetToFinalLeftHoldingSouth[5] = {
 };
 
 Action GetToFinalRightHoldingSouth[5] = {
-    {2750.f, 800.f, -90.f, &etat_begin, 0.0f},
+    {2870.f, 800.f, -90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalLeftEnRouteSouth[5]= {
@@ -287,7 +290,7 @@ Action GetToFinalLeftEnRouteSouth[5]= {
     NullAction
 };
 Action GetToFinalRightEnRouteSouth[5]= {
-    {2750.f, 800.f, -90.f, &etat_begin, 0.0f},
+    {2870.f, 800.f, -90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalLeftHoldingNorth[5] = {
@@ -295,8 +298,8 @@ Action GetToFinalLeftHoldingNorth[5] = {
     NullAction
 };
 Action GetToFinalRightHoldingNorth[5]= {
-    {2750.f, 1800.f, -90.f, &etat_begin, 0.0f},
-        {2750.f, 1800.f, -90.f, &etat_begin, 0.0f},
+    {2870.f, 1800.f, -90.f, &etat_begin, 0.0f},
+        {2870.f, 1800.f, -90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalLeftEnRouteNorth[5]= {
@@ -307,7 +310,7 @@ Action GetToFinalLeftEnRouteNorth[5]= {
 };
 Action GetToFinalRightEnRouteNorth[5]= {
     {2600.f, 1200.f, -90.f, &etat_begin, 0.0f},
-    {2750.f, 1800.f, -90.f, &etat_begin, 0.0f},
+    {2870.f, 1800.f, -90.f, &etat_begin, 0.0f},
     {250.f, 1800.f, 90.f, &etat_begin, 0.0f},
     NullAction
 };
