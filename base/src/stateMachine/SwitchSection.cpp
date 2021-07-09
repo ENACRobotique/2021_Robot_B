@@ -29,6 +29,5 @@ void SwitchSection::leave() {
 
 void SwitchSection::doIt() {
 	MatchDirector::set_current_action(action);
-	fsmSupervisor.setNextState(&etat_begin);
 }
 
