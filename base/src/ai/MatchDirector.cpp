@@ -258,6 +258,8 @@ void action_dispatcher(Action action)
             }
             else
             {
+                SerialCtrl.println(get_abs_wheel_x());
+                SerialCtrl.println(get_abs_wheel_y());
                 if(!(action.angle <= -360.f)) // -180 <= action.angle <= 180° pour être pris en compte, (normalement donc on met 360 au cas où)
                 {
                     SerialCtrl.print("turning to angle : ");

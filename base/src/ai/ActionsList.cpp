@@ -138,7 +138,7 @@ namespace ActionList
         //{772.f,1200.f,-400.f, &etat_begin, 0.f},
         //{150.0f, 1090.0f, 180.f, &recalibration_wall_left, 0.f},
         //{180.f, 1090.f, 0.f, &etat_begin, 0.f},
-        {772.f,1400.f,90.f, &switchPhareLeft, 0.f},
+        {672.f,1400.f,90.f, &switchPhareLeft, 0.f},
         //{670.f,1600.f,-400.f, &etat_begin, 0.f},
         //{350.f,1800.f,90.f, &switchPhareLeft, 0.f},
         //{500.f,1800.f,-400.f, &switchPhareLeft, 0.f},
@@ -163,15 +163,15 @@ namespace ActionList
         //Y = 400 ??
     Action EcocupsBottomRight[10] = {
         {(3000.f-721.f),1036.f,-400.f, &etat_begin, 0.f},
-        {350.f,772.f,-400.f, &switchFinal, 0.f},
-        ///////////////////{(3000.f-472.f),572.f,-400.f, &switchMancheRight, 0.f},
+        ///////////////////{350.f,772.f,-400.f, &switchFinal, 0.f},
+        {(3000.f-472.f),572.f,-400.f, &switchMancheRight, 0.f},
         NullAction
     };
     Action EcocupsBottomLeft[10] = {
         //{670.f,1600.f,-400.f, &etat_begin, 0.f},
         {721.f,1036.f,-400.f, &etat_begin, 0.f},
-        {772.f,572.f,-400.f, &switchFinal, 0.f},
-        ///////////////////{772.f,572.f,-400.f, &switchMancheLeft, 0.f},
+        //////////////////{772.f,572.f,-400.f, &switchFinal, 0.f},
+        {772.f,572.f,-400.f, &switchMancheLeft, 0.f},
         NullAction
         //{sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
          //Going a little bit before the wall + deploy servo before arrival
@@ -217,16 +217,24 @@ namespace ActionList
 
 
    Action PhareTopLeft[7] = {
-        {500.f, 1830.f, 90.f, &recalibration_wall_top, 0.f},
+        {450.f, 1830.f, 90.f, &recalibration_wall_top, 0.f},
         ////{EXCLUDE_POS, EXCLUDE_POS, 0.f, &deployBar, 0.0f},
-        {500.f, 1830.f, 0.f, &deployBar, 0.0f},
+        {520.f, 1830.f, 0.f, &deployBar, 0.0f},
         /////{500.f, 1840.f, 0.f, &etat_begin, 0.0f},
-        {300.f, 1860.f, -400.f, &retractBarScore, 0.0f},
+        {290.f, 1850.f, -400.f, &retractBarScore, 0.0f},
+        //{100.f,1860.f, 0.f, &recalibration_wall_left_back, 0.0f},
         {670.f,1600.f,-400.f, &switchEcocupBottomLeft, 0.f},
        //{350.f, 1820.f, -400.f, &switchEcocupBottomLeft, 0.0f},
         NullAction
    };
-
+/*
+           {2600.f, 1800.f, -90.f, &recalibration_wall_top_right, 0.f},
+        //////{EXCLUDE_POS, EXCLUDE_POS, 0.f, &deployBar, 0.0f},
+        //////{2600.f, 1830.f, -180.f, &etat_begin, 0.0f},
+        {2600.f, 1830.f, -180.f, &deployBar, 0.0f},
+        {2715.f, 1840.f, -400.f, &retractBarScore, 0.0f},
+        {2600.f, 1820.f, 90.f, &switchEcocupsBottomRight, 0.0f},
+*/
     Action DeposeTopLeft[5] = { //green
 
         {200.f, 1490.f-distCentreEcocup, -90.f, &deployFrontGreen, 0.0f},//Front -> direction vert /haut en premier
@@ -295,7 +303,7 @@ Action GetToFinalRightEnRouteSouth[5]= {
     NullAction
 };
 Action GetToFinalLeftHoldingNorth[5] = {
-    {250.f, 1800.f, 90.f, &etat_begin, 0.0f},
+    {250.f, 1600.f, 90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalRightHoldingNorth[5]= {
@@ -305,8 +313,7 @@ Action GetToFinalRightHoldingNorth[5]= {
 };
 Action GetToFinalLeftEnRouteNorth[5]= {
     {400.f, 1200.f, 90.f, &etat_begin, 0.0f},
-    {250.f, 1800.f, 90.f, &etat_begin, 0.0f},
-    {250.f, 1800.f, 90.f, &etat_begin, 0.0f},
+    {250.f, 1600.f, 90.f, &etat_begin, 0.0f},
     NullAction
 };
 Action GetToFinalRightEnRouteNorth[5]= {

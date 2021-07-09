@@ -36,6 +36,8 @@ private:
 	float targetTheta;
 };
 
+extern Recalibration_wall recalibration_wall_left_back;
+
 extern Recalibration_wall recalibration_wall_left;
 extern Recalibration_wall recalibration_wall_top;
 extern Recalibration_wall recalibration_wall_bottom;

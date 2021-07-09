@@ -51,7 +51,7 @@ void FsmSupervisor::update() {
 		currentState = nextState;
 		nextState = NULL;
 		isSwitchingState = false;
-		SerialCtrl.println("fsmSupervisor state changed");
+		//SerialCtrl.println("fsmSupervisor state changed");
 	}
 
 	currentState->doIt();
