@@ -218,9 +218,9 @@ namespace ActionList
 
    Action PhareTopLeft[7] = {
         {500.f, 1830.f, 90.f, &recalibration_wall_top, 0.f},
-        {EXCLUDE_POS, EXCLUDE_POS, 0.f, &deployBar, 0.0f},
-        //{500.f, 1840.f, 0.f, &deployBar, 0.0f},
-        {500.f, 1840.f, 0.f, &etat_begin, 0.0f},
+        ////{EXCLUDE_POS, EXCLUDE_POS, 0.f, &deployBar, 0.0f},
+        {500.f, 1840.f, 0.f, &deployBar, 0.0f},
+        /////{500.f, 1840.f, 0.f, &etat_begin, 0.0f},
         {350.f, 1860.f, -400.f, &retractBarScore, 0.0f},
         {670.f,1600.f,-400.f, &switchEcocupBottomLeft, 0.f},
        //{350.f, 1820.f, -400.f, &switchEcocupBottomLeft, 0.0f},
@@ -248,9 +248,9 @@ namespace ActionList
 
     Action PhareTopRight[7] = {
         {2600.f, 1800.f, -90.f, &recalibration_wall_top_right, 0.f},
-        {EXCLUDE_POS, EXCLUDE_POS, 0.f, &deployBar, 0.0f},
-        {2600.f, 1830.f, -180.f, &etat_begin, 0.0f},
-        //{2600.f, 1830.f, -180.f, &deployBar, 0.0f},
+        //////{EXCLUDE_POS, EXCLUDE_POS, 0.f, &deployBar, 0.0f},
+        //////{2600.f, 1830.f, -180.f, &etat_begin, 0.0f},
+        {2600.f, 1830.f, -180.f, &deployBar, 0.0f},
         {2715.f, 1840.f, -400.f, &retractBarScore, 0.0f},
         {2600.f, 1820.f, 90.f, &switchEcocupsBottomRight, 0.0f},
         NullAction

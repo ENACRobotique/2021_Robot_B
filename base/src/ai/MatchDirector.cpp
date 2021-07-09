@@ -240,9 +240,9 @@ void action_dispatcher(Action action)
         {
             SerialCtrl.println("chemin direct !");
             abs_coords_to(action.x,action.y);
-            actionState = MOVING;
+
         }
-        
+            actionState = MOVING;
     }
 
     else if(actionState == MOVING)
@@ -347,8 +347,8 @@ void update()
     {
         SerialCtrl.print("returning to base ! ");
         moveBackToBase = true;
-        //addScore(20);
-        addScore(6);
+        addScore(20);
+        //addScore(6);
         compute_final_point();
     }
     if((millis()-start_millis > timer*1000-2000) && hasStarted) //20s avant !
