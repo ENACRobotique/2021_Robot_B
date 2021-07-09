@@ -163,15 +163,15 @@ namespace ActionList
         //Y = 400 ??
     Action EcocupsBottomRight[10] = {
         {(3000.f-721.f),1036.f,-400.f, &etat_begin, 0.f},
-        ///////////////////{350.f,772.f,-400.f, &switchFinal, 0.f},
-        {(3000.f-472.f),572.f,-400.f, &switchMancheRight, 0.f},
+        {350.f,772.f,-400.f, &switchFinal, 0.f},
+        ///////////////////{(3000.f-472.f),572.f,-400.f, &switchMancheRight, 0.f},
         NullAction
     };
     Action EcocupsBottomLeft[10] = {
         //{670.f,1600.f,-400.f, &etat_begin, 0.f},
         {721.f,1036.f,-400.f, &etat_begin, 0.f},
-        ///////////////////{772.f,572.f,-400.f, &switchFinal, 0.f},
-        {772.f,572.f,-400.f, &switchMancheLeft, 0.f},
+        {772.f,572.f,-400.f, &switchFinal, 0.f},
+        ///////////////////{772.f,572.f,-400.f, &switchMancheLeft, 0.f},
         NullAction
         //{sizeHalfWidthRobot+100.f,250.f , 180.f, &deployFrontServo, 3.0f},
          //Going a little bit before the wall + deploy servo before arrival
@@ -219,9 +219,9 @@ namespace ActionList
    Action PhareTopLeft[7] = {
         {500.f, 1830.f, 90.f, &recalibration_wall_top, 0.f},
         ////{EXCLUDE_POS, EXCLUDE_POS, 0.f, &deployBar, 0.0f},
-        {500.f, 1840.f, 0.f, &deployBar, 0.0f},
+        {500.f, 1830.f, 0.f, &deployBar, 0.0f},
         /////{500.f, 1840.f, 0.f, &etat_begin, 0.0f},
-        {350.f, 1860.f, -400.f, &retractBarScore, 0.0f},
+        {300.f, 1860.f, -400.f, &retractBarScore, 0.0f},
         {670.f,1600.f,-400.f, &switchEcocupBottomLeft, 0.f},
        //{350.f, 1820.f, -400.f, &switchEcocupBottomLeft, 0.0f},
         NullAction
