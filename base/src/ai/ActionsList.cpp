@@ -156,7 +156,7 @@ namespace ActionList
         */
  
      Action EcocupsTopRight[10] = {
-        {2200.f,1250.f,-90.f, &switchPhareRight, 0.f},
+        {2170.f,1250.f,-90.f, &switchPhareRight, 0.f},
         //{2500.f,1750.f,-400.f, &switchPhareRight, 0.f},
         NullAction
     };
@@ -255,14 +255,24 @@ namespace ActionList
 
 
     Action PhareTopRight[7] = {
-        {2600.f, 1800.f, -90.f, &recalibration_wall_top_right, 0.f},
+        {(3000.f-450.f), 1800.f, -90.f, &recalibration_wall_top_right, 0.f},
         //////{EXCLUDE_POS, EXCLUDE_POS, 0.f, &deployBar, 0.0f},
         //////{2600.f, 1830.f, -180.f, &etat_begin, 0.0f},
-        {2600.f, 1830.f, -180.f, &deployBar, 0.0f},
-        {2715.f, 1840.f, -400.f, &retractBarScore, 0.0f},
-        {2600.f, 1820.f, 90.f, &switchEcocupsBottomRight, 0.0f},
+        {(3000.f-520.f), 1850.f, -180.f, &deployBar, 0.0f},
+        {(3000.f-290.f), 1870.f, -400.f, &retractBarScore, 0.0f},
+        {(3000.f-670.f), 1600.f, 90.f, &switchEcocupsBottomRight, 0.0f},
         NullAction
    };
+
+   /*
+   {450.f, 1830.f, 90.f, &recalibration_wall_top, 0.f},
+        ////{EXCLUDE_POS, EXCLUDE_POS, 0.f, &deployBar, 0.0f},
+        {520.f, 1830.f, 0.f, &deployBar, 0.0f},
+        /////{500.f, 1840.f, 0.f, &etat_begin, 0.0f},
+        {290.f, 1850.f, -400.f, &retractBarScore, 0.0f},
+        //{100.f,1860.f, 0.f, &recalibration_wall_left_back, 0.0f},
+        {670.f,1600.f,-400.f, &switchEcocupBottomLeft, 0.f},
+   */
     
 
     Action TestStrategieMvtOnly[5] = 
