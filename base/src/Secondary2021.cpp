@@ -27,7 +27,7 @@
 #include "pathfinding.h"
 #include "lidar/Lidar.h"
 //#include "raspberryParser.h"
-#include "display.h"
+#include "DisplayController.h"
 
 Metro controlTime = Metro((unsigned long)(CONTROL_PERIOD * 1000));
 Metro debugLed = Metro(2000);
@@ -44,11 +44,11 @@ void setup() {
   //pinMode(LED_BUILTIN, OUTPUT);
   //pinMode(11, OUTPUT);
   //testXbee::init();
-    //SerialCtrl.begin(57600);
+    Serial2.begin(57600);
     Serial.begin(57600);
     //SerialDebug.begin(57600);
     SerialDebug.println("test SerialDebug 1");
-    //SerialCtrl.println(ActionList::isNull(&ActionList::TestStrategieMvtOnly[0]));
+    SerialCtrl.println("test SerialCtrl 1");
     //#ifdef DEBUG_ASSERVISSEMENT
       //Serial.println("cons_speed cons_omega actual_speed actual_omega");
     //#endif
@@ -60,7 +60,7 @@ void setup() {
     SerialCtrl.println("initialization serialCtrl");
     */
   //Wire.begin();
-  /*
+  
   controlTime.reset();
 	debugLed.reset();
 	navTime.reset();
@@ -70,23 +70,25 @@ void setup() {
 	MotorControl::init();
   fsmSupervisor.init();
   ActuatorSupervisor::init();
-  controlDisplay::init();
+  MatchDirector::init(); 
+
+  debugTest::scanSerial();
+  displayController.init();
 
   //while (!Serial);
   SerialCtrl.println("test serialctrl");
   Serial.println("test serial");
   //ActuatorSupervisor::switch_pompe(true, 0);
   //navigator.move_to(500.f, 0.f);
-  //pwm.begin();
 
   //Serial2.println("Scanner debut");
   //debugTest::scanSerial();
-  
+ 
 }
 
 void loop() {
-    debugTest::scanSerial();
- /*
+  
+ 
   //testXbee::update();
     
       if(navTime.check())
@@ -108,17 +110,17 @@ void loop() {
     }
     if(stateTime.check())
     {   
-      //MatchDirector::update();      
+      MatchDirector::update();      
       fsmSupervisor.update();
 
     }
  
     if(TestTime.check())
     {
-      asservissementMoteur::update();
+      //asservissementMoteur::update();
     }
   //send_odom_report(12.2, 34.2, 14.8);
   //delay(800);
-  
-*/
+
+
 } 

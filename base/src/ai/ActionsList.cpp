@@ -117,23 +117,27 @@ namespace ActionList
             }
     }
 
-
     /* Ecocup écueils : Ecart de 75 mm entre chaque ecocup */
     //X = 850
     Action EcocupsTopLeft[10] = {
-        {700.f, 1850.f, 90.f, &deployFrontServo, 3.0f}, //Going a little bit before the wall + deploy servo before arrival
-        //{700.f, 1850.f, 90.f, &recalibration_wall, 0.f},
-        {700.f, 1900.f, 90.f, &wait_font_cup_succ, 0.f}, 
-        {700.f, 1900.f, 90.f, &retractFrontServo, 0.f}, 
-        {700.f, 1850.f, 0.f, &etat_vide_unit_test, 0.f}, //backing off the wall$
+        {700.f, 1980.f - sizeHalfLengthRobot, 90.f, &deployFrontServo, 3.0f}, //Going a little bit before the wall + deploy servo before arrival
+        {700.f, 1980.f - sizeHalfLengthRobot, 90.f, &recalibration_wall_top, 0.f},
+        {700.f, 2000.f- sizeHalfLengthRobot, 90.f, &wait_font_cup_succ, 0.f}, 
+        {700.f, 2000.f- sizeHalfLengthRobot, 90.f, &retractFrontServo, 0.f},
+        {700.f, 1800.f, 90.f, &etat_vide_unit_test, 0.f}, //backing off the wall$ //TODO : faire un SwitchSection
+        NullAction 
+
+
+    };
+    /*
         //moving to the ecocup at the right side
         {900.f, 1850.f, 270.f, &deployBackServo, 3.f},
         //{900.f, 1850.f, 270.f, &recalibration_wall, 0.f},
         //{900.f, 1900.f, 270.f, &wait_back_cup_succ, 0.f},
         {900.f, 1900.f, 270.f, &retractFrontGreen, 0.f},
         {900.f, 1850.f, 270.f, &etat_vide_unit_test, 0.f}, //backing off the wall
+        */
 
-    };
      Action EcocupsTopRight[10] = {
         {2000.f, 2000.f-(sizeHalfWidthRobot+100.f), 90.f, &deployFrontServo, 3.0f},
          //Going a little bit before the wall + deploy servo before arrival
@@ -188,9 +192,9 @@ namespace ActionList
 
 
    Action PhareTopLeft[4] = {
-        {600.f, 1980.f - sizeHalfWidthRobot, 180.f, &deployBar, 0.0f},
-        {400.f, 1980.f - sizeHalfWidthRobot, -400.f, &retractBar, 0.0f},
-        {400.f, 1980.f - sizeHalfWidthRobot, -400.f, &switchEcocup, 0.0f},
+        {600.f, 1980.f - sizeHalfLengthRobot, 0.f, &deployBar, 0.0f},
+        {400.f, 1980.f - sizeHalfLengthRobot, -400.f, &retractBar, 0.0f},
+        {400.f, 1980.f - sizeHalfLengthRobot, -400.f, &switchEcocup, 0.0f},
         NullAction
    };
 
