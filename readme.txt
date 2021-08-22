@@ -1,10 +1,12 @@
-Code utilisée pour la coupe lors de l'année 2021 - sail the world.
+Code utilisï¿½e pour la coupe lors de l'annï¿½e 2021 - sail the world.
 
-Fonctionne assez aléatoirement pour le robot(probablement du à des soucis mécaniques).
-Parfois, les états s'enchainent trop rapidement.
+Cette branche est destinÃ©e Ã  nettoyer et documenter le code Ã  l'issue de la coupe 2021.
 
-Documentation sur doxygen (lancer le index.html dans le dossier documentation_doxygen) pour savoir ce qui est réutilisable.
+Fonctionne assez alï¿½atoirement pour le robot(probablement du ï¿½ des soucis mï¿½caniques).
+Parfois, les ï¿½tats s'enchainent trop rapidement.
+
+Documentation sur doxygen (lancer le index.html dans le dossier documentation_doxygen) pour savoir ce qui est rï¿½utilisable.
 
 Flowchart global dans documentation_doxygen - vue_globale_code_2021
 
-Le code utilisée lors de la coupe est dans Decision-IA, mais il est dégueu. Un code un peu plus clean avec la docu à jour pour usage ultérieur est(ou sera pour l'instant...) dans master.
+Le code utilisï¿½e lors de la coupe est dans Decision-IA, mais il est dï¿½gueu. Un code un peu plus clean avec la docu ï¿½ jour pour usage ultï¿½rieur est(ou sera pour l'instant...) dans master.
