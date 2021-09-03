@@ -1,9 +1,10 @@
 
 #pragma once
 
-
-namespace Communication {
+namespace Communication
+{
     void update();
     //int get_value();
-
+    void sendPosition();
+    void sendDescription();
 }

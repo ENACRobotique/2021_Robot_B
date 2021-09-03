@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name kicad_robot_servos_ev_pompes-rescue)(type Legacy)(uri ${KIPRJMOD}/kicad_robot_servos_ev_pompes-rescue.lib)(options "")(descr ""))
+  (lib (name kicad_robot_teensy-rescue)(type Legacy)(uri ${KIPRJMOD}/kicad_robot_teensy-rescue.lib)(options "")(descr ""))
+)
